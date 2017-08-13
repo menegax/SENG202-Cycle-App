@@ -12,5 +12,6 @@ public class App
         System.out.println("Just testing a change");
         System.out.println("test commit Morgan");
         System.out.println("Aidan's test");
+        System.out.println("Connor's test");
     }
 }
