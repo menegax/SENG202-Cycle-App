@@ -7,13 +7,12 @@ public class DatabaseHandler {
     public static void createDatabase(String fileName) {
 
         //try{Class.forName("Maven.org.sqlite.JDBC");}catch(Exception e){e.printStackTrace();}
-        String url = "jdbc:sqlite:C://Maven/sqlite/db/tests.db";
+        String url = "jdbc:sqlite:C:/sqlite/db/Database.db";
 
-        try (Connection conn = DriverManager.getConnection(fileName)) {
+        try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
                 DatabaseMetaData meta = conn.getMetaData();
-                System.out.println("The driver name is " + meta.getDriverName());
-                System.out.println("A new database has been created.");
+                System.out.println("DataBase made");
             }
 
         } catch (SQLException e) {

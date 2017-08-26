@@ -13,7 +13,7 @@ public class App
     {
         String basePath = new File("").getAbsolutePath();
 
-        String url = "jdbc:sqlite:"+basePath+"/Database/DataStorage.db";
+        String url = "jdbc:sqlite:/Database/DataStorage.db";
 
         System.out.println( "Hello World! How is it going?" );
         System.out.println("Just testing a change");
