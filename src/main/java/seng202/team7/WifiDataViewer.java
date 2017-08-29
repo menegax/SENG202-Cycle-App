@@ -1,6 +1,9 @@
 package seng202.team7;
 
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
 /**Wifi data model for raw data viewing of wifi data
@@ -10,12 +13,17 @@ import javafx.stage.Stage;
 
 public class WifiDataViewer extends Application {
 
-    public static void main(String[] args) {
-        launch(args);
-    }
 
     @Override
-    public void start(Stage primaryStage) {
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("WifiDataViewer.fxml"));
+        primaryStage.setTitle("Wifi Data Viewer");
+        primaryStage.setScene(new Scene(root, 811, 400));
+        primaryStage.show();
+    }
 
+
+    public static void main(String[] args) {
+        launch(args);
     }
 }

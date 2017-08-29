@@ -1,5 +1,11 @@
 package seng202.team7;
 
+/**
+ * Basic Wifi class to store information about a specific wifi location
+ * @author Aidan Smith (Morgan English??)
+ * Last Edited 29/08/17
+ */
+
 public class Wifi extends Location implements Data{
     /**
      * Burough location
@@ -38,8 +44,31 @@ public class Wifi extends Location implements Data{
 
 
     //HOW WILL THIS BE INSTANTIATED
-    public Wifi()
-    {
 
+    /**
+     * Currently only useful for testing wifi data viewer
+     */
+    public Wifi(String inputProvider, String inputType, String inputLocation, String inputBurough)
+    {
+        provider = inputProvider;
+        type = inputType;
+        location = inputLocation;
+        burough = inputBurough;
+    }
+
+    public String getProvider() {
+        return provider;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
+    public String getBurough() {
+        return burough;
     }
 }
