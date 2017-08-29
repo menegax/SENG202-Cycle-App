@@ -1,5 +1,11 @@
 package seng202.team7;
 
+
+/**
+ * Base class for a Retailer object to hold parameters and basic getters and setters
+ * @author Aidan Smith asm142, (Morgan English???)
+ * Last edited 29/08/17
+ */
 public class Retailer extends Location implements Data{
 
     private String name;
@@ -25,10 +31,17 @@ public class Retailer extends Location implements Data{
     private String type;
 
 
-
-    public Retailer()
+    /**
+     * Constructor of a retailer, currently only able to test retailer data viewer functionality
+     * @param inputName The name of the retailer
+     * @param inputPAddress The primary address of the retailer
+     * @param inputType The more detailed description of the type of the retailer
+     */
+    public Retailer(String inputName, String inputPAddress, String inputType)
     {
-
+        name = inputName;
+        pAddress = inputPAddress;
+        type = inputType;
     }
 
     /**
@@ -38,5 +51,17 @@ public class Retailer extends Location implements Data{
     private void addressToLATLONG(String address)
     {
 
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public String getPAddress() {
+        return pAddress;
+    }
+
+    public String getType() {
+        return type;
     }
 }
