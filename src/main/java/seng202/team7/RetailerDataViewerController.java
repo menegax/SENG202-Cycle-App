@@ -23,9 +23,9 @@ public class RetailerDataViewerController implements Initializable {
     @FXML
     private TableView<Retailer> retailerDataTable;
 
-    @FXML private TableColumn<Retailer, String> nameColumn;
-    @FXML private TableColumn<Retailer, String> typeColumn;
-    @FXML private TableColumn<Retailer, String> addressColumn;
+    @FXML private TableColumn<Object, Object> nameColumn;
+    @FXML private TableColumn<Object, Object> typeColumn;
+    @FXML private TableColumn<Object, Object> addressColumn;
 
     private ObservableList<Retailer> retailerList
             = FXCollections.observableArrayList(
