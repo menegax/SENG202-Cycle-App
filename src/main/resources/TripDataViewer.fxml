@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.RowConstraints?>
+
+<AnchorPane id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="seng202.team7.TripDataViewerController">
+    <children>
+        <TableView fx:id="tripDataTable" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <columns>
+                <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="187.0" text="Start" fx:id="startColumn" />
+                <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="205.0" text="End" fx:id="endColumn" />
+                <TableColumn editable="false" maxWidth="5000.0" minWidth="10.0" prefWidth="209.0" text="Duration" fx:id="durationColumn" />
+            </columns>
+        </TableView>
+    </children>
+</AnchorPane>

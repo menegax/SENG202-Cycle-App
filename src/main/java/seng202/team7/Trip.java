@@ -4,6 +4,13 @@ public class Trip extends Location implements Data {
     //Should start and end address be included as field so it can use these in database
     private Station startStation;
     private Station endStation;
+
+    /**
+     * Start and end to reference the names of the stations for easy access from the raw data viewer
+     */
+    private String start;
+    private String end;
+
     /*What type should we make this
      * thinking ENUM so more types can be added
      */
@@ -29,8 +36,30 @@ public class Trip extends Location implements Data {
     private int age;
     private String dataGroup;
 
-    public Trip()
+    /**
+     * Currently only useful for testing trip data viewer
+     * @param inputStartStation The start station of the trip
+     * @param inputEndStation The end station of the trip
+     * @param inputDuration The duration of the trip
+     */
+    public Trip(Station inputStartStation, Station inputEndStation, int inputDuration)
     {
+        startStation = inputStartStation;
+        endStation = inputEndStation;
+        start = startStation.getName();
+        end = endStation.getName();
+        duration = inputDuration;
+    }
 
+    public String getEnd() {
+        return end;
+    }
+
+    public String getStart() {
+        return start;
+    }
+
+    public int getDuration() {
+        return duration;
     }
 }

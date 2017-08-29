@@ -47,6 +47,10 @@ public class Wifi extends Location implements Data{
 
     /**
      * Currently only useful for testing wifi data viewer
+     * @param inputProvider The provider of the Wifi
+     * @param inputType The type of the Wifi provided
+     * @param inputLocation The location of the Wifi
+     * @param inputBurough The burough where the Wifi is located
      */
     public Wifi(String inputProvider, String inputType, String inputLocation, String inputBurough)
     {
