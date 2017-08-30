@@ -10,6 +10,9 @@ import java.io.Serializable;
  * Last Edited 29/08/17
  */
 public class Wifi extends Location implements Data, java.io.Serializable{
+    /**
+     * SQL table name
+     */
     public static String tableName = "wifi";
 
     /**

@@ -77,7 +77,10 @@ public class DatabaseUpdater {
     }
 
 
-
+    /**
+     * Adds a single station to the station to the database
+     * @param station station object to be added
+     */
     public void insertStation(Station station)
     {
         String sql = "INSERT INTO "+ Station.tableName+" (bikeid, address,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?)";
@@ -107,6 +110,10 @@ public class DatabaseUpdater {
         }
     }
 
+    /**
+     * adds a inlge retailer to the database
+     * @param retailer retailer object to be added
+     */
     public void insertRetailer(Retailer retailer)
     {
         String sql = "INSERT INTO "+ retailer.tableName+" (name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";

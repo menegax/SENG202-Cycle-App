@@ -1,7 +1,13 @@
 package seng202.team7;
 
 public class Station extends Location implements Data, java.io.Serializable {
+    /**
+     * SQL tablename
+     */
     public static String tableName = "station";
+    /**
+     * SQL creation table string
+     */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"//need a name field
             + "	bikeid integer PRIMARY KEY NOT NULL,\n"
             + "	address text,\n"
@@ -17,6 +23,14 @@ public class Station extends Location implements Data, java.io.Serializable {
     private double longitude;
 
 
+    /**
+     * Complete constructor for Station
+     * @param id bikeStation number as identifier
+     * @param address address location of bikeStaion
+     * @param dataGroup String datagroup for sorting data
+     * @param latitude Latitude of location
+     * @param longitude Latitude of location
+     */
     public Station(int id, String address, String dataGroup, double latitude, double longitude)
     {
         this.id = id;
@@ -61,6 +75,9 @@ public class Station extends Location implements Data, java.io.Serializable {
         //this.longitude = longitude;
     }
 
+    /**
+     * Print method for checking the object is correct only prints lat and long at this stage
+     */
     public void print()
     {
         System.out.println("Lat: "+latitude + " Lon: "+ longitude);

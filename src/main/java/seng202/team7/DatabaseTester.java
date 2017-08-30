@@ -3,6 +3,9 @@ package seng202.team7;
 import java.util.ArrayList;
 
 public class DatabaseTester {
+    /**
+     * Static method to test the database
+     */
     public static void init()
     {
         //Create database
@@ -21,12 +24,20 @@ public class DatabaseTester {
 
 
     }
+
+    /**
+     * Deletes all the tables
+     */
     private static void deleteTables()
     {
         DatabaseHandler.deleteTable(Wifi.tableName);
         DatabaseHandler.deleteTable(Station.tableName);
         DatabaseHandler.deleteTable(Retailer.tableName);
     }
+
+    /**
+     * Creates all the tables
+     */
     private static void createTables()
     {
         DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
@@ -34,6 +45,10 @@ public class DatabaseTester {
         DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
     }
 
+    /**
+     * Adds an arraylist of datatypes
+     * @param databaseUpdater databaseupdater object with connection to the current database
+     */
     private static void addData(DatabaseUpdater databaseUpdater)
     {
         ArrayList<Data> data = new ArrayList<Data>();
@@ -63,6 +78,10 @@ public class DatabaseTester {
 
     }
 
+    /**
+     * prints wifis
+     * @param databaseRetriever
+     */
     private static void printWifi(DatabaseRetriever databaseRetriever)
     {
         for(Wifi w :databaseRetriever.getWifiList()){
@@ -70,6 +89,10 @@ public class DatabaseTester {
         }
     }
 
+    /**
+     * prints retailer
+     * @param databaseRetriever
+     */
     private static void printRetailer(DatabaseRetriever databaseRetriever)
     {
         for(Retailer r : databaseRetriever.getRetailerList()){

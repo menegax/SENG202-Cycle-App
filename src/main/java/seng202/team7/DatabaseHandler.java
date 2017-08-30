@@ -5,6 +5,10 @@ import java.sql.*;
 public class DatabaseHandler {
     public static String url = "jdbc:sqlite:src/Database/database.db";
 
+    /**
+     * Creates a database
+     * Should not be used unless the database is removed
+     */
     public static void createDatabase()
     {
 
@@ -35,6 +39,11 @@ public class DatabaseHandler {
     }
 
 
+    /**
+     * Creates an SQL table with the name and sql script given
+     * @param tableName name for the table
+     * @param tableScript script for creating the table
+     */
     public static void createTable(String tableName, String tableScript)
     {
         try (Connection conn = DriverManager.getConnection(url);
@@ -47,6 +56,10 @@ public class DatabaseHandler {
 
     }
 
+    /**
+     * Deletes the table from name given
+     * @param tableName tablename to drop
+     */
     public static void deleteTable(String tableName)
     {
         String sql = "DROP TABLE IF EXISTS "+tableName;
