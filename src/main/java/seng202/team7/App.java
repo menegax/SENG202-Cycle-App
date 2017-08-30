@@ -13,7 +13,7 @@ public class App
     {
         String basePath = new File("").getAbsolutePath();
 
-        String url = "jdbc:sqlite:/Database/DataStorage.db";
+        String url = "jdbc:sqlite:DataStorage.db";
 
         System.out.println( "Hello World! How is it going?" );
         System.out.println("Just testing a change");
@@ -21,7 +21,7 @@ public class App
         System.out.println("Aidan's test");
         System.out.println("Connor's test");
         System.out.println("Joshua's test");
-        DatabaseHandler databaseHandler = new DatabaseHandler();
-        DatabaseHandler.createDatabase(url);
+
+        DatabaseTester.init();
     }
 }

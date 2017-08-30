@@ -3,15 +3,14 @@ package seng202.team7;
 import java.sql.*;
 
 public class DatabaseHandler {
+    public static String url = "jdbc:sqlite:src/Database/database.db";
 
-    public static void createDatabase(String fileName) {
-
-        //try{Class.forName("Maven.org.sqlite.JDBC");}catch(Exception e){e.printStackTrace();}
-        String url = "jdbc:sqlite:C:/sqlite/db/Database.db";
+    public static void createDatabase()
+    {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
-                DatabaseMetaData meta = conn.getMetaData();
+                //DatabaseMetaData meta = conn.getMetaData();
                 System.out.println("DataBase made");
             }
 
@@ -20,28 +19,44 @@ public class DatabaseHandler {
         }
     }
 
+    /**
+     * Method for connecting to a database. Used as a helper method
+     * @return the connection to the database
+     */
+    public static Connection connect()
+    {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DatabaseHandler.url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
 
-    public static void createTable(databaseType type) {
-        // SQLite connection string
-        String url = "jdbc:sqlite:C://sqlite/db/tests.db";
 
-        // SQL statement for creating a new table
-        String sql = "CREATE TABLE IF NOT EXISTS "+type+" (\n"//need a name field
-                + "	id integer PRIMARY KEY,\n"
-                + "	name text NOT NULL,\n"
-                + "	capacity real\n"
-                + ");";
-
+    public static void createTable(String tableName, String tableScript)
+    {
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
-            // create a new table
-            stmt.execute(sql);
+            stmt.execute(tableScript);
+            System.out.println("Table made");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
 
     }
-    public DatabaseHandler(){
-        System.out.println(this.getClass().getClassLoader().getResource("").getPath());
+
+    public static void deleteTable(String tableName)
+    {
+        String sql = "DROP TABLE IF EXISTS "+tableName;
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement stmt = conn.createStatement()) {
+            stmt.execute(sql);
+            System.out.println("table: "+tableName+ " has been deleted");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
     }
+
 }
