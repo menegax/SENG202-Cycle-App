@@ -4,6 +4,11 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
 
+/**
+ * Basic Wifi class to store information about a specific wifi location
+ * @author Aidan Smith (Morgan English??)
+ * Last Edited 29/08/17
+ */
 public class Wifi extends Location implements Data, java.io.Serializable{
     public static String tableName = "wifi";
 

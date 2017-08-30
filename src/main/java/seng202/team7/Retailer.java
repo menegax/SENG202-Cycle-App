@@ -1,6 +1,12 @@
 package seng202.team7;
 
+/**
+ * Base class for a Retailer object to hold parameters and basic getters and setters
+ * @author Aidan Smith asm142, (Morgan English???)
+ * Last edited 29/08/17
+ */
 public class Retailer extends Location implements Data, java.io.Serializable{
+
 
     /**
      * SQL tablename
@@ -78,6 +84,19 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.type = type;
         this.dataGroup = dataGroup;
         addressToLATLONG();
+    }
+
+    /**
+     * Constructor of a retailer, currently only able to test retailer data viewer functionality
+     * @param inputName The name of the retailer
+     * @param inputPAddress The primary address of the retailer
+     * @param inputType The more detailed description of the type of the retailer
+     */
+    public Retailer(String inputName, String inputPAddress, String inputType)
+    {
+        name = inputName;
+        pAddress = inputPAddress;
+        type = inputType;
     }
 
     /**
