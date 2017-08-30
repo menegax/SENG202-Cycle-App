@@ -30,11 +30,10 @@ public class WifiDataViewerController implements Initializable {
 
     private ObservableList<Wifi> wifiList
             = FXCollections.observableArrayList(
-            new Wifi("Jacob", "Smith", "jacob.smith@example.com", "QU"),
-            new Wifi("Isabella", "Johnson", "isabella.johnson@example.com", "MN"),
-            new Wifi("Ethan", "Williams", "ethan.williams@example.com", "BK"),
-            new Wifi("Emma", "Jones", "emma.jones@example.com", "BX"),
-            new Wifi("Michael", "Brown", "michael.brown@example.com", "SI")
+            new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554),
+            new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554),
+            new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554),
+            new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554)
     );
 
     /**

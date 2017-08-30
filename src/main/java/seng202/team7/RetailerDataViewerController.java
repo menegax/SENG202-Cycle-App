@@ -29,11 +29,9 @@ public class RetailerDataViewerController implements Initializable {
 
     private ObservableList<Retailer> retailerList
             = FXCollections.observableArrayList(
-            new Retailer("Jacob", "Smith", "jacob.smith@example.com"),
-            new Retailer("Isabella", "Johnson", "isabella.johnson@example.com"),
-            new Retailer("Ethan", "Williams", "ethan.williams@example.com"),
-            new Retailer("Emma", "Jones", "emma.jones@example.com"),
-            new Retailer("Michael", "Brown", "michael.brown@example.com")
+            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" ),
+            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" ),
+            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" )
     );
 
     /**

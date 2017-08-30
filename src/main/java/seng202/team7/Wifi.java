@@ -79,7 +79,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
 
 
     //HOW WILL THIS BE INSTANTIATED
-    public Wifi(String burough, String type, String Provider, String Location, String City, String SSID, String remarks, String dataGroup, double longitude, double latitude)
+    public Wifi(String burough, String type, String provider, String location, String city, String SSID, String remarks, String dataGroup, double longitude, double latitude)
     {
         this.burough = burough;
         this.type = type;

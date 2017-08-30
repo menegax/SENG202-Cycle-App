@@ -86,18 +86,6 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         addressToLATLONG();
     }
 
-    /**
-     * Constructor of a retailer, currently only able to test retailer data viewer functionality
-     * @param inputName The name of the retailer
-     * @param inputPAddress The primary address of the retailer
-     * @param inputType The more detailed description of the type of the retailer
-     */
-    public Retailer(String inputName, String inputPAddress, String inputType)
-    {
-        name = inputName;
-        pAddress = inputPAddress;
-        type = inputType;
-    }
 
     /**
      * Converts an address to a latitude and longitude and stores them within the object.
@@ -125,14 +113,14 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.city = city;
     }
 
-    public String getpAddress() {
+    public String getPAddress() {
         return pAddress;
     }
     public void setpAddress(String pAddress) {
         this.pAddress = pAddress;
     }
 
-    public String getsAddress() {
+    public String getSAddress() {
         return sAddress;
     }
     public void setsAddress(String sAddress) {

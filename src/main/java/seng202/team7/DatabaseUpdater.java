@@ -126,8 +126,8 @@ public class DatabaseUpdater {
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
             pstmt.setString(1,retailer.getName());
             pstmt.setString(2,retailer.getCity());
-            pstmt.setString(3,retailer.getpAddress());
-            pstmt.setString(4,retailer.getsAddress());
+            pstmt.setString(3,retailer.getPAddress());
+            pstmt.setString(4,retailer.getSAddress());
             pstmt.setString(5,retailer.getState());
             pstmt.setInt(6,retailer.getZipCode());
             pstmt.setString(7, retailer.getTypeID());

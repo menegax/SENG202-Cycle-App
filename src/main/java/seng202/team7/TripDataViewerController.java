@@ -29,11 +29,11 @@ public class TripDataViewerController implements Initializable {
 
     private ObservableList<Trip> tripList
             = FXCollections.observableArrayList(
-            new Trip(new Station("Test1"), new Station("Test2"), 10),
-            new Trip(new Station("Test3"), new Station("Test4"), 12),
-            new Trip(new Station("Test5"), new Station("Test6"), 13),
-            new Trip(new Station("Test7"), new Station("Test8"), 17),
-            new Trip(new Station("Test9"), new Station("Test10"), 2)
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 10),
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 12),
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 13),
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 17),
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 2)
     );
 
     /**

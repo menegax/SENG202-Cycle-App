@@ -8,8 +8,6 @@ public class Trip extends Location implements Data {
     /**
      * Start and end to reference the names of the stations for easy access from the raw data viewer
      */
-    private String start;
-    private String end;
 
     /*What type should we make this
      * thinking ENUM so more types can be added
@@ -46,17 +44,15 @@ public class Trip extends Location implements Data {
     {
         startStation = inputStartStation;
         endStation = inputEndStation;
-        start = startStation.getName();
-        end = endStation.getName();
         duration = inputDuration;
     }
 
     public String getEnd() {
-        return end;
+        return endStation.getAddress();
     }
 
     public String getStart() {
-        return start;
+        return startStation.getAddress();
     }
 
     public int getDuration() {
