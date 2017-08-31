@@ -16,6 +16,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 public class RetailerDataViewerController implements Initializable {
@@ -27,12 +28,6 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private TableColumn<Retailer, String> typeColumn;
     @FXML private TableColumn<Retailer, String> addressColumn;
 
-    private ObservableList<Retailer> retailerList
-            = FXCollections.observableArrayList(
-            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" ),
-            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" ),
-            new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "McD's Chain" )
-    );
 
     /**
      * Initialises the data within the table to the data provide by xxx
@@ -40,6 +35,15 @@ public class RetailerDataViewerController implements Initializable {
      * @param rb Not sure what this is either
      */
     public void initialize(URL url, ResourceBundle rb) {
+        DatabaseTester.deleteTables();
+        DatabaseTester.createTables();
+        DatabaseUpdater dbUpdater = new DatabaseUpdater();
+        DatabaseTester.addData(dbUpdater);
+        DatabaseRetriever dbRetriever = new DatabaseRetriever();
+        ArrayList<Retailer> retailerArrayList = dbRetriever.getRetailerList();
+        ObservableList<Retailer> retailerList
+                = FXCollections.observableArrayList(retailerArrayList
+        );
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("pAddress"));

@@ -28,7 +28,7 @@ public class DatabaseTester {
     /**
      * Deletes all the tables
      */
-    private static void deleteTables()
+    public static void deleteTables()
     {
         DatabaseHandler.deleteTable(Wifi.tableName);
         DatabaseHandler.deleteTable(Station.tableName);
@@ -38,7 +38,7 @@ public class DatabaseTester {
     /**
      * Creates all the tables
      */
-    private static void createTables()
+    public static void createTables()
     {
         DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
         DatabaseHandler.createTable(Station.tableName, Station.tableCreation);
@@ -49,7 +49,7 @@ public class DatabaseTester {
      * Adds an arraylist of datatypes
      * @param databaseUpdater databaseupdater object with connection to the current database
      */
-    private static void addData(DatabaseUpdater databaseUpdater)
+    public static void addData(DatabaseUpdater databaseUpdater)
     {
         ArrayList<Data> data = new ArrayList<Data>();
 

@@ -9,6 +9,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -28,19 +29,21 @@ public class WifiDataViewerController implements Initializable {
     @FXML private TableColumn<Wifi, String> buroughColumn;
 
 
-    private ObservableList<Wifi> wifiList
-            = FXCollections.observableArrayList(
-                new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554),
-                new Wifi("BO", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554),
-                new Wifi("BO", "Subscription","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554)
-    );
-
     /**
      * Initialises the data within the table to the data provide by xxx
      * @param url Not sure what this is
      * @param rb Not sure what this is either
      */
     public void initialize(URL url, ResourceBundle rb) {
+        DatabaseTester.deleteTables();
+        DatabaseTester.createTables();
+        DatabaseUpdater dbUpdater = new DatabaseUpdater();
+        DatabaseTester.addData(dbUpdater);
+        DatabaseRetriever dbRetriever = new DatabaseRetriever();
+        ArrayList<Wifi> wifiArrayList = dbRetriever.getWifiList();
+        ObservableList<Wifi> wifiList
+                = FXCollections.observableArrayList(wifiArrayList
+        );
         providerColumn.setCellValueFactory(new PropertyValueFactory<>("provider"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
