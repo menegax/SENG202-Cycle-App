@@ -150,7 +150,7 @@ public class InputHandler {
                         dataGroup = "0";
                         */
 
-                        dataToAdd = new Trip(startStation, endStation, duration);  //create actual object
+                        //dataToAdd = new Trip(startStation, endStation, duration);  //create actual object
                         break;
 
 

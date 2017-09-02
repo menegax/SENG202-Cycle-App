@@ -28,6 +28,8 @@ public class DatabaseUpdater {
                 insertStation((Station) d);
             } else if (d.getClass() == Retailer.class){
                 insertRetailer((Retailer) d);
+            } else if (d.getClass() == Trip.class) {
+                insertTrip((Trip) d);
             }
         }
     }
@@ -108,10 +110,11 @@ public class DatabaseUpdater {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("station added");
     }
 
     /**
-     * adds a inlge retailer to the database
+     * adds a retailer to the database
      * @param retailer retailer object to be added
      */
     public void insertRetailer(Retailer retailer)
@@ -147,6 +150,87 @@ public class DatabaseUpdater {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+        System.out.println("retailer added");
+    }
+
+    /**
+     * Inserts a trip into the database
+     * @param trip trip to be stored in the database
+     */
+    public void insertTrip(Trip trip)
+    {
+        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, endDate, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        //ByteArrayOutputStream initialization
+        ByteArrayOutputStream bosTrip, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
+        bosTrip = new ByteArrayOutputStream();
+        bosStartStation = new ByteArrayOutputStream();
+        bosEndStation = new ByteArrayOutputStream();
+        bosStartDate = new ByteArrayOutputStream();
+        bosEndDate = new ByteArrayOutputStream();
+
+        try {
+            //ObjectOutputStream initialization
+            ObjectOutputStream oosTrip, oosStartStation, oosEndStation, oosStartDate, oosEndDate;
+            oosTrip = new ObjectOutputStream(bosTrip);
+            oosStartStation = new ObjectOutputStream(bosStartStation);
+            oosEndStation = new ObjectOutputStream(bosEndStation);
+            oosStartDate = new ObjectOutputStream(bosStartDate);
+            oosEndDate = new ObjectOutputStream(bosEndDate);
+
+            //Writing Objects
+            oosTrip.writeObject(trip);
+            oosStartStation.writeObject(trip.getStartStation());
+            oosEndStation.writeObject(trip.getEndStation());
+            oosStartDate.writeObject(trip.getStartDate());
+            oosEndDate.writeObject(trip.getEndDate());
+
+            //Tiding up -- Flushing oos's
+            oosTrip.flush();
+            oosStartStation.flush();
+            oosEndStation.flush();
+            oosStartDate.flush();
+            oosEndDate.flush();
+
+            //Tiding up -- Closing oos's
+            oosTrip.close();
+            oosStartStation.close();
+            oosEndStation.close();
+            oosStartDate.close();
+            oosEndDate.close();
+
+
+            //Tiding up -- Closing bos's
+            bosTrip.close();
+            bosStartStation.close();
+            bosEndStation.close();
+            bosStartDate.close();
+            bosEndDate.close();
+
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try (Connection conn = DatabaseHandler.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,trip.getDuration());
+            pstmt.setInt(2,trip.getStartStationID());
+            pstmt.setObject(3, bosStartStation.toByteArray());
+            pstmt.setInt(4, trip.getEndStationID());
+            pstmt.setObject(5, bosEndStation);
+            pstmt.setInt(6,trip.getBikeID());
+            pstmt.setString(7,trip.getGender());
+            pstmt.setInt(8,trip.getAge());
+            pstmt.setString(9,trip.getUserType());
+            pstmt.setObject(10,bosStartDate.toByteArray());
+            pstmt.setObject(11, bosEndDate.toByteArray());
+            pstmt.setString(12, trip.getDataGroup());
+            pstmt.setObject(13, bosTrip.toByteArray());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("trip added");
     }
 
 }

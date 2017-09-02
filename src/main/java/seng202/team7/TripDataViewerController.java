@@ -29,11 +29,12 @@ public class TripDataViewerController implements Initializable {
 
     private ObservableList<Trip> tripList
             = FXCollections.observableArrayList(
-            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 10),
-            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 12),
-            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 13),
-            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 17),
-            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 2)
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 7849,"2015-10-01 00:22:42","2015-10-01 00:38:42", "casual", 1990, "M", "test" ),
+            //new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 13),
+            //new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 17),
+            //new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 2),
+            new Trip(new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), new Station(231,"5th ave", "CitiBike", 2387.987, 384.98), 19458, "2015-10-01 00:20:42","2015-10-01 00:29:42", "casual", 1934, "F", "test")
+
     );
 
     /**
