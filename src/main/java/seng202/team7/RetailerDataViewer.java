@@ -8,7 +8,7 @@ import javafx.stage.Stage;
 
 /**Retailer data model for raw data viewing of retailer data
  * @author Aidan Smith asm142
- * Last updated 28/08/17
+ * Last updated 05/09/17
  */
 
 public class RetailerDataViewer extends Application {
@@ -17,7 +17,7 @@ public class RetailerDataViewer extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("RetailerDataViewer.fxml"));
         primaryStage.setTitle("Retailer Data Viewer");
-        primaryStage.setScene(new Scene(root, 603, 400));
+        primaryStage.setScene(new Scene(root, 1155, 400));
         primaryStage.show();
     }
 

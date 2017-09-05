@@ -154,9 +154,9 @@ public class InputHandler {
                         break;
 
 
-                    }
+                }
 
-                } catch (NumberFormatException| ArrayIndexOutOfBoundsException e ){
+            } catch (NumberFormatException| ArrayIndexOutOfBoundsException e ){
                 //e.printStackTrace();
                 //System.out.println("Wrong type of data");
 

@@ -60,7 +60,7 @@ public class DatabaseUpdater {
 
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, wifi.getBurough());
+            pstmt.setString(1, wifi.getBorough());
             pstmt.setString(2, wifi.getType());
             pstmt.setString(3, wifi.getProvider());
             pstmt.setString(4, wifi.getLocation());
