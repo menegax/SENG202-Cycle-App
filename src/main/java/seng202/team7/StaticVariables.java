@@ -4,5 +4,5 @@ import java.text.SimpleDateFormat;
 
 public class StaticVariables {
     public static int currentYear = 2017;
-    public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd k:M:S");
+    public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 }

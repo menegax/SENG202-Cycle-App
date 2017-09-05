@@ -17,8 +17,10 @@ public class Trip extends Location implements Data, java.io.Serializable {
             + "	gender text,\n"
             + "	age integer,\n"
             + "	userType text,\n"
-            + "	startDate obj,\n"
-            + " endDate obj,\n"
+            + "	startDate date,\n"
+            + " startTime time,"
+            + " endDate date,\n"
+            + " endTime time,"
             + "	datagroup text,\n"
             + "	obj blob\n"
             + ");";
@@ -71,6 +73,18 @@ public class Trip extends Location implements Data, java.io.Serializable {
     private String dataGroup;
 
 
+    /**
+     *
+     * @param startStation station object at start of route
+     * @param endStation station object at nd of route
+     * @param duration duration of trip in seconds
+     * @param startDate startdate of trip as string given with format "yyyy-mm-dd hh:mm:ss" 24hr time
+     * @param endDate enddate of trip as string given with format "yyyy-mm-dd hh:mm:ss" 24hr time
+     * @param userType usertype of cyclist
+     * @param birthYear year of birth for user can then be used to calculate age
+     * @param gender gander of cyclist
+     * @param dataGroup datagroup string for sorting within tables
+     */
     public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, String gender, String dataGroup)
     {
         this.startStation = startStation;
@@ -78,7 +92,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.endStation = endStation;
         this.endStationID = endStation.getId();
         this.duration = duration;
-        Date start = new Date();
         try {
             this.startDate = StaticVariables.ft.parse(startDate);
             this.endDate = StaticVariables.ft.parse(endDate);
@@ -98,6 +111,34 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.dataGroup = dataGroup;
     }
+
+    /**
+     * Todo make birthyear take either age or birthyear. if number is greater than 1000 is birthyear else is age??
+     * @param startStation station object at start of route
+     * @param endStation station object at nd of route
+     * @param duration duration of trip in seconds
+     * @param startDate startdate of trip as java date object
+     * @param endDate enddate of trip as java date object
+     * @param userType usertype of cyclist
+     * @param birthYear year of birth for user can then be used to calculate age
+     * @param gender gander of cyclist
+     * @param dataGroup datagroup string for sorting within tables
+     */
+    public Trip(Station startStation, Station endStation, int duration, Date startDate, Date endDate, String userType, int birthYear, String gender, String dataGroup)
+    {
+        this.startStation = startStation;
+        this.startStationID = startStation.getId();
+        this.endStation = endStation;
+        this.endStationID = endStation.getId();
+        this.duration = duration;
+        this.startDate = startDate;
+        this.endDate = endDate;
+        this.userType = userType;
+        this.age = StaticVariables.currentYear - birthYear;
+        this.gender = gender;
+        this.dataGroup = dataGroup;
+    }
+
 
     public Station getStartStation() {
         return startStation;

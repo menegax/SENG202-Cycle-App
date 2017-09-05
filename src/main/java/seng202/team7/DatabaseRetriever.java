@@ -136,13 +136,16 @@ public class DatabaseRetriever {
     public ArrayList<Trip> getTripList()
     {
         ArrayList<Trip> tripList = new ArrayList<Trip>();
-        String sql = "SELECT obj FROM " + Trip.tableName;
+        String sql = "SELECT obj, startDate, startTime FROM " + Trip.tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
+
             // loop through the result set
             while (rs.next()) {
+                System.out.println(rs.getDate("startDate"));
+                System.out.println(rs.getTime("startTime"));
                 Trip trip = null;
                 try {
                     ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
