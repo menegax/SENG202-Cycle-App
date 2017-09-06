@@ -14,6 +14,10 @@ import java.util.ArrayList;
 
 public class DatabaseRetriever {
 
+    /**
+     * gets all stations in database
+     * @return Arraylist of station objects
+     */
     public ArrayList<Station> getStationList(){
         ArrayList<Station> stationList = new ArrayList<Station>();
         String sql = "SELECT obj FROM " + Station.tableName;
@@ -48,6 +52,10 @@ public class DatabaseRetriever {
         return stationList;
     }
 
+    /**
+     * gets all wifis in database
+     * @return Arraylist of wifi objects
+     */
     public ArrayList<Wifi> getWifiList(){
         ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
         String sql = "SELECT obj FROM " + Wifi.tableName;
@@ -82,6 +90,10 @@ public class DatabaseRetriever {
         return wifiList;
     }
 
+    /**
+     * Gets the arrayList of all retailers in database
+     * @return Arraylist of all retailers
+     */
     public ArrayList<Retailer> getRetailerList()
     {
         ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
@@ -115,5 +127,47 @@ public class DatabaseRetriever {
             System.out.println(e.getMessage());
         }
         return retailerList;
+    }
+
+    /**
+     * Gets an arraylist of all trips
+     * @return Arraylist of all trip objects
+     */
+    public ArrayList<Trip> getTripList()
+    {
+        ArrayList<Trip> tripList = new ArrayList<Trip>();
+        String sql = "SELECT obj, startDate, startTime FROM " + Trip.tableName;
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+
+            // loop through the result set
+            while (rs.next()) {
+                System.out.println(rs.getDate("startDate"));
+                System.out.println(rs.getTime("startTime"));
+                Trip trip = null;
+                try {
+                    ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
+                    ObjectInputStream ois = new ObjectInputStream(bais);
+                    trip = (Trip) ois.readObject();
+                }catch (IOException io){
+                    io.printStackTrace();
+                }catch (ClassNotFoundException cnf){
+                    cnf.printStackTrace();
+                }
+                if(trip != null)
+                {
+                    tripList.add(trip);
+                    //wifi.print();
+                } else {
+                    System.out.println("no trip");
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return tripList;
     }
 }

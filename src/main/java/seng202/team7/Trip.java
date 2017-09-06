@@ -110,6 +110,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
             this.gender = "Female";
         }
         this.dataGroup = dataGroup;
+
     }
 
     /**
@@ -175,6 +176,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
     public int getDuration() {
         return duration;
     }
+
 
     public void setDuration(int duration) {
         this.duration = duration;
@@ -287,4 +289,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
         System.out.println("Trip object: " + this.getDuration() + " start date: " + this.getStartDate().toString());
     }
 
+
 }
+

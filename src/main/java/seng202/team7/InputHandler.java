@@ -155,17 +155,21 @@ public class InputHandler {
 
 
 
+
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
                         if (checkValidity(tripDataTest)) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
                         }
 
+
                         break;
 
 
-                    }
+                }
 
-                } catch (NumberFormatException | ArrayIndexOutOfBoundsException e ){
+
+            } catch (NumberFormatException| ArrayIndexOutOfBoundsException e ){
+
                 //e.printStackTrace();
                 //System.out.println("Wrong type of data");
 

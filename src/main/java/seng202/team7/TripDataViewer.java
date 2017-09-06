@@ -18,7 +18,7 @@ public class TripDataViewer extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("TripDataViewer.fxml"));
         primaryStage.setTitle("Trip Data Viewer");
-        primaryStage.setScene(new Scene(root, 603, 400));
+        primaryStage.setScene(new Scene(root, 1100, 400));
         primaryStage.show();
     }
 
