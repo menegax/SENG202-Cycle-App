@@ -3,17 +3,33 @@ package seng202.team7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 
 
 public class InputHandler {
 
+    String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
+    String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
+    String validGenders[] = {"Unknown", "Male", "Female"};
+    String validUserType[] = {"Customer", "Subscriber"};
+    String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
+            "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
+            "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
+            "Glen Oaks", "Woodhaven", "Bellerose", "Hollis", "Little Neck", "Broad Channel", "South Ozone Park", "Ozone Park",
+            "Rockaway Park", "Long Island City", "Middle Village", "Jamaica", "Glendale", "Woodside", "Richmond Hill", "Forest Hills",
+            "Elmhurst", "Bayside", "Flushing", "Saint Albans"};
+    //ON CITI BIKE IT HAS BEEN TAKING NEIGHBOURHOODS AS CITIES, ONLY 300/2500 OR SO, DO WE REALLY WANT THEM? IT'S VALID DATA I SUPPOSE
+    String validState[] = {"NY"};
+    int counter = 0;
+
 
     /*
     USED FOR TESTING ACTUAL FUNCTIONALITY, put print statements on each test object created,
     e.g printThis(tripDataTest.getCity())
-    */
+
     public static void main(String[] args) {
 
 
@@ -22,13 +38,13 @@ public class InputHandler {
             InputHandler toTest = new InputHandler();
 
             toTest.loadCSV("retailer_data.csv", "retailer");
-            toTest.loadCSV("trip_data.csv", "trip");
-            toTest.loadCSV("wifi_data.csv", "wifi");
+            //toTest.loadCSV("trip_data.csv", "trip");
+            //toTest.loadCSV("wifi_data.csv", "wifi");
         } catch (IOException e) {
             e.printStackTrace();
         }
 
-    }
+    }*/
 
 
 
@@ -94,6 +110,8 @@ public class InputHandler {
                         Wifi wifiDataTest = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
                             dataToAdd = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
+                            counter++;
+                            System.out.println(counter);
                         }
 
                         break;
@@ -107,13 +125,15 @@ public class InputHandler {
                         String state = fields[4];
                         int zipCode = Integer.parseInt(fields[5]);
                         type = fields[7];
-                        String typeID = fields[8];
+                        String typeID = fields[8];                 //unsure on what this is being used for
 
                         dataGroup = "default";
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest)) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);   //create actual 'Data' object
+                            counter++;
+                            System.out.println(counter);
                         }
 
                         break;
@@ -125,8 +145,8 @@ public class InputHandler {
                         int bikeID = Integer.parseInt(fields[11]);
                         String gender = fields[14];
                         int birthYear = Integer.parseInt(fields[13]);
-                        String startDate = fields[1];
-                        String endDate = fields[2];
+                        String startDate = fields[1];                //need to implement having this as Date type? not sure whats wanted
+                        String endDate = fields[2];                //need to implement having this as Date type? not sure whats wanted
 
                         int startStationID = Integer.parseInt(fields[3]);
                         String startStationAddress = fields[4];
@@ -157,8 +177,10 @@ public class InputHandler {
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
-                        if (checkValidity(tripDataTest)) {
+                        if (checkValidity(tripDataTest) == true) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
+                            counter++;
+                            //System.out.println(counter);
                         }
 
 
@@ -213,35 +235,34 @@ public class InputHandler {
 
         boolean validRetailer = true;
 
-        /*
-        if (retailer.getCity() != ) {
+        //System.out.println(Arrays.asList(validCity).contains(retailer.getCity()));
+
+
+        if (!Arrays.asList(validCity).contains(retailer.getCity())) {
             validRetailer = false;
         }
-        else if (retailer.getName() != ) {
+        else if (retailer.getName().length() > 100) {
             validRetailer = false;
         }
-        else if (retailer.getPAddress() != ) {
+
+        //no viable way to test valid address
+
+        else if (!Arrays.asList(validState).contains(retailer.getState())) {
             validRetailer = false;
         }
-        else if (retailer.getSAddress() != ) {
+        else if (0 > retailer.getZipCode() || retailer.getZipCode() > 1000000) {
             validRetailer = false;
         }
-        else if (retailer.getState() != ) {
+        else if (retailer.getType().length() > 100) {
             validRetailer = false;
         }
-        else if (retailer.getZipCode() != ) {           //int
+
+        /*else if (retailer.getTypeID().length() > 100) {            //unsure how or what this is being used for
             validRetailer = false;
         }
-        else if (retailer.getType() != ) {
-            validRetailer = false;
-        }
-        else if (retailer.getTypeID() != ) {
-            validRetailer = false;
-        }
-        else if (retailer.getDataGroup() != ) {
+        else if (retailer.getDataGroup()) {
             validRetailer = false;
         }*/
-
 
 
 
@@ -255,41 +276,40 @@ public class InputHandler {
      */
     private Boolean checkValidity(Trip trip)
     {
-        boolean validRetailer = true;
+        boolean validTrip = true;
 
-        /*
-        if (trip.getDuration() != ) {          //int
-            validRetailer = false;
-        }
-        else if (trip.getStart() != ) {         //station
-            validRetailer = false;
-        }
-        else if (trip.getEnd() != ) {           //station
-            validRetailer = false;
+
+
+        if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
+            validTrip = false;
         }
 
-        else if (trip.getDataGroup() != ) {
-            validRetailer = false;
-        }
+        //STATIONS ARE CHECKED WHEN THEY ARE CREATED ANYWAY SO DON'T REALLY NEED THIS CHECK
 
-        else if (trip.getGender() != ) {                 //int  //not in constructor
-            validRetailer = false;
-        }
-
-        else if (trip.getBirthYear() != ) {              //int   //not in constructor
-            validRetailer = false;
-        }
-        else if (trip.getBikeID() != ) {               //not in constructor
-            validRetailer = false;
-        }
-
-        else if (trip.getUserType() != ) {            //not in constructor
+        /*else if (trip.getDataGroup()) {       //WHEN IS DATA GROUP ASSIGNED?
             validRetailer = false;
         }*/
 
 
+        else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
+            validTrip = false;
+        }
 
-        return validRetailer;
+        else if (0 > trip.getAge() || trip.getAge() > 120) {
+            validTrip = false;
+        }
+
+        /*else if (0 >= trip.getBikeID()) {               //not in constructor
+            validTrip = false;
+        }*/
+
+        else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
+            validTrip = false;
+        }
+
+
+
+        return validTrip;
 
     }
 
@@ -301,44 +321,46 @@ public class InputHandler {
     private Boolean checkValidity(Wifi wifi)
     {
 
-        boolean validRetailer = true;
+        boolean validWifi = true;
 
-        /*
-        if (wifi.getBurough() != ) {
-            validRetailer = false;
+
+        if (!Arrays.asList(validBorough).contains(wifi.getBorough())) {
+            validWifi = false;
         }
-        else if (wifi.getType() != ) {
-            validRetailer = false;
+        else if (!Arrays.asList(validType).contains(wifi.getType())) {
+            validWifi = false;
         }
-        else if (wifi.getProvider() != ) {
-            validRetailer = false;
+        else if (wifi.getProvider().length() > 100) {
+            validWifi = false;
         }
-        else if (wifi.getLocation() != ) {
-            validRetailer = false;
+        else if (wifi.getLocation().length() > 100) {
+            validWifi = false;
         }
 
-        else if (wifi.getDataGroup() != ) {
-            validRetailer = false;
-        }
-        else if (wifi.getLatitude() != ) {         //double
-            validRetailer = false;
-        }
-        else if (wifi.getLongitude() != ) {        //double
-            validRetailer = false;
-        }
-        else if (wifi.getRemarks() != ) {
-            validRetailer = false;
-        }
-        else if (wifi.getCity() != ) {
-            validRetailer = false;
-        }
-        else if (wifi.getSSID() != ) {
-            validRetailer = false;
+        /*else if (wifi.getDataGroup() != ) {
+            validWifi = false;
         }*/
 
+        else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
+            validWifi = false;
+        }
+        else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
+            validWifi = false;
+        }
+        else if (wifi.getRemarks().length() > 100) {
+            validWifi = false;
+        }
+        else if (!Arrays.asList(validCity).contains(wifi.getCity())) {
+            validWifi = false;
+            //System.out.println(wifi.getCity());
+        }
+        else if (wifi.getSSID().length() > 100) {
+            validWifi = false;
+        }
 
 
-        return validRetailer;
+
+        return validWifi;
 
     }
 
@@ -350,26 +372,26 @@ public class InputHandler {
     private Boolean checkValidity(Station station)
     {
 
-        boolean validRetailer = true;
+        boolean validStation = true;
         /*
         if (station.getId() != ) {                    //int
-            validRetailer = false;
+            validStation = false;
         }
         else if (station.getAddress() != ) {
-            validRetailer = false;
+            validStation = false;
         }
         else if (station.getDataGroup() != ) {
-            validRetailer = false;
+            validStation = false;
         }
         else if (station.getLatitude() != ) {             //double
-            validRetailer = false;
+            validStation = false;
         }
         else if (station.getLongitude() != ) {            //double
-            validRetailer = false;
+            validStation = false;
         }*/
 
 
-        return validRetailer;
+        return validStation;
     }
 
 
