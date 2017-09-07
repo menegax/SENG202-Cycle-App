@@ -11,19 +11,19 @@ import java.util.Date;
 
 public class InputHandler {
 
-    String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
-    String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
-    String validGenders[] = {"Unknown", "Male", "Female"};
-    String validUserType[] = {"Customer", "Subscriber"};
-    String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
+    private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
+    private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
+    private String validGenders[] = {"Unknown", "Male", "Female"};
+    private String validUserType[] = {"Customer", "Subscriber"};
+    private String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
             "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
             "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
             "Glen Oaks", "Woodhaven", "Bellerose", "Hollis", "Little Neck", "Broad Channel", "South Ozone Park", "Ozone Park",
             "Rockaway Park", "Long Island City", "Middle Village", "Jamaica", "Glendale", "Woodside", "Richmond Hill", "Forest Hills",
             "Elmhurst", "Bayside", "Flushing", "Saint Albans"};
     //ON CITI BIKE IT HAS BEEN TAKING NEIGHBOURHOODS AS CITIES, ONLY 300/2500 OR SO, DO WE REALLY WANT THEM? IT'S VALID DATA I SUPPOSE
-    String validState[] = {"NY"};
-    int counter = 0;
+    private String validState[] = {"NY"};
+    private int counter = 0;                          //for testing how many objects were created etc
 
 
     /*
@@ -110,8 +110,8 @@ public class InputHandler {
                         Wifi wifiDataTest = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
                             dataToAdd = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
-                            counter++;
-                            System.out.println(counter);
+                            //counter++;                         //for testing how many objects were created successfully
+                            //System.out.println(counter);
                         }
 
                         break;
@@ -132,8 +132,8 @@ public class InputHandler {
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest)) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);   //create actual 'Data' object
-                            counter++;
-                            System.out.println(counter);
+                            //counter++;                    //for testing how many objects were created successfully
+                            //System.out.println(counter);
                         }
 
                         break;
@@ -179,7 +179,7 @@ public class InputHandler {
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
                         if (checkValidity(tripDataTest) == true) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
-                            counter++;
+                            //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
 
