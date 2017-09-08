@@ -56,9 +56,9 @@ public class DatabaseTester {
     {
         ArrayList<Data> data = new ArrayList<Data>();
 
-        Wifi w1 = new Wifi("BO", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
-        Wifi w2 = new Wifi("BO", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
-        Wifi w3 = new Wifi("BO", "Subscription","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
+        Wifi w1 = new Wifi("BX", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
+        Wifi w2 = new Wifi("SI", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
+        Wifi w3 = new Wifi("MN", "Subscription","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
 
         Station s1 = new Station(231,"5th ave", "CitiBike", 2387.987, 384.98);
         Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);

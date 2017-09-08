@@ -18,7 +18,7 @@ public class WifiDataViewer extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("WifiDataViewer.fxml"));
         primaryStage.setTitle("Wifi Data Viewer");
-        primaryStage.setScene(new Scene(root, 811, 400));
+        primaryStage.setScene(new Scene(root, 1150, 400));
         primaryStage.show();
     }
 

@@ -1,9 +1,12 @@
 package seng202.team7;
 
+import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Base class for a Retailer object to hold parameters and basic getters and setters
  * @author Aidan Smith asm142, (Morgan English???)
- * Last edited 29/08/17
+ * Last edited 05/09/17
  */
 public class Retailer extends Location implements Data, java.io.Serializable{
 
@@ -66,6 +69,10 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * Datagroup string for database storing
      */
     private String dataGroup;
+    /**
+     * Street where the retailer is to be used for filtering
+     */
+    private String street;
 
     private double latitude;
     private double longitude;
@@ -77,11 +84,29 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.name = name;
         this.city = city;
         this.pAddress = pAddress;
+        boolean streetStart = false;
+        String street = "";
+        for (char character : pAddress.toCharArray()) {
+            if (streetStart) {
+                street += character;
+            } else if (!Character.isDigit(character)) {
+                street += character;
+                streetStart = true;
+            }
+        }
+        this.street = street;
         this.sAddress = sAddress;
         this.state = state;
         this.zipCode = zipCode;
-        this.typeID = typeID;
         this.type = type;
+        Map<String, String> typeMap = new HashMap<>();
+        typeMap.put("F", "Food");
+        typeMap.put("N", "Nightlife");
+        typeMap.put("S", "Shopping");
+        typeMap.put("P", "Personal/Professional Services");
+        typeMap.put("V", "Visitor Services");
+        typeMap.put("C", "Community Resources");
+        this.typeID = typeMap.get(typeID);
         this.dataGroup = dataGroup;
         addressToLATLONG();
     }
@@ -175,6 +200,9 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public String getStreet() { return street; }
+    public void setStreet(String street) { this.street = street; }
 
     public void print(){
         System.out.println("Name: " + name +" Lat: "+latitude + " Lon: "+ longitude);

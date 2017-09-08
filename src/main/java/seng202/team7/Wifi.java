@@ -37,7 +37,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
      * Burough location
      *
      */
-    private String burough;
+    private String borough;
     /**
      * Type of wifi: Limited free, free, partner site
      */
@@ -82,9 +82,9 @@ public class Wifi extends Location implements Data, java.io.Serializable{
 
 
     //HOW WILL THIS BE INSTANTIATED
-    public Wifi(String burough, String type, String provider, String location, String city, String SSID, String remarks, String dataGroup, double longitude, double latitude)
+    public Wifi(String borough, String type, String provider, String location, String city, String SSID, String remarks, String dataGroup, double longitude, double latitude)
     {
-        this.burough = burough;
+        this.borough = borough;
         this.type = type;
         this.provider = provider;
         this.location = location;
@@ -97,11 +97,11 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     }
 
 
-    public String getBurough() {
-        return burough;
+    public String getBorough() {
+        return borough;
     }
-    public void setBurough(String burough) {
-        this.burough = burough;
+    public void setBorough(String borough) {
+        this.borough = borough;
     }
 
     public String getType() {

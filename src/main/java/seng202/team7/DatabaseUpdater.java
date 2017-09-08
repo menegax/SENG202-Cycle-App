@@ -60,7 +60,7 @@ public class DatabaseUpdater {
 
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, wifi.getBurough());
+            pstmt.setString(1, wifi.getBorough());
             pstmt.setString(2, wifi.getType());
             pstmt.setString(3, wifi.getProvider());
             pstmt.setString(4, wifi.getLocation());
@@ -159,7 +159,7 @@ public class DatabaseUpdater {
      */
     public void insertTrip(Trip trip)
     {
-        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, endDate, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //ByteArrayOutputStream initialization
         ByteArrayOutputStream bosTrip, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
@@ -222,10 +222,12 @@ public class DatabaseUpdater {
             pstmt.setString(7,trip.getGender());
             pstmt.setInt(8,trip.getAge());
             pstmt.setString(9,trip.getUserType());
-            pstmt.setObject(10,bosStartDate.toByteArray());
-            pstmt.setObject(11, bosEndDate.toByteArray());
-            pstmt.setString(12, trip.getDataGroup());
-            pstmt.setObject(13, bosTrip.toByteArray());
+            pstmt.setDate(10,new java.sql.Date(trip.getStartDate().getDate()));
+            pstmt.setTime(11,new java.sql.Time(trip.getStartDate().getTime()));
+            pstmt.setDate(12,new java.sql.Date(trip.getEndDate().getDate()));
+            pstmt.setTime(13, new java.sql.Time(trip.getEndDate().getTime()));
+            pstmt.setString(14, trip.getDataGroup());
+            pstmt.setObject(15, bosTrip.toByteArray());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
