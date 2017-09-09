@@ -8,9 +8,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
+<AnchorPane prefHeight="400.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
    <children>
-      <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+      <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="1100.0">
         <columnConstraints>
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="100.0" minWidth="10.0" prefWidth="76.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="111.0" minWidth="10.0" prefWidth="74.0" />
@@ -20,6 +20,9 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="84.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="57.0" />
           <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="48.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="274.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
@@ -28,7 +31,7 @@
           <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="addButton" mnemonicParsing="false" onAction="#addButtonPressed" text="Add" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#addButtonPressed" text="Add Data" GridPane.columnIndex="9" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
@@ -45,11 +48,17 @@
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Retailer" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
+               <font>
+                  <Font size="16.0" />
+               </font>
             </Text>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Time">
                <GridPane.margin>
@@ -63,7 +72,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Type" GridPane.columnIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" GridPane.columnIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" GridPane.columnIndex="7" />
-            <TextField prefHeight="25.0" prefWidth="30.0">
+            <TextField fx:id="startTime" prefHeight="25.0" prefWidth="30.0">
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" top="50.0" />
                </GridPane.margin>
@@ -71,37 +80,37 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField GridPane.columnIndex="1">
+            <TextField fx:id="endTime" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2">
+            <TextField fx:id="startStationID" GridPane.columnIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3">
+            <TextField fx:id="endStationID" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4">
+            <TextField fx:id="bikeID" GridPane.columnIndex="4">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="5">
+            <TextField fx:id="userType" GridPane.columnIndex="5">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="6">
+            <TextField fx:id="birthYear" GridPane.columnIndex="6">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="7">
+            <TextField fx:id="gender" GridPane.columnIndex="7">
                <GridPane.margin>
                   <Insets right="5.0" top="50.0" />
                </GridPane.margin>
@@ -111,31 +120,31 @@
                   <Insets left="5.0" />
                </GridPane.margin>
             </Text>
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Location" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Borough" GridPane.columnIndex="3" GridPane.rowIndex="1" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="SSID" GridPane.columnIndex="4" GridPane.rowIndex="1" />
-            <TextField GridPane.rowIndex="1">
+            <TextField fx:id="provider" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <TextField fx:id="cityWifi" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="location" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="1">
+            <TextField fx:id="borough" GridPane.columnIndex="3" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.rowIndex="1">
+            <TextField fx:id="SSID" GridPane.columnIndex="4" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -148,32 +157,84 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="State" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="ZIP" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="City" GridPane.columnIndex="3" GridPane.rowIndex="2" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Street" GridPane.columnIndex="4" GridPane.rowIndex="2" />
-            <TextField GridPane.rowIndex="2">
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Address" GridPane.columnIndex="4" GridPane.rowIndex="2" />
+            <TextField fx:id="name" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <TextField fx:id="ZIP" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="2" GridPane.rowIndex="2">
+            <TextField fx:id="state" GridPane.columnIndex="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="3" GridPane.rowIndex="2">
+            <TextField fx:id="cityRetailer" GridPane.columnIndex="3" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
+            <TextField fx:id="pAddress" GridPane.columnIndex="4" GridPane.columnSpan="2" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Type" GridPane.columnIndex="5" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Remarks" GridPane.columnIndex="6" GridPane.rowIndex="1" />
+            <TextField fx:id="typeWifi" GridPane.columnIndex="5" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="remarks" GridPane.columnIndex="6" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Longitude" GridPane.columnIndex="7" GridPane.rowIndex="1" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Latitude" GridPane.columnIndex="8" GridPane.rowIndex="1" />
+            <TextField fx:id="longitude" GridPane.columnIndex="7" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="latitude" GridPane.columnIndex="8" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Address" GridPane.columnIndex="6" GridPane.rowIndex="2" />
+            <TextField fx:id="sAddress" GridPane.columnIndex="6" GridPane.columnSpan="2" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer Type" GridPane.columnIndex="8" GridPane.rowIndex="2" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TypeID" GridPane.columnIndex="9" GridPane.rowIndex="2" />
+            <TextField fx:id="typeRetailer" GridPane.columnIndex="8" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <TextField fx:id="typeID" GridPane.columnIndex="9" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="uploadcsvButton" mnemonicParsing="false" text="Upload csv" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Type" visibleRowCount="3" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </ComboBox>
          </children>
       </GridPane>
    </children>
