@@ -125,7 +125,7 @@ public class InputHandler {
                         String state = fields[4];
                         int zipCode = Integer.parseInt(fields[5]);
                         type = fields[7];
-                        String typeID = fields[8];                 //unsure on what this is being used for
+                        String typeID = fields[8];
 
                         dataGroup = "default";
 
@@ -142,7 +142,7 @@ public class InputHandler {
                         int duration = Integer.parseInt(fields[0]);
                         dataGroup = "default";
                         String userType = fields[12];
-                        int bikeID = Integer.parseInt(fields[11]);
+                        int bikeID = Integer.parseInt(fields[11]);                     //not in constructor, do we want it?
                         String gender = fields[14];
                         int birthYear = Integer.parseInt(fields[13]);
                         String startDate = fields[1];                //need to implement having this as Date type? not sure whats wanted
@@ -279,17 +279,9 @@ public class InputHandler {
         boolean validTrip = true;
 
 
-
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
             validTrip = false;
         }
-
-        //STATIONS ARE CHECKED WHEN THEY ARE CREATED ANYWAY SO DON'T REALLY NEED THIS CHECK
-
-        /*else if (trip.getDataGroup()) {       //WHEN IS DATA GROUP ASSIGNED?
-            validRetailer = false;
-        }*/
-
 
         else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
             validTrip = false;
@@ -337,10 +329,6 @@ public class InputHandler {
             validWifi = false;
         }
 
-        /*else if (wifi.getDataGroup() != ) {
-            validWifi = false;
-        }*/
-
         else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
             validWifi = false;
         }
@@ -373,27 +361,23 @@ public class InputHandler {
     {
 
         boolean validStation = true;
-        /*
-        if (station.getId() != ) {                    //int
+
+        if (station.getId() <= 0) {
             validStation = false;
         }
-        else if (station.getAddress() != ) {
+        else if (station.getAddress().length() > 100 || station.getAddress().length() < 0) {
             validStation = false;
         }
-        else if (station.getDataGroup() != ) {
+
+        else if (90 < station.getLatitude() || station.getLatitude() < -90) {
             validStation = false;
         }
-        else if (station.getLatitude() != ) {             //double
+        else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
             validStation = false;
         }
-        else if (station.getLongitude() != ) {            //double
-            validStation = false;
-        }*/
 
 
         return validStation;
     }
-
-
 
 }
