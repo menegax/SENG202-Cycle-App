@@ -10,9 +10,9 @@ public class DataEntryWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("DataEntryWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("DataEntryWindow.fxml"));
         primaryStage.setTitle("Data Entry Window");
-        primaryStage.setScene(new Scene(root, 600, 400));
+        primaryStage.setScene(new Scene(root, 1100, 400));
         primaryStage.show();
     }
 
