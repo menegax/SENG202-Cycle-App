@@ -159,7 +159,7 @@ public class DatabaseUpdater {
      */
     public void insertTrip(Trip trip)
     {
-        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //ByteArrayOutputStream initialization
         ByteArrayOutputStream bosTrip, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
@@ -226,8 +226,9 @@ public class DatabaseUpdater {
             pstmt.setTime(11,new java.sql.Time(trip.getStartDate().getTime()));
             pstmt.setDate(12,new java.sql.Date(trip.getEndDate().getDate()));
             pstmt.setTime(13, new java.sql.Time(trip.getEndDate().getTime()));
-            pstmt.setString(14, trip.getDataGroup());
-            pstmt.setObject(15, bosTrip.toByteArray());
+            pstmt.setDouble(14, trip.getDistance());
+            pstmt.setString(15, trip.getDataGroup());
+            pstmt.setObject(16, bosTrip.toByteArray());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
