@@ -10,12 +10,13 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
  * Trip data controller to control raw data viewing of trip data
  * @author Aidan Smith asm142
- * Last updated 29/08/17
+ * Last updated 10/09/17
  */
 
 public class TripDataViewerController implements Initializable {
@@ -36,19 +37,23 @@ public class TripDataViewerController implements Initializable {
     private Station s1 = new Station(231,"5th ave", "CitiBike", 2387.987, 384.98);
     private Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);
 
-    private ObservableList<Trip> tripList
-            = FXCollections.observableArrayList(
-            new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Customer", 1990, "M", "test"),
-            new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "Subscriber", 1934, "F", "test")
-    );
-
-    private ObservableList<Trip> filteredTripList = FXCollections.observableArrayList(tripList);
+    private ObservableList<Trip> tripList;
+    private ObservableList<Trip> filteredTripList;
     /**
      * Initialises the data within the table to the data provide by xxx
      * @param url Not sure what this is
      * @param rb Not sure what this is either
      */
     public void initialize(URL url, ResourceBundle rb) {
+        DatabaseTester.deleteTables();
+        DatabaseTester.createTables();
+        DatabaseUpdater dbUpdater = new DatabaseUpdater();
+        DatabaseTester.addData(dbUpdater);
+        DatabaseRetriever dbRetriever = new DatabaseRetriever();
+        ArrayList<Trip> tripArrayList = dbRetriever.getTripList();
+        tripList = FXCollections.observableArrayList(tripArrayList);
+        filteredTripList = FXCollections.observableArrayList(tripList);
+
         startStationCB.getItems().addAll("5th ave","34 square","None");
         endStationCB.getItems().addAll("5th ave","34 square","None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
