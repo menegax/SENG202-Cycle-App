@@ -142,20 +142,29 @@ public class DataEntryWindowController {
                 double startStationLong = 0.0;
                 String startStationAddress = "nada";
                 Station startStation = new Station(startStationID2, startStationAddress, "default", startStationLat, startStationLong);
+                if (!toTest.checkValidity(startStation)) {
+                    //stations not valid
+                    break;
+                }
                 double endStationLat = 0.0;
                 double endStationLong = 0.0;
                 String endStationAddress = "nada";
                 Station endStation = new Station(endStationID2, endStationAddress, "default", endStationLat, endStationLong);
                 int duration = 0;   //derive duration
+                if (!toTest.checkValidity(endStation)) {
+                    //stations not valid
+                    break;
+                }
 
-                System.out.println(startTime2);
+                /*System.out.println(startTime2);
                 System.out.println(endTime2);
                 System.out.println(bikeID2);
-                System.out.println(userType2);
+                System.out.println(userType2);               //for testing
                 System.out.println(birthYear2);
                 System.out.println(gender2);
                 System.out.println(startStationID2);
                 System.out.println(endStationID2);
+                */
 
                 Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
                 if (toTest.checkValidity(trip) == true) {
@@ -180,17 +189,19 @@ public class DataEntryWindowController {
                     toAdd.add(retailerToAdd);
 
                 }
-                System.out.println(retailer.getTypeID());
+
+                /*System.out.println(retailer.getTypeID());
                 System.out.println(retailer.getType());
                 System.out.println(retailer.getPAddress());
                 System.out.println(retailer.getSAddress());
-                System.out.println(retailer.getState());
+                System.out.println(retailer.getState());         for testing
                 System.out.println(retailer.getZipCode());
                 System.out.println(retailer.getName());
                 System.out.println(retailer.getLongitude());
                 System.out.println(retailer.getLatitude());
                 System.out.println(retailer.getStreet());
                 System.out.println(retailer.getCity());
+                */
 
                 break;
 
