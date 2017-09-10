@@ -5,9 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
-import java.sql.Date;
 import java.util.ArrayList;
 
 
@@ -89,23 +87,21 @@ public class DataEntryWindowController {
      * @param event
      */
     public void uploadcsvButton(ActionEvent event) {
-        System.out.println("Csv part To Implement");
-
         InputHandler toTest = new InputHandler();
+        DatabaseUpdater toUpload = new DatabaseUpdater();
+        ArrayList<Data> toAdd = null;
 
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
         String csvFile = fileName.getText();
         csvFile = csvFile  + ".csv";
 
-        System.out.println(csvFile);
-        System.out.println(dataTypeAdded);
-
         try {
-            ArrayList<Data> toAdd =  toTest.loadCSV(csvFile, dataTypeAdded);
+            toAdd =  toTest.loadCSV(csvFile, dataTypeAdded);
         } catch (IOException e) {
             e.printStackTrace();
         }
 
+        toUpload.addData(toAdd);
     }
 
     /**
@@ -119,16 +115,19 @@ public class DataEntryWindowController {
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
+        DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
-        System.out.println(dataTypeAdded);
+
+        //System.out.println(dataTypeAdded);
 
         //case handling
 
         switch (dataTypeAdded) {
             case "trip":
+                //year:month:day hour:minute:second
 
                 System.out.println("trip");
-                String startTime2 =startTime.getText();
+                String startTime2 = startTime.getText();
                 String endTime2 = endTime.getText();
                 String bikeID2 = bikeID.getText();
                 String userType2 = userType.getText();
@@ -228,5 +227,8 @@ public class DataEntryWindowController {
 
                 break;
         }
+
+        toUpload.addData(toAdd);
+
     }
 }

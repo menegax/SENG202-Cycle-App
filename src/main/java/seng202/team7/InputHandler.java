@@ -3,10 +3,9 @@ package seng202.team7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Date;
+
 
 
 public class InputHandler {
@@ -75,7 +74,7 @@ public class InputHandler {
 
                     case "wifi":
 
-                        String burough = fields[2];   //or 18 for full name, not code
+                        String borough = fields[2];   //or 18 for full name, not code
                         String type = fields[3];
                         String provider = fields[4];
                         String location = fields[6];
@@ -107,9 +106,9 @@ public class InputHandler {
                             SSID = fields[14];
                         }
 
-                        Wifi wifiDataTest = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
+                        Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
-                            dataToAdd = new Wifi(burough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
+                            dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
