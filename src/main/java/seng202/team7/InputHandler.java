@@ -220,7 +220,7 @@ public class InputHandler {
      * @param dataToTest
      * @return
      */
-    private Boolean checkValidity(Data dataToTest)
+    public Boolean checkValidity(Data dataToTest)
     {
         return true;
     }
@@ -230,7 +230,7 @@ public class InputHandler {
      * @param retailer
      * @return validRetailer
      */
-    private Boolean checkValidity(Retailer retailer)
+    public Boolean checkValidity(Retailer retailer)
     {
 
         boolean validRetailer = true;
@@ -274,7 +274,7 @@ public class InputHandler {
      * @param trip
      * @return validRetailer
      */
-    private Boolean checkValidity(Trip trip)
+    public Boolean checkValidity(Trip trip)
     {
         boolean validTrip = true;
 
@@ -310,7 +310,7 @@ public class InputHandler {
      * @param wifi
      * @return validRetailer
      */
-    private Boolean checkValidity(Wifi wifi)
+    public Boolean checkValidity(Wifi wifi)
     {
 
         boolean validWifi = true;
@@ -357,7 +357,7 @@ public class InputHandler {
      * @param station
      * @return validRetailer
      */
-    private Boolean checkValidity(Station station)
+    public Boolean checkValidity(Station station)
     {
 
         boolean validStation = true;

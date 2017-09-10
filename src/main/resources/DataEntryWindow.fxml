@@ -8,6 +8,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
+<?import javafx.collections.FXCollections?>
 <AnchorPane prefHeight="400.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
    <children>
       <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="1100.0">
@@ -31,7 +32,7 @@
           <RowConstraints maxHeight="128.0" minHeight="10.0" prefHeight="55.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#addButtonPressed" text="Add Data" GridPane.columnIndex="9" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#addDataButton" text="Add Data" GridPane.columnIndex="7" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
@@ -134,7 +135,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <TextField fx:id="location" GridPane.columnIndex="2" GridPane.rowIndex="1">
+            <TextField fx:id="locationWifi" GridPane.columnIndex="2" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -225,12 +226,24 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <Button fx:id="uploadcsvButton" mnemonicParsing="false" text="Upload csv" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <TextField fx:id="fileName" GridPane.columnIndex="9" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">>
+               <GridPane.margin>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </GridPane.margin>
+            </TextField>
+            <Button fx:id="uploadcsvButton" mnemonicParsing="false" onAction="#uploadcsvButton" text="Upload csv" GridPane.columnIndex="10" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Button>
-            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Type" visibleRowCount="3" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Type" visibleRowCount="3" GridPane.columnIndex="5" GridPane.halignment="RIGHT" GridPane.rowIndex="3" GridPane.valignment="BOTTOM">
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="retailer" />
+                     <String fx:value="wifi" />
+                     <String fx:value="trip" />
+                  </FXCollections>
+               </items>
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
