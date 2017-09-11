@@ -85,7 +85,7 @@ public class DatabaseUpdater {
      */
     public void insertStation(Station station)
     {
-        String sql = "INSERT INTO "+ Station.tableName+" (bikeid, address,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ Station.tableName+" (stationID, address,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?)";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             //ByteArrayOutputStream bos = new ByteArrayOutputStream();

@@ -7,6 +7,11 @@ public class StaticVariables {
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
+    public static String stationIDQuery(int stationID)
+    {
+        return "SELECT * FROM "+ Station.tableName + " WHERE stationid = " + stationID;
+    }
+
 
     public static double calculateDistance(double lat1, double lon1, double lat2, double lon2)
     {

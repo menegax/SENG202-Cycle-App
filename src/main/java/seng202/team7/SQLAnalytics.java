@@ -115,4 +115,34 @@ public class SQLAnalytics {
 
         return trips;
     }
+
+    public static int totalUserTypeTrips(String userType, String datagroup)
+    {
+        int trips = 0;
+        String sql;
+
+        if(datagroup != ""){
+            sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
+                    + " WHERE datagroup = \""+datagroup+"\" \n" +
+                    " AND LOWER(userType) = \"" +userType.toLowerCase()+"\";";
+        } else {
+            sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
+                    + " WHERE Lower(userType) = \"" +userType.toLowerCase()+"\";";
+        }
+
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            while (rs.next()){
+                trips = rs.getInt("sum");
+            }
+
+        } catch (SQLException e){
+            System.out.println("SQLAnalytic Error");
+            System.out.println(e.getMessage());
+        }
+
+        return trips;
+    }
 }

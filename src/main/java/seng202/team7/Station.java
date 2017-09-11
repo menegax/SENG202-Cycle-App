@@ -9,7 +9,7 @@ public class Station extends Location implements Data, java.io.Serializable {
      * SQL creation table string
      */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"//need a name field
-            + "	bikeid integer PRIMARY KEY NOT NULL,\n"
+            + "	stationid integer PRIMARY KEY NOT NULL,\n"
             + "	address text,\n"
             + " latitude real NOT NULL,\n"
             + " longitude real NOT NULL,\n"

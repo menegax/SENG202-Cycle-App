@@ -18,13 +18,18 @@ public class DatabaseTester {
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         printTrip(databaseRetriever);
+        Station s  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(231)).get(0);
+        s.print();
+        System.out.println("test");
 
         long sumDuration = SQLAnalytics.totalGroupTripDuration("test");
         long sumDistance = SQLAnalytics.totalGroupTripDistance("test");
         int genderTrips = SQLAnalytics.totalGenderTrips("Female","test");
+        int userTrips = SQLAnalytics.totalUserTypeTrips("Customer","");
         System.out.println(sumDuration);
         System.out.println(sumDistance);
         System.out.println(genderTrips);
+        System.out.println(userTrips);
 
 
         /*
@@ -86,9 +91,9 @@ public class DatabaseTester {
 
 
 
-        Trip t1 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "casual", 1990, "M", "kl");
-        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "casual", 1934, "F", "test");
-        Trip t3 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "casual", 1990, "M", "test");
+        Trip t1 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "customer", 1990, "M", "kl");
+        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 1934, "F", "test");
+        Trip t3 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Customer", 1990, "M", "test");
 
 
         data.add(w1);
