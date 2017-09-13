@@ -4,25 +4,25 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**Retailer data model for raw data viewing of retailer data
  * @author Aidan Smith asm142
- * Last updated 05/09/17
+ * Last updated 13/09/17
  */
 
-public class RetailerDataViewer extends Application {
+public class RetailerDataViewer extends AnchorPane {
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("RetailerDataViewer.fxml"));
-        primaryStage.setTitle("Retailer Data Viewer");
-        primaryStage.setScene(new Scene(root, 1155, 400));
-        primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
+    public RetailerDataViewer(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("RetailerDataViewer.fxml"));
+        fxmlLoader.setRoot(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
