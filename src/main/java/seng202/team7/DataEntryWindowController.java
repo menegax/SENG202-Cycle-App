@@ -29,7 +29,7 @@ public class DataEntryWindowController {
     @FXML
     private TextField bikeID;
     @FXML
-    private TextField userType;
+    private ComboBox userTypeComboBox;
     @FXML
     private TextField birthYear;
     @FXML
@@ -124,13 +124,12 @@ public class DataEntryWindowController {
 
         switch (dataTypeAdded) {
             case "trip":
-                //year:month:day hour:minute:second
 
                 System.out.println("trip");
-                String startTime2 = startTime.getText();
-                String endTime2 = endTime.getText();
+                String startTime2 = startTime.getText();                        //year-month-day hour:minute:second   ... maybe
+                String endTime2 = endTime.getText();                            //year-month-day hour:minute:second   ... maybe
                 String bikeID2 = bikeID.getText();
-                String userType2 = userType.getText();
+                String userType2 = (String ) userTypeComboBox.getValue();
                 int birthYear2 = Integer.parseInt(birthYear.getText());
                 String gender2 = gender.getText();
                 int startStationID2 = Integer.parseInt(startStationID.getText());
