@@ -16,12 +16,32 @@ public class DatabaseTester {
         DatabaseUpdater databaseUpdater = new DatabaseUpdater();
         addData(databaseUpdater);
 
-
-
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-        printWifi(databaseRetriever);
-        printRetailer(databaseRetriever);
         printTrip(databaseRetriever);
+        Station s  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(231)).get(0);
+        s.print();
+        System.out.println("test");
+
+        long sumDuration = SQLAnalytics.totalGroupTripDuration("test");
+        long sumDistance = SQLAnalytics.totalGroupTripDistance("test");
+        int genderTrips = SQLAnalytics.totalGenderTrips("Female","test");
+        int userTrips = SQLAnalytics.totalUserTypeTrips("Customer","");
+        System.out.println(sumDuration);
+        System.out.println(sumDistance);
+        System.out.println(genderTrips);
+        System.out.println(userTrips);
+
+
+        /*
+        for(Retailer r : databaseRetriever.QueryRetailer("SELECT obj FROM retailer WHERE datagroup = \"test\""))
+        {
+            r.print();
+        }
+        */
+
+        //printWifi(databaseRetriever);
+        //printRetailer(databaseRetriever);
+
 
 
     }
@@ -60,14 +80,20 @@ public class DatabaseTester {
         Wifi w2 = new Wifi("SI", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
         Wifi w3 = new Wifi("MN", "Subscription","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
 
-        Station s1 = new Station(231,"5th ave", "CitiBike", 2387.987, 384.98);
+        Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);
         Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);
 
         Retailer r1 = new Retailer("McD's Lower MN", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "test" );
-        Retailer r2 = new Retailer("McD's Upper BO", "New York", "5th ave", "23", "NY", 2344, "F", "Phast Phood", "test" );
+        Retailer r2 = new Retailer("McD's Upper BO", "New York", "6th ave", "23", "NY", 2324, "P", "Phast Phood", "test" );
+        Retailer r3 = new Retailer("McD's Upper BO", "New York", "7th ave", "23", "NY", 2333, "P", "Phast Phood", "test" );
+        Retailer r4 = new Retailer("McD's Upper BO", "New York", "8th ave", "23", "NY", 2312, "S", "Phast Phood", "test1" );
+        Retailer r5 = new Retailer("McD's Upper BO", "New York", "9th ave", "23", "NY", 2322, "F", "Phast Phood", "test1" );
 
-        Trip t1 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "casual", 1990, "M", "test");
-        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "casual", 1934, "F", "test");
+
+
+        Trip t1 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "customer", 1990, "M", "kl");
+        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 1934, "F", "test");
+        Trip t3 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Customer", 1990, "M", "test");
 
 
         data.add(w1);
@@ -79,11 +105,17 @@ public class DatabaseTester {
 
         data.add(r1);
         data.add(r2);
+        data.add(r3);
+        data.add(r4);
+        data.add(r5);
 
         data.add(t1);
         data.add(t2);
+        data.add(t3);
 
         databaseUpdater.addData(data);
+
+
 
     }
 
@@ -112,7 +144,7 @@ public class DatabaseTester {
     private static void printTrip(DatabaseRetriever databaseRetriever)
     {
         for(Trip t : databaseRetriever.getTripList()){
-            t.print();
+            t.testPrint();
         }
     }
 

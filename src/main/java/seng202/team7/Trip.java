@@ -2,6 +2,7 @@ package seng202.team7;
 import java.text.ParseException;
 import java.util.Date;
 
+
 public class Trip extends Location implements Data, java.io.Serializable {
 
     public static String tableName = "trip";
@@ -18,9 +19,10 @@ public class Trip extends Location implements Data, java.io.Serializable {
             + "	age integer,\n"
             + "	userType text,\n"
             + "	startDate date,\n"
-            + " startTime time,"
+            + " startTime time,\n"
             + " endDate date,\n"
-            + " endTime time,"
+            + " endTime time,\n"
+            + " distance real,\n"
             + "	datagroup text,\n"
             + "	obj blob\n"
             + ");";
@@ -72,6 +74,11 @@ public class Trip extends Location implements Data, java.io.Serializable {
      */
     private String dataGroup;
 
+    /**
+     * Distance of biketrip currently worked out using
+     */
+    private double distance;
+
 
     /**
      *
@@ -111,6 +118,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.dataGroup = dataGroup;
 
+        this.distance = findDistance();
     }
 
     /**
@@ -138,6 +146,19 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.age = StaticVariables.currentYear - birthYear;
         this.gender = gender;
         this.dataGroup = dataGroup;
+        this.distance = findDistance();
+    }
+
+
+
+    /**
+     * Works out and returns the distance of the trip in kilometers using the algorithm in StaticVariables class
+     * @return the length of the trip between the start and end station
+     */
+    private double findDistance()
+    {
+        return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
+
     }
 
 
@@ -265,6 +286,14 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.dataGroup = dataGroup;
     }
 
+    public void setDistance(double distance) {
+        this.distance = distance;
+    }
+
+    public double getDistance() {
+        return distance;
+    }
+
     /**
      * gets the end of the bike trip from the bike station attached
      * @return location of ending bikestation
@@ -284,9 +313,11 @@ public class Trip extends Location implements Data, java.io.Serializable {
     /**
      * Prints object for testing
      */
-    public void print()
+    public void testPrint()
     {
-        System.out.println("Trip object: " + this.getDuration() + " start date: " + this.getStartDate().toString());
+        System.out.println("Trip object:\n " +
+                "Duration:" + this.getDuration() + "\n" +
+                "Distance: " + this.getDistance());
     }
 
 
