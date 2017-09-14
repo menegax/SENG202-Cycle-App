@@ -22,6 +22,8 @@ public class MainWindowController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
+        //RetailerDataViewer retailerViewer = new RetailerDataViewer();
+        //mainBorderPane.setCenter(retailerViewer);
         populateNavigationBar();
     }
 
@@ -42,16 +44,16 @@ public class MainWindowController implements Initializable{
         // Raw Data Viewer branch
         TreeItem<String> DataViewerBranch = makeBranch("Data Viewer", root);
         makeBranch("Retailer", DataViewerBranch);
-        makeBranch("Station", DataViewerBranch);
+        //makeBranch("Station", DataViewerBranch);
         makeBranch("Trip", DataViewerBranch);
         makeBranch("Wifi", DataViewerBranch);
 
         // Data Entry branch
         TreeItem<String> dataEntryBranch = makeBranch("Data Entry", root);
-        makeBranch("Retailer", dataEntryBranch);
-        makeBranch("Station", dataEntryBranch);
-        makeBranch("Trip", dataEntryBranch);
-        makeBranch("Wifi", dataEntryBranch);
+        //makeBranch("Retailer", dataEntryBranch);
+        //makeBranch("Station", dataEntryBranch);
+        //makeBranch("Trip", dataEntryBranch);
+        //makeBranch("Wifi", dataEntryBranch);
 
         // Help branch
         TreeItem<String> helpBranch = makeBranch("Help", root);
@@ -59,6 +61,21 @@ public class MainWindowController implements Initializable{
 
         navigationTree.setRoot(root);
         navigationTree.setShowRoot(false);
+
+        navigationTree.getSelectionModel().selectedItemProperty()
+                .addListener((v, oldValue, newValue) -> {
+                    if (newValue != null) {
+                        String selectedString = newValue.getValue();
+                        switch (selectedString) {
+                            case "Data Viewer": setRetailerViewer(); break;
+                            case "Retailer": setRetailerViewer(); break;
+                            case "Trip": setTripViewer(); break;
+                            case "Wifi": setWifiViewer(); break;
+                            default: System.out.println("ERROR!");
+                        }
+                    }
+
+                });
     }
 
     /* Creates branches
@@ -67,5 +84,23 @@ public class MainWindowController implements Initializable{
         TreeItem<String> item = new TreeItem<>(title);
         parent.getChildren().add(item);
         return item;
+    }
+
+    private void setRetailerViewer() {
+        RetailerDataViewer retailerViewer = new RetailerDataViewer();
+        mainBorderPane.getChildren().removeAll();
+        mainBorderPane.setCenter(retailerViewer);
+    }
+
+    private void setTripViewer() {
+        TripDataViewer tripViewer = new TripDataViewer();
+        mainBorderPane.getChildren().removeAll();
+        mainBorderPane.setCenter(tripViewer);
+    }
+
+    private void setWifiViewer() {
+        WifiDataViewer wifiViewer = new WifiDataViewer();
+        mainBorderPane.getChildren().removeAll();
+        mainBorderPane.setCenter(wifiViewer);
     }
 }

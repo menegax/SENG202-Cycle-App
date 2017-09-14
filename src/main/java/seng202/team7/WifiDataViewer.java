@@ -4,26 +4,25 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+
+import java.io.IOException;
 
 /**Wifi data model for raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 28/08/17
+ * Last updated 13/09/17
  */
 
-public class WifiDataViewer extends Application {
+public class WifiDataViewer extends AnchorPane {
 
-
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("WifiDataViewer.fxml"));
-        primaryStage.setTitle("Wifi Data Viewer");
-        primaryStage.setScene(new Scene(root, 1098, 400));
-        primaryStage.show();
-    }
-
-
-    public static void main(String[] args) {
-        launch(args);
+    public WifiDataViewer(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("WifiDataViewer.fxml"));
+        fxmlLoader.setRoot(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }
