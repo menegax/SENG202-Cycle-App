@@ -111,20 +111,20 @@ public class DataEntryWindowController {
     public void addDataButton(ActionEvent event) {
         //to implement, will take the data entered and add to file
         //placeholder
-        System.out.println("To Implement");
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-        //System.out.println(dataTypeAdded);
+        System.out.println(dataTypeAdded);
+        System.out.println("Add data button pressed");
 
         //case handling
 
         switch (dataTypeAdded) {
             case "trip":
-
+                System.out.println("Trip creation started");
                 System.out.println("trip");
                 String startTime2 = startTime.getText();                        //year-month-day hour:minute:second   ... maybe
                 String endTime2 = endTime.getText();                            //year-month-day hour:minute:second   ... maybe
@@ -163,12 +163,15 @@ public class DataEntryWindowController {
                 System.out.println(startStationID2);
                 System.out.println(endStationID2);
                 */
-
+                System.out.println("Trip about to be checked if valid");
                 Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
                 if (toTest.checkValidity(trip) == true) {
                     Data tripToAdd = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
                     toAdd.add(tripToAdd);
+                    System.out.println("Trip added to 'toAdd, was valid");
+                    break;
                 }
+                System.out.println("Trip wasn't valid");
                 break;
 
             case "retailer":

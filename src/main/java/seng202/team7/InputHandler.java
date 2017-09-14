@@ -13,7 +13,7 @@ public class InputHandler {
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
     private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
-    private String validUserType[] = {"Customer", "Subscriber"};
+    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber"};
     private String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
             "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
             "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
@@ -67,8 +67,8 @@ public class InputHandler {
 
 
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
-            String[] fields = line.split(",");
-
+            //split on the comma only if that comma has zero, or an even number of quotes ahead of it
+            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
             try {
                 switch (dataType) {
 
@@ -83,13 +83,17 @@ public class InputHandler {
                         double longitude = Double.parseDouble(fields[8]);
                         double latitude = Double.parseDouble(fields[7]);
 
+                        String remarks = fields[12];
+                        String city = fields[13];
+                        String SSID = fields[14];
 
-                        //ANNOYING BUG FFS, comma in actual value confuses buffered reader,
+
+                        //ANNOYING BUG FFS, comma in actual value confuses buffered reader,    FIXED YAY
                         //Kind of a weird way to check it, but it works so meh
                         //System.out.println(fields[12]);
                         //System.out.println(fields[13]);
 
-                        String remarks;
+                        /*String remarks;
                         String city;
                         String SSID;
 
@@ -104,7 +108,7 @@ public class InputHandler {
                             remarks = fields[12];
                             city = fields[13];
                             SSID = fields[14];
-                        }
+                        }*/
 
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
@@ -127,6 +131,8 @@ public class InputHandler {
                         String typeID = fields[8];
 
                         dataGroup = "default";
+
+
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest)) {

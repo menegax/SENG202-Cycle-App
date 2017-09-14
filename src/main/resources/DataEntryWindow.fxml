@@ -102,7 +102,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </TextField>
-            <ComboBox fx:id="userType" GridPane.columnIndex="5">
+            <ComboBox fx:id="userTypeComboBox" GridPane.columnIndex="5">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="customer" />
