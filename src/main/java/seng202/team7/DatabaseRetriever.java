@@ -179,7 +179,7 @@ public class DatabaseRetriever {
      * @param query sql query to run
      * @return Arraylist of retailers
      */
-    public ArrayList<Retailer> QueryRetailer(String query)
+    public ArrayList<Retailer> queryRetailer(String query)
     {
         ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
         try (Connection conn = DatabaseHandler.connect();

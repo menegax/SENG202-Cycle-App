@@ -22,6 +22,11 @@ public class DatabaseTester {
         s.print();
         System.out.println("test");
 
+        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.wifiByLocation(234.3,324.5)))
+        {
+            System.out.println("by lat lon");
+            w.print();
+        }
         long sumDuration = SQLAnalytics.totalGroupTripDuration("test");
         long sumDistance = SQLAnalytics.totalGroupTripDistance("test");
         int genderTrips = SQLAnalytics.totalGenderTrips("Female","test");
@@ -77,7 +82,7 @@ public class DatabaseTester {
         ArrayList<Data> data = new ArrayList<Data>();
 
         Wifi w1 = new Wifi("BX", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
-        Wifi w2 = new Wifi("SI", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
+        Wifi w2 = new Wifi("SI", "Free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.354,324.484);
         Wifi w3 = new Wifi("MN", "Subscription","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
 
         Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);

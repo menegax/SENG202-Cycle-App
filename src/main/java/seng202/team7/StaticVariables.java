@@ -4,12 +4,62 @@ import java.text.SimpleDateFormat;
 import java.lang.Math;
 
 public class StaticVariables {
+    private static double defaultDist = 0.1;
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
     public static String stationIDQuery(int stationID)
     {
         return "SELECT * FROM "+ Station.tableName + " WHERE stationid = " + stationID;
+    }
+
+    /**
+     * SQL String used to find nearby retailers with default distance
+     * @param lat lat of center
+     * @param lon lon of center
+     * @return SQL Query String
+     */
+    public static String retailerByLocation(double lat, double lon)
+    {
+        return retailerByLocation(lat, defaultDist,lon,defaultDist);
+    }
+
+    /**
+     * SQL String used to find nearby retailers with specified distance
+     * @param lat lat of center
+     * @param latOffset difference in lat accepted
+     * @param lon lon of centre
+     * @param lonOffset difference in lon
+     * @return SQL Query String
+     */
+    public static String retailerByLocation(double lat, double latOffset, double lon, double lonOffset)
+    {
+        return "SELECT * FROM "+Retailer.tableName + "WHERE lat BETWEEN "+(lat-latOffset)+" AND "+(lat+latOffset)+" AND lon BETWEEN "+(lon-lonOffset)+" AND "+(lon+lonOffset);
+
+    }
+
+    /**
+     * SQL String used to find nearby wifi with default distance
+     * @param lat lat of center
+     * @param lon lon of center
+     * @return SQL Query String
+     */
+    public static String wifiByLocation(double lat, double lon)
+    {
+        return wifiByLocation(lat, defaultDist,lon,defaultDist);
+    }
+    /**
+     * SQL String used to find nearby wifis with specified distance
+     * @param lat lat of center
+     * @param latOffset difference in lat accepted
+     * @param lon lon of centre
+     * @param lonOffset difference in lon
+     * @return SQL Query String
+     */
+    public static String wifiByLocation(double lat, double latOffset, double lon, double lonOffset)
+    {
+        return "SELECT * FROM "+Wifi.tableName + "WHERE lat BETWEEN "+(lat-latOffset)+" AND "+(lat+latOffset)+" AND lon BETWEEN "+(lon-lonOffset)+" AND "+(lon+lonOffset);
+
     }
 
 
