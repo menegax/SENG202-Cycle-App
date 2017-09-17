@@ -22,9 +22,10 @@ public class DatabaseTester {
         s.print();
         System.out.println("test");
 
-        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.wifiByLocation(234.3,324.5)))
+        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.wifiByLocation(324.554,0.1,234.324,0.1)))
         {
             System.out.println("by lat lon");
+
             w.print();
         }
         long sumDuration = SQLAnalytics.totalGroupTripDuration("test");

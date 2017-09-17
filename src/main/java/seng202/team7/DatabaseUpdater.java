@@ -68,7 +68,7 @@ public class DatabaseUpdater {
             pstmt.setString(6, wifi.getSSID());
             pstmt.setString(7, wifi.getRemarks());
             pstmt.setDouble(8, wifi.getLatitude());
-            pstmt.setDouble(9, wifi.getLatitude());
+            pstmt.setDouble(9, wifi.getLongitude());
             pstmt.setString(10, wifi.getDataGroup());
             pstmt.setObject(11, bos.toByteArray());
             pstmt.executeUpdate();
@@ -103,7 +103,7 @@ public class DatabaseUpdater {
             pstmt.setInt(1,station.getId());
             pstmt.setString(2, station.getAddress());
             pstmt.setDouble(3, station.getLatitude());
-            pstmt.setDouble(4, station.getLatitude());
+            pstmt.setDouble(4, station.getLongitude());
             pstmt.setString(5, station.getDataGroup());
             pstmt.setObject(6, bos.toByteArray());
             pstmt.executeUpdate();
@@ -143,7 +143,7 @@ public class DatabaseUpdater {
             pstmt.setString(7, retailer.getTypeID());
             pstmt.setString(8, retailer.getType());
             pstmt.setDouble(9, retailer.getLatitude());
-            pstmt.setDouble(10, retailer.getLatitude());
+            pstmt.setDouble(10, retailer.getLongitude());
             pstmt.setString(11, retailer.getDataGroup());
             pstmt.setObject(12, bos.toByteArray());
             pstmt.executeUpdate();

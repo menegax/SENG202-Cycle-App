@@ -1,10 +1,12 @@
 package seng202.team7;
 
+import com.sun.org.apache.bcel.internal.generic.RET;
+
 import java.text.SimpleDateFormat;
 import java.lang.Math;
 
 public class StaticVariables {
-    private static double defaultDist = 0.1;
+    private static double defaultDist = 1;
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
@@ -34,7 +36,7 @@ public class StaticVariables {
      */
     public static String retailerByLocation(double lat, double latOffset, double lon, double lonOffset)
     {
-        return "SELECT * FROM "+Retailer.tableName + "WHERE lat BETWEEN "+(lat-latOffset)+" AND "+(lat+latOffset)+" AND lon BETWEEN "+(lon-lonOffset)+" AND "+(lon+lonOffset);
+        return "SELECT obj FROM "+ Retailer.tableName + " WHERE (latitude BETWEEN ("+(lat-latOffset)+") AND ("+(lat+latOffset)+")) AND (longitude BETWEEN ("+(lon-lonOffset)+") AND ("+(lon+lonOffset)+"));";
 
     }
 
@@ -58,7 +60,8 @@ public class StaticVariables {
      */
     public static String wifiByLocation(double lat, double latOffset, double lon, double lonOffset)
     {
-        return "SELECT * FROM "+Wifi.tableName + "WHERE lat BETWEEN "+(lat-latOffset)+" AND "+(lat+latOffset)+" AND lon BETWEEN "+(lon-lonOffset)+" AND "+(lon+lonOffset);
+        System.out.println("latlow: " + (lat-latOffset) + " lathigh" + (lat+latOffset));
+        return "SELECT obj FROM "+Wifi.tableName + " WHERE (latitude BETWEEN ("+(lat-latOffset)+") AND ("+(lat+latOffset)+")) AND (longitude BETWEEN ("+(lon-lonOffset)+") AND ("+(lon+lonOffset)+"));";
 
     }
 

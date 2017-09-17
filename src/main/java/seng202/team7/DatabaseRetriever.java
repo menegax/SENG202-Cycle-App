@@ -233,6 +233,7 @@ public class DatabaseRetriever {
                     ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
                     ObjectInputStream ois = new ObjectInputStream(bais);
                     wifi = (Wifi) ois.readObject();
+
                 }catch (IOException io){
                     io.printStackTrace();
                 }catch (ClassNotFoundException cnf){
