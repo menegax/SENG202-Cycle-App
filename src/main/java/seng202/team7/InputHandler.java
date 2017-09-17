@@ -13,7 +13,7 @@ public class InputHandler {
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
     private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
-    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber"};
+    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", ""};
     private String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
             "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
             "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
@@ -36,7 +36,7 @@ public class InputHandler {
 
             InputHandler toTest = new InputHandler();
 
-            toTest.loadCSV("retailer_data.csv", "retailer");
+            toTest.loadCSV("C:\\Users\\user\\Documents\\1 Uni\\1stpro\\sem2\\seng202\\retailer_data.csv", "retailer");
             //toTest.loadCSV("trip_data.csv", "trip");
             //toTest.loadCSV("wifi_data.csv", "wifi");
         } catch (IOException e) {
@@ -131,8 +131,6 @@ public class InputHandler {
                         String typeID = fields[8];
 
                         dataGroup = "default";
-
-
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest)) {

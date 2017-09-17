@@ -5,6 +5,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
@@ -14,8 +18,8 @@ public class DataEntryWindowController {
     public Button uploadcsvButton;
     public Button addDataButton;
 
-    @FXML
-    private TextField fileName;
+    //@FXML
+    //private TextField fileName;
 
     @FXML
     private ComboBox dataEntryComboBox;
@@ -87,17 +91,29 @@ public class DataEntryWindowController {
      * @param event
      */
     public void uploadcsvButton(ActionEvent event) {
-        InputHandler toTest = new InputHandler();
+        InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         ArrayList<Data> toAdd = null;
 
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
+
+
+        /*
         String csvFile = fileName.getText();
         csvFile = csvFile  + ".csv";
+        */
+
+        String csvFile;
+        Stage stage = new Stage();
+        FileChooser chooser = new FileChooser();
+        File file = chooser.showOpenDialog(stage);
+
+        csvFile = file.toString();
+
 
         try {
-            toAdd =  toTest.loadCSV(csvFile, dataTypeAdded);
-        } catch (IOException e) {
+            toAdd =  toParse.loadCSV(csvFile, dataTypeAdded);
+        } catch (IOException | NullPointerException e) {
             e.printStackTrace();
         }
 
@@ -105,29 +121,21 @@ public class DataEntryWindowController {
     }
 
     /**
-     * loads manually inputted data
+     * loads manually inputted data and adds to database
      * @param event
      */
     public void addDataButton(ActionEvent event) {
-        //to implement, will take the data entered and add to file
-        //placeholder
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
-        DatabaseUpdater toUpload = new DatabaseUpdater();
+        DatabaseUpdater dataUploader = new DatabaseUpdater();
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-        System.out.println(dataTypeAdded);
-        System.out.println("Add data button pressed");
-
         //case handling
-
         switch (dataTypeAdded) {
             case "trip":
-                System.out.println("Trip creation started");
-                System.out.println("trip");
-                String startTime2 = startTime.getText();                        //year-month-day hour:minute:second   ... maybe
-                String endTime2 = endTime.getText();                            //year-month-day hour:minute:second   ... maybe
+                String startTime2 = startTime.getText();                        //year-month-day hour:minute:second
+                String endTime2 = endTime.getText();                            //year-month-day hour:minute:second
                 String bikeID2 = bikeID.getText();
                 String userType2 = (String ) userTypeComboBox.getValue();
                 int birthYear2 = Integer.parseInt(birthYear.getText());
@@ -135,18 +143,22 @@ public class DataEntryWindowController {
                 int startStationID2 = Integer.parseInt(startStationID.getText());
                 int endStationID2 = Integer.parseInt(endStationID.getText());
 
-                //start/end station address and lat and long derived here with functions yet to be created
-                double startStationLat = 0.0;
-                double startStationLong = 0.0;
-                String startStationAddress = "nada";
+                //start and end station address, lat and long derived here, need case handling for if station doesn't exist
+                DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                Station start  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID2)).get(0);
+                Station end  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID2)).get(0);
+
+                double startStationLat = start.getLatitude();
+                double startStationLong = start.getLongitude();
+                String startStationAddress = start.getAddress();
                 Station startStation = new Station(startStationID2, startStationAddress, "default", startStationLat, startStationLong);
                 if (!toTest.checkValidity(startStation)) {
                     //stations not valid
                     break;
                 }
-                double endStationLat = 0.0;
-                double endStationLong = 0.0;
-                String endStationAddress = "nada";
+                double endStationLat = end.getLatitude();
+                double endStationLong = end.getLongitude();
+                String endStationAddress = end.getAddress();
                 Station endStation = new Station(endStationID2, endStationAddress, "default", endStationLat, endStationLong);
                 int duration = 0;   //derive duration
                 if (!toTest.checkValidity(endStation)) {
@@ -154,24 +166,22 @@ public class DataEntryWindowController {
                     break;
                 }
 
-                /*System.out.println(startTime2);
-                System.out.println(endTime2);
-                System.out.println(bikeID2);
+                System.out.println(endStationLat);
+                System.out.println(endStationLong);
+                System.out.println(endStationAddress);
                 System.out.println(userType2);               //for testing
                 System.out.println(birthYear2);
                 System.out.println(gender2);
                 System.out.println(startStationID2);
                 System.out.println(endStationID2);
-                */
-                System.out.println("Trip about to be checked if valid");
+
+
                 Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
                 if (toTest.checkValidity(trip) == true) {
                     Data tripToAdd = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
                     toAdd.add(tripToAdd);
-                    System.out.println("Trip added to 'toAdd, was valid");
                     break;
                 }
-                System.out.println("Trip wasn't valid");
                 break;
 
             case "retailer":
@@ -230,7 +240,7 @@ public class DataEntryWindowController {
                 break;
         }
 
-        toUpload.addData(toAdd);
+        dataUploader.addData(toAdd);
 
     }
 }
