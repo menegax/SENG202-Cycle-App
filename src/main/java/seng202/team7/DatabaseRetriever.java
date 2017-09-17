@@ -179,7 +179,7 @@ public class DatabaseRetriever {
      * @param query sql query to run
      * @return Arraylist of retailers
      */
-    public ArrayList<Retailer> QueryRetailer(String query)
+    public ArrayList<Retailer> queryRetailer(String query)
     {
         ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
         try (Connection conn = DatabaseHandler.connect();
@@ -233,6 +233,7 @@ public class DatabaseRetriever {
                     ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
                     ObjectInputStream ois = new ObjectInputStream(bais);
                     wifi = (Wifi) ois.readObject();
+
                 }catch (IOException io){
                     io.printStackTrace();
                 }catch (ClassNotFoundException cnf){
