@@ -71,6 +71,7 @@ public class MainWindowController implements Initializable{
                             case "Retailer": setRetailerViewer(); break;
                             case "Trip": setTripViewer(); break;
                             case "Wifi": setWifiViewer(); break;
+                            case "Data Entry": setDataEntry(); break;
                             default: System.out.println("ERROR!");
                         }
                     }
@@ -102,5 +103,11 @@ public class MainWindowController implements Initializable{
         WifiDataViewer wifiViewer = new WifiDataViewer();
         mainBorderPane.getChildren().removeAll();
         mainBorderPane.setCenter(wifiViewer);
+    }
+
+    private void setDataEntry() {
+        DataEntryWindow dataEntry = new DataEntryWindow();
+        mainBorderPane.getChildren().removeAll();
+        mainBorderPane.setCenter(dataEntry);
     }
 }
