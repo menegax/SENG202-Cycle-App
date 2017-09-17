@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.lang.Math;
 
 public class StaticVariables {
+    public static int step = 50;
     private static double defaultDist = 1;
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
@@ -14,7 +15,7 @@ public class StaticVariables {
 
     public static String steppedQuery(String tableName, int start)
     {
-        return "SELECT obj FROM " + tableName + "LIMIT " + start + "," + (start+50);
+        return "SELECT obj FROM " + tableName + " LIMIT " + start + "," + (start+step);
 
     }
     /**

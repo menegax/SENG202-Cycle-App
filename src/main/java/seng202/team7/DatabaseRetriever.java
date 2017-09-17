@@ -311,8 +311,6 @@ public class DatabaseRetriever {
 
             // loop through the result set
             while (rs.next()) {
-                System.out.println(rs.getDate("startDate"));
-                System.out.println(rs.getTime("startTime"));
                 Trip trip = null;
                 try {
                     ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));

@@ -64,6 +64,10 @@ public class RetailerDataViewerController implements Initializable {
     private Label sTypeLabel;
 
     private int currentRetailerIndex = -1;
+    private int loadedData = 0;
+    private DatabaseRetriever dbRetriever;
+    private boolean loadedAll = false;
+    private boolean scrollAdded = false;
 
     private ObservableList<Retailer> retailerList;
     private ObservableList<Retailer> filteredRetailerList;
@@ -82,8 +86,8 @@ public class RetailerDataViewerController implements Initializable {
          */
         DatabaseUpdater dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
-        DatabaseRetriever dbRetriever = new DatabaseRetriever();
-        ArrayList<Retailer> retailerArrayList = dbRetriever.getRetailerList();
+        dbRetriever = new DatabaseRetriever();
+        ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);
         filteredRetailerList = FXCollections.observableArrayList(retailerList);
 
@@ -109,17 +113,29 @@ public class RetailerDataViewerController implements Initializable {
     }
 
     /**
-     * Called when a scroll is started to add a action listener to the scrollbar
-     * The action listener loads more data when the scrollbar reaches the bottom
+     * Called when the cursor enters the data table to add a action listener to the scrollbar
+     * The action listener loads more data when the scrollbar nears the bottom (80%)
      */
     public void addLoader() {
-        ScrollBar scrollBar = (ScrollBar) retailerDataTable.lookup(".scroll-bar:vertical");
-        scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
-                System.out.println(newValue.doubleValue());
-                System.out.println("Load more data");
-            }
-        });
+        if (scrollAdded || retailerList.size() < StaticVariables.step) {
+            retailerDataTable.setOnMouseEntered(null);
+        } else {
+            ScrollBar scrollBar = (ScrollBar) retailerDataTable.lookup(".scroll-bar:vertical");
+            scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
+                    if (!loadedAll) {
+                        ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+                        if (retailerArrayList.size() == 0) {
+                            loadedAll = true;
+                        }
+                        retailerList.addAll(retailerArrayList);
+                        loadedData += StaticVariables.step;
+                        filter();
+                    }
+                }
+            });
+            scrollAdded = true;
+        }
     }
 
     /**

@@ -1,5 +1,6 @@
 package seng202.team7;
 
+import com.thoughtworks.xstream.mapper.Mapper;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -8,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
+import org.apache.commons.lang.ObjectUtils;
 
 import java.net.URL;
 import java.sql.Date;
@@ -55,6 +57,10 @@ public class TripDataViewerController implements Initializable {
     @FXML private Label genderLabel;
 
     private int currentTripIndex = -1;
+    private int loadedData = 0;
+    private DatabaseRetriever dbRetriever;
+    private boolean loadedAll = false;
+    private boolean scrollAdded = false;
 
     private ObservableList<Trip> tripList;
     private ObservableList<Trip> filteredTripList;
@@ -71,11 +77,10 @@ public class TripDataViewerController implements Initializable {
          */
         DatabaseUpdater dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
-        DatabaseRetriever dbRetriever = new DatabaseRetriever();
-        ArrayList<Trip> tripArrayList = dbRetriever.getTripList();
+        dbRetriever = new DatabaseRetriever();
+        ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
         tripList = FXCollections.observableArrayList(tripArrayList);
         filteredTripList = FXCollections.observableArrayList(tripList);
-
         startStationCB.getItems().addAll("5th ave","34 square","None");
         endStationCB.getItems().addAll("5th ave","34 square","None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
@@ -87,16 +92,29 @@ public class TripDataViewerController implements Initializable {
     }
 
     /**
-     * Called when a scroll is started to add a action listener to the scrollbar
-     * The action listener loads more data when the scrollbar reaches the bottom
+     * Called when the cursor enters the data table to add a action listener to the scrollbar
+     * The action listener loads more data when the scrollbar nears the bottom (80%)
      */
     public void addLoader() {
-        ScrollBar scrollBar = (ScrollBar) tripDataTable.lookup(".scroll-bar:vertical");
-        scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
-                System.out.println("Load more data");
-            }
-        });
+        if (scrollAdded || tripList.size() < StaticVariables.step) {
+            tripDataTable.setOnMouseEntered(null);
+        } else {
+            ScrollBar scrollBar = (ScrollBar) tripDataTable.lookup(".scroll-bar:vertical");
+            scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
+                    if (!loadedAll) {
+                        ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
+                        if (tripArrayList.size() == 0) {
+                            loadedAll = true;
+                        }
+                        tripList.addAll(tripArrayList);
+                        loadedData += StaticVariables.step;
+                        filter();
+                    }
+                }
+            });
+            scrollAdded = true;
+        }
     }
 
     /**

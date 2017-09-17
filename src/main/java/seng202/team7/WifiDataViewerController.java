@@ -46,6 +46,10 @@ public class WifiDataViewerController implements Initializable {
     @FXML private Label remarksLabel;
 
     private int currentWifiIndex = -1;
+    private int loadedData = 0;
+    private DatabaseRetriever dbRetriever;
+    private boolean loadedAll = false;
+    private boolean scrollAdded = false;
 
     private ObservableList<Wifi> wifiList;
     private ObservableList<Wifi> filteredWifiList;
@@ -63,8 +67,8 @@ public class WifiDataViewerController implements Initializable {
          */
         DatabaseUpdater dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
-        DatabaseRetriever dbRetriever = new DatabaseRetriever();
-        ArrayList<Wifi> wifiArrayList = dbRetriever.getWifiList();
+        dbRetriever = new DatabaseRetriever();
+        ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
         wifiList = FXCollections.observableArrayList(wifiArrayList);
         filteredWifiList = FXCollections.observableArrayList(wifiList);
 
@@ -84,16 +88,29 @@ public class WifiDataViewerController implements Initializable {
     }
 
     /**
-     * Called when a scroll is started to add a action listener to the scrollbar
-     * The action listener loads more data when the scrollbar reaches the bottom
+     * Called when the cursor enters the data table to add a action listener to the scrollbar
+     * The action listener loads more data when the scrollbar nears the bottom (80%)
      */
     public void addLoader() {
-        ScrollBar scrollBar = (ScrollBar) wifiDataTable.lookup(".scroll-bar:vertical");
-        scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
-                System.out.println("Load more data");
-            }
-        });
+        if (scrollAdded || wifiList.size() < StaticVariables.step) {
+            wifiDataTable.setOnMouseEntered(null);
+        } else {
+            ScrollBar scrollBar = (ScrollBar) wifiDataTable.lookup(".scroll-bar:vertical");
+            scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
+                if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
+                    if (!loadedAll) {
+                        ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+                        if (wifiArrayList.size() == 0) {
+                            loadedAll = true;
+                        }
+                        wifiList.addAll(wifiArrayList);
+                        loadedData += StaticVariables.step;
+                        filter();
+                    }
+                }
+            });
+            scrollAdded = true;
+        }
     }
 
     /**
