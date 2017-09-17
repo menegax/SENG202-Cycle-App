@@ -10,6 +10,18 @@ public class StaticVariables {
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
+
+
+    public static String steppedQuery(String tableName, int start)
+    {
+        return "SELECT obj FROM " + tableName + "LIMIT " + start + "," + (start+50);
+
+    }
+    /**
+     * SQL query for station by ID
+     * @param stationID ID to search for
+     * @return SQL Query finding station by id
+     */
     public static String stationIDQuery(int stationID)
     {
         return "SELECT * FROM "+ Station.tableName + " WHERE stationid = " + stationID;
