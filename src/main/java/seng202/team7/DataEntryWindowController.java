@@ -131,75 +131,76 @@ public class DataEntryWindowController {
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-        //case handling
-        switch (dataTypeAdded) {
-            case "trip":
-                String startTime2 = startTime.getText();                        //year-month-day hour:minute:second
-                String endTime2 = endTime.getText();                            //year-month-day hour:minute:second
-                String bikeID2 = bikeID.getText();
-                String userType2 = (String ) userTypeComboBox.getValue();
-                int birthYear2 = Integer.parseInt(birthYear.getText());
-                String gender2 = gender.getText();
-                int startStationID2 = Integer.parseInt(startStationID.getText());
-                int endStationID2 = Integer.parseInt(endStationID.getText());
+        try {
+            //case handling
+            switch (dataTypeAdded) {
+                case "trip":
+                    String startTime2 = startTime.getText();                        //year-month-day hour:minute:second
+                    String endTime2 = endTime.getText();                            //year-month-day hour:minute:second
+                    String bikeID2 = bikeID.getText();
+                    String userType2 = (String ) userTypeComboBox.getValue();
+                    int birthYear2 = Integer.parseInt(birthYear.getText());
+                    String gender2 = gender.getText();
+                    int startStationID2 = Integer.parseInt(startStationID.getText());
+                    int endStationID2 = Integer.parseInt(endStationID.getText());
 
-                //start and end station address, lat and long derived here, need case handling for if station doesn't exist
-                DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-                Station start  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID2)).get(0);
-                Station end  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID2)).get(0);
+                    //start and end station address, lat and long derived here, need case handling for if station doesn't exist
+                    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                    Station start  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID2)).get(0);
+                    Station end  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID2)).get(0);
 
-                double startStationLat = start.getLatitude();
-                double startStationLong = start.getLongitude();
-                String startStationAddress = start.getAddress();
-                Station startStation = new Station(startStationID2, startStationAddress, "default", startStationLat, startStationLong);
-                if (!toTest.checkValidity(startStation)) {
-                    //stations not valid
+                    double startStationLat = start.getLatitude();
+                    double startStationLong = start.getLongitude();
+                    String startStationAddress = start.getAddress();
+                    Station startStation = new Station(startStationID2, startStationAddress, "default", startStationLat, startStationLong);
+                    if (!toTest.checkValidity(startStation)) {
+                        //stations not valid
+                        break;
+                    }
+                    double endStationLat = end.getLatitude();
+                    double endStationLong = end.getLongitude();
+                    String endStationAddress = end.getAddress();
+                    Station endStation = new Station(endStationID2, endStationAddress, "default", endStationLat, endStationLong);
+                    int duration = 0;   //derive duration
+                    if (!toTest.checkValidity(endStation)) {
+                        //stations not valid
+                        break;
+                    }
+
+                    System.out.println(endStationLat);
+                    System.out.println(endStationLong);
+                    System.out.println(endStationAddress);
+                    System.out.println(userType2);               //for testing
+                    System.out.println(birthYear2);
+                    System.out.println(gender2);
+                    System.out.println(startStationID2);
+                    System.out.println(endStationID2);
+
+
+                    Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
+                    if (toTest.checkValidity(trip) == true) {
+                        Data tripToAdd = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
+                        toAdd.add(tripToAdd);
+                        break;
+                    }
                     break;
-                }
-                double endStationLat = end.getLatitude();
-                double endStationLong = end.getLongitude();
-                String endStationAddress = end.getAddress();
-                Station endStation = new Station(endStationID2, endStationAddress, "default", endStationLat, endStationLong);
-                int duration = 0;   //derive duration
-                if (!toTest.checkValidity(endStation)) {
-                    //stations not valid
-                    break;
-                }
 
-                System.out.println(endStationLat);
-                System.out.println(endStationLong);
-                System.out.println(endStationAddress);
-                System.out.println(userType2);               //for testing
-                System.out.println(birthYear2);
-                System.out.println(gender2);
-                System.out.println(startStationID2);
-                System.out.println(endStationID2);
+                case "retailer":
+                    String nameRetailer2 = name.getText();
+                    int ZIP2 = Integer.parseInt(ZIP.getText());
+                    String state2 = state.getText();
+                    String cityRetailer2 = cityRetailer.getText();
+                    String pAddress2 = pAddress.getText();
+                    String sAddress2 = sAddress.getText();
+                    String typeID2 = typeID.getText();
+                    String typeRetailer2 = typeRetailer.getText();
 
+                    Retailer retailer = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
+                    if (toTest.checkValidity(retailer) == true) {
+                        Data retailerToAdd = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
+                        toAdd.add(retailerToAdd);
 
-                Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
-                if (toTest.checkValidity(trip) == true) {
-                    Data tripToAdd = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
-                    toAdd.add(tripToAdd);
-                    break;
-                }
-                break;
-
-            case "retailer":
-                String nameRetailer2 = name.getText();
-                int ZIP2 = Integer.parseInt(ZIP.getText());
-                String state2 = state.getText();
-                String cityRetailer2 = cityRetailer.getText();
-                String pAddress2 = pAddress.getText();
-                String sAddress2 = sAddress.getText();
-                String typeID2 = typeID.getText();
-                String typeRetailer2 = typeRetailer.getText();
-
-                Retailer retailer = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
-                if (toTest.checkValidity(retailer) == true) {
-                    Data retailerToAdd = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
-                    toAdd.add(retailerToAdd);
-
-                }
+                    }
 
                 /*System.out.println(retailer.getTypeID());
                 System.out.println(retailer.getType());
@@ -214,31 +215,36 @@ public class DataEntryWindowController {
                 System.out.println(retailer.getCity());
                 */
 
-                break;
+                    break;
 
-            case "wifi":
-                String provider2 = provider.getText();
-                String typeWifi2 = typeWifi.getText();
-                String location2 = locationWifi.getText();
-                String cityWifi2 = cityWifi.getText();
-                String borough2 = borough.getText();
-                String SSID2 = SSID.getText();
-                String remarks2 = remarks.getText();
-                double longitude2 = Double.parseDouble(longitude.getText());
-                double latitude2 = Double.parseDouble(latitude.getText());
+                case "wifi":
+                    String provider2 = provider.getText();
+                    String typeWifi2 = typeWifi.getText();
+                    String location2 = locationWifi.getText();
+                    String cityWifi2 = cityWifi.getText();
+                    String borough2 = borough.getText();
+                    String SSID2 = SSID.getText();
+                    String remarks2 = remarks.getText();
+                    double longitude2 = Double.parseDouble(longitude.getText());
+                    double latitude2 = Double.parseDouble(latitude.getText());
 
-                System.out.println(provider2);
+                    System.out.println(provider2);
 
 
-                Wifi wifi = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
-                if (toTest.checkValidity(wifi) == true) {
-                    Data wifiToAdd = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
-                    toAdd.add(wifiToAdd);
+                    Wifi wifi = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
+                    if (toTest.checkValidity(wifi) == true) {
+                        Data wifiToAdd = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
+                        toAdd.add(wifiToAdd);
 
-                }
+                    }
 
-                break;
+                    break;
+            }
         }
+        catch (NumberFormatException | NullPointerException e) {
+            System.out.println("Not enough data inputted, maybe wrong data type selected?");
+        }
+
 
         dataUploader.addData(toAdd);
 

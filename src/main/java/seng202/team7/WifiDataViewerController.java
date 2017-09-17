@@ -56,10 +56,13 @@ public class WifiDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-        DatabaseTester.deleteTables();
+        //used for test data, comment out block for testing to keep data
+        /*DatabaseTester.deleteTables();
         DatabaseTester.createTables();
         DatabaseUpdater dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
+        */
+
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.getWifiList();
         wifiList = FXCollections.observableArrayList(wifiArrayList);

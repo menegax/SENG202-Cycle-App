@@ -127,14 +127,23 @@ public class InputHandler {
                         String sAddress = fields[2];
                         String state = fields[4];
                         int zipCode = Integer.parseInt(fields[5]);
-                        type = fields[7];
-                        String typeID = fields[8];
+
+                        String typeID;
+
+                        if (fields[8].isEmpty()) {
+                            break;
+                        }
+                        else {
+                            typeID = fields[8].substring(0,1);
+                            type = fields[8].substring(2);
+                        }
+
 
                         dataGroup = "default";
 
-                        Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);  //temp test object
+                        Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest)) {
-                            dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, type, typeID, dataGroup);   //create actual 'Data' object
+                            dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
