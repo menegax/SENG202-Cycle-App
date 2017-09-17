@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Wifi data controller to control raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 13/09/17
+ * Last updated 17/09/17
  */
 
 public class WifiDataViewerController implements Initializable {
@@ -56,13 +56,13 @@ public class WifiDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-        //used for test data, comment out block for testing to keep data
-        /*DatabaseTester.deleteTables();
-        DatabaseTester.createTables();
+        /**
+         * Used for testing only
+         * DatabaseTester.deleteTables();
+         * DatabaseTester.createTables();
+         */
         DatabaseUpdater dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
-        */
-
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.getWifiList();
         wifiList = FXCollections.observableArrayList(wifiArrayList);
@@ -90,7 +90,7 @@ public class WifiDataViewerController implements Initializable {
     public void addLoader() {
         ScrollBar scrollBar = (ScrollBar) wifiDataTable.lookup(".scroll-bar:vertical");
         scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
-            if (newValue.doubleValue() >= scrollBar.getMax()) {
+            if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
                 System.out.println("Load more data");
             }
         });

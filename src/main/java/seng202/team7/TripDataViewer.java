@@ -11,7 +11,7 @@ import java.io.IOException;
 
 /**Trip data model for raw data viewing of trip data
  * @author Aidan Smith asm142
- * Last updated 11/09/17
+ * Last updated 13/09/17
  */
 
 public class TripDataViewer extends AnchorPane {
