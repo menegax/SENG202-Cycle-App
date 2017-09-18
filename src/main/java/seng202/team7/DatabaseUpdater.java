@@ -43,9 +43,10 @@ public class DatabaseUpdater {
      */
     public void insertWifi(Wifi wifi)
     {
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        String sql = "INSERT INTO "+Wifi.tableName+" (burough, type, provider, location, city, SSID,remarks,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?)";
 
+        String sql = "INSERT INTO "+Wifi.tableName+" ("+Wifi.columns[0]+", "+Wifi.columns[1]+", "+Wifi.columns[2]+", "+Wifi.columns[3]+", "+Wifi.columns[4]+", "+Wifi.columns[5]+", "+Wifi.columns[6]+", "+Wifi.columns[7]+", "+Wifi.columns[8]+", "+Wifi.columns[9]+", "+Wifi.columns[10]+", "+Wifi.columns[11]+") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             //ByteArrayOutputStream bos = new ByteArrayOutputStream();
             ObjectOutputStream oos = new ObjectOutputStream(bos);
@@ -60,17 +61,18 @@ public class DatabaseUpdater {
 
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1, wifi.getBorough());
-            pstmt.setString(2, wifi.getType());
-            pstmt.setString(3, wifi.getProvider());
-            pstmt.setString(4, wifi.getLocation());
-            pstmt.setString(5, wifi.getCity());
-            pstmt.setString(6, wifi.getSSID());
-            pstmt.setString(7, wifi.getRemarks());
-            pstmt.setDouble(8, wifi.getLatitude());
-            pstmt.setDouble(9, wifi.getLongitude());
-            pstmt.setString(10, wifi.getDataGroup());
-            pstmt.setObject(11, bos.toByteArray());
+            pstmt.setInt(1,wifi.hashCode());
+            pstmt.setString(2, wifi.getBorough());
+            pstmt.setString(3, wifi.getType());
+            pstmt.setString(4, wifi.getProvider());
+            pstmt.setString(5, wifi.getLocation());
+            pstmt.setString(6, wifi.getCity());
+            pstmt.setString(7, wifi.getSSID());
+            pstmt.setString(8, wifi.getRemarks());
+            pstmt.setDouble(9, wifi.getLatitude());
+            pstmt.setDouble(10, wifi.getLongitude());
+            pstmt.setString(11, wifi.getDataGroup());
+            pstmt.setObject(12, bos.toByteArray());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -119,7 +121,7 @@ public class DatabaseUpdater {
      */
     public void insertRetailer(Retailer retailer)
     {
-        String sql = "INSERT INTO "+ retailer.tableName+" (name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ retailer.tableName+" (id, name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             //ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -134,18 +136,19 @@ public class DatabaseUpdater {
 
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setString(1,retailer.getName());
-            pstmt.setString(2,retailer.getCity());
-            pstmt.setString(3,retailer.getPAddress());
-            pstmt.setString(4,retailer.getSAddress());
-            pstmt.setString(5,retailer.getState());
-            pstmt.setInt(6,retailer.getZipCode());
-            pstmt.setString(7, retailer.getTypeID());
-            pstmt.setString(8, retailer.getType());
-            pstmt.setDouble(9, retailer.getLatitude());
-            pstmt.setDouble(10, retailer.getLongitude());
-            pstmt.setString(11, retailer.getDataGroup());
-            pstmt.setObject(12, bos.toByteArray());
+            pstmt.setInt(1,retailer.hashCode());
+            pstmt.setString(2,retailer.getName());
+            pstmt.setString(3,retailer.getCity());
+            pstmt.setString(4,retailer.getPAddress());
+            pstmt.setString(5,retailer.getSAddress());
+            pstmt.setString(6,retailer.getState());
+            pstmt.setInt(7,retailer.getZipCode());
+            pstmt.setString(8, retailer.getTypeID());
+            pstmt.setString(9, retailer.getType());
+            pstmt.setDouble(10, retailer.getLatitude());
+            pstmt.setDouble(11, retailer.getLongitude());
+            pstmt.setString(12, retailer.getDataGroup());
+            pstmt.setObject(13, bos.toByteArray());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -159,7 +162,7 @@ public class DatabaseUpdater {
      */
     public void insertTrip(Trip trip)
     {
-        String sql = "INSERT INTO "+ trip.tableName+" (duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //ByteArrayOutputStream initialization
         ByteArrayOutputStream bosTrip, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
@@ -213,27 +216,197 @@ public class DatabaseUpdater {
 
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1,trip.getDuration());
-            pstmt.setInt(2,trip.getStartStationID());
-            pstmt.setObject(3, bosStartStation.toByteArray());
-            pstmt.setInt(4, trip.getEndStationID());
-            pstmt.setObject(5, bosEndStation);
-            pstmt.setInt(6,trip.getBikeID());
-            pstmt.setString(7,trip.getGender());
-            pstmt.setInt(8,trip.getAge());
-            pstmt.setString(9,trip.getUserType());
-            pstmt.setDate(10,new java.sql.Date(trip.getStartDate().getDate()));
-            pstmt.setTime(11,new java.sql.Time(trip.getStartDate().getTime()));
-            pstmt.setDate(12,new java.sql.Date(trip.getEndDate().getDate()));
-            pstmt.setTime(13, new java.sql.Time(trip.getEndDate().getTime()));
-            pstmt.setDouble(14, trip.getDistance());
-            pstmt.setString(15, trip.getDataGroup());
-            pstmt.setObject(16, bosTrip.toByteArray());
+            pstmt.setInt(1,trip.hashCode());
+            pstmt.setInt(2,trip.getDuration());
+            pstmt.setInt(3,trip.getStartStationID());
+            pstmt.setObject(4, bosStartStation.toByteArray());
+            pstmt.setInt(5, trip.getEndStationID());
+            pstmt.setObject(6, bosEndStation);
+            pstmt.setInt(7,trip.getBikeID());
+            pstmt.setString(8,trip.getGender());
+            pstmt.setInt(9,trip.getAge());
+            pstmt.setString(10,trip.getUserType());
+            pstmt.setDate(11,new java.sql.Date(trip.getStartDate().getDate()));
+            pstmt.setTime(12,new java.sql.Time(trip.getStartDate().getTime()));
+            pstmt.setDate(13,new java.sql.Date(trip.getEndDate().getDate()));
+            pstmt.setTime(14, new java.sql.Time(trip.getEndDate().getTime()));
+            pstmt.setDouble(15, trip.getDistance());
+            pstmt.setString(16, trip.getDataGroup());
+            pstmt.setObject(17, bosTrip.toByteArray());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
         System.out.println("trip added");
+    }
+
+
+    /**
+     * Deletes Wifi object based off its hashcode as id
+     * @param wifi Wifi object to be deleted from database
+     */
+    public void deleteWifi(Wifi wifi)
+    {
+        String sql = "DELETE FROM "+ wifi.tableName + " WHERE id = ?";
+        try(Connection conn = DatabaseHandler.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+        pstmt.setInt(1, wifi.hashCode());
+    } catch (SQLException e) {
+            System.out.println(e.getMessage());
+    }
+    }
+
+    /**
+     * Updates a wifi object by deleting it then readding it
+     * @param wifi wifi object to 'update'
+     */
+    public void updateWifi(Wifi wifi)
+    {
+        deleteWifi(wifi);
+        insertWifi(wifi);
+
+    }
+
+    /**
+     * Deletes Retailer object based off its hashcode as id
+     * @param retailer Retailer object to be deleted from database
+     */
+    public void deleteRetailer(Retailer retailer)
+    {
+        String sql = "DELETE FROM "+ retailer.tableName + " WHERE id = ?";
+        try(Connection conn = DatabaseHandler.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, retailer.hashCode());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Updates a Retailer object by deleting it then readding it
+     * @param retailer Retailer object to 'update'
+     */
+    public void updateRetailer(Retailer retailer)
+    {
+        deleteRetailer(retailer);
+        insertRetailer(retailer);
+
+    }
+
+
+    /**
+     * Deletes Station object based off its id
+     * @param station Station object to be deleted from database
+     */
+    public void deleteStation(Station station)
+    {
+        String sql = "DELETE FROM "+ station.tableName + " WHERE id = ?";
+        try(Connection conn = DatabaseHandler.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, station.getId());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Updates a Station object by deleting it then readding it
+     * @param station Station object to 'update'
+     */
+    public void updateStation(Station station)
+    {
+        deleteStation(station);
+        insertStation(station);
+
+    }
+
+    /**
+     * Deletes Trip object based off its hashcode as id
+     * @param trip Trip object to be deleted from database
+     */
+    public void deleteTrip(Trip trip)
+    {
+        String sql = "DELETE FROM "+ trip.tableName + " WHERE id = ?";
+        try(Connection conn = DatabaseHandler.connect();
+            PreparedStatement pstmt = conn.prepareStatement(sql)){
+            pstmt.setInt(1, trip.hashCode());
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    /**
+     * Updates a Trip object by deleting it then readding it
+     * @param trip Trip object to 'update'
+     */
+    public void updateTrip(Trip trip)
+    {
+        deleteTrip(trip);
+        insertTrip(trip);
+
+    }
+
+
+
+    /**
+     * Attempt to use update however is not working at the stage
+     * @param wifi wifiobject to update
+     * @param id id of wifi object (hashcode)
+     */
+    public void updateWifiFailed(Wifi wifi , int id)
+    {
+        System.out.println("in update city = " +wifi.getCity()+" hash = " + wifi.hashCode());
+        String sql = "UPDATE " + Wifi.tableName +
+                " SET " +
+                " burough = ? , "
+                + "type = ? , "
+                + "provider = ? , "
+                + "location = ? , "
+                + "city = ? , "
+                + "SSID = ? , "
+                + "remarks = ? , "
+                + "latitude = ? , "
+                + "longitude = ? , "
+                + "datagroup = ? , "
+                + "obj = ? "
+                + "WHERE id = ?";
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            //ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(wifi);
+            oos.flush();
+            oos.close();
+            bos.close();
+            System.out.println("tick 1");
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+
+        try (Connection conn = DatabaseHandler.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+
+            pstmt.setString(1, wifi.getBorough());
+            pstmt.setString(2, wifi.getType());
+            pstmt.setString(3, wifi.getProvider());
+            pstmt.setString(4, wifi.getLocation());
+            pstmt.setString(5, wifi.getCity());
+            pstmt.setString(6, wifi.getSSID());
+            pstmt.setString(7, wifi.getRemarks());
+            pstmt.setDouble(8, wifi.getLatitude());
+            pstmt.setDouble(9, wifi.getLongitude());
+            pstmt.setString(10, wifi.getDataGroup());
+            pstmt.setObject(11, bos.toByteArray());
+            pstmt.setInt(12 , wifi.hashCode());
+            pstmt.executeUpdate();
+            System.out.println("tick 2");
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("wifi updated");
+
     }
 
 }

@@ -14,23 +14,24 @@ public class Wifi extends Location implements Data, java.io.Serializable{
      * SQL table name
      */
     public static String tableName = "wifi";
+    public static String[] columns = {"id","burough","type","provider","location","city","SSID","remarks","latitude","longitude","datagroup","obj"};
 
     /**
      * SQL script to create wifi table
      */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
-            + "	id integer PRIMARY KEY NOT NULL ,\n"
-            + "	burough text,\n"
-            + "	type text,\n"
-            + "	provider text,\n"
-            + "	location text,\n"
-            + "	city text,\n"
-            + "	SSID text,\n"
-            + "	remarks text,\n"
-            + " latitude real NOT NULL,\n"
-            + " longitude real NOT NULL,\n"
-            + "	datagroup text,\n"
-            + "	obj blob\n"
+            + columns[0] +" integer PRIMARY KEY NOT NULL ,\n"
+            + columns[1] +" text,\n"
+            + columns[2] +"	text,\n"
+            + columns[3] +"	text,\n"
+            + columns[4] +"	text,\n"
+            + columns[5] +"	text,\n"
+            + columns[6] +"	text,\n"
+            + columns[7] +"	text,\n"
+            + columns[8] +" real NOT NULL,\n"
+            + columns[9] +" real NOT NULL,\n"
+            + columns[10] +" text,\n"
+            + columns[11] +" blob\n"
             + ");";
 
     /**

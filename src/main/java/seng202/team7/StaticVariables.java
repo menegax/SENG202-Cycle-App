@@ -12,6 +12,10 @@ public class StaticVariables {
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
 
 
+    public static String singleStringQuery(String tableName, String col, String toMatch)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") = \"" + toMatch.toLowerCase() +"\"";
+    }
 
     public static String steppedQuery(String tableName, int start)
     {
