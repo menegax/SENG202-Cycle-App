@@ -30,7 +30,7 @@ public class MainWindowController implements Initializable{
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //Temporary home panel
+        // Set home panel to default screen
         homeViewer = new HomeWindow();
         centerAnchorPane.getChildren().add(homeViewer);
 
