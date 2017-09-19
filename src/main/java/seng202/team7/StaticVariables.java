@@ -10,6 +10,7 @@ public class StaticVariables {
     private static double defaultDist = 1;
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+    public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
 
     public static String singleStringQuery(String tableName, String col, String toMatch)
