@@ -21,8 +21,13 @@ public class MainWindowController implements Initializable{
     private TripDataViewer tripViewer;
     private DataEntryWindow dataEntryViewer;
 
-    /** Run right before program starts. Can be used to load things in if needed
-     * todo
+    /**
+     * Runs as the program initially starts. Initialises each of the custom
+     * JavaFX panels (loads them into memory) and calls for the navigation bar
+     * to be populated.
+     *
+     * @param location URL of the location
+     * @param resources ResourceBundle of the resources
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -42,7 +47,9 @@ public class MainWindowController implements Initializable{
     }
 
     /**
-     * todo
+     * Populates the navigation bar with all necessary tree items. Also creates
+     * an event listener for whenever a tree item in the navigation bar is clicked.
+     * This listener call and appropriate handler.
      */
     private void populateNavigationBar() {
         // Tree root
@@ -90,7 +97,11 @@ public class MainWindowController implements Initializable{
     }
 
     /**
-     * todo
+     * Creates a new TreeItem<String> representing a branch. The new branch has the
+     * text title in it and is a child of parent.
+     * @param title A String representing the text title for the branch.
+     * @param parent The parent TreeItem<String> of new branch to be created.
+     * @return The newly created branch (TreeItem<String>).
      */
     private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
         TreeItem<String> item = new TreeItem<>(title);
@@ -128,29 +139,32 @@ public class MainWindowController implements Initializable{
     }
 
     /**
-     * Set retailer viewer
-     * todo
+     * Sets the center of the mainBorderPane to display the retailerViewer
+     * custom JavaFX object.
      */
     private void setRetailerViewer() {
         mainBorderPane.setCenter(retailerViewer);
     }
 
     /**
-     * todo
+     * Sets the center of the mainBorderPane to display the tripViewer
+     * custom JavaFX object.
      */
     private void setTripViewer() {
         mainBorderPane.setCenter(tripViewer);
     }
 
     /**
-     * todo
+     * Sets the center of the mainBorderPane to display the wifiViewer
+     * custom JavaFX object.
      */
     private void setWifiViewer() {
         mainBorderPane.setCenter(wifiViewer);
     }
 
     /**
-     * todo
+     * Sets the center of the mainBorderPane to display the dataEntryViewer
+     * custom JavaFX object.
      */
     private void setDataEntry() {
         mainBorderPane.setCenter(dataEntryViewer);
