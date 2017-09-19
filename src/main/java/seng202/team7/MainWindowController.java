@@ -1,63 +1,71 @@
 package seng202.team7;
 
 import javafx.fxml.Initializable;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import sun.reflect.generics.tree.Tree;
 
+import javax.xml.soap.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable{
 
-    public BorderPane mainBorderPane;
-    public TreeView<String> navigationTree;
-
-    public TreeView<String> getNavigationTree() {
-        return navigationTree;
-    }
+    private BorderPane mainBorderPane;
+    private TreeView<String> navigationTree;
+    private RetailerDataViewer retailerViewer;
+    private WifiDataViewer wifiViewer;
+    private TripDataViewer tripViewer;
+    private DataEntryWindow dataEntryViewer;
 
     /** Run right before program starts. Can be used to load things in if needed
+     * todo
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        //RetailerDataViewer retailerViewer = new RetailerDataViewer();
-        //mainBorderPane.setCenter(retailerViewer);
+        //Temporary home panel
+        AnchorPane homeViewer = new AnchorPane();
+        TextField homeText = new TextField();
+        homeViewer.getChildren().add(homeText);
+        mainBorderPane.setCenter(homeViewer);
+
+        // Initialize different custom panels (Saves loading panel again every time panel is changed)
+        retailerViewer = new RetailerDataViewer();
+        wifiViewer = new WifiDataViewer();
+        tripViewer = new TripDataViewer();
+        dataEntryViewer = new DataEntryWindow();
+
         populateNavigationBar();
     }
 
+    /**
+     * todo
+     */
     private void populateNavigationBar() {
         // Tree root
         TreeItem<String> root = new TreeItem<>();
         root.setExpanded(true);
 
         // Home branch
-        TreeItem<String> homeBranch = makeBranch("Home", root);
+        makeBranch("Home", root);
 
         // Route Planner branch
-        TreeItem<String> routePlanningBranch = makeBranch("Route Planning", root);
+        makeBranch("Route Planning", root);
 
         // Analytics branch
-        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
+        makeBranch("Analytics", root);
 
         // Raw Data Viewer branch
-        TreeItem<String> DataViewerBranch = makeBranch("Data Viewer", root);
-        makeBranch("Retailer", DataViewerBranch);
-        //makeBranch("Station", DataViewerBranch);
-        makeBranch("Trip", DataViewerBranch);
-        makeBranch("Wifi", DataViewerBranch);
+        TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
+        makeBranch("Retailer", dataViewerBranch);
+        makeBranch("Trip", dataViewerBranch);
+        makeBranch("Wifi", dataViewerBranch);
 
         // Data Entry branch
-        TreeItem<String> dataEntryBranch = makeBranch("Data Entry", root);
-        //makeBranch("Retailer", dataEntryBranch);
-        //makeBranch("Station", dataEntryBranch);
-        //makeBranch("Trip", dataEntryBranch);
-        //makeBranch("Wifi", dataEntryBranch);
-
-        // Help branch
-        TreeItem<String> helpBranch = makeBranch("Help", root);
-
+        makeBranch("Data Entry", root);
 
         navigationTree.setRoot(root);
         navigationTree.setShowRoot(false);
@@ -67,19 +75,22 @@ public class MainWindowController implements Initializable{
                     if (newValue != null) {
                         String selectedString = newValue.getValue();
                         switch (selectedString) {
-                            case "Data Viewer": setRetailerViewer(); break;
+                            case "Home": setHomeViewer(); break;
+                            case "Route Planning": setRoutePlanningViewer(); break;
+                            case "Analytics": setAnalyticsViewer(); break;
+                            case "Data Viewer": setDataViewerViewer(); break;
                             case "Retailer": setRetailerViewer(); break;
                             case "Trip": setTripViewer(); break;
                             case "Wifi": setWifiViewer(); break;
                             case "Data Entry": setDataEntry(); break;
-                            default: System.out.println("ERROR!");
+                            default: System.out.println("ERROR: No such selection handle exists");
                         }
                     }
-
                 });
     }
 
-    /* Creates branches
+    /**
+     * todo
      */
     private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
         TreeItem<String> item = new TreeItem<>(title);
@@ -87,27 +98,61 @@ public class MainWindowController implements Initializable{
         return item;
     }
 
+    /**
+     * Set home viewer
+     * todo
+     */
+    private void setHomeViewer() {
+        // To implement...
+    }
+
+    /**
+     * todo
+     */
+    private void setRoutePlanningViewer() {
+        // To implement
+    }
+
+    /**
+     * todo
+     */
+    private void setAnalyticsViewer() {
+        // To implement
+    }
+
+    /**
+     * todo
+     */
+    private void setDataViewerViewer() {
+        // To implement
+    }
+
+    /**
+     * Set retailer viewer
+     * todo
+     */
     private void setRetailerViewer() {
-        RetailerDataViewer retailerViewer = new RetailerDataViewer();
-        mainBorderPane.getChildren().removeAll();
         mainBorderPane.setCenter(retailerViewer);
     }
 
+    /**
+     * todo
+     */
     private void setTripViewer() {
-        TripDataViewer tripViewer = new TripDataViewer();
-        mainBorderPane.getChildren().removeAll();
         mainBorderPane.setCenter(tripViewer);
     }
 
+    /**
+     * todo
+     */
     private void setWifiViewer() {
-        WifiDataViewer wifiViewer = new WifiDataViewer();
-        mainBorderPane.getChildren().removeAll();
         mainBorderPane.setCenter(wifiViewer);
     }
 
+    /**
+     * todo
+     */
     private void setDataEntry() {
-        DataEntryWindow dataEntry = new DataEntryWindow();
-        mainBorderPane.getChildren().removeAll();
-        mainBorderPane.setCenter(dataEntry);
+        mainBorderPane.setCenter(dataEntryViewer);
     }
 }
