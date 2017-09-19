@@ -14,8 +14,8 @@ import java.util.ResourceBundle;
 
 public class MainWindowController implements Initializable{
 
-    private BorderPane mainBorderPane;
-    private TreeView<String> navigationTree;
+    public BorderPane mainBorderPane;
+    public TreeView<String> navigationTree;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
     private TripDataViewer tripViewer;
