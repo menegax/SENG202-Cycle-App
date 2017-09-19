@@ -202,7 +202,7 @@ public class InputHandler {
                 }
 
 
-            } catch (NumberFormatException| ArrayIndexOutOfBoundsException e ){
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
                 //System.out.println("Wrong type of data");
@@ -247,13 +247,11 @@ public class InputHandler {
 
         boolean validRetailer = true;
 
-        //System.out.println(Arrays.asList(validCity).contains(retailer.getCity()));
 
-
-        if (!Arrays.asList(validCity).contains(retailer.getCity())) {
+        if (retailer.getCity().length() > 20 || retailer.getCity().length() < 2) {
             validRetailer = false;
         }
-        else if (retailer.getName().length() > 100) {
+        else if (retailer.getName().length() > 30) {
             validRetailer = false;
         }
 
@@ -262,19 +260,17 @@ public class InputHandler {
         else if (!Arrays.asList(validState).contains(retailer.getState())) {
             validRetailer = false;
         }
-        else if (0 > retailer.getZipCode() || retailer.getZipCode() > 1000000) {
+        else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
             validRetailer = false;
         }
-        else if (retailer.getType().length() > 100) {
+        else if (retailer.getType().length() > 30) {
             validRetailer = false;
         }
 
-        /*else if (retailer.getTypeID().length() > 100) {            //unsure how or what this is being used for
+        else if (retailer.getTypeID().length() > 20) {            //unsure how or what this is being used for
             validRetailer = false;
         }
-        else if (retailer.getDataGroup()) {
-            validRetailer = false;
-        }*/
+
 
 
 
@@ -303,7 +299,7 @@ public class InputHandler {
             validTrip = false;
         }
 
-        /*else if (0 >= trip.getBikeID()) {               //not in constructor
+        /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
             validTrip = false;
         }*/
 
@@ -334,10 +330,10 @@ public class InputHandler {
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
             validWifi = false;
         }
-        else if (wifi.getProvider().length() > 100) {
+        else if (wifi.getProvider().length() > 20) {
             validWifi = false;
         }
-        else if (wifi.getLocation().length() > 100) {
+        else if (wifi.getLocation().length() > 20) {
             validWifi = false;
         }
 
@@ -347,14 +343,13 @@ public class InputHandler {
         else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
             validWifi = false;
         }
-        else if (wifi.getRemarks().length() > 100) {
+        else if (wifi.getRemarks().length() > 50) {
             validWifi = false;
         }
-        else if (!Arrays.asList(validCity).contains(wifi.getCity())) {
+        else if (wifi.getCity().length() > 20 || wifi.getCity().length() < 2) {
             validWifi = false;
-            //System.out.println(wifi.getCity());
         }
-        else if (wifi.getSSID().length() > 100) {
+        else if (wifi.getSSID().length() > 20) {
             validWifi = false;
         }
 
@@ -377,7 +372,7 @@ public class InputHandler {
         if (station.getId() <= 0) {
             validStation = false;
         }
-        else if (station.getAddress().length() > 100 || station.getAddress().length() < 0) {
+        else if (station.getAddress().length() > 30 || station.getAddress().length() == 0) {
             validStation = false;
         }
 
