@@ -1,5 +1,8 @@
 package seng202.team7;
 
+
+
+import javafx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -17,41 +20,42 @@ public class DataEntryWindowController {
 
     public Button uploadcsvButton;
     public Button addDataButton;
-    //@FXML
-    //private TextField fileName;
+
 
     @FXML private ComboBox dataEntryComboBox;
 
     // Trip
-    @FXML private TextField startTime;
-    @FXML private TextField endTime;
-    @FXML private TextField bikeID;
+    @FXML private TextField startTimeTextfield;
+    @FXML private TextField endTimeTextfield;
+    @FXML private TextField bikeIDTextfield;
     @FXML private ComboBox userTypeComboBox;
-    @FXML private TextField birthYear;
-    @FXML private TextField gender;
-    @FXML private TextField startStationID;
-    @FXML private TextField endStationID;
+    @FXML private TextField birthYearTextfield;
+    @FXML private TextField genderTextfield;
+    @FXML private TextField startStationIDTextfield;
+    @FXML private TextField endStationIDTextfield;
+    @FXML private DatePicker startDatePicked;
+    @FXML private DatePicker endDatePicked;
 
     // Wifi
-    @FXML private TextField provider;
-    @FXML private TextField typeWifi;
-    @FXML private TextField locationWifi;
-    @FXML private TextField cityWifi;
-    @FXML private TextField borough;
-    @FXML private TextField SSID;
-    @FXML private TextField remarks;
-    @FXML private TextField longitude;
-    @FXML private TextField latitude;
+    @FXML private TextField providerTextfield;
+    @FXML private TextField typeWifiTextfield;
+    @FXML private TextField locationWifiTextfield;
+    @FXML private TextField cityWifiTextfield;
+    @FXML private TextField boroughTextfield;
+    @FXML private TextField SSIDTextfield;
+    @FXML private TextField remarksTextfield;
+    @FXML private TextField longitudeTextfield;
+    @FXML private TextField latitudeTextfield;
 
     // Retailer
-    @FXML private TextField name;
-    @FXML private TextField ZIP;
-    @FXML private TextField state;
-    @FXML private TextField cityRetailer;
-    @FXML private TextField pAddress;
-    @FXML private TextField sAddress;
-    @FXML private TextField typeID;
-    @FXML private TextField typeRetailer;
+    @FXML private TextField nameTextfield;
+    @FXML private TextField ZIPTextfield;
+    @FXML private TextField stateTextfield;
+    @FXML private TextField cityRetailerTextfield;
+    @FXML private TextField pAddressTextfield;
+    @FXML private TextField sAddressTextfield;
+    @FXML private TextField typeIDTextfield;
+    @FXML private TextField typeRetailerTextfield;
 
     /**
      * Loads a file of data from a csv file name provided
@@ -100,68 +104,112 @@ public class DataEntryWindowController {
             //case handling
             switch (dataTypeAdded) {
                 case "trip":
-                    String startTime2 = startTime.getText();                        //year-month-day hour:minute:second
-                    String endTime2 = endTime.getText();                            //year-month-day hour:minute:second
-                    String bikeID2 = bikeID.getText();
-                    String userType2 = (String ) userTypeComboBox.getValue();
-                    int birthYear2 = Integer.parseInt(birthYear.getText());
-                    int gender2 = Integer.parseInt(gender.getText().trim());
-                    int startStationID2 = Integer.parseInt(startStationID.getText());
-                    int endStationID2 = Integer.parseInt(endStationID.getText());
+
+                    String startDate = startDatePicked.getValue().toString();
+                    String endDate = endDatePicked.getValue().toString();
+
+                    String startTime = startTimeTextfield.getText();
+                    String endTime = endTimeTextfield.getText();
+
+                    String start = startDate + " " + startTime;
+                    String end = endDate + " " + endTime;
+
+                    String bikeID = bikeIDTextfield.getText();
+                    String userType = (String ) userTypeComboBox.getValue();
+                    int birthYear = Integer.parseInt(birthYearTextfield.getText());
+                    int startStationID = Integer.parseInt(startStationIDTextfield.getText());
+                    int endStationID = Integer.parseInt(endStationIDTextfield.getText());
+                    int duration = 1;   //derive duration using start and end times etc
+
+                    String genderGiven = genderTextfield.getText();
+                    int gender;
+                    if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M") {
+                        gender = 1;
+                    }
+                    else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F") {
+                        gender = 2;
+                    }
+                    else {
+                        gender = 0;
+                    }
+
 
                     //start and end station address, lat and long derived here, need case handling for if station doesn't exist
-                    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-                    Station start  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID2)).get(0);
-                    Station end  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID2)).get(0);
+                    double startStationLat;
+                    double startStationLong;
+                    String startStationAddress;
+                    double endStationLat;
+                    double endStationLong;
+                    String endStationAddress;
 
-                    double startStationLat = start.getLatitude();
-                    double startStationLong = start.getLongitude();
-                    String startStationAddress = start.getAddress();
-                    Station startStation = new Station(startStationID2, startStationAddress, "default", startStationLat, startStationLong);
+                    try {
+                        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                        Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                        Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+
+                        startStationLat = startQuery.getLatitude();
+                        startStationLong = startQuery.getLongitude();
+                        startStationAddress = startQuery.getAddress();
+
+                        endStationLat = endQuery.getLatitude();
+                        endStationLong = endQuery.getLongitude();
+                        endStationAddress = endQuery.getAddress();
+
+                    } catch (IndexOutOfBoundsException e) {
+                        startStationLat = 0;
+                        startStationLong = 0;
+                        startStationAddress = "default";
+
+                        endStationLat = 0;
+                        endStationLong = 0;
+                        endStationAddress = "default";
+                    }
+
+
+                    Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
                     if (!toTest.checkValidity(startStation)) {
                         //stations not valid
                         break;
                     }
-                    double endStationLat = end.getLatitude();
-                    double endStationLong = end.getLongitude();
-                    String endStationAddress = end.getAddress();
-                    Station endStation = new Station(endStationID2, endStationAddress, "default", endStationLat, endStationLong);
-                    int duration = 0;   //derive duration
+
+                    Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
                     if (!toTest.checkValidity(endStation)) {
                         //stations not valid
                         break;
                     }
 
-                    System.out.println(endStationLat);
-                    System.out.println(endStationLong);
-                    System.out.println(endStationAddress);
-                    System.out.println(userType2);               //for testing
-                    System.out.println(birthYear2);
-                    System.out.println(gender2);
-                    System.out.println(startStationID2);
-                    System.out.println(endStationID2);
+                    /*System.out.println(endStationLat);
+                    System.out.println(userType);               //for testing
+                    System.out.println(birthYear);
+                    System.out.println(gender);
+                    System.out.println(startStationID);
+                    System.out.println(endStationID);
+                    */
 
-                    Trip trip = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
+                    Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, "default");
+                    int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
+                    trip.setDuration(newDuration);           //duration is derived
+
                     if (toTest.checkValidity(trip) == true) {
-                        Data tripToAdd = new Trip(startStation, endStation, duration, startTime2, endTime2, userType2, birthYear2, gender2, "default");
+                        Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
                         toAdd.add(tripToAdd);
                         break;
                     }
                     break;
 
                 case "retailer":
-                    String nameRetailer2 = name.getText();
-                    int ZIP2 = Integer.parseInt(ZIP.getText());
-                    String state2 = state.getText();
-                    String cityRetailer2 = cityRetailer.getText();
-                    String pAddress2 = pAddress.getText();
-                    String sAddress2 = sAddress.getText();
-                    String typeID2 = typeID.getText();
-                    String typeRetailer2 = typeRetailer.getText();
+                    String nameRetailer = nameTextfield.getText();
+                    int ZIP = Integer.parseInt(ZIPTextfield.getText());
+                    String state = stateTextfield.getText();
+                    String cityRetailer = cityRetailerTextfield.getText();
+                    String pAddress = pAddressTextfield.getText();
+                    String sAddress = sAddressTextfield.getText();
+                    String typeID = typeIDTextfield.getText();
+                    String typeRetailer = typeRetailerTextfield.getText();
 
-                    Retailer retailer = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
+                    Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
                     if (toTest.checkValidity(retailer) == true) {
-                        Data retailerToAdd = new Retailer(nameRetailer2, cityRetailer2, pAddress2, sAddress2, state2, ZIP2, typeID2, typeRetailer2, "default");
+                        Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
                         toAdd.add(retailerToAdd);
 
                     }
@@ -182,22 +230,21 @@ public class DataEntryWindowController {
                     break;
 
                 case "wifi":
-                    String provider2 = provider.getText();
-                    String typeWifi2 = typeWifi.getText();
-                    String location2 = locationWifi.getText();
-                    String cityWifi2 = cityWifi.getText();
-                    String borough2 = borough.getText();
-                    String SSID2 = SSID.getText();
-                    String remarks2 = remarks.getText();
-                    double longitude2 = Double.parseDouble(longitude.getText());
-                    double latitude2 = Double.parseDouble(latitude.getText());
-
-                    System.out.println(provider2);
+                    String provider = providerTextfield.getText();
+                    String typeWifi = typeWifiTextfield.getText();
+                    String location = locationWifiTextfield.getText();
+                    String cityWifi = cityWifiTextfield.getText();
+                    String borough = boroughTextfield.getText();
+                    String SSID = SSIDTextfield.getText();
+                    String remarks = remarksTextfield.getText();
+                    double longitude = Double.parseDouble(longitudeTextfield.getText());
+                    double latitude = Double.parseDouble(latitudeTextfield.getText());
 
 
-                    Wifi wifi = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
+
+                    Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
                     if (toTest.checkValidity(wifi) == true) {
-                        Data wifiToAdd = new Wifi(borough2, typeWifi2, provider2, location2, cityWifi2, SSID2, remarks2, "default", longitude2, latitude2);
+                        Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
                         toAdd.add(wifiToAdd);
 
                     }

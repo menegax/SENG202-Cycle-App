@@ -88,28 +88,6 @@ public class InputHandler {
                         String SSID = fields[14];
 
 
-                        //ANNOYING BUG FFS, comma in actual value confuses buffered reader,    FIXED YAY
-                        //Kind of a weird way to check it, but it works so meh
-                        //System.out.println(fields[12]);
-                        //System.out.println(fields[13]);
-
-                        /*String remarks;
-                        String city;
-                        String SSID;
-
-                        try {
-                            String test = fields[29];    //if it sets off a out of array error then add the fields together
-
-                            remarks = fields[12] + "," + fields[13];
-                            city = fields[14];
-                            SSID = fields[15];
-
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            remarks = fields[12];
-                            city = fields[13];
-                            SSID = fields[14];
-                        }*/
-
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
@@ -154,11 +132,11 @@ public class InputHandler {
                         int duration = Integer.parseInt(fields[0]);
                         dataGroup = "default";
                         String userType = fields[12];
-                        int bikeID = Integer.parseInt(fields[11]);                     //not in constructor, do we want it?
-                        int gender = Integer.parseInt(fields[14].trim());
+                        int bikeID = Integer.parseInt(fields[11]);
+                        int gender = Integer.parseInt(fields[14]);
                         int birthYear = Integer.parseInt(fields[13]);
-                        String startDate = fields[1];                //need to implement having this as Date type? not sure whats wanted
-                        String endDate = fields[2];                //need to implement having this as Date type? not sure whats wanted
+                        String startDate = fields[1];
+                        String endDate = fields[2];
 
                         int startStationID = Integer.parseInt(fields[3]);
                         String startStationAddress = fields[4];
@@ -184,8 +162,6 @@ public class InputHandler {
                         if (!checkValidity(endStation)) {
                             break;
                         }
-
-
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
