@@ -1,11 +1,17 @@
 package seng202.team7;
 
+import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import com.sun.java.util.jar.pack.PackerImpl;
 import javafx.collections.FXCollections;
@@ -14,10 +20,9 @@ import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
-
 import java.util.Observable;
 
-public class TripAnalyticController {
+public class TripAnalyticController{
     @FXML
     private Button userButton;
     @FXML private Button timeButton;
@@ -45,22 +50,33 @@ public class TripAnalyticController {
     public void genderGraph()
     {
         bar.setVisible(false);
+        Label caption = new Label("");
+        caption.setTextFill(Color.BLACK);
+        caption.setStyle("-fx-font: 254 arial;");
         String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
         System.out.println(dataGroupToSearch);
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("Male",SQLAnalytics.totalGenderTrips("Male",dataGroupToSearch)));
         pieChartData.add(new PieChart.Data("Female", SQLAnalytics.totalGenderTrips("Female",dataGroupToSearch)));
+        pieChartData.forEach(data -> data.nameProperty().bind(
+                Bindings.concat(data.getName()," ", data.pieValueProperty())
+        ));
         pie.setData(pieChartData);
         pie.setVisible(true);
+
 
     }
 
     public void userGraph()
     {
         bar.setVisible(false);
+        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
         pieChartData.clear();
-        pieChartData.add(new PieChart.Data("Customer",130));
-        pieChartData.add(new PieChart.Data("Temporary", 5));
+        pieChartData.add(new PieChart.Data("Customer",SQLAnalytics.totalUserTypeTrips("Customer",dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("Subscriber", SQLAnalytics.totalUserTypeTrips("Subscriber",dataGroupToSearch)));
+        pieChartData.forEach(data -> data.nameProperty().bind(
+                Bindings.concat(data.getName()," ", data.pieValueProperty())
+        ));
         pie.setData(pieChartData);
         pie.setVisible(true);
     }
@@ -68,6 +84,7 @@ public class TripAnalyticController {
     public void timeGraph()
     {
         pie.setVisible(false);
+        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);
@@ -96,6 +113,7 @@ public class TripAnalyticController {
     public void durationGraph()
     {
         pie.setVisible(false);
+        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);
@@ -104,12 +122,12 @@ public class TripAnalyticController {
         bar.setTitle("Duration of Trips Taken");
 
         barChartData.addAll(
-                new XYChart.Data<>("0 to 15 min", 2),
-                new XYChart.Data<>("15 to 30 min", 3),
-                new XYChart.Data<>("30 to 45 min", 6),
-                new XYChart.Data<>("45 to 60 min", 5),
-                new XYChart.Data<>("1 to 2 hr", 5),
-                new XYChart.Data<>("2hr+", 5)
+                new XYChart.Data<>("0-5 min", SQLAnalytics.totalDurTrips(0,5*60,dataGroupToSearch)),
+                new XYChart.Data<>("5-10 min", SQLAnalytics.totalDurTrips(5*60,10*60,dataGroupToSearch)),
+                new XYChart.Data<>("10-15 min", SQLAnalytics.totalDurTrips(10*60,15*60,dataGroupToSearch)),
+                new XYChart.Data<>("15-30 min", SQLAnalytics.totalDurTrips(15*60,30*60,dataGroupToSearch)),
+                new XYChart.Data<>("30-60 min", SQLAnalytics.totalDurTrips(30*60,60*60,dataGroupToSearch)),
+                new XYChart.Data<>("60+ min", SQLAnalytics.totalDurTrips(60*60,Integer.MAX_VALUE,dataGroupToSearch))
         );
 
         XYChart.Series durationSeries = new XYChart.Series(barChartData);
@@ -122,6 +140,7 @@ public class TripAnalyticController {
     public void distanceGraph()
     {
         pie.setVisible(false);
+        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);
@@ -130,11 +149,11 @@ public class TripAnalyticController {
         bar.setTitle("Distance of Trips Taken");
 
         barChartData.addAll(
-                new XYChart.Data<>("0 to 1", 2),
-                new XYChart.Data<>("1 to 2.5", 3),
-                new XYChart.Data<>("2.5 to 5", 6),
-                new XYChart.Data<>("5 to 10", 5),
-                new XYChart.Data<>("10+", 5)
+                new XYChart.Data<>("0 to 0.5", SQLAnalytics.totalDistTrips(0,500,dataGroupToSearch)),
+                new XYChart.Data<>("0.5 to 1", SQLAnalytics.totalDistTrips(500,1000,dataGroupToSearch)),
+                new XYChart.Data<>("1 to 2.5", SQLAnalytics.totalDistTrips(1000,2500,dataGroupToSearch)),
+                new XYChart.Data<>("2.5 to 5", SQLAnalytics.totalDistTrips(2500,5000,dataGroupToSearch)),
+                new XYChart.Data<>("5+", SQLAnalytics.totalDistTrips(5000,Integer.MAX_VALUE,dataGroupToSearch))
         );
 
         XYChart.Series distanceSeries = new XYChart.Series(barChartData);

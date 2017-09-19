@@ -329,4 +329,29 @@ public class DatabaseRetriever {
         }
         return tripList;
     }
+
+    public void testQueryTrip()
+    {
+        ArrayList<Trip> tripList = new ArrayList<Trip>();
+
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME(\"%H\",startTime) AS \"startHour\", endTime FROM trip")){
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                System.out.println("StartTime: " + rs.getTime("startTime") + "StartHour: " + rs.getString("startHour"));
+                System.out.println("EndTime: " + rs.getTime("endTime"));
+                System.out.println("Distance: " + rs.getDouble("distance"));
+
+
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+
+    }
 }
