@@ -105,7 +105,7 @@ public class DataEntryWindowController {
                     String bikeID2 = bikeID.getText();
                     String userType2 = (String ) userTypeComboBox.getValue();
                     int birthYear2 = Integer.parseInt(birthYear.getText());
-                    String gender2 = gender.getText();
+                    int gender2 = Integer.parseInt(gender.getText().trim());
                     int startStationID2 = Integer.parseInt(startStationID.getText());
                     int endStationID2 = Integer.parseInt(endStationID.getText());
 
