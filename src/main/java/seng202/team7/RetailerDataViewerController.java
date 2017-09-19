@@ -7,6 +7,7 @@ package seng202.team7;
  * Last updated 17/09/17
  */
 
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -23,10 +24,14 @@ import java.util.ResourceBundle;
 
 public class RetailerDataViewerController implements Initializable {
 
+    // Main containers
+    @FXML private AnchorPane dataViewer;
+    @FXML private AnchorPane recordViewer;
+    @FXML private AnchorPane editor;
+
     // Multiple records viewer widgets
     @FXML
     private TableView<Retailer> retailerDataTable;
-
     @FXML
     private TableColumn<Retailer, String> nameColumn;
     @FXML
@@ -44,11 +49,6 @@ public class RetailerDataViewerController implements Initializable {
     @FXML
     private Text noRetailerSelected;
 
-    @FXML
-    private AnchorPane dataViewer;
-    @FXML private AnchorPane recordViewer;
-
-
     // Single record viewer widgets
     @FXML
     private Label nameLabel;
@@ -63,9 +63,21 @@ public class RetailerDataViewerController implements Initializable {
     @FXML
     private Label sTypeLabel;
 
+    // Editor widgets
+
+    @FXML TextField nameEntry;
+    @FXML TextField addressEntry;
+    @FXML TextArea extraAddressEntry;
+    @FXML TextField zipEntry;
+    @FXML TextField pTypeEntry;
+    @FXML ComboBox<String> sTypeEntry;
+
+    // Important attributes for functionality
+
     private int currentRetailerIndex = -1;
     private int loadedData = 0;
     private DatabaseRetriever dbRetriever;
+    private DatabaseUpdater dbUpdater;
     private boolean loadedAll = false;
     private boolean scrollAdded = false;
 
@@ -79,12 +91,12 @@ public class RetailerDataViewerController implements Initializable {
      * @param rb  Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
+
         /**
-         * Used for testing only
-         * DatabaseTester.deleteTables();
-         * DatabaseTester.createTables();
+         *DatabaseTester.deleteTables();
+         *DatabaseTester.createTables();
          */
-        DatabaseUpdater dbUpdater = new DatabaseUpdater();
+        dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
@@ -203,6 +215,7 @@ public class RetailerDataViewerController implements Initializable {
             noRetailerSelected.setVisible(true);
         } else {
             noRetailerSelected.setVisible(false);
+            editor.setVisible(false);
             dataViewer.setVisible(false);
             recordViewer.setVisible(true);
             view(currentRetailerIndex);
@@ -217,5 +230,41 @@ public class RetailerDataViewerController implements Initializable {
         currentRetailerIndex = -1;
         dataViewer.setVisible(true);
         recordViewer.setVisible(false);
+    }
+
+    public void viewEdit() {
+        recordViewer.setVisible(false);
+        editor.setVisible(true);
+        Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
+        nameEntry.setText(retailer.getName());
+        addressEntry.setText(retailer.getPAddress());
+        extraAddressEntry.setText(retailer.getSAddress());
+        zipEntry.setText(Integer.toString(retailer.getZipCode()));
+        // Formatting zip entry to only accept integers
+        zipEntry.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    String formatted = "";
+                    for (int i = 0; i < newValue.length() && i < 5; i++) {
+                        if (Character.isDigit(newValue.charAt(i))) {
+                            formatted += newValue.charAt(i);
+                        }
+                    }
+                    ((StringProperty)observable).setValue(formatted);
+                }
+        );
+        pTypeEntry.setText(retailer.getType());
+        sTypeEntry.getSelectionModel().select(retailer.getTypeID());
+    }
+
+    public void confirmEdit(){
+        Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
+        retailer.setName(nameEntry.getText());
+        retailer.setPAddress(addressEntry.getText());
+        retailer.setSAddress(extraAddressEntry.getText());
+        retailer.setZipCode(Integer.parseInt(zipEntry.getText()));
+        retailer.setType(pTypeEntry.getText());
+        retailer.setTypeID(sTypeEntry.getValue());
+        dbUpdater.updateRetailer(retailer);
+        viewRecord();
     }
 }
