@@ -34,16 +34,19 @@ public class DatabaseTester {
         {
             System.out.println("testing update: " + w.getCity());
         }
-        /*
+
         long sumDuration = SQLAnalytics.totalGroupTripDuration("test");
         long sumDistance = SQLAnalytics.totalGroupTripDistance("test");
-        int genderTrips = SQLAnalytics.totalGenderTrips("Female","test");
+        int genderTripsF = SQLAnalytics.totalGenderTrips("Female","");
+        int genderTripsM = SQLAnalytics.totalGenderTrips("Male","");
         int userTrips = SQLAnalytics.totalUserTypeTrips("Customer","");
-        System.out.println(sumDuration);
-        System.out.println(sumDistance);
-        System.out.println(genderTrips);
-        System.out.println(userTrips);
-        */
+        //System.out.println(sumDuration);
+        //System.out.println(sumDistance);
+        System.out.println("By gender:");
+        System.out.println(genderTripsF);
+        System.out.println(genderTripsM);
+        //System.out.println(userTrips);
+
 
 
         /*
