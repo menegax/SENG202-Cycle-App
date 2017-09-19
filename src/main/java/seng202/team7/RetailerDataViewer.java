@@ -2,7 +2,6 @@ package seng202.team7;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
 /**

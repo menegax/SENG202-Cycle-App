@@ -6,9 +6,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import sun.reflect.generics.tree.Tree;
-
-import javax.xml.soap.Text;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -16,6 +13,7 @@ public class MainWindowController implements Initializable{
 
     public BorderPane mainBorderPane;
     public TreeView<String> navigationTree;
+    private TripAnalyticWindow analyticsViewer;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
     private TripDataViewer tripViewer;
@@ -38,6 +36,7 @@ public class MainWindowController implements Initializable{
         mainBorderPane.setCenter(homeViewer);
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
+        analyticsViewer = new TripAnalyticWindow();
         retailerViewer = new RetailerDataViewer();
         wifiViewer = new WifiDataViewer();
         tripViewer = new TripDataViewer();
@@ -128,7 +127,7 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setAnalyticsViewer() {
-        // To implement
+        mainBorderPane.setCenter(analyticsViewer);
     }
 
     /**
