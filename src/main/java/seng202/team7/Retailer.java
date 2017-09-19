@@ -141,14 +141,14 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     public String getPAddress() {
         return pAddress;
     }
-    public void setpAddress(String pAddress) {
+    public void setPAddress(String pAddress) {
         this.pAddress = pAddress;
     }
 
     public String getSAddress() {
         return sAddress;
     }
-    public void setsAddress(String sAddress) {
+    public void setSAddress(String sAddress) {
         this.sAddress = sAddress;
     }
 
