@@ -13,6 +13,7 @@ public class MainWindowController implements Initializable{
 
     public BorderPane mainBorderPane;
     public TreeView<String> navigationTree;
+    public HomeWindow homeViewer;
     private TripAnalyticWindow analyticsViewer;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
@@ -30,9 +31,7 @@ public class MainWindowController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         //Temporary home panel
-        AnchorPane homeViewer = new AnchorPane();
-        TextField homeText = new TextField();
-        homeViewer.getChildren().add(homeText);
+        homeViewer = new HomeWindow();
         mainBorderPane.setCenter(homeViewer);
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
