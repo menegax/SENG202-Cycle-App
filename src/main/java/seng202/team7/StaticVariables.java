@@ -18,6 +18,11 @@ public class StaticVariables {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") = \"" + toMatch.toLowerCase() +"\"";
     }
 
+    public static  String doubleStringQuery(String tableName, String col1, String match1, String col2, String match2)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+")\""+ match2.toLowerCase()+"\"";
+    }
+
     public static String steppedQuery(String tableName, int start)
     {
         return "SELECT obj FROM " + tableName + " LIMIT " + start + "," + (start+step);
@@ -78,7 +83,7 @@ public class StaticVariables {
      */
     public static String wifiByLocation(double lat, double latOffset, double lon, double lonOffset)
     {
-        System.out.println("latlow: " + (lat-latOffset) + " lathigh" + (lat+latOffset));
+        //System.out.println("latlow: " + (lat-latOffset) + " lathigh" + (lat+latOffset));
         return "SELECT obj FROM "+Wifi.tableName + " WHERE (latitude BETWEEN ("+(lat-latOffset)+") AND ("+(lat+latOffset)+")) AND (longitude BETWEEN ("+(lon-lonOffset)+") AND ("+(lon+lonOffset)+"));";
 
     }
