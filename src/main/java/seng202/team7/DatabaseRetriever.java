@@ -1,10 +1,6 @@
 package seng202.team7;
 
-import com.sun.org.apache.bcel.internal.generic.RET;
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.io.ByteArrayInputStream;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.sql.Connection;
@@ -43,7 +39,7 @@ public class DatabaseRetriever {
                     //station.print();
                     stationList.add(station);
                 } else {
-                    System.out.println("no station");
+                    System.out.println("No station");
                 }
             }
         } catch (SQLException e){
@@ -54,7 +50,7 @@ public class DatabaseRetriever {
     }
 
     /**
-     * gets all wifis in database
+     * Gets all wifis in database
      * @return Arraylist of wifi objects
      */
     public ArrayList<Wifi> getWifiList(){
@@ -81,7 +77,7 @@ public class DatabaseRetriever {
                     wifiList.add(wifi);
                     //wifi.print();
                 } else {
-                    System.out.println("no wifi");
+                    System.out.println("No wifi");
                 }
 
             }
@@ -92,7 +88,7 @@ public class DatabaseRetriever {
     }
 
     /**
-     * Gets the arrayList of all retailers in database
+     * Gets the ArrayList of all retailers in database
      * @return Arraylist of all retailers
      */
     public ArrayList<Retailer> getRetailerList()
@@ -120,7 +116,7 @@ public class DatabaseRetriever {
                     retailerList.add(retailer);
                     //wifi.print();
                 } else {
-                    System.out.println("no retailer");
+                    System.out.println("No retailer");
                 }
 
             }
@@ -131,8 +127,8 @@ public class DatabaseRetriever {
     }
 
     /**
-     * Gets an arraylist of all trips
-     * @return Arraylist of all trip objects
+     * Gets an ArrayList of all trips
+     * @return ArrayList of all trip objects
      */
     public ArrayList<Trip> getTripList()
     {
@@ -160,9 +156,8 @@ public class DatabaseRetriever {
                     tripList.add(trip);
                     //wifi.print();
                 } else {
-                    System.out.println("no trip");
+                    System.out.println("No trip");
                 }
-
             }
         } catch (SQLException e) {
             System.out.println(e.getMessage());
@@ -199,7 +194,7 @@ public class DatabaseRetriever {
                     retailerList.add(retailer);
 
                 } else {
-                    System.out.println("no retailer");
+                    System.out.println("No retailer");
                 }
             }
 
@@ -242,7 +237,7 @@ public class DatabaseRetriever {
                     wifiList.add(wifi);
                     //wifi.print();
                 } else {
-                    System.out.println("no wifi");
+                    System.out.println("No wifi");
                 }
 
             }
@@ -283,7 +278,7 @@ public class DatabaseRetriever {
                     //station.print();
                     stationList.add(station);
                 } else {
-                    System.out.println("no station");
+                    System.out.println("No station");
                 }
             }
         } catch (SQLException e){
@@ -298,7 +293,7 @@ public class DatabaseRetriever {
      * Completes sql query on trip table must have obj in query
      * only returns trip objects
      * @param query full sql query to be run
-     * @return arraylist of trips matching query
+     * @return ArrayList of trips matching query
      */
     public ArrayList<Trip> queryTrip(String query)
     {
@@ -307,7 +302,6 @@ public class DatabaseRetriever {
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(query)){
-
 
             // loop through the result set
             while (rs.next()) {
@@ -326,7 +320,7 @@ public class DatabaseRetriever {
                     tripList.add(trip);
                     //wifi.print();
                 } else {
-                    System.out.println("no trip");
+                    System.out.println("No trip");
                 }
 
             }
@@ -335,6 +329,4 @@ public class DatabaseRetriever {
         }
         return tripList;
     }
-
-
 }

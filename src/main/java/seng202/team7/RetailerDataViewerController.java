@@ -1,6 +1,5 @@
 package seng202.team7;
 
-
 /**
  * Retailer data controller to control raw data viewing of retailer data
  * @author Aidan Smith asm142
@@ -11,7 +10,6 @@ import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -30,41 +28,25 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private AnchorPane editor;
 
     // Multiple records viewer widgets
-    @FXML
-    private TableView<Retailer> retailerDataTable;
-    @FXML
-    private TableColumn<Retailer, String> nameColumn;
-    @FXML
-    private TableColumn<Retailer, String> typeColumn;
-    @FXML
-    private TableColumn<Retailer, String> addressColumn;
-    @FXML
-    private TableColumn<Retailer, Integer> zipColumn;
-    @FXML
-    private ComboBox<String> typeCB;
-    @FXML
-    private ComboBox<String> streetCB;
-    @FXML
-    private ComboBox<String> zipCB;
-    @FXML
-    private Text noRetailerSelected;
+    @FXML private TableView<Retailer> retailerDataTable;
+    @FXML private TableColumn<Retailer, String> nameColumn;
+    @FXML private TableColumn<Retailer, String> typeColumn;
+    @FXML private TableColumn<Retailer, String> addressColumn;
+    @FXML private TableColumn<Retailer, Integer> zipColumn;
+    @FXML private ComboBox<String> typeCB;
+    @FXML private ComboBox<String> streetCB;
+    @FXML private ComboBox<String> zipCB;
+    @FXML private Text noRetailerSelected;
 
     // Single record viewer widgets
-    @FXML
-    private Label nameLabel;
-    @FXML
-    private Label addressLabel;
-    @FXML
-    private Label extraAddressLabel;
-    @FXML
-    private Label zipLabel;
-    @FXML
-    private Label pTypeLabel;
-    @FXML
-    private Label sTypeLabel;
+    @FXML private Label nameLabel;
+    @FXML private Label addressLabel;
+    @FXML private Label extraAddressLabel;
+    @FXML private Label zipLabel;
+    @FXML private Label pTypeLabel;
+    @FXML private Label sTypeLabel;
 
     // Editor widgets
-
     @FXML TextField nameEntry;
     @FXML TextField addressEntry;
     @FXML TextArea extraAddressEntry;
@@ -73,14 +55,12 @@ public class RetailerDataViewerController implements Initializable {
     @FXML ComboBox<String> sTypeEntry;
 
     // Important attributes for functionality
-
     private int currentRetailerIndex = -1;
     private int loadedData = 0;
     private DatabaseRetriever dbRetriever;
     private DatabaseUpdater dbUpdater;
     private boolean loadedAll = false;
     private boolean scrollAdded = false;
-
     private ObservableList<Retailer> retailerList;
     private ObservableList<Retailer> filteredRetailerList;
 
@@ -108,8 +88,8 @@ public class RetailerDataViewerController implements Initializable {
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("pAddress"));
         zipColumn.setCellValueFactory(new PropertyValueFactory<>("zipCode"));
         retailerDataTable.setItems(filteredRetailerList);
-        ArrayList<String> streets = new ArrayList<String>();
-        ArrayList<String> zips = new ArrayList<String>();
+        ArrayList<String> streets = new ArrayList<>();
+        ArrayList<String> zips = new ArrayList<>();
         for (Retailer retailer : retailerList) {
             if (!streets.contains(retailer.getStreet())) {
                 streets.add(retailer.getStreet());
@@ -256,6 +236,9 @@ public class RetailerDataViewerController implements Initializable {
         sTypeEntry.getSelectionModel().select(retailer.getTypeID());
     }
 
+    /**
+     * todo
+     */
     public void confirmEdit(){
         Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
         retailer.setName(nameEntry.getText());
