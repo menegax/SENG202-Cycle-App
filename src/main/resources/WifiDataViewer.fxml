@@ -89,6 +89,9 @@
                   </columns>
                 </TableView>
               </children>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" />
+                     </padding>
             </AnchorPane>
           </items>
         </SplitPane>
