@@ -1,7 +1,6 @@
 package seng202.team7;
 
 import javafx.fxml.Initializable;
-import javafx.scene.control.TextField;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -13,7 +12,8 @@ public class MainWindowController implements Initializable{
 
     public BorderPane mainBorderPane;
     public TreeView<String> navigationTree;
-    public HomeWindow homeViewer;
+    public AnchorPane centerAnchorPane;
+    private HomeWindow homeViewer;
     private TripAnalyticWindow analyticsViewer;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
@@ -32,7 +32,7 @@ public class MainWindowController implements Initializable{
     public void initialize(URL location, ResourceBundle resources) {
         //Temporary home panel
         homeViewer = new HomeWindow();
-        mainBorderPane.setCenter(homeViewer);
+        centerAnchorPane.getChildren().add(homeViewer);
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
         analyticsViewer = new TripAnalyticWindow();
@@ -77,9 +77,22 @@ public class MainWindowController implements Initializable{
 
         navigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
-                    if (newValue != null) {
-                        String selectedString = newValue.getValue();
-                        switch (selectedString) {
+                    if ((newValue != null) && (oldValue != null)) {
+                        String previousSelection = oldValue.getValue();
+                        switch (previousSelection) {
+                            case "Home":removeHomeViewer(); break;
+                            case "Route Planning": removeRoutePlanningViewer(); break;
+                            case "Analytics": removeAnalyticsViewer(); break;
+                            case "Data Viewer": removeDataViewerViewer(); break;
+                            case "Retailer": removeRetailerViewer(); break;
+                            case "Trip": removeTripViewer(); break;
+                            case "Wifi": removeWifiViewer(); break;
+                            case "Data Entry": removeDataEntry(); break;
+                            default: System.out.println("ERROR: No such removal handle exists");
+                        }
+
+                        String currentSelection = newValue.getValue();
+                        switch (currentSelection) {
                             case "Home": setHomeViewer(); break;
                             case "Route Planning": setRoutePlanningViewer(); break;
                             case "Analytics": setAnalyticsViewer(); break;
@@ -88,7 +101,7 @@ public class MainWindowController implements Initializable{
                             case "Trip": setTripViewer(); break;
                             case "Wifi": setWifiViewer(); break;
                             case "Data Entry": setDataEntry(); break;
-                            default: System.out.println("ERROR: No such selection handle exists");
+                            default: System.out.println("ERROR: No such set handle exists");
                         }
                     }
                 });
@@ -107,12 +120,45 @@ public class MainWindowController implements Initializable{
         return item;
     }
 
+    private void removeHomeViewer() {
+        centerAnchorPane.getChildren().remove(homeViewer);
+    }
+
+    private void removeRoutePlanningViewer() {
+        // To implement
+    }
+
+    private void removeAnalyticsViewer() {
+        centerAnchorPane.getChildren().remove(analyticsViewer);
+    }
+
+    private void removeDataViewerViewer() {
+        // To implement
+    }
+
+    private void removeRetailerViewer() {
+        centerAnchorPane.getChildren().remove(retailerViewer);
+    }
+
+    private void removeTripViewer() {
+        centerAnchorPane.getChildren().remove(tripViewer);
+    }
+
+    private void removeWifiViewer() {
+        centerAnchorPane.getChildren().remove(wifiViewer);
+    }
+
+    private void removeDataEntry() {
+        centerAnchorPane.getChildren().remove(dataEntryViewer);
+    }
+
     /**
      * Set home viewer
      * todo
      */
     private void setHomeViewer() {
-        // To implement...
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(homeViewer);
     }
 
     /**
@@ -126,7 +172,8 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setAnalyticsViewer() {
-        mainBorderPane.setCenter(analyticsViewer);
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(analyticsViewer);
     }
 
     /**
@@ -141,7 +188,8 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setRetailerViewer() {
-        mainBorderPane.setCenter(retailerViewer);
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(retailerViewer);
     }
 
     /**
@@ -149,7 +197,8 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setTripViewer() {
-        mainBorderPane.setCenter(tripViewer);
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(tripViewer);
     }
 
     /**
@@ -157,7 +206,8 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setWifiViewer() {
-        mainBorderPane.setCenter(wifiViewer);
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(wifiViewer);
     }
 
     /**
@@ -165,6 +215,7 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setDataEntry() {
-        mainBorderPane.setCenter(dataEntryViewer);
+        centerAnchorPane.getChildren().removeAll();
+        centerAnchorPane.getChildren().add(dataEntryViewer);
     }
 }

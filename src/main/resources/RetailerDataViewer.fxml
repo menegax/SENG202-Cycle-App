@@ -7,9 +7,9 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1150.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.RetailerDataViewerController">
+<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1150.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.RetailerDataViewerController" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
   <children>
-    <AnchorPane fx:id="dataViewer" prefHeight="400.0" prefWidth="1150.0" visible="true" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane fx:id="dataViewer" prefHeight="400.0" prefWidth="1150.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <SplitPane dividerPositions="0.29878048780487804" focusTraversable="true" prefHeight="400.0" prefWidth="1150.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <items>
