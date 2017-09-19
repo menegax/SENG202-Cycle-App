@@ -10,11 +10,17 @@ public class StaticVariables {
     private static double defaultDist = 1;
     public static int currentYear = 2017;
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
+    public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
 
     public static String singleStringQuery(String tableName, String col, String toMatch)
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") = \"" + toMatch.toLowerCase() +"\"";
+    }
+
+    public static  String doubleStringQuery(String tableName, String col1, String match1, String col2, String match2)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+")\""+ match2.toLowerCase()+"\"";
     }
 
     public static String steppedQuery(String tableName, int start)
@@ -77,7 +83,7 @@ public class StaticVariables {
      */
     public static String wifiByLocation(double lat, double latOffset, double lon, double lonOffset)
     {
-        System.out.println("latlow: " + (lat-latOffset) + " lathigh" + (lat+latOffset));
+        //System.out.println("latlow: " + (lat-latOffset) + " lathigh" + (lat+latOffset));
         return "SELECT obj FROM "+Wifi.tableName + " WHERE (latitude BETWEEN ("+(lat-latOffset)+") AND ("+(lat+latOffset)+")) AND (longitude BETWEEN ("+(lon-lonOffset)+") AND ("+(lon+lonOffset)+"));";
 
     }

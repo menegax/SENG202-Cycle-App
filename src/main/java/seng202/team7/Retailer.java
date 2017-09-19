@@ -78,7 +78,6 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     private double longitude;
 
 
-
     public Retailer(String name, String city, String pAddress, String sAddress, String state, int zipCode, String typeID, String type, String dataGroup)
     {
         this.name = name;
