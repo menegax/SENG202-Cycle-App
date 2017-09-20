@@ -88,28 +88,6 @@ public class InputHandler {
                         String SSID = fields[14];
 
 
-                        //ANNOYING BUG FFS, comma in actual value confuses buffered reader,    FIXED YAY
-                        //Kind of a weird way to check it, but it works so meh
-                        //System.out.println(fields[12]);
-                        //System.out.println(fields[13]);
-
-                        /*String remarks;
-                        String city;
-                        String SSID;
-
-                        try {
-                            String test = fields[29];    //if it sets off a out of array error then add the fields together
-
-                            remarks = fields[12] + "," + fields[13];
-                            city = fields[14];
-                            SSID = fields[15];
-
-                        } catch (ArrayIndexOutOfBoundsException e) {
-                            remarks = fields[12];
-                            city = fields[13];
-                            SSID = fields[14];
-                        }*/
-
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         if (checkValidity(wifiDataTest)) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
@@ -154,11 +132,11 @@ public class InputHandler {
                         int duration = Integer.parseInt(fields[0]);
                         dataGroup = "default";
                         String userType = fields[12];
-                        int bikeID = Integer.parseInt(fields[11]);                     //not in constructor, do we want it?
-                        int gender = Integer.parseInt(fields[14].trim());
+                        int bikeID = Integer.parseInt(fields[11]);
+                        int gender = Integer.parseInt(fields[14]);
                         int birthYear = Integer.parseInt(fields[13]);
-                        String startDate = fields[1];                //need to implement having this as Date type? not sure whats wanted
-                        String endDate = fields[2];                //need to implement having this as Date type? not sure whats wanted
+                        String startDate = fields[1];
+                        String endDate = fields[2];
 
                         int startStationID = Integer.parseInt(fields[3]);
                         String startStationAddress = fields[4];
@@ -186,8 +164,6 @@ public class InputHandler {
                         }
 
 
-
-
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
                         if (checkValidity(tripDataTest) == true) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
@@ -202,11 +178,10 @@ public class InputHandler {
                 }
 
 
-            } catch (NumberFormatException| ArrayIndexOutOfBoundsException e ){
+            } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
-                //System.out.println("Wrong type of data");
-
+                System.out.println("Wrong type of data in csv while parsing or creating object");
             }
 
 
@@ -228,7 +203,7 @@ public class InputHandler {
 
 
     /**
-     * Tests an inputted Data objects data individually to see if it is valid, returns true if valid
+     * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
      * @param dataToTest
      * @return
      */
@@ -247,13 +222,11 @@ public class InputHandler {
 
         boolean validRetailer = true;
 
-        //System.out.println(Arrays.asList(validCity).contains(retailer.getCity()));
 
-
-        if (!Arrays.asList(validCity).contains(retailer.getCity())) {
+        if (retailer.getCity().length() > 20 || retailer.getCity().length() < 2) {
             validRetailer = false;
         }
-        else if (retailer.getName().length() > 100) {
+        else if (retailer.getName().length() > 30) {
             validRetailer = false;
         }
 
@@ -262,19 +235,17 @@ public class InputHandler {
         else if (!Arrays.asList(validState).contains(retailer.getState())) {
             validRetailer = false;
         }
-        else if (0 > retailer.getZipCode() || retailer.getZipCode() > 1000000) {
+        else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
             validRetailer = false;
         }
-        else if (retailer.getType().length() > 100) {
+        else if (retailer.getType().length() > 30) {
             validRetailer = false;
         }
 
-        /*else if (retailer.getTypeID().length() > 100) {            //unsure how or what this is being used for
+        else if (retailer.getTypeID().length() > 20) {
             validRetailer = false;
         }
-        else if (retailer.getDataGroup()) {
-            validRetailer = false;
-        }*/
+
 
 
 
@@ -303,7 +274,7 @@ public class InputHandler {
             validTrip = false;
         }
 
-        /*else if (0 >= trip.getBikeID()) {               //not in constructor
+        /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
             validTrip = false;
         }*/
 
@@ -334,10 +305,10 @@ public class InputHandler {
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
             validWifi = false;
         }
-        else if (wifi.getProvider().length() > 100) {
+        else if (wifi.getProvider().length() > 20) {
             validWifi = false;
         }
-        else if (wifi.getLocation().length() > 100) {
+        else if (wifi.getLocation().length() > 20) {
             validWifi = false;
         }
 
@@ -347,14 +318,13 @@ public class InputHandler {
         else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
             validWifi = false;
         }
-        else if (wifi.getRemarks().length() > 100) {
+        else if (wifi.getRemarks().length() > 50) {
             validWifi = false;
         }
-        else if (!Arrays.asList(validCity).contains(wifi.getCity())) {
+        else if (wifi.getCity().length() > 20 || wifi.getCity().length() < 2) {
             validWifi = false;
-            //System.out.println(wifi.getCity());
         }
-        else if (wifi.getSSID().length() > 100) {
+        else if (wifi.getSSID().length() > 20) {
             validWifi = false;
         }
 
@@ -377,7 +347,7 @@ public class InputHandler {
         if (station.getId() <= 0) {
             validStation = false;
         }
-        else if (station.getAddress().length() > 100 || station.getAddress().length() < 0) {
+        else if (station.getAddress().length() > 30 || station.getAddress().length() == 0) {
             validStation = false;
         }
 

@@ -3,24 +3,13 @@ package seng202.team7;
 import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.event.Event;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import com.sun.java.util.jar.pack.PackerImpl;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
-import javafx.fxml.FXML;
-import javafx.scene.chart.*;
-import javafx.scene.control.Button;
-import javafx.scene.text.Text;
-import java.util.Observable;
 
 public class TripAnalyticController{
     @FXML
@@ -29,12 +18,14 @@ public class TripAnalyticController{
     @FXML private Button genderButton;
     @FXML private Button durButton;
     @FXML private Button distButton;
+    @FXML private Button ageButton;
     @FXML private PieChart pie;
     @FXML private BarChart<?,?> bar;
     @FXML private CategoryAxis barX;
     @FXML private NumberAxis barY;
     @FXML private Text title;
     @FXML private TextField datagroupField;
+
 
     ObservableList<PieChart.Data> pieChartData =
             FXCollections.observableArrayList();
@@ -74,6 +65,24 @@ public class TripAnalyticController{
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("Customer",SQLAnalytics.totalUserTypeTrips("Customer",dataGroupToSearch)));
         pieChartData.add(new PieChart.Data("Subscriber", SQLAnalytics.totalUserTypeTrips("Subscriber",dataGroupToSearch)));
+        pieChartData.forEach(data -> data.nameProperty().bind(
+                Bindings.concat(data.getName()," ", data.pieValueProperty())
+        ));
+        pie.setData(pieChartData);
+        pie.setVisible(true);
+    }
+
+    public void ageGraph()
+    {
+        bar.setVisible(false);
+        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        pieChartData.clear();
+        pieChartData.add(new PieChart.Data("0-15",SQLAnalytics.totalAgeTrips(0,15,dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("15-25", SQLAnalytics.totalAgeTrips(15,25,dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("25-35",SQLAnalytics.totalAgeTrips(25,35,dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("35-45", SQLAnalytics.totalAgeTrips(35,45,dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("45-55", SQLAnalytics.totalAgeTrips(45,55,dataGroupToSearch)));
+        pieChartData.add(new PieChart.Data("55+", SQLAnalytics.totalAgeTrips(55,Integer.MAX_VALUE,dataGroupToSearch)));
         pieChartData.forEach(data -> data.nameProperty().bind(
                 Bindings.concat(data.getName()," ", data.pieValueProperty())
         ));

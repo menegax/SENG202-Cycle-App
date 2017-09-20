@@ -138,14 +138,17 @@ public class MainWindowController implements Initializable{
 
     private void removeRetailerViewer() {
         centerAnchorPane.getChildren().remove(retailerViewer);
+        retailerViewer = new RetailerDataViewer();
     }
 
     private void removeTripViewer() {
         centerAnchorPane.getChildren().remove(tripViewer);
+        tripViewer = new TripDataViewer();
     }
 
     private void removeWifiViewer() {
         centerAnchorPane.getChildren().remove(wifiViewer);
+        wifiViewer = new WifiDataViewer();
     }
 
     private void removeDataEntry() {
@@ -157,7 +160,6 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setHomeViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(homeViewer);
     }
 
@@ -172,7 +174,6 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setAnalyticsViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(analyticsViewer);
     }
 
@@ -188,7 +189,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setRetailerViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(retailerViewer);
     }
 
@@ -197,7 +197,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setTripViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(tripViewer);
     }
 
@@ -206,7 +205,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setWifiViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(wifiViewer);
     }
 
@@ -215,7 +213,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setDataEntry() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(dataEntryViewer);
     }
 }

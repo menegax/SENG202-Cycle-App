@@ -21,6 +21,11 @@ import java.util.ResourceBundle;
 
 public class WifiDataViewerController implements Initializable {
 
+    // Main Containers
+    @FXML private AnchorPane dataViewer;
+    @FXML private AnchorPane recordViewer;
+    @FXML private AnchorPane editor;
+
     // Multiple records viewer widgets
     @FXML
     private TableView<Wifi> wifiDataTable;
@@ -32,10 +37,8 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> providerCB;
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> boroughCB;
-
     @FXML private Text noWifiSelected;
-    @FXML private AnchorPane dataViewer;
-    @FXML private AnchorPane recordViewer;
+
 
     // Single record viewer widgets
     @FXML private Label providerLabel;
@@ -45,9 +48,19 @@ public class WifiDataViewerController implements Initializable {
     @FXML private Label nameLabel;
     @FXML private Label remarksLabel;
 
+    // Editor widgets
+    @FXML private TextField providerEntry;
+    @FXML private ComboBox<String> typeEntry;
+    @FXML private TextArea locationEntry;
+    @FXML private ComboBox<String> boroughEntry;
+    @FXML private TextField nameEntry;
+    @FXML private TextArea remarksEntry;
+
+    // Important attributes for functionality
     private int currentWifiIndex = -1;
     private int loadedData = 0;
     private DatabaseRetriever dbRetriever;
+    private DatabaseUpdater dbUpdater;
     private boolean loadedAll = false;
     private boolean scrollAdded = false;
 
@@ -65,7 +78,7 @@ public class WifiDataViewerController implements Initializable {
          * DatabaseTester.deleteTables();
          * DatabaseTester.createTables();
          */
-        DatabaseUpdater dbUpdater = new DatabaseUpdater();
+        dbUpdater = new DatabaseUpdater();
         DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
@@ -174,6 +187,7 @@ public class WifiDataViewerController implements Initializable {
         } else {
             noWifiSelected.setVisible(false);
             dataViewer.setVisible(false);
+            editor.setVisible(false);
             recordViewer.setVisible(true);
             view(currentWifiIndex);
         }
@@ -187,5 +201,29 @@ public class WifiDataViewerController implements Initializable {
         currentWifiIndex = -1;
         dataViewer.setVisible(true);
         recordViewer.setVisible(false);
+    }
+
+    public void viewEdit() {
+        recordViewer.setVisible(false);
+        editor.setVisible(true);
+        Wifi wifi = filteredWifiList.get(currentWifiIndex);
+        providerEntry.setText(wifi.getProvider());
+        typeEntry.getSelectionModel().select(wifi.getType());
+        locationEntry.setText(wifi.getLocation());
+        boroughEntry.getSelectionModel().select(wifi.getBorough());
+        // implementing?? nameEntry.setText(wifi.getName());
+        remarksEntry.setText(wifi.getRemarks());
+    }
+
+    public void confirmEdit(){
+        Wifi wifi = filteredWifiList.get(currentWifiIndex);
+        wifi.setProvider(providerEntry.getText());
+        wifi.setType(typeEntry.getValue());
+        wifi.setLocation(locationEntry.getText());
+        wifi.setBorough(boroughEntry.getValue());
+        // wifi.setName(nameEntry.getText());
+        wifi.setRemarks(remarksEntry.getText());
+        dbUpdater.updateWifi(wifi);
+        viewRecord();
     }
 }
