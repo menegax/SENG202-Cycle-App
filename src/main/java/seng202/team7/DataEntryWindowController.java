@@ -15,7 +15,10 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 
-
+/**
+ * Controls manual data entry and data uploaded via csv
+ * @author Lachlan Brewster
+ */
 public class DataEntryWindowController {
 
     public Button uploadcsvButton;
@@ -90,7 +93,7 @@ public class DataEntryWindowController {
     }
 
     /**
-     * Loads manually inputted data and adds to database
+     * Loads manually inputted retailer data and adds to database
      * @param event
      */
     public void add_r_button(ActionEvent event) {
@@ -129,7 +132,10 @@ public class DataEntryWindowController {
     }
 
 
-
+    /**
+     * Loads manually inputted wifi data and adds to database
+     * @param event
+     */
     public void add_w_button(ActionEvent event) {
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
@@ -167,7 +173,10 @@ public class DataEntryWindowController {
     }
 
 
-
+    /**
+     * Loads manually inputted trip data and adds to database
+     * @param event
+     */
     public void add_t_button(ActionEvent event) {
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
@@ -196,10 +205,10 @@ public class DataEntryWindowController {
 
             String genderGiven = genderTextfield.getText();
             int gender;
-            if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M") {
+            if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M" || genderGiven == "m") {
                 gender = 1;
             }
-            else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F") {
+            else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F" || genderGiven == "f") {
                 gender = 2;
             }
             else {

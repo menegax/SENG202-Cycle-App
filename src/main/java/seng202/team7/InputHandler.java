@@ -7,20 +7,16 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-
+/**
+ * Handles the parsing of csv files then creates the relevant objects
+ * @author Lachlan Brewster
+ */
 public class InputHandler {
 
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
     private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
-    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", ""};
-    private String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
-            "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
-            "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
-            "Glen Oaks", "Woodhaven", "Bellerose", "Hollis", "Little Neck", "Broad Channel", "South Ozone Park", "Ozone Park",
-            "Rockaway Park", "Long Island City", "Middle Village", "Jamaica", "Glendale", "Woodside", "Richmond Hill", "Forest Hills",
-            "Elmhurst", "Bayside", "Flushing", "Saint Albans"};
-    //ON CITI BIKE IT HAS BEEN TAKING NEIGHBOURHOODS AS CITIES, ONLY 300/2500 OR SO, DO WE REALLY WANT THEM? IT'S VALID DATA I SUPPOSE
+    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber"};
     private String validState[] = {"NY"};
     private int counter = 0;                          //for testing how many objects were created etc
 
