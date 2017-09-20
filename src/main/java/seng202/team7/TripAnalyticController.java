@@ -23,8 +23,7 @@ import javafx.scene.text.Text;
 import java.util.Observable;
 
 public class TripAnalyticController{
-    @FXML
-    private Button userButton;
+    @FXML private Button userButton;
     @FXML private Button timeButton;
     @FXML private Button genderButton;
     @FXML private Button durButton;
