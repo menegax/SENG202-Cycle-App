@@ -21,7 +21,7 @@
                     <PieChart fx:id="pie" layoutY="80.0" visible="false" />
                     <Button fx:id="genderButton" layoutX="589.0" layoutY="343.0" mnemonicParsing="false" onMouseClicked="#genderGraph" text="Gender" />
                     <Button fx:id="userButton" layoutX="589.0" layoutY="304.0" mnemonicParsing="false" onMouseClicked="#userGraph" text="UserType" />
-                    <Button fx:id="timeButton" layoutX="591.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#timeGraph" text="Time of Day" />
+                    <Button fx:id="timeButton" visible="false" layoutX="591.0" layoutY="382.0" mnemonicParsing="false" onMouseClicked="#timeGraph" text="Time of Day" />
                     <Button fx:id="durButton" layoutX="591.0" layoutY="233.0" mnemonicParsing="false" onMouseClicked="#durationGraph" text="Duration" />
                     <Button fx:id="distButton" layoutX="591.0" layoutY="198.0" mnemonicParsing="false" onMouseClicked="#distanceGraph" text="Distance" />
                     <Text fx:id="title" layoutX="258.0" layoutY="59.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Trip Analytics">
