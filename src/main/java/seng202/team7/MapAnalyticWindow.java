@@ -13,7 +13,7 @@ public class MapAnalyticWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("mapAnalyticWindow.fxml"));
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapAnalyticWindow.fxml"));
 
         primaryStage.setTitle("Meraki Bikes");
         primaryStage.setScene(new Scene(root));
