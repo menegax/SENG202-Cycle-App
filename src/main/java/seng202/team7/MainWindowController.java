@@ -14,7 +14,6 @@ public class MainWindowController implements Initializable{
     public TreeView<String> navigationTree;
     public AnchorPane centerAnchorPane;
     private HomeWindow homeViewer;
-    private TripAnalyticWindow analyticsViewer;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
     private TripDataViewer tripViewer;
@@ -37,7 +36,6 @@ public class MainWindowController implements Initializable{
         centerAnchorPane.getChildren().add(homeViewer);
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
-        analyticsViewer = new TripAnalyticWindow();
         retailerViewer = new RetailerDataViewer();
         wifiViewer = new WifiDataViewer();
         tripViewer = new TripDataViewer();
