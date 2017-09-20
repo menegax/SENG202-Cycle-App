@@ -25,7 +25,7 @@ public class AppTest extends TestCase
     public static Test suite()
     {
 
-        return new TestSuite( AppTest.class, InputHandlerTest.class );
+        return new TestSuite( AppTest.class, InputHandlerTest.class, TripTest.class );
     }
 
     /**

@@ -34,11 +34,6 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-            <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#addDataButton" text="Add Data" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Button>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Trip " GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,9 +68,9 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Station ID" GridPane.columnIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bike ID" GridPane.columnIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Type" GridPane.columnIndex="7" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" GridPane.columnIndex="8" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YOB" GridPane.columnIndex="8" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" GridPane.columnIndex="9" />
-            <TextField fx:id="startTimeTextfield" prefHeight="25.0" prefWidth="30.0" GridPane.columnIndex="1">
+            <TextField fx:id="startTimeTextfield" prefHeight="25.0" prefWidth="30.0" promptText="HH:MM:SS" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" top="50.0" />
                </GridPane.margin>
@@ -83,7 +78,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="endTimeTextfield" GridPane.columnIndex="3">
+            <TextField fx:id="endTimeTextfield" promptText="HH:MM:SS" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -114,7 +109,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <TextField fx:id="birthYearTextfield" GridPane.columnIndex="8">
+            <TextField fx:id="birthYearTextfield" promptText="YYYY" GridPane.columnIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -239,7 +234,22 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Button>
-            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Data type" visibleRowCount="3" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+            <Button fx:id="add_r_button" mnemonicParsing="false" onAction="#add_r_button" text="Add retailer" GridPane.columnIndex="10" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="add_t_button" mnemonicParsing="false" onAction="#add_t_button" text="Add trip" GridPane.columnIndex="10" GridPane.rowIndex="0">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="add_w_button" mnemonicParsing="false" onAction="#add_w_button" text="Add wifi" GridPane.columnIndex="10" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Data type" visibleRowCount="3" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="retailer" />
