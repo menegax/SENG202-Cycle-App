@@ -108,7 +108,8 @@ public class Trip extends Location implements Data, java.io.Serializable {
             System.out.println(e.getMessage());
         }
         this.userType = userType;
-        this.age = StaticVariables.currentYear - birthYear;
+        this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;
+        System.out.println("age:" + this.age);
         if (gender == 0) {
             this.gender = "Unknown";
         } else if (gender == 1 ) {
