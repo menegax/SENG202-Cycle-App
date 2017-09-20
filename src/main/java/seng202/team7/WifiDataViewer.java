@@ -25,14 +25,4 @@ public class WifiDataViewer extends AnchorPane {
             throw new RuntimeException(exception);
         }
     }
-
-    public void reload() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("WifiDataViewer.fxml"));
-        fxmlLoader.setRoot(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
-    }
 }
