@@ -138,12 +138,12 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bike ID:" GridPane.columnIndex="1" GridPane.rowIndex="9" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Type:" GridPane.columnIndex="1" GridPane.rowIndex="10" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Year:" GridPane.columnIndex="1" GridPane.rowIndex="11" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" GridPane.columnIndex="1" GridPane.rowIndex="12" />
             <Label id="endTime" fx:id="endTimeLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="8" />
             <Label fx:id="bikeIDLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="9" />
             <Label fx:id="userTypeLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="10" />
-            <Label fx:id="birthYearLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="11" />
+            <Label fx:id="ageLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="11" />
             <Label fx:id="genderLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="12" />
             <Button mnemonicParsing="false" onAction="#viewTable" text="View Table" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#viewEdit" text="Edit Trip" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -190,7 +190,7 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Time:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bike ID:" GridPane.columnIndex="1" GridPane.rowIndex="8" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Type:" GridPane.columnIndex="1" GridPane.rowIndex="9" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Birth Year:" GridPane.columnIndex="1" GridPane.rowIndex="10" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Age:" GridPane.columnIndex="1" GridPane.rowIndex="10" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender:" GridPane.columnIndex="1" GridPane.rowIndex="11" />
             <Button mnemonicParsing="false" onAction="#viewRecord" text="Cancel" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
             <Button mnemonicParsing="false" onAction="#confirmEdit" text="Confirm" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
@@ -211,7 +211,7 @@
                 </FXCollections>
               </items>
             </ComboBox>
-            <TextField fx:id="birthYearEntry" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
+            <TextField fx:id="ageEntry" prefWidth="200.0" GridPane.columnIndex="2" GridPane.rowIndex="10" />
             <ComboBox fx:id="genderEntry" GridPane.columnIndex="2" GridPane.rowIndex="11">
               <items>
                 <FXCollections fx:factory="observableArrayList">
