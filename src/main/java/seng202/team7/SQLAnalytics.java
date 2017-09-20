@@ -76,6 +76,37 @@ public class SQLAnalytics {
         return totalTime;
     }
 
+
+    public static int totalAgeTrips(int lowAge, int highAge, String datagroup)
+    {
+        int trips = 0;
+        String sql;
+
+        if(datagroup != ""){
+            sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
+                    + " WHERE datagroup = \""+datagroup+"\" \n" +
+                    " AND age BETWEEN " + lowAge +" AND "+ highAge+";";
+        } else {
+            sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
+                    + " WHERE age BETWEEN " + lowAge +" AND "+ highAge+";";
+        }
+
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            while (rs.next()){
+                trips = rs.getInt("sum");
+            }
+
+        } catch (SQLException e){
+            System.out.println("SQLAnalytic Error totalUserTrips");
+            System.out.println(e.getMessage());
+        }
+
+        return trips;
+    }
+
     /**
      * Returns the total number of trips done by a certain gender can specify a data group to use
      * @param gender gender to search for ("Male", "Female", "Other")
