@@ -81,7 +81,6 @@ public class WifiDataViewerController implements Initializable {
          * DatabaseTester.createTables();
          */
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
         wifiList = FXCollections.observableArrayList(wifiArrayList);

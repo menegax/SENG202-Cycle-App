@@ -101,7 +101,6 @@ public class TripDataViewerController implements Initializable {
          * DatabaseTester.createTables();
          */
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
         tripList = FXCollections.observableArrayList(tripArrayList);
@@ -376,7 +375,7 @@ public class TripDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-
+            
         }
     }
 }
