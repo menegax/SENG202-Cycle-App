@@ -4,19 +4,20 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-public class MapAnalyticWindow extends Application {
-    public static void main(String[] args) {
-        launch(args);
-    }
+import java.io.IOException;
 
-    @Override
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapAnalyticWindow.fxml"));
+public class MapAnalyticWindow extends AnchorPane {
 
-        primaryStage.setTitle("Meraki Bikes");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
+    public MapAnalyticWindow(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("MapAnalyticWindow.fxml"));
+        fxmlLoader.setRoot(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
 }

@@ -19,6 +19,8 @@ public class MainWindowController implements Initializable{
     private WifiDataViewer wifiViewer;
     private TripDataViewer tripViewer;
     private DataEntryWindow dataEntryViewer;
+    private MapAnalyticWindow mapViewer;
+    private TripAnalyticWindow graphViewer;
 
     /**
      * Runs as the program initially starts. Initialises each of the custom
@@ -40,6 +42,8 @@ public class MainWindowController implements Initializable{
         wifiViewer = new WifiDataViewer();
         tripViewer = new TripDataViewer();
         dataEntryViewer = new DataEntryWindow();
+        mapViewer = new MapAnalyticWindow();
+        graphViewer = new TripAnalyticWindow();
 
         populateNavigationBar();
     }
@@ -61,7 +65,9 @@ public class MainWindowController implements Initializable{
         makeBranch("Route Planning", root);
 
         // Analytics branch
-        makeBranch("Analytics", root);
+        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
+        makeBranch("Map View", analyticsBranch);
+        makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
         TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
@@ -83,6 +89,8 @@ public class MainWindowController implements Initializable{
                             case "Home":removeHomeViewer(); break;
                             case "Route Planning": removeRoutePlanningViewer(); break;
                             case "Analytics": removeAnalyticsViewer(); break;
+                            case "Map View": removeMapViewer(); break;
+                            case "Graph View": removeGraphView(); break;
                             case "Data Viewer": removeDataViewerViewer(); break;
                             case "Retailer": removeRetailerViewer(); break;
                             case "Trip": removeTripViewer(); break;
@@ -96,6 +104,8 @@ public class MainWindowController implements Initializable{
                             case "Home": setHomeViewer(); break;
                             case "Route Planning": setRoutePlanningViewer(); break;
                             case "Analytics": setAnalyticsViewer(); break;
+                            case "Map View": setMapViewer(); break;
+                            case "Graph View": setGraphView(); break;
                             case "Data Viewer": setDataViewerViewer(); break;
                             case "Retailer": setRetailerViewer(); break;
                             case "Trip": setTripViewer(); break;
@@ -129,7 +139,15 @@ public class MainWindowController implements Initializable{
     }
 
     private void removeAnalyticsViewer() {
-        centerAnchorPane.getChildren().remove(analyticsViewer);
+        // To implement
+    }
+
+    private void removeMapViewer() {
+        centerAnchorPane.getChildren().remove(mapViewer);
+    }
+
+    private void removeGraphView() {
+        centerAnchorPane.getChildren().remove(graphViewer);
     }
 
     private void removeDataViewerViewer() {
@@ -174,7 +192,15 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setAnalyticsViewer() {
-        centerAnchorPane.getChildren().add(analyticsViewer);
+        // To implement
+    }
+
+    private void setMapViewer() {
+        centerAnchorPane.getChildren().add(mapViewer);
+    }
+
+    private void setGraphView() {
+        centerAnchorPane.getChildren().add(graphViewer);
     }
 
     /**
