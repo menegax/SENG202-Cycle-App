@@ -59,7 +59,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private Label endTimeLabel;
     @FXML private Label bikeIDLabel;
     @FXML private Label userTypeLabel;
-    @FXML private Label birthYearLabel;
+    @FXML private Label ageLabel;
     @FXML private Label genderLabel;
 
     // Editor widgets
@@ -73,7 +73,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private DatePicker endDateEntry;
     @FXML private TextField bikeIDEntry;
     @FXML private ComboBox<String> userTypeEntry;
-    @FXML private TextField birthYearEntry;
+    @FXML private TextField ageEntry;
     @FXML private ComboBox<String> genderEntry;
     @FXML private Text incorrectFormat;
     @FXML private Text formatTimes;
@@ -177,7 +177,7 @@ public class TripDataViewerController implements Initializable {
         endTimeLabel.setText(endDate[3]);
         bikeIDLabel.setText(Integer.toString(trip.getBikeID()));
         userTypeLabel.setText(trip.getUserType());
-        // need to change this birthYearLabel.setText(trip.getAge());
+        ageLabel.setText(Integer.toString(trip.getAge()));
         genderLabel.setText(trip.getGender());
     }
 
@@ -249,7 +249,7 @@ public class TripDataViewerController implements Initializable {
         endTimeEntry.setText(endDate[3]);
         bikeIDEntry.setText(Integer.toString(trip.getBikeID()));
         userTypeEntry.getSelectionModel().select(trip.getUserType());
-        // birthYearEntry.setText(Integer.toString(trip.getAge()));
+        ageEntry.setText(Integer.toString(trip.getAge()));
         genderEntry.getSelectionModel().select(trip.getGender());
         // Formatting zip entry to only accept integers
         startIDEntry.textProperty().addListener(
@@ -285,7 +285,7 @@ public class TripDataViewerController implements Initializable {
                     ((StringProperty)observable).setValue(formatted);
                 }
         );
-        birthYearEntry.textProperty().addListener(
+        ageEntry.textProperty().addListener(
                 (observable, oldValue, newValue) -> {
                     String formatted = "";
                     for (int i = 0; i < newValue.length() && i < 4; i++) {
@@ -360,7 +360,7 @@ public class TripDataViewerController implements Initializable {
                     trip.setEndDate(endTime);
                     trip.setBikeID(Integer.valueOf(bikeIDEntry.getText()));
                     trip.setUserType(userTypeEntry.getSelectionModel().getSelectedItem());
-                    // trip.setAge(Integer.valueOf(birthYearEntry.getText()));
+                    trip.setAge(Integer.valueOf(ageEntry.getText()));
                     trip.setGender(genderEntry.getSelectionModel().getSelectedItem());
                     dbUpdater.updateTrip(trip);
                     viewRecord();
@@ -375,7 +375,7 @@ public class TripDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-            
+
         }
     }
 }
