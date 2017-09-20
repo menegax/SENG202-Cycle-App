@@ -24,9 +24,9 @@ public class DatabaseTester {
 
         for(Wifi w : databaseRetriever.getWifiList())
         {
-            w.setCity("Changed");
-            w.setBorough("WOW");
-            w.setLatitude(0.789);
+            //w.setCity("Changed");
+            //w.setBorough("WOW");
+            //w.setLatitude(0.789);
             databaseUpdater.updateWifi(w);
         }
         System.out.println("after change");
@@ -117,7 +117,7 @@ public class DatabaseTester {
 
 
         Trip t1 = new Trip(s1,s2,4345,"2015-10-01 05:22:42","2015-10-01 00:38:42", "customer", 1990, 0, "kl");
-        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 1934, 1, "test");
+        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 34, 1, "test");
         Trip t3 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 2, "test");
 
 
