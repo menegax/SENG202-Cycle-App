@@ -181,7 +181,7 @@ public class InputHandler {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
-                System.out.println("Wrong type of data in csv while parsing or creating object");
+                System.out.println("Wrong type of data in csv while parsing or creating object, could be a blank field?");
             }
 
 

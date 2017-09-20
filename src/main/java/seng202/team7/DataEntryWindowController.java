@@ -19,7 +19,10 @@ import java.util.ArrayList;
 public class DataEntryWindowController {
 
     public Button uploadcsvButton;
-    public Button addDataButton;
+    public Button add_r_button;
+    public Button add_w_button;
+    public Button add_t_button;
+
 
 
     @FXML private ComboBox dataEntryComboBox;
@@ -65,13 +68,8 @@ public class DataEntryWindowController {
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         ArrayList<Data> toAdd = null;
-
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-        /*
-        String csvFile = fileName.getText();
-        csvFile = csvFile  + ".csv";
-        */
 
         String csvFile;
         Stage stage = new Stage();
@@ -95,172 +93,184 @@ public class DataEntryWindowController {
      * Loads manually inputted data and adds to database
      * @param event
      */
-    public void addDataButton(ActionEvent event) {
+    public void add_r_button(ActionEvent event) {
 
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
-        String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
 
         try {
-            //case handling
-            switch (dataTypeAdded) {
-                case "trip":
 
-                    String startDate = startDatePicked.getValue().toString();
-                    String endDate = endDatePicked.getValue().toString();
+            String nameRetailer = nameTextfield.getText();
+            int ZIP = Integer.parseInt(ZIPTextfield.getText());
+            String state = stateTextfield.getText();
+            String cityRetailer = cityRetailerTextfield.getText();
+            String pAddress = pAddressTextfield.getText();
+            String sAddress = sAddressTextfield.getText();
+            String typeID = typeIDTextfield.getText();
+            String typeRetailer = typeRetailerTextfield.getText();
 
-                    String startTime = startTimeTextfield.getText();
-                    String endTime = endTimeTextfield.getText();
-
-                    String start = startDate + " " + startTime;
-                    String end = endDate + " " + endTime;
-
-                    String bikeID = bikeIDTextfield.getText();
-                    String userType = (String ) userTypeComboBox.getValue();
-                    int birthYear = Integer.parseInt(birthYearTextfield.getText());
-                    int startStationID = Integer.parseInt(startStationIDTextfield.getText());
-                    int endStationID = Integer.parseInt(endStationIDTextfield.getText());
-                    int duration = 1;   //derive duration using start and end times etc
-
-                    String genderGiven = genderTextfield.getText();
-                    int gender;
-                    if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M") {
-                        gender = 1;
-                    }
-                    else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F") {
-                        gender = 2;
-                    }
-                    else {
-                        gender = 0;
-                    }
-
-
-                    //start and end station address, lat and long derived here, need case handling for if station doesn't exist
-                    double startStationLat;
-                    double startStationLong;
-                    String startStationAddress;
-                    double endStationLat;
-                    double endStationLong;
-                    String endStationAddress;
-
-                    try {
-                        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-                        Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
-                        Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
-
-                        startStationLat = startQuery.getLatitude();
-                        startStationLong = startQuery.getLongitude();
-                        startStationAddress = startQuery.getAddress();
-
-                        endStationLat = endQuery.getLatitude();
-                        endStationLong = endQuery.getLongitude();
-                        endStationAddress = endQuery.getAddress();
-
-                    } catch (IndexOutOfBoundsException e) {
-                        System.out.println("station isn't in database yet to derive values");
-
-                        startStationLat = 0;
-                        startStationLong = 0;
-                        startStationAddress = "default";
-
-                        endStationLat = 0;
-                        endStationLong = 0;
-                        endStationAddress = "default";
-                    }
-
-
-                    Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
-                    if (!toTest.checkValidity(startStation)) {
-                        //stations not valid
-                        break;
-                    }
-
-                    Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
-                    if (!toTest.checkValidity(endStation)) {
-                        //stations not valid
-                        break;
-                    }
-
-                    /*System.out.println(endStationLat);
-                    System.out.println(userType);               //for testing
-                    System.out.println(birthYear);
-                    System.out.println(gender);
-                    System.out.println(startStationID);
-                    System.out.println(endStationID);
-                    */
-
-                    Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, "default");
-                    int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
-                    trip.setDuration(newDuration);           //duration is derived
-
-                    if (toTest.checkValidity(trip) == true) {
-                        Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
-                        toAdd.add(tripToAdd);
-                        break;
-                    }
-                    break;
-
-                case "retailer":
-                    String nameRetailer = nameTextfield.getText();
-                    int ZIP = Integer.parseInt(ZIPTextfield.getText());
-                    String state = stateTextfield.getText();
-                    String cityRetailer = cityRetailerTextfield.getText();
-                    String pAddress = pAddressTextfield.getText();
-                    String sAddress = sAddressTextfield.getText();
-                    String typeID = typeIDTextfield.getText();
-                    String typeRetailer = typeRetailerTextfield.getText();
-
-                    Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-                    if (toTest.checkValidity(retailer) == true) {
-                        Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-                        toAdd.add(retailerToAdd);
-
-                    }
-
-                /*System.out.println(retailer.getTypeID());
-                System.out.println(retailer.getType());
-                System.out.println(retailer.getPAddress());
-                System.out.println(retailer.getSAddress());
-                System.out.println(retailer.getState());         for testing
-                System.out.println(retailer.getZipCode());
-                System.out.println(retailer.getName());
-                System.out.println(retailer.getLongitude());
-                System.out.println(retailer.getLatitude());
-                System.out.println(retailer.getStreet());
-                System.out.println(retailer.getCity());
-                */
-
-                    break;
-
-                case "wifi":
-                    String provider = providerTextfield.getText();
-                    String typeWifi = typeWifiTextfield.getText();
-                    String location = locationWifiTextfield.getText();
-                    String cityWifi = cityWifiTextfield.getText();
-                    String borough = boroughTextfield.getText();
-                    String SSID = SSIDTextfield.getText();
-                    String remarks = remarksTextfield.getText();
-                    double longitude = Double.parseDouble(longitudeTextfield.getText());
-                    double latitude = Double.parseDouble(latitudeTextfield.getText());
-
-
-
-                    Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-                    if (toTest.checkValidity(wifi) == true) {
-                        Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-                        toAdd.add(wifiToAdd);
-
-                    }
-
-                    break;
+            Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
+            if (toTest.checkValidity(retailer) == true) {
+                Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
+                toAdd.add(retailerToAdd);
+            } else {
+                System.out.println("Invalid retailer");
             }
+
+
         } catch (NumberFormatException | NullPointerException e) {
             //e.printStackTrace();
-            System.out.println("Not enough data inputted, maybe wrong data type selected?");
+            System.out.println("Not enough retailer data or incorrect data inputted");
         }
 
         dataUploader.addData(toAdd);
     }
+
+
+
+    public void add_w_button(ActionEvent event) {
+
+        ArrayList<Data> toAdd = new ArrayList<Data>();
+        InputHandler toTest = new InputHandler();
+        DatabaseUpdater dataUploader = new DatabaseUpdater();
+
+
+        try {
+
+            String provider = providerTextfield.getText();
+            String typeWifi = typeWifiTextfield.getText();
+            String location = locationWifiTextfield.getText();
+            String cityWifi = cityWifiTextfield.getText();
+            String borough = boroughTextfield.getText();
+            String SSID = SSIDTextfield.getText();
+            String remarks = remarksTextfield.getText();
+            double longitude = Double.parseDouble(longitudeTextfield.getText());
+            double latitude = Double.parseDouble(latitudeTextfield.getText());
+
+
+            Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
+            if (toTest.checkValidity(wifi) == true) {
+                Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
+                toAdd.add(wifiToAdd);
+            } else {
+                System.out.println("Invalid wifi");
+            }
+
+        } catch (NumberFormatException | NullPointerException e) {
+            //e.printStackTrace();
+            System.out.println("Not enough wifi data or incorrect data inputted");
+        }
+
+        dataUploader.addData(toAdd);
+    }
+
+
+
+    public void add_t_button(ActionEvent event) {
+
+        ArrayList<Data> toAdd = new ArrayList<Data>();
+        InputHandler toTest = new InputHandler();
+        DatabaseUpdater dataUploader = new DatabaseUpdater();
+        Boolean data_valid = true;
+
+        try {
+
+
+            String startDate = startDatePicked.getValue().toString();
+            String endDate = endDatePicked.getValue().toString();
+
+            String startTime = startTimeTextfield.getText();
+            String endTime = endTimeTextfield.getText();
+
+            String start = startDate + " " + startTime;
+            String end = endDate + " " + endTime;
+
+            String bikeID = bikeIDTextfield.getText();
+            String userType = (String ) userTypeComboBox.getValue();
+            int birthYear = Integer.parseInt(birthYearTextfield.getText());
+            int startStationID = Integer.parseInt(startStationIDTextfield.getText());
+            int endStationID = Integer.parseInt(endStationIDTextfield.getText());
+            int duration = 1;   //derive duration using start and end times etc
+
+            String genderGiven = genderTextfield.getText();
+            int gender;
+            if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M") {
+                gender = 1;
+            }
+            else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F") {
+                gender = 2;
+            }
+            else {
+                gender = 0;
+            }
+
+            //start and end station address, lat and long derived here
+            double startStationLat;
+            double startStationLong;
+            String startStationAddress;
+            double endStationLat;
+            double endStationLong;
+            String endStationAddress;
+
+            try {
+                DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+
+                startStationLat = startQuery.getLatitude();
+                startStationLong = startQuery.getLongitude();
+                startStationAddress = startQuery.getAddress();
+
+                endStationLat = endQuery.getLatitude();
+                endStationLong = endQuery.getLongitude();
+                endStationAddress = endQuery.getAddress();
+
+            } catch (IndexOutOfBoundsException e) {
+                System.out.println("station isn't in database yet to derive values, default values assigned");
+
+                startStationLat = 0;
+                startStationLong = 0;
+                startStationAddress = "default";
+
+                endStationLat = 0;
+                endStationLong = 0;
+                endStationAddress = "default";
+            }
+
+
+            Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
+            if (!toTest.checkValidity(startStation)) {
+                System.out.println("Invalid start station");
+                data_valid = false;
+            }
+
+            Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
+            if (!toTest.checkValidity(endStation)) {
+                System.out.println("Invalid end station");
+                data_valid = false;
+            }
+
+            Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, "default");
+            int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
+            trip.setDuration(newDuration);           //duration is derived
+
+            if ((toTest.checkValidity(trip) == true) && data_valid) {
+                Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
+                toAdd.add(tripToAdd);
+            } else {
+                System.out.println("Invalid trip");
+            }
+
+
+        } catch (NumberFormatException | NullPointerException e) {
+            //e.printStackTrace();
+            System.out.println("Not enough trip data or incorrect data inputted");
+        }
+
+        dataUploader.addData(toAdd);
+    }
+
+
 }
