@@ -109,6 +109,7 @@ public class InputHandler {
                         String typeID;
 
                         if (fields[8].isEmpty()) {
+                            System.out.println("No retailer type given");
                             break;
                         }
                         else {
@@ -181,7 +182,7 @@ public class InputHandler {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
-                System.out.println("Wrong type of data in csv while parsing or creating object, could be a blank field?");
+                System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
 
 
@@ -223,27 +224,34 @@ public class InputHandler {
         boolean validRetailer = true;
 
 
-        if (retailer.getCity().length() > 20 || retailer.getCity().length() < 2) {
+        if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
             validRetailer = false;
+            System.out.println("Invalid retailer city " + retailer.getCity());
         }
-        else if (retailer.getName().length() > 30) {
+        else if (retailer.getName().length() > 50) {
             validRetailer = false;
+            System.out.println("Invalid retailer name " + retailer.getName());
+
         }
 
         //no viable way to test valid address
 
         else if (!Arrays.asList(validState).contains(retailer.getState())) {
             validRetailer = false;
+            System.out.println("Invalid retailer state " + retailer.getState());
         }
         else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
             validRetailer = false;
+            System.out.println("Invalid retailer ZIP " + retailer.getZipCode());
         }
-        else if (retailer.getType().length() > 30) {
+        else if (retailer.getType().length() > 50) {
             validRetailer = false;
+            System.out.println("Invalid retailer type " + retailer.getType());
         }
 
-        else if (retailer.getTypeID().length() > 20) {
+        else if (retailer.getTypeID().length() > 31) {
             validRetailer = false;
+            System.out.println("Invalid retailer typeID " + retailer.getTypeID());
         }
 
 
@@ -264,14 +272,17 @@ public class InputHandler {
 
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
             validTrip = false;
+            System.out.println("Invalid trip duration " + trip.getDuration());
         }
 
         else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
             validTrip = false;
+            System.out.println("Invalid gender " + trip.getGender());
         }
 
         else if (0 > trip.getAge() || trip.getAge() > 120) {
             validTrip = false;
+            System.out.println("Invalid age " + trip.getAge());
         }
 
         /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
@@ -280,6 +291,7 @@ public class InputHandler {
 
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
             validTrip = false;
+            System.out.println("Invalid user type " + trip.getUserType());
         }
 
 
@@ -301,31 +313,40 @@ public class InputHandler {
 
         if (!Arrays.asList(validBorough).contains(wifi.getBorough())) {
             validWifi = false;
+            System.out.println("Invalid wifi borough " + wifi.getBorough());
         }
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
             validWifi = false;
+            System.out.println("Invalid wifi type " + wifi.getType());
         }
-        else if (wifi.getProvider().length() > 20) {
+        else if (wifi.getProvider().length() > 100) {
             validWifi = false;
+            System.out.println("Invalid provider " + wifi.getProvider());
         }
-        else if (wifi.getLocation().length() > 20) {
+        else if (wifi.getLocation().length() > 100) {
             validWifi = false;
+            System.out.println("Invalid wifi location " + wifi.getLocation());
         }
 
         else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
             validWifi = false;
+            System.out.println("Invalid wifi latitude " + wifi.getLatitude());
         }
         else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
             validWifi = false;
+            System.out.println("Invalid wifi longitude " + wifi.getLongitude());
         }
-        else if (wifi.getRemarks().length() > 50) {
+        else if (wifi.getRemarks().length() > 100) {
             validWifi = false;
+            System.out.println("Invalid remark " + wifi.getRemarks());
         }
-        else if (wifi.getCity().length() > 20 || wifi.getCity().length() < 2) {
+        else if (wifi.getCity().length() > 30 || wifi.getCity().length() < 2) {
             validWifi = false;
+            System.out.println("Invalid wifi city " + wifi.getCity());
         }
-        else if (wifi.getSSID().length() > 20) {
+        else if (wifi.getSSID().length() > 50) {
             validWifi = false;
+            System.out.println("Invalid SSID " + wifi.getSSID());
         }
 
 
@@ -346,16 +367,20 @@ public class InputHandler {
 
         if (station.getId() <= 0) {
             validStation = false;
+            System.out.println("Invalid station ID " + station.getId());
         }
-        else if (station.getAddress().length() > 30 || station.getAddress().length() == 0) {
+        else if (station.getAddress().length() > 50 || station.getAddress().length() == 0) {
             validStation = false;
+            System.out.println("Invalid station address " + station.getAddress());
         }
 
         else if (90 < station.getLatitude() || station.getLatitude() < -90) {
             validStation = false;
+            System.out.println("Invalid station latitude " + station.getLatitude());
         }
         else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
             validStation = false;
+            System.out.println("Invalid station longitude " + station.getLongitude());
         }
 
 
