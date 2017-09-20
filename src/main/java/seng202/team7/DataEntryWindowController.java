@@ -253,6 +253,7 @@ public class DataEntryWindowController {
             }
         }
         catch (NumberFormatException | NullPointerException e) {
+            e.printStackTrace();
             System.out.println("Not enough data inputted, maybe wrong data type selected?");
         }
 

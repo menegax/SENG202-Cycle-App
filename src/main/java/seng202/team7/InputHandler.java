@@ -243,7 +243,7 @@ public class InputHandler {
             validRetailer = false;
         }
 
-        else if (retailer.getTypeID().length() > 20) {            //unsure how or what this is being used for
+        else if (retailer.getTypeID().length() > 20) {
             validRetailer = false;
         }
 
