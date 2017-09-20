@@ -78,15 +78,17 @@ public class DataEntryWindowController {
         FileChooser chooser = new FileChooser();
         File file = chooser.showOpenDialog(stage);
 
-        csvFile = file.toString();
-
         try {
+            csvFile = file.toString();
             toAdd =  toParse.loadCSV(csvFile, dataTypeAdded);
+            toUpload.addData(toAdd);
+
         } catch (IOException | NullPointerException e) {
-            e.printStackTrace();
+            //e.printStackTrace();
+            System.out.println("Either no csv uploaded or there was an issue parsing or uploading csv");
         }
 
-        toUpload.addData(toAdd);
+
     }
 
     /**
@@ -99,6 +101,7 @@ public class DataEntryWindowController {
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
+
 
         try {
             //case handling
@@ -156,6 +159,8 @@ public class DataEntryWindowController {
                         endStationAddress = endQuery.getAddress();
 
                     } catch (IndexOutOfBoundsException e) {
+                        System.out.println("station isn't in database yet to derive values");
+
                         startStationLat = 0;
                         startStationLong = 0;
                         startStationAddress = "default";
@@ -251,9 +256,8 @@ public class DataEntryWindowController {
 
                     break;
             }
-        }
-        catch (NumberFormatException | NullPointerException e) {
-            e.printStackTrace();
+        } catch (NumberFormatException | NullPointerException e) {
+            //e.printStackTrace();
             System.out.println("Not enough data inputted, maybe wrong data type selected?");
         }
 
