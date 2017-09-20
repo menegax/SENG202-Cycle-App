@@ -203,7 +203,7 @@ public class InputHandler {
 
 
     /**
-     * Tests an inputted Data objects data individually to see if it is valid, returns true if valid
+     * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
      * @param dataToTest
      * @return
      */
