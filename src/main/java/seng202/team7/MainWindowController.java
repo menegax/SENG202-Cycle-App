@@ -188,6 +188,7 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setRetailerViewer() {
+        retailerViewer.reload();
         centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(retailerViewer);
     }
@@ -197,6 +198,7 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setTripViewer() {
+        tripViewer.reload();
         centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(tripViewer);
     }
@@ -206,6 +208,7 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setWifiViewer() {
+        wifiViewer.reload();
         centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(wifiViewer);
     }
