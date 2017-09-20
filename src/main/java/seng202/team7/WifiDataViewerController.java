@@ -47,7 +47,6 @@ public class WifiDataViewerController implements Initializable {
     @FXML private Label typeLabel;
     @FXML private Label locationLabel;
     @FXML private Label boroughLabel;
-    @FXML private Label nameLabel;
     @FXML private Label remarksLabel;
 
     // Editor widgets
@@ -55,7 +54,6 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> typeEntry;
     @FXML private TextArea locationEntry;
     @FXML private ComboBox<String> boroughEntry;
-    @FXML private TextField nameEntry;
     @FXML private TextArea remarksEntry;
 
     // Important attributes for functionality
@@ -152,7 +150,6 @@ public class WifiDataViewerController implements Initializable {
         typeLabel.setText(wifi.getType());
         locationLabel.setText(wifi.getLocation());
         boroughLabel.setText(wifi.getBorough());
-        //are we implementing this?? nameLabel.setText(wifi.getName());
         remarksLabel.setText(wifi.getRemarks());
     }
 
@@ -214,7 +211,6 @@ public class WifiDataViewerController implements Initializable {
         typeEntry.getSelectionModel().select(wifi.getType());
         locationEntry.setText(wifi.getLocation());
         boroughEntry.getSelectionModel().select(wifi.getBorough());
-        // implementing?? nameEntry.setText(wifi.getName());
         remarksEntry.setText(wifi.getRemarks());
     }
 
@@ -224,7 +220,6 @@ public class WifiDataViewerController implements Initializable {
         wifi.setType(typeEntry.getValue());
         wifi.setLocation(locationEntry.getText());
         wifi.setBorough(boroughEntry.getValue());
-        // wifi.setName(nameEntry.getText());
         wifi.setRemarks(remarksEntry.getText());
         dbUpdater.updateWifi(wifi);
         viewRecord();
