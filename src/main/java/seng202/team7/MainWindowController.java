@@ -138,14 +138,17 @@ public class MainWindowController implements Initializable{
 
     private void removeRetailerViewer() {
         centerAnchorPane.getChildren().remove(retailerViewer);
+        retailerViewer = new RetailerDataViewer();
     }
 
     private void removeTripViewer() {
         centerAnchorPane.getChildren().remove(tripViewer);
+        tripViewer = new TripDataViewer();
     }
 
     private void removeWifiViewer() {
         centerAnchorPane.getChildren().remove(wifiViewer);
+        wifiViewer = new WifiDataViewer();
     }
 
     private void removeDataEntry() {
@@ -157,7 +160,6 @@ public class MainWindowController implements Initializable{
      * todo
      */
     private void setHomeViewer() {
-        centerAnchorPane.getChildren().removeAll();
         centerAnchorPane.getChildren().add(homeViewer);
     }
 
@@ -187,7 +189,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setRetailerViewer() {
-        retailerViewer.reload();
         centerAnchorPane.getChildren().add(retailerViewer);
     }
 
@@ -196,7 +197,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setTripViewer() {
-        tripViewer.reload();
         centerAnchorPane.getChildren().add(tripViewer);
     }
 
@@ -205,7 +205,6 @@ public class MainWindowController implements Initializable{
      * custom JavaFX object.
      */
     private void setWifiViewer() {
-        wifiViewer.reload();
         centerAnchorPane.getChildren().add(wifiViewer);
     }
 
