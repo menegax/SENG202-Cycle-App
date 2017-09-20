@@ -91,8 +91,14 @@
                     <TableColumn fx:id="genderColumn" prefWidth="150.0" text="Gender" />
                     <TableColumn fx:id="userTypeColumn" prefWidth="150.0" text="Userpass" />
                   </columns>
+                           <columnResizePolicy>
+                              <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+                           </columnResizePolicy>
                 </TableView>
               </children>
+                     <padding>
+                        <Insets bottom="5.0" right="5.0" />
+                     </padding>
             </AnchorPane>
           </items>
         </SplitPane>
