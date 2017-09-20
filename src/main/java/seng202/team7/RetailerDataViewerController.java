@@ -36,9 +36,8 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> streetCB;
     @FXML private ComboBox<String> zipCB;
-    @FXML private Text noRetailerSelected;
     @FXML private TextField searchEntry;
-    @FXML private Text nothingEntered;
+    @FXML private Text error;
 
     // Single record viewer widgets
     @FXML private Label nameLabel;
@@ -136,7 +135,7 @@ public class RetailerDataViewerController implements Initializable {
      * Called whenever a filter combobox is changed to filter all the loaded data again
      */
     public void filter() {
-        nothingEntered.setVisible(false);
+        error.setVisible(false);
         filteredRetailerList.clear();
         String typeSelection = typeCB.getValue();
         String streetSelection = streetCB.getValue();
@@ -195,11 +194,10 @@ public class RetailerDataViewerController implements Initializable {
     public void viewRecord() {
         currentRetailerIndex = retailerDataTable.getSelectionModel().getSelectedIndex();
         if (currentRetailerIndex == -1) {
-            nothingEntered.setVisible(false);
-            noRetailerSelected.setVisible(true);
+            error.setText("Please select a retailer to view");
+            error.setVisible(true);
         } else {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(false);
+            error.setVisible(false);
             editor.setVisible(false);
             dataViewer.setVisible(false);
             recordViewer.setVisible(true);
@@ -257,12 +255,11 @@ public class RetailerDataViewerController implements Initializable {
     }
 
     public void search() {
-        if (searchEntry.getText() == null) {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(true);
+        if (searchEntry.getText().isEmpty()) {
+            error.setText("No search entered");
+            error.setVisible(true);
         } else {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(false);
+            error.setVisible(false);
 
         }
     }

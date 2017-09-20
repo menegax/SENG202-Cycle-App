@@ -33,7 +33,6 @@ public class TripDataViewerController implements Initializable {
 
     // Multiple records viewer widgets
     @FXML private TableView<Trip> tripDataTable;
-
     @FXML private TableColumn<Trip, String> startColumn;
     @FXML private TableColumn<Trip, String> endColumn;
     @FXML private TableColumn<Trip, String> durationColumn;
@@ -43,8 +42,8 @@ public class TripDataViewerController implements Initializable {
     @FXML private ComboBox<String> endStationCB;
     @FXML private ComboBox<String> genderCB;
     @FXML private ComboBox<String> userTypeCB;
-
-    @FXML private Text noTripSelected;
+    @FXML private TextField searchEntry;
+    @FXML private Text error;
 
 
     // Single record viewer widgets
@@ -147,6 +146,7 @@ public class TripDataViewerController implements Initializable {
      * Called whenever a filter combobox is changed to filter all the loaded data again
      */
     public void filter() {
+        error.setVisible(false);
         filteredTripList.clear();
         String startSelection = startStationCB.getValue();
         String endSelection = endStationCB.getValue();
@@ -211,9 +211,10 @@ public class TripDataViewerController implements Initializable {
     public void viewRecord() {
         currentTripIndex = tripDataTable.getSelectionModel().getSelectedIndex();
         if (currentTripIndex == -1) {
-            noTripSelected.setVisible(true);
+            error.setText("Please select a trip to view");
+            error.setVisible(true);
         } else {
-            noTripSelected.setVisible(false);
+            error.setVisible(false);
             incorrectFormat.setVisible(false);
             formatTimes.setVisible(false);
             dataViewer.setVisible(false);
@@ -366,6 +367,16 @@ public class TripDataViewerController implements Initializable {
                     viewRecord();
                 }
             }
+        }
+    }
+
+    public void search() {
+        if (searchEntry.getText().isEmpty()) {
+            error.setText("No search entered");
+            error.setVisible(true);
+        } else {
+            error.setVisible(false);
+
         }
     }
 }

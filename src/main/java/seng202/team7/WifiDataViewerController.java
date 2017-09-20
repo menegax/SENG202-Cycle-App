@@ -38,7 +38,8 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> providerCB;
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> boroughCB;
-    @FXML private Text noWifiSelected;
+    @FXML private TextField searchEntry;
+    @FXML private Text error;
 
 
     // Single record viewer widgets
@@ -131,6 +132,7 @@ public class WifiDataViewerController implements Initializable {
      * Called whenever a filter combobox is changed to filter all the loaded data again
      */
     public void filter() {
+        error.setVisible(false);
         filteredWifiList.clear();
         String providerSelection = providerCB.getValue();
         String typeSelection = typeCB.getValue();
@@ -184,9 +186,10 @@ public class WifiDataViewerController implements Initializable {
     public void viewRecord() {
         currentWifiIndex = wifiDataTable.getSelectionModel().getSelectedIndex();
         if (currentWifiIndex == -1) {
-            noWifiSelected.setVisible(true);
+            error.setText("Please select a retailer to view");
+            error.setVisible(true);
         } else {
-            noWifiSelected.setVisible(false);
+            error.setVisible(false);
             dataViewer.setVisible(false);
             editor.setVisible(false);
             recordViewer.setVisible(true);
@@ -226,5 +229,15 @@ public class WifiDataViewerController implements Initializable {
         wifi.setRemarks(remarksEntry.getText());
         dbUpdater.updateWifi(wifi);
         viewRecord();
+    }
+
+    public void search() {
+        if (searchEntry.getText().isEmpty()) {
+            error.setText("No search entered");
+            error.setVisible(true);
+        } else {
+            error.setVisible(false);
+
+        }
     }
 }
