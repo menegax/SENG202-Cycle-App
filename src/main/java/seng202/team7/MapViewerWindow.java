@@ -1,30 +1,28 @@
 package seng202.team7;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.web.WebEngine;
-import javafx.scene.web.WebView;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
+/**
+ * Map viewer window to view data points on a map
+ * @author Mitchell Fenwick
+ */
 
-public class MapViewerWindow extends AnchorPane {
+public class MapViewerWindow extends Application {
 
-    public MapViewerWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("MapViewerWindow.fxml"));
-        fxmlLoader.setRoot(this);
-        try {
-            fxmlLoader.load();
-        } catch (IOException exception) {
-            throw new RuntimeException(exception);
-        }
+    public static void main(String[] args) {
+        launch(args);
     }
 
+    public void start(Stage primaryStage) throws Exception{
+        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapViewerWindow.fxml"));
 
-    public void start (Stage stage) {
-        // create web engine and view
-        final WebEngine webEngine = new WebEngine(getClass().getClassLoader().getResource("googlemaps.html").toString());
-        final WebView webView = new WebView();
+        primaryStage.setTitle("MapViewer");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
     }
 
 }
