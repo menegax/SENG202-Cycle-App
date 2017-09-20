@@ -250,4 +250,8 @@ public class RetailerDataViewerController implements Initializable {
         dbUpdater.updateRetailer(retailer);
         viewRecord();
     }
+
+    public void search() {
+
+    }
 }
