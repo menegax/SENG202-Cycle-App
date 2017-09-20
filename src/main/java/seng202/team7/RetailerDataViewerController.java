@@ -78,7 +78,6 @@ public class RetailerDataViewerController implements Initializable {
          *DatabaseTester.createTables();
         */
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);

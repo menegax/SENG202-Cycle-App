@@ -53,7 +53,7 @@
                       </items>
                     </ComboBox>
                     <Button mnemonicParsing="false" onAction="#viewRecord" text="View Selected Retailer" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="5" />
-                    <Text fx:id="error" strokeType="OUTSIDE" strokeWidth="0.0" text="Please select a retailer to view" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
+                    <Text fx:id="error" strokeType="OUTSIDE" strokeWidth="0.0" text="Error" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                     <SplitPane dividerPositions="0.544973544973545" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="191.0" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4">
                       <items>
                         <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="100.0">
@@ -68,7 +68,6 @@
                         </AnchorPane>
                       </items>
                     </SplitPane>
-                    <Text fx:id="nothingEntered" strokeType="OUTSIDE" strokeWidth="0.0" text="No search entered" visible="false" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="6" />
                   </children>
                   <columnConstraints>
                     <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="80.0" prefWidth="100.0" />
