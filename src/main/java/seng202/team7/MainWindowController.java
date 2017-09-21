@@ -1,6 +1,7 @@
 package seng202.team7;
 
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
@@ -22,6 +23,12 @@ public class MainWindowController implements Initializable{
     private MapAnalyticWindow mapViewer;
     private TripAnalyticWindow graphViewer;
 
+    private String currentScreen; // Currently visible screen
+
+    public void setCurrentScreen(String currentScreen) {
+        this.currentScreen = currentScreen;
+    }
+
     /**
      * Runs as the program initially starts. Initialises each of the custom
      * JavaFX panels (loads them into memory) and calls for the navigation bar
@@ -35,6 +42,7 @@ public class MainWindowController implements Initializable{
         // Set home panel to default screen
         homeViewer = new HomeWindow();
         centerAnchorPane.getChildren().add(homeViewer);
+        setCurrentScreen("Home");
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
         routePlannerViewer = new RoutePlannerViewer();
@@ -83,36 +91,9 @@ public class MainWindowController implements Initializable{
 
         navigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
-                    if ((newValue != null) && (oldValue != null)) {
-                        String previousSelection = oldValue.getValue();
-                        switch (previousSelection) {
-                            case "Home":removeHomeViewer(); break;
-                            case "Route Planning": removeRoutePlanningViewer(); break;
-                            case "Analytics": removeAnalyticsViewer(); break;
-                            case "Map View": removeMapViewer(); break;
-                            case "Graph View": removeGraphView(); break;
-                            case "Data Viewer": removeDataViewerViewer(); break;
-                            case "Retailer": removeRetailerViewer(); break;
-                            case "Trip": removeTripViewer(); break;
-                            case "Wifi": removeWifiViewer(); break;
-                            case "Data Entry": removeDataEntry(); break;
-                            default: System.out.println("ERROR: No such removal handle exists");
-                        }
-
-                        String currentSelection = newValue.getValue();
-                        switch (currentSelection) {
-                            case "Home": setHomeViewer(); break;
-                            case "Route Planning": setRoutePlanningViewer(); break;
-                            case "Analytics": setAnalyticsViewer(); break;
-                            case "Map View": setMapViewer(); break;
-                            case "Graph View": setGraphView(); break;
-                            case "Data Viewer": setDataViewerViewer(); break;
-                            case "Retailer": setRetailerViewer(); break;
-                            case "Trip": setTripViewer(); break;
-                            case "Wifi": setWifiViewer(); break;
-                            case "Data Entry": setDataEntry(); break;
-                            default: System.out.println("ERROR: No such set handle exists");
-                        }
+                    String currentSelection = newValue.getValue();
+                    if (currentScreen != currentSelection) {
+                        changeScreens(currentSelection);
                     }
                 });
     }
@@ -130,115 +111,44 @@ public class MainWindowController implements Initializable{
         return item;
     }
 
-    private void removeHomeViewer() {
-        centerAnchorPane.getChildren().remove(homeViewer);
+    private void changeScreens(String newScreen) {
+        // Removes the current screen to make room for the new screen
+        switch (currentScreen) {
+            case "Home": removeScreen(homeViewer); break;
+            case "Route Planning": removeScreen(routePlannerViewer); break;
+            case "Analytics": break;
+            case "Map View": removeScreen(mapViewer); break;
+            case "Graph View": removeScreen(graphViewer); break;
+            case "Data Viewer": break;
+            case "Retailer": removeScreen(retailerViewer); break;
+            case "Trip": removeScreen(tripViewer); break;
+            case "Wifi": removeScreen(wifiViewer); break;
+            case "Data Entry": removeScreen(dataEntryViewer); break;
+            default: System.out.println("ERROR: No such removal handle exists");
+        }
+        // Add the new screen where the old one was
+        switch (newScreen) {
+            case "Home": setScreen(homeViewer); break;
+            case "Route Planning": setScreen(routePlannerViewer); break;
+            case "Analytics": break;
+            case "Map View": setScreen(mapViewer); break;
+            case "Graph View": setScreen(graphViewer); break;
+            case "Data Viewer": break;
+            case "Retailer": setScreen(retailerViewer); break;
+            case "Trip": setScreen(tripViewer); break;
+            case "Wifi": setScreen(wifiViewer); break;
+            case "Data Entry": setScreen(dataEntryViewer); break;
+            default: System.out.println("ERROR: No such set handle exists");
+        }
+        // Update screen tracker
+        currentScreen = newScreen;
     }
 
-    private void removeRoutePlanningViewer() {
-        centerAnchorPane.getChildren().remove(routePlannerViewer);
+    private void removeScreen(Node screen) {
+        centerAnchorPane.getChildren().remove(screen);
     }
 
-    private void removeAnalyticsViewer() {
-        // To implement
-    }
-
-    private void removeMapViewer() {
-        centerAnchorPane.getChildren().remove(mapViewer);
-    }
-
-    private void removeGraphView() {
-        centerAnchorPane.getChildren().remove(graphViewer);
-    }
-
-    private void removeDataViewerViewer() {
-        // To implement
-    }
-
-    private void removeRetailerViewer() {
-        centerAnchorPane.getChildren().remove(retailerViewer);
-        retailerViewer = new RetailerDataViewer();
-    }
-
-    private void removeTripViewer() {
-        centerAnchorPane.getChildren().remove(tripViewer);
-        tripViewer = new TripDataViewer();
-    }
-
-    private void removeWifiViewer() {
-        centerAnchorPane.getChildren().remove(wifiViewer);
-        wifiViewer = new WifiDataViewer();
-    }
-
-    private void removeDataEntry() {
-        centerAnchorPane.getChildren().remove(dataEntryViewer);
-    }
-
-    /**
-     * Set home viewer
-     * todo
-     */
-    private void setHomeViewer() {
-        centerAnchorPane.getChildren().add(homeViewer);
-    }
-
-    /**
-     * todo
-     */
-    private void setRoutePlanningViewer() {
-        centerAnchorPane.getChildren().add(routePlannerViewer);
-    }
-
-    /**
-     * todo
-     */
-    private void setAnalyticsViewer() {
-        // To implement
-    }
-
-    private void setMapViewer() {
-        centerAnchorPane.getChildren().add(mapViewer);
-    }
-
-    private void setGraphView() {
-        centerAnchorPane.getChildren().add(graphViewer);
-    }
-
-    /**
-     * todo
-     */
-    private void setDataViewerViewer() {
-        // To implement
-    }
-
-    /**
-     * Sets the center of the mainBorderPane to display the retailerViewer
-     * custom JavaFX object.
-     */
-    private void setRetailerViewer() {
-        centerAnchorPane.getChildren().add(retailerViewer);
-    }
-
-    /**
-     * Sets the center of the mainBorderPane to display the tripViewer
-     * custom JavaFX object.
-     */
-    private void setTripViewer() {
-        centerAnchorPane.getChildren().add(tripViewer);
-    }
-
-    /**
-     * Sets the center of the mainBorderPane to display the wifiViewer
-     * custom JavaFX object.
-     */
-    private void setWifiViewer() {
-        centerAnchorPane.getChildren().add(wifiViewer);
-    }
-
-    /**
-     * Sets the center of the mainBorderPane to display the dataEntryViewer
-     * custom JavaFX object.
-     */
-    private void setDataEntry() {
-        centerAnchorPane.getChildren().add(dataEntryViewer);
+    private void setScreen(Node screen) {
+        centerAnchorPane.getChildren().add(screen);
     }
 }
