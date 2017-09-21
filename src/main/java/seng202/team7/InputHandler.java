@@ -18,7 +18,7 @@ public class InputHandler {
     private String validGenders[] = {"Unknown", "Male", "Female"};
     private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber"};
     private String validState[] = {"NY"};
-    private int counter = 0;                          //for testing how many objects were created etc
+    private int fail_counter = 0;                          //for testing how many objects were created etc
 
 
     /*
@@ -85,7 +85,7 @@ public class InputHandler {
 
 
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
-                        if (checkValidity(wifiDataTest)) {
+                        if (checkValidity(wifiDataTest) == "Success") {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -117,7 +117,7 @@ public class InputHandler {
                         dataGroup = "default";
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
-                        if (checkValidity(retailerDataTest)) {
+                        if (checkValidity(retailerDataTest) == "Success") {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -162,7 +162,7 @@ public class InputHandler {
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
-                        if (checkValidity(tripDataTest) == true) {
+                        if (checkValidity(tripDataTest) == "Success") {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -178,6 +178,7 @@ public class InputHandler {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
+                fail_counter++;
                 System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
 
@@ -196,8 +197,9 @@ public class InputHandler {
 
 
 
-
-
+    public int getFail_counter() {
+        return fail_counter;
+    }
 
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
@@ -214,40 +216,34 @@ public class InputHandler {
      * @param retailer
      * @return validRetailer
      */
-    public Boolean checkValidity(Retailer retailer)
+    public String checkValidity(Retailer retailer)
     {
 
-        boolean validRetailer = true;
+        String validRetailer = "Success";
 
 
         if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
-            validRetailer = false;
-            System.out.println("Invalid retailer city " + retailer.getCity());
+            validRetailer = "Invalid retailer city " + retailer.getCity();
         }
         else if (retailer.getName().length() > 50) {
-            validRetailer = false;
-            System.out.println("Invalid retailer name " + retailer.getName());
+            validRetailer = "Invalid retailer name " + retailer.getName();
 
         }
 
         //no viable way to test valid address
 
         else if (!Arrays.asList(validState).contains(retailer.getState())) {
-            validRetailer = false;
-            System.out.println("Invalid retailer state " + retailer.getState());
+            validRetailer = "Invalid retailer state " + retailer.getState();
         }
         else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
-            validRetailer = false;
-            System.out.println("Invalid retailer ZIP " + retailer.getZipCode());
+            validRetailer = "Invalid retailer ZIP " + retailer.getZipCode();
         }
         else if (retailer.getType().length() > 50) {
-            validRetailer = false;
-            System.out.println("Invalid retailer type " + retailer.getType());
+            validRetailer = "Invalid retailer type " + retailer.getType();
         }
 
         else if (retailer.getTypeID().length() > 31) {
-            validRetailer = false;
-            System.out.println("Invalid retailer typeID " + retailer.getTypeID());
+            validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
 
 
@@ -261,24 +257,21 @@ public class InputHandler {
      * @param trip
      * @return validRetailer
      */
-    public Boolean checkValidity(Trip trip)
+    public String checkValidity(Trip trip)
     {
-        boolean validTrip = true;
+        String validTrip = "Success";
 
 
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
-            validTrip = false;
-            System.out.println("Invalid trip duration " + trip.getDuration());
+            validTrip = "Invalid trip duration " + trip.getDuration();
         }
 
         else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
-            validTrip = false;
-            System.out.println("Invalid gender " + trip.getGender());
+            validTrip = "Invalid gender " + trip.getGender();
         }
 
         else if (0 > trip.getAge() || trip.getAge() > 120) {
-            validTrip = false;
-            System.out.println("Invalid age " + trip.getAge());
+            validTrip = "Invalid age " + trip.getAge();
         }
 
         /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
@@ -286,8 +279,7 @@ public class InputHandler {
         }*/
 
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
-            validTrip = false;
-            System.out.println("Invalid user type " + trip.getUserType());
+            validTrip = "Invalid user type " + trip.getUserType();
         }
 
 
@@ -301,48 +293,39 @@ public class InputHandler {
      * @param wifi
      * @return validRetailer
      */
-    public Boolean checkValidity(Wifi wifi)
+    public String checkValidity(Wifi wifi)
     {
 
-        boolean validWifi = true;
+        String validWifi = "Success";
 
 
         if (!Arrays.asList(validBorough).contains(wifi.getBorough())) {
-            validWifi = false;
-            System.out.println("Invalid wifi borough " + wifi.getBorough());
+            validWifi = "Invalid wifi borough " + wifi.getBorough();
         }
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
-            validWifi = false;
-            System.out.println("Invalid wifi type " + wifi.getType());
+            validWifi = "Invalid wifi type " + wifi.getType();
         }
         else if (wifi.getProvider().length() > 100) {
-            validWifi = false;
-            System.out.println("Invalid provider " + wifi.getProvider());
+            validWifi = "Invalid provider " + wifi.getProvider();
         }
         else if (wifi.getLocation().length() > 100) {
-            validWifi = false;
-            System.out.println("Invalid wifi location " + wifi.getLocation());
+            validWifi = "Invalid wifi location " + wifi.getLocation();
         }
 
         else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
-            validWifi = false;
-            System.out.println("Invalid wifi latitude " + wifi.getLatitude());
+            validWifi = "Invalid wifi latitude " + wifi.getLatitude();
         }
         else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
-            validWifi = false;
-            System.out.println("Invalid wifi longitude " + wifi.getLongitude());
+            validWifi = "Invalid wifi longitude " + wifi.getLongitude();
         }
         else if (wifi.getRemarks().length() > 100) {
-            validWifi = false;
-            System.out.println("Invalid remark " + wifi.getRemarks());
+            validWifi = "Invalid remark " + wifi.getRemarks();
         }
         else if (wifi.getCity().length() > 30 || wifi.getCity().length() < 2) {
-            validWifi = false;
-            System.out.println("Invalid wifi city " + wifi.getCity());
+            validWifi = "Invalid wifi city " + wifi.getCity();
         }
         else if (wifi.getSSID().length() > 50) {
-            validWifi = false;
-            System.out.println("Invalid SSID " + wifi.getSSID());
+            validWifi = "Invalid SSID " + wifi.getSSID();
         }
 
 
@@ -363,20 +346,20 @@ public class InputHandler {
 
         if (station.getId() <= 0) {
             validStation = false;
-            System.out.println("Invalid station ID " + station.getId());
+            //System.out.println("Invalid station ID " + station.getId());
         }
         else if (station.getAddress().length() > 50 || station.getAddress().length() == 0) {
             validStation = false;
-            System.out.println("Invalid station address " + station.getAddress());
+            //System.out.println("Invalid station address " + station.getAddress());
         }
 
         else if (90 < station.getLatitude() || station.getLatitude() < -90) {
             validStation = false;
-            System.out.println("Invalid station latitude " + station.getLatitude());
+            //System.out.println("Invalid station latitude " + station.getLatitude());
         }
         else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
             validStation = false;
-            System.out.println("Invalid station longitude " + station.getLongitude());
+            //System.out.println("Invalid station longitude " + station.getLongitude());
         }
 
 

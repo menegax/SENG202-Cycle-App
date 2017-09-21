@@ -277,6 +277,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </DatePicker>
+            <Text fx:id="status_text" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="186.6708984375" GridPane.columnIndex="6" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

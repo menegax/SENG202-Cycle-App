@@ -8,6 +8,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -27,7 +28,7 @@ public class DataEntryWindowController {
     public Button add_t_button;
 
 
-
+    @FXML private Text status_text;
     @FXML private ComboBox dataEntryComboBox;
 
     // Trip
@@ -83,10 +84,12 @@ public class DataEntryWindowController {
             csvFile = file.toString();
             toAdd =  toParse.loadCSV(csvFile, dataTypeAdded);
             toUpload.addData(toAdd);
+            status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
+                    toParse.getFail_counter() + " objects failed to load, likely empty fields");
 
         } catch (IOException | NullPointerException e) {
             //e.printStackTrace();
-            System.out.println("Either no csv uploaded or there was an issue parsing or uploading csv");
+            status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv");
         }
 
 
@@ -115,17 +118,19 @@ public class DataEntryWindowController {
             String typeRetailer = typeRetailerTextfield.getText();
 
             Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-            if (toTest.checkValidity(retailer) == true) {
+            if (toTest.checkValidity(retailer) == "Success") {
                 Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
                 toAdd.add(retailerToAdd);
+                status_text.setText("Retailer added");
+
             } else {
-                System.out.println("Invalid retailer");
+                status_text.setText(toTest.checkValidity(retailer));
             }
 
 
         } catch (NumberFormatException | NullPointerException e) {
             //e.printStackTrace();
-            System.out.println("Not enough retailer data or incorrect data inputted");
+            status_text.setText("Not enough retailer data or incorrect data inputted");
         }
 
         dataUploader.addData(toAdd);
@@ -157,16 +162,17 @@ public class DataEntryWindowController {
 
 
             Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-            if (toTest.checkValidity(wifi) == true) {
+            if (toTest.checkValidity(wifi) == "Success") {
                 Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
                 toAdd.add(wifiToAdd);
+                status_text.setText("Wifi added");
             } else {
-                System.out.println("Invalid wifi");
+                status_text.setText(toTest.checkValidity(wifi));
             }
 
         } catch (NumberFormatException | NullPointerException e) {
             //e.printStackTrace();
-            System.out.println("Not enough wifi data or incorrect data inputted");
+            status_text.setText("Not enough wifi data or incorrect data inputted");
         }
 
         dataUploader.addData(toAdd);
@@ -237,7 +243,7 @@ public class DataEntryWindowController {
                 endStationAddress = endQuery.getAddress();
 
             } catch (IndexOutOfBoundsException e) {
-                System.out.println("station isn't in database yet to derive values, default values assigned");
+                status_text.setText("station isn't in database yet to derive values, default values assigned");
 
                 startStationLat = 0;
                 startStationLong = 0;
@@ -251,13 +257,13 @@ public class DataEntryWindowController {
 
             Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
             if (!toTest.checkValidity(startStation)) {
-                System.out.println("Invalid start station");
+                status_text.setText("Invalid start station");
                 data_valid = false;
             }
 
             Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
             if (!toTest.checkValidity(endStation)) {
-                System.out.println("Invalid end station");
+                status_text.setText("Invalid end station");
                 data_valid = false;
             }
 
@@ -265,17 +271,18 @@ public class DataEntryWindowController {
             int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
             trip.setDuration(newDuration);           //duration is derived
 
-            if ((toTest.checkValidity(trip) == true) && data_valid) {
+            if ((toTest.checkValidity(trip) == "Success") && data_valid) {
                 Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
                 toAdd.add(tripToAdd);
+                status_text.setText("Trip added");
             } else {
-                System.out.println("Invalid trip");
+                status_text.setText(toTest.checkValidity(trip));
             }
 
 
         } catch (NumberFormatException | NullPointerException e) {
             //e.printStackTrace();
-            System.out.println("Not enough trip data or incorrect data inputted");
+            status_text.setText("Not enough trip data or incorrect data inputted");
         }
 
         dataUploader.addData(toAdd);
