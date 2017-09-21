@@ -129,9 +129,9 @@ public class MainWindowController implements Initializable{
             case "Map View": setMainScreen(mapViewer); break;
             case "Graph View": setMainScreen(graphViewer); break;
             case "Data Viewer": break;
-            case "Retailer": setMainScreen(retailerViewer); break;
-            case "Trip": setMainScreen(tripViewer); break;
-            case "Wifi": setMainScreen(wifiViewer); break;
+            case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewer()); break;
+            case "Trip": setMainScreen(tripViewer = new TripDataViewer()); break;
+            case "Wifi": setMainScreen(wifiViewer = new WifiDataViewer()); break;
             case "Data Entry": setMainScreen(dataEntryViewer); break;
             default: System.out.println("ERROR: No such set handle exists");
         }
