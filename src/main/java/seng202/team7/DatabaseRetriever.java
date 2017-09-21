@@ -354,4 +354,76 @@ public class DatabaseRetriever {
         }
 
     }
+
+    /**
+     * Returns a list of strings from a specific column where another column matches the integer passed in
+     * @param tableName table to search
+     * @param value value to match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<String> getStringListFromInt(String tableName, int value, String columnSearch, String columnReturn){
+        ArrayList<String> stringList = new ArrayList<String>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " = " + value;
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                String returnStr =  rs.getString(columnReturn);
+
+                if(returnStr != null && !returnStr.equals(""))
+                {
+                    //station.print();
+                    stringList.add(returnStr);
+                } else {
+                    System.out.println("No String");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Got String Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
+    }
+
+    /**
+     * Returns a list of strings from a specific column where another column matches the integer passed in
+     * @param tableName table to search
+     * @param value value to match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<String> getStringListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
+        ArrayList<String> stringList = new ArrayList<String>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                String returnStr =  rs.getString(columnReturn);
+
+                if(returnStr != null && !returnStr.equals(""))
+                {
+                    //station.print();
+                    stringList.add(returnStr);
+                } else {
+                    System.out.println("No String");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Got String Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
+    }
 }
