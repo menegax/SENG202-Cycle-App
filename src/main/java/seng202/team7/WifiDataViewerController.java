@@ -83,6 +83,9 @@ public class WifiDataViewerController implements Initializable {
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
         wifiList = FXCollections.observableArrayList(wifiArrayList);
         filteredWifiList = FXCollections.observableArrayList(wifiList);
+        if (wifiList.size() < 50) {
+            loadedAll = true;
+        }
 
         providerColumn.setCellValueFactory(new PropertyValueFactory<>("provider"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
@@ -261,6 +264,9 @@ public class WifiDataViewerController implements Initializable {
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
         wifiList = FXCollections.observableArrayList(wifiArrayList);
         searchEntry.setText("");
+        if (wifiList.size() < 50) {
+            loadedAll = true;
+        }
         filter();
     }
 }

@@ -82,6 +82,9 @@ public class RetailerDataViewerController implements Initializable {
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);
         filteredRetailerList = FXCollections.observableArrayList(retailerList);
+        if (retailerList.size() < 50) {
+            loadedAll = true;
+        }
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeID"));
@@ -288,6 +291,9 @@ public class RetailerDataViewerController implements Initializable {
         loadedData = 0;
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);
+        if (retailerList.size() < 50) {
+            loadedAll = true;
+        }
         searchEntry.setText("");
         filter();
     }

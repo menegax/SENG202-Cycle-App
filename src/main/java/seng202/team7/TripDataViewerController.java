@@ -106,6 +106,9 @@ public class TripDataViewerController implements Initializable {
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
         tripList = FXCollections.observableArrayList(tripArrayList);
         filteredTripList = FXCollections.observableArrayList(tripList);
+        if (tripList.size() < 50) {
+            loadedAll = true;
+        }
         startStationCB.getItems().addAll("5th ave","34 square","None");
         endStationCB.getItems().addAll("5th ave","34 square","None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
@@ -404,9 +407,19 @@ public class TripDataViewerController implements Initializable {
             String query = StaticVariables.singleStringQueryLike(Station.tableName, "address", searchEntry.getText());
             ArrayList<Station> stations = dbRetriever.queryStation(query);
             ArrayList<Trip> result = new ArrayList<>();
+            ArrayList<Trip> endsWith = new ArrayList<>();
             for (Station station : stations) {
                 query = StaticVariables.singleStringQuery(Trip.tableName, "startStationID", Integer.toString(station.getId()));
                 result.addAll(dbRetriever.queryTrip(query));
+            }
+            for (Station station : stations) {
+                query = StaticVariables.singleStringQuery(Trip.tableName, "endStationID", Integer.toString(station.getId()));
+                endsWith.addAll(dbRetriever.queryTrip(query));
+            }
+            for (Trip trip : endsWith) {
+                if (!result.contains(trip)) {
+                    result.add(trip);
+                }
             }
             tripList = FXCollections.observableArrayList(result);
             loadedAll = true;
@@ -420,6 +433,9 @@ public class TripDataViewerController implements Initializable {
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
         tripList = FXCollections.observableArrayList(tripArrayList);
         searchEntry.setText("");
+        if (tripList.size() < 50) {
+            loadedAll = true;
+        }
         filter();
     }
 }
