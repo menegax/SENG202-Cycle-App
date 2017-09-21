@@ -3,7 +3,7 @@ package seng202.team7;
 /**
  * Retailer data controller to control raw data viewing of retailer data
  * @author Aidan Smith asm142
- * Last updated 17/09/17
+ * Last updated 22/09/17
  */
 
 import javafx.beans.property.StringProperty;
@@ -66,8 +66,7 @@ public class RetailerDataViewerController implements Initializable {
     private ObservableList<Retailer> filteredRetailerList;
 
     /**
-     * Initialises the data within the table to the data provide by xxx
-     *
+     * Initialises the data within the table to the data provided by the database retriever
      * @param url Required parameter that is not used in the function
      * @param rb  Required parameter that is not used in the function
      */
@@ -246,6 +245,9 @@ public class RetailerDataViewerController implements Initializable {
         recordViewer.setVisible(false);
     }
 
+    /**
+     * Brings up the edit page on the currently selected retailer
+     */
     public void viewEdit() {
         recordViewer.setVisible(false);
         editor.setVisible(true);
@@ -271,7 +273,7 @@ public class RetailerDataViewerController implements Initializable {
     }
 
     /**
-     * todo
+     * Makes the provided changes to the selected retailer
      */
     public void confirmEdit(){
         Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
@@ -285,6 +287,9 @@ public class RetailerDataViewerController implements Initializable {
         viewRecord();
     }
 
+    /**
+     * Searches through the entire retailer list for matches to the search entry and then displays them
+     */
     public void search() {
         if (searchEntry.getText().isEmpty()) {
             error.setText("No search entered");
@@ -299,6 +304,9 @@ public class RetailerDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Resets the search so that the records are no longer filtered by the search criteria
+     */
     public void reset() {
         loadedAll = false;
         loadedData = 0;

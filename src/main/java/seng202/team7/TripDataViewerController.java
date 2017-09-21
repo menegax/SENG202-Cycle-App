@@ -21,7 +21,7 @@ import java.util.ResourceBundle;
 /**
  * Trip data controller to control raw data viewing of trip data
  * @author Aidan Smith asm142
- * Last updated 17/09/17
+ * Last updated 22/09/17
  */
 
 public class TripDataViewerController implements Initializable {
@@ -190,6 +190,11 @@ public class TripDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Updates the attributes of the single record viewer with the attributes of the trip
+     * provided through the retailerIndex
+     * @param tripIndex The index of the trip to be displayed
+     */
     public void view(int tripIndex) {
         Trip trip = filteredTripList.get(tripIndex);
         startNameLabel.setText(trip.getStartStation().getAddress());
@@ -261,6 +266,9 @@ public class TripDataViewerController implements Initializable {
         recordViewer.setVisible(false);
     }
 
+    /**
+     * Brings up the edit page on the currently selected wifi
+     */
     public void viewEdit() {
         recordViewer.setVisible(false);
         editor.setVisible(true);
@@ -356,6 +364,9 @@ public class TripDataViewerController implements Initializable {
         );
     }
 
+    /**
+     * Makes the provided changes to the selected trip
+     */
     public void confirmEdit() {
         if (startTimeEntry.getText().length() != 8 || endTimeEntry.getText().length() != 8) {
             incorrectFormat.setVisible(true);
@@ -405,6 +416,9 @@ public class TripDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Searches through the entire trip list for matches to the search entry and then displays them
+     */
     public void search() {
         if (searchEntry.getText().isEmpty()) {
             error.setText("No search entered");
@@ -434,6 +448,9 @@ public class TripDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Resets the search so that the records are no longer filtered by the search criteria
+     */
     public void reset() {
         loadedAll = false;
         loadedData = 0;

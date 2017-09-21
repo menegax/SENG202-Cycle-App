@@ -17,7 +17,7 @@ import java.util.ResourceBundle;
 /**
  * Wifi data controller to control raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 17/09/17
+ * Last updated 22/09/17
  */
 
 public class WifiDataViewerController implements Initializable {
@@ -173,6 +173,11 @@ public class WifiDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Updates the attributes of the single record viewer with the attributes of the wifi
+     * provided through the retailerIndex
+     * @param wifiIndex The index of the wifi to be displayed
+     */
     public void view(int wifiIndex) {
         Wifi wifi = filteredWifiList.get(wifiIndex);
         providerLabel.setText(wifi.getProvider());
@@ -232,6 +237,9 @@ public class WifiDataViewerController implements Initializable {
         recordViewer.setVisible(false);
     }
 
+    /**
+     * Brings up the edit page on the currently selected wifi
+     */
     public void viewEdit() {
         recordViewer.setVisible(false);
         editor.setVisible(true);
@@ -243,6 +251,9 @@ public class WifiDataViewerController implements Initializable {
         remarksEntry.setText(wifi.getRemarks());
     }
 
+    /**
+     * Makes the provided changes to the selected wifi
+     */
     public void confirmEdit(){
         Wifi wifi = filteredWifiList.get(currentWifiIndex);
         wifi.setProvider(providerEntry.getText());
@@ -254,6 +265,9 @@ public class WifiDataViewerController implements Initializable {
         viewRecord();
     }
 
+    /**
+     * Searches through the entire wifi list for matches to the search entry and then displays them
+     */
     public void search() {
         if (searchEntry.getText().isEmpty()) {
             error.setText("No search entered");
@@ -268,6 +282,9 @@ public class WifiDataViewerController implements Initializable {
         }
     }
 
+    /**
+     * Resets the search so that the records are no longer filtered by the search criteria
+     */
     public void reset() {
         loadedAll = false;
         loadedData = 0;
