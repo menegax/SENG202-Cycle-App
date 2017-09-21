@@ -2,6 +2,10 @@ package seng202.team7;
 
 import java.util.ArrayList;
 
+/**
+ * Tests the database to make sure queries run as expected
+ * @author MorganEnglish
+ */
 public class DatabaseTester {
     /**
      * Static method to test the database

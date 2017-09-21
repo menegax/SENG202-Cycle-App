@@ -2,13 +2,25 @@ package seng202.team7;
 import java.text.ParseException;
 import java.util.Date;
 
-
+/**
+ * @author Morgan English
+ */
 public class Trip extends Location implements Data, java.io.Serializable {
 
+    /**
+     * String for the name of the table in the database
+     */
     public static String tableName = "trip";
 
+    /**
+     * Strings of all the columns in the database
+     */
     public static String columns[] = {"id","duration","startStationID","startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
 
+
+    /**
+     * SQL string to create table
+     */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
             + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
             + columns[1]+" integer,\n"
@@ -55,8 +67,9 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * End time as java datetime object
      */
     private Date endDate;
-    /*What type should we make this
-     * thinking ENUM so more types can be added
+
+    /**
+     * String for the Usertype
      */
     private String userType;
     /**
@@ -285,7 +298,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
     }
 
     /**
-     * Prints object for testing
+     * Prints object for manual testing
      */
     public void testPrint()
     {

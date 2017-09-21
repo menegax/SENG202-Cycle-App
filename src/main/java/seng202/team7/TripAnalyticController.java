@@ -22,6 +22,11 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 import java.util.Observable;
 
+
+/**
+ * Controller for Graph viewing of analytics
+ * @author Morgan English
+ */
 public class TripAnalyticController{
     @FXML private Button userButton;
     @FXML private Button timeButton;
@@ -48,6 +53,9 @@ public class TripAnalyticController{
 
     DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
+    /**
+     * Creates a PIE graph showing Gender of selected Bike trips
+     */
     public void genderGraph()
     {
         bar.setVisible(false);
@@ -68,6 +76,10 @@ public class TripAnalyticController{
 
     }
 
+
+    /**
+     * Creates a PIE graph showing Usertype of selected BikeTrips
+     */
     public void userGraph()
     {
         bar.setVisible(false);
@@ -82,6 +94,10 @@ public class TripAnalyticController{
         pie.setVisible(true);
     }
 
+
+    /**
+     * creates Bar graph of Age
+     */
     public void ageGraph()
     {
         bar.setVisible(false);
@@ -100,6 +116,10 @@ public class TripAnalyticController{
         pie.setVisible(true);
     }
 
+
+    /**
+     * creates Bar graph of times by time of day
+     */
     public void timeGraph()
     {
         pie.setVisible(false);
@@ -129,6 +149,9 @@ public class TripAnalyticController{
         bar.setVisible(true);
     }
 
+    /**
+     * Creates bar graph by duration
+     */
     public void durationGraph()
     {
         pie.setVisible(false);
@@ -156,6 +179,10 @@ public class TripAnalyticController{
         bar.setVisible(true);
     }
 
+
+    /**
+     * Creates bar graph by distance
+     */
     public void distanceGraph()
     {
         pie.setVisible(false);

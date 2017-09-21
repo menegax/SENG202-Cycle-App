@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Base class for a Retailer object to hold parameters and basic getters and setters
- * @author Aidan Smith asm142, (Morgan English???)
+ * @author Aidan Smith asm142, Morgan English
  * Last edited 05/09/17
  */
 public class Retailer extends Location implements Data, java.io.Serializable{

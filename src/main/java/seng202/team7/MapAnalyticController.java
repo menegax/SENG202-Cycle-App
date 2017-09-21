@@ -13,6 +13,9 @@ import netscape.javascript.JSObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author MorganEnglish
+ */
 public class MapAnalyticController implements Initializable {
 
     @FXML private Button displayButton;

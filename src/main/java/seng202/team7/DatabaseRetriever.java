@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Retrieves data from the Database
+ * @author Morgan English
+ */
 public class DatabaseRetriever {
 
     /**
@@ -330,6 +334,10 @@ public class DatabaseRetriever {
         return tripList;
     }
 
+
+    /**
+     * Testing the queryability of time objects within SQL. Currently not working as expected
+     */
     public void testQueryTrip()
     {
         ArrayList<Trip> tripList = new ArrayList<Trip>();
@@ -392,7 +400,7 @@ public class DatabaseRetriever {
     }
 
     /**
-     * Returns a list of strings from a specific column where another column matches the integer passed in
+     * Returns a list of strings from a specific column where another column matches the string passed in with LIKE '%___%' SQL syntax
      * @param tableName table to search
      * @param value value to match
      * @param columnSearch column to search
@@ -422,6 +430,36 @@ public class DatabaseRetriever {
             }
         } catch (SQLException e){
             System.out.println("Got String Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
+    }
+
+    /**
+     * Returns a list of ints from a specific column where another column matches the string passed in with LIKE '%___%' SQL syntax
+     * @param tableName table to search
+     * @param value string to LIKE match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<Integer> getIntListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
+        ArrayList<Integer> stringList = new ArrayList<Integer>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                int returnInt =  rs.getInt(columnReturn);
+                stringList.add(returnInt);
+
+            }
+        } catch (SQLException e){
+            System.out.println("Got Int Error");
             System.out.println(e.getMessage());
         }
         return stringList;

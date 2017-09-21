@@ -7,6 +7,7 @@ import java.sql.Statement;
 
 /**
  * Class used to complete analytics through sql queries where applicable
+ * @author Morgan English
  */
 public class SQLAnalytics {
 
@@ -77,6 +78,11 @@ public class SQLAnalytics {
     }
 
 
+    /**
+     * Finds the sum of all trips within and age range for a datagroup of trips
+     * @param datagroup datagroup string to match. if "" will look at all trips
+     * @return total duration of matched trips
+     */
     public static int totalAgeTrips(int lowAge, int highAge, String datagroup)
     {
         int trips = 0;
@@ -185,6 +191,14 @@ public class SQLAnalytics {
     }
 
 
+    /**
+     * BROKEN QUERY!!!!!
+     * SQL query on Time object not behaving as it is expected. Null is returned when there is a value in the hour slot
+     * @param startTime startTime for time segment to search
+     * @param endTime endTime for time segment
+     * @param datagroup datagroup to search
+     * @return sum of trips
+     */
     public static int totalTimeTrips(String startTime, String endTime,String datagroup)
     {
         int trips = 0;
@@ -217,6 +231,13 @@ public class SQLAnalytics {
     }
 
 
+    /**
+     * sums the number of trips taken within a specific distance
+     * @param lowDist low range of distance segment
+     * @param highDist high range of distance segment
+     * @param datagroup datagroup to search
+     * @return sum of trips
+     */
     public static int totalDistTrips(double lowDist, double highDist, String datagroup)
     {
         int trips = 0;
@@ -249,6 +270,13 @@ public class SQLAnalytics {
         return trips;
     }
 
+    /**
+     * sums the number of trips within a specific duration
+     * @param lowDur start of duration range
+     * @param highDur end of duration range
+     * @param datagroup datagroup to search
+     * @return sum of trips with range
+     */
     public static int totalDurTrips(int lowDur, int highDur, String datagroup)
     {
         int trips = 0;

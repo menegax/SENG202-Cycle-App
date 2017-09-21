@@ -6,7 +6,7 @@ import java.io.Serializable;
 
 /**
  * Basic Wifi class to store information about a specific wifi location
- * @author Aidan Smith (Morgan English??)
+ * @author Aidan Smith , Morgan English
  * Last Edited 29/08/17
  */
 public class Wifi extends Location implements Data, java.io.Serializable{
@@ -14,6 +14,9 @@ public class Wifi extends Location implements Data, java.io.Serializable{
      * SQL table name
      */
     public static String tableName = "wifi";
+    /**
+     * Strings for SQL table columns
+     */
     public static String[] columns = {"id","burough","type","provider","location","city","SSID","remarks","latitude","longitude","datagroup","obj"};
 
     /**
@@ -79,10 +82,19 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     private double longitude;
 
 
-
-
-
-    //HOW WILL THIS BE INSTANTIATED
+    /**
+     * Constructor For Wifi objects
+     * @param borough burough located in e.g ("QU")
+     * @param type
+     * @param provider provider as string
+     * @param location location as string
+     * @param city city as String
+     * @param SSID wifi SSID as String
+     * @param remarks remarks as String
+     * @param dataGroup datagroup to sort with database
+     * @param longitude longitude Wifi is located at
+     * @param latitude latitude wifi is located at
+     */
     public Wifi(String borough, String type, String provider, String location, String city, String SSID, String remarks, String dataGroup, double longitude, double latitude)
     {
         this.borough = borough;
