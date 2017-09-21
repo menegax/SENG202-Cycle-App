@@ -88,7 +88,7 @@ public class WifiDataViewerController implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         boroughColumn.setCellValueFactory(new PropertyValueFactory<>("borough"));
-        wifiDataTable.setItems(filteredWifiList); //need a method to get Arraylist of retailer objects
+        wifiDataTable.setItems(filteredWifiList);
         ArrayList<String> providers = new ArrayList<String>();
         for (Wifi wifi : wifiList) {
             if (!providers.contains(wifi.getProvider())) {
@@ -247,7 +247,20 @@ public class WifiDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-
+            String query = StaticVariables.singleStringQueryLike(Wifi.tableName, "provider", searchEntry.getText());
+            ArrayList<Wifi> result = dbRetriever.queryWifi(query);
+            wifiList = FXCollections.observableArrayList(result);
+            loadedAll = true;
+            filter();
         }
+    }
+
+    public void reset() {
+        loadedAll = false;
+        loadedData = 0;
+        ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+        wifiList = FXCollections.observableArrayList(wifiArrayList);
+        searchEntry.setText("");
+        filter();
     }
 }

@@ -100,6 +100,7 @@ public class TripDataViewerController implements Initializable {
          * DatabaseTester.deleteTables();
          * DatabaseTester.createTables();
          */
+
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
@@ -400,7 +401,25 @@ public class TripDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-
+            String query = StaticVariables.singleStringQueryLike(Station.tableName, "address", searchEntry.getText());
+            ArrayList<Station> stations = dbRetriever.queryStation(query);
+            ArrayList<Trip> result = new ArrayList<>();
+            for (Station station : stations) {
+                query = StaticVariables.singleStringQuery(Trip.tableName, "startStationID", Integer.toString(station.getId()));
+                result.addAll(dbRetriever.queryTrip(query));
+            }
+            tripList = FXCollections.observableArrayList(result);
+            loadedAll = true;
+            filter();
         }
+    }
+
+    public void reset() {
+        loadedAll = false;
+        loadedData = 0;
+        ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
+        tripList = FXCollections.observableArrayList(tripArrayList);
+        searchEntry.setText("");
+        filter();
     }
 }

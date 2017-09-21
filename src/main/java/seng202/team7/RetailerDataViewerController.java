@@ -275,11 +275,20 @@ public class RetailerDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-            /** String query = StaticVariables.singleStringQuery(Retailer.tableName, "name", searchEntry.getText());
-            * ArrayList<Retailer> result = dbRetriever.queryRetailer(query);
-            * retailerList = FXCollections.observableArrayList(result);
-            * filter();
-             */
+            String query = StaticVariables.singleStringQueryLike(Retailer.tableName, "name", searchEntry.getText());
+            ArrayList<Retailer> result = dbRetriever.queryRetailer(query);
+            retailerList = FXCollections.observableArrayList(result);
+            loadedAll = true;
+            filter();
         }
+    }
+
+    public void reset() {
+        loadedAll = false;
+        loadedData = 0;
+        ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+        retailerList = FXCollections.observableArrayList(retailerArrayList);
+        searchEntry.setText("");
+        filter();
     }
 }
