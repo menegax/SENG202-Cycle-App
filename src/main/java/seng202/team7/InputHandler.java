@@ -191,7 +191,7 @@ public class InputHandler {
         }
 
         reader.close();    //don't need it anymore
-        return data;       //return appropriate array of objects for use
+        return data;       //return array of objects for use
 
     }
 
