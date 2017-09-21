@@ -9,7 +9,7 @@ import java.io.IOException;
 
 public class RoutePlannerViewer extends AnchorPane {
 
-    public RoutePlannerViewer() {
+    public RoutePlannerViewer(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("RoutePlannerViewer.fxml"));
         fxmlLoader.setRoot(this);
         try {
