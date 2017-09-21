@@ -22,12 +22,7 @@ public class MainWindowController implements Initializable{
     private DataEntryWindow dataEntryViewer;
     private MapAnalyticWindow mapViewer;
     private TripAnalyticWindow graphViewer;
-
     private String currentScreen; // Currently visible screen
-
-    public void setCurrentScreen(String currentScreen) {
-        this.currentScreen = currentScreen;
-    }
 
     /**
      * Runs as the program initially starts. Initialises each of the custom
@@ -42,7 +37,7 @@ public class MainWindowController implements Initializable{
         // Set home panel to default screen
         homeViewer = new HomeWindow();
         centerAnchorPane.getChildren().add(homeViewer);
-        setCurrentScreen("Home");
+        currentScreen = "Home";
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
         routePlannerViewer = new RoutePlannerViewer();
@@ -93,7 +88,7 @@ public class MainWindowController implements Initializable{
                 .addListener((v, oldValue, newValue) -> {
                     String currentSelection = newValue.getValue();
                     if (currentScreen != currentSelection) {
-                        changeScreens(currentSelection);
+                        changeMainScreen(currentSelection);
                     }
                 });
     }
@@ -111,44 +106,44 @@ public class MainWindowController implements Initializable{
         return item;
     }
 
-    private void changeScreens(String newScreen) {
+    private void changeMainScreen(String newScreen) {
         // Removes the current screen to make room for the new screen
         switch (currentScreen) {
-            case "Home": removeScreen(homeViewer); break;
-            case "Route Planning": removeScreen(routePlannerViewer); break;
+            case "Home": removeMainScreen(homeViewer); break;
+            case "Route Planning": removeMainScreen(routePlannerViewer); break;
             case "Analytics": break;
-            case "Map View": removeScreen(mapViewer); break;
-            case "Graph View": removeScreen(graphViewer); break;
+            case "Map View": removeMainScreen(mapViewer); break;
+            case "Graph View": removeMainScreen(graphViewer); break;
             case "Data Viewer": break;
-            case "Retailer": removeScreen(retailerViewer); break;
-            case "Trip": removeScreen(tripViewer); break;
-            case "Wifi": removeScreen(wifiViewer); break;
-            case "Data Entry": removeScreen(dataEntryViewer); break;
+            case "Retailer": removeMainScreen(retailerViewer); break;
+            case "Trip": removeMainScreen(tripViewer); break;
+            case "Wifi": removeMainScreen(wifiViewer); break;
+            case "Data Entry": removeMainScreen(dataEntryViewer); break;
             default: System.out.println("ERROR: No such removal handle exists");
         }
         // Add the new screen where the old one was
         switch (newScreen) {
-            case "Home": setScreen(homeViewer); break;
-            case "Route Planning": setScreen(routePlannerViewer); break;
+            case "Home": setMainScreen(homeViewer); break;
+            case "Route Planning": setMainScreen(routePlannerViewer); break;
             case "Analytics": break;
-            case "Map View": setScreen(mapViewer); break;
-            case "Graph View": setScreen(graphViewer); break;
+            case "Map View": setMainScreen(mapViewer); break;
+            case "Graph View": setMainScreen(graphViewer); break;
             case "Data Viewer": break;
-            case "Retailer": setScreen(retailerViewer); break;
-            case "Trip": setScreen(tripViewer); break;
-            case "Wifi": setScreen(wifiViewer); break;
-            case "Data Entry": setScreen(dataEntryViewer); break;
+            case "Retailer": setMainScreen(retailerViewer); break;
+            case "Trip": setMainScreen(tripViewer); break;
+            case "Wifi": setMainScreen(wifiViewer); break;
+            case "Data Entry": setMainScreen(dataEntryViewer); break;
             default: System.out.println("ERROR: No such set handle exists");
         }
         // Update screen tracker
         currentScreen = newScreen;
     }
 
-    private void removeScreen(Node screen) {
+    private void removeMainScreen(Node screen) {
         centerAnchorPane.getChildren().remove(screen);
     }
 
-    private void setScreen(Node screen) {
+    private void setMainScreen(Node screen) {
         centerAnchorPane.getChildren().add(screen);
     }
 }

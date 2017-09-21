@@ -20,8 +20,9 @@ public class MainWindow extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainWindow.fxml"));
 
+        Scene scene = new Scene(root);
         primaryStage.setTitle("Meraki Bikes");
-        primaryStage.setScene(new Scene(root));
+        primaryStage.setScene(scene);
         primaryStage.show();
     }
 }
