@@ -19,13 +19,26 @@
         };
         var map = new google.maps.Map(document.getElementById("map_canvas"),
             mapOptions);
+            console.log("javascript console");
+        loadWifi(map);
       }
 
-      function getPoint(){
-        return MapAnalyticWindow.getValue();
+      function loadWifi(map){
+      var wifis = bridge.getWifiJS();
+
+      for(var i =0; i < wifis.size(); i++){
+      var wifi = wifis.get(i);
+      var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
+      var marker = new google.maps.Marker({
+        position: latlon,
+        map: map,
+        title: 'wifi'
+        });
+      console.log("Index: " + i + ", Model: " + wifi.getLatitude() + ", Total Size: " + wifis.size());
+      }
       }
 
-      var value = getValue();
+
     </script>
 </head>
 <body onload="initialize()">

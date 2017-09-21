@@ -22,6 +22,9 @@ public class App
         System.out.println("Connor's test");
         System.out.println("Joshua's test");
 
-        DatabaseTester.init();
+
+        DatabaseTester.deleteTables();
+        DatabaseTester.createTables();
+        //DatabaseTester.init();
     }
 }
