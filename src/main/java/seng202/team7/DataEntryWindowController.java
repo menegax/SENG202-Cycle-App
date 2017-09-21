@@ -2,6 +2,8 @@ package seng202.team7;
 
 
 
+import javafx.beans.property.StringProperty;
+import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -14,13 +16,15 @@ import javafx.stage.Stage;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 /**
  * Controls manual data entry and data uploaded via csv
  * @author Lachlan Brewster
  */
-public class DataEntryWindowController {
+public class DataEntryWindowController implements Initializable{
 
     public Button uploadcsvButton;
     public Button add_r_button;
@@ -63,6 +67,99 @@ public class DataEntryWindowController {
     @FXML private TextField sAddressTextfield;
     @FXML private TextField typeIDTextfield;
     @FXML private TextField typeRetailerTextfield;
+
+    /**
+     * Initializes the formatting listeners for the appropriate text fields
+     * @param url
+     * @param rb
+     */
+    public void initialize(URL url, ResourceBundle rb) {
+        startStationIDTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        endStationIDTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        bikeIDTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        birthYearTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 3; i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        startTimeTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 8; i++) {
+                    if (i == 2 || i == 5) {
+                        if (newValue.charAt(i) == ':') {
+                            formatted += newValue.charAt(i);
+                        }
+                    } else if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        endTimeTextfield.textProperty().addListener(
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 8; i++) {
+                    if (i == 2 || i == 5) {
+                        if (newValue.charAt(i) == ':') {
+                            formatted += newValue.charAt(i);
+                        }
+                    } else if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
+                    }
+                }
+                ((StringProperty)observable).setValue(formatted);
+            }
+        );
+        ZIPTextfield.textProperty().addListener(
+                (observable, oldValue, newValue) -> {
+                    String formatted = "";
+                    for (int i = 0; i < newValue.length() && i < 5; i++) {
+                        if (Character.isDigit(newValue.charAt(i))) {
+                            formatted += newValue.charAt(i);
+                        }
+                    }
+                    ((StringProperty)observable).setValue(formatted);
+                }
+        );
+    }
 
     /**
      * Loads a file of data from a csv file name provided

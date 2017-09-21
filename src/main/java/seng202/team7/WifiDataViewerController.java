@@ -142,6 +142,22 @@ public class WifiDataViewerController implements Initializable {
                 filteredWifiList.add(wifi);
             }
         }
+        while (filteredWifiList.size() < 50 && !loadedAll) {
+            ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+            if (wifiArrayList.size() == 0) {
+                loadedAll = true;
+            }
+            wifiList.addAll(wifiArrayList);
+            loadedData += StaticVariables.step;
+            for (Wifi wifi : wifiList) {
+                if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("None"))
+                        && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
+                        && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("None"))
+                        ) {
+                    filteredWifiList.add(wifi);
+                }
+            }
+        }
     }
 
     public void view(int wifiIndex) {

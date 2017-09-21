@@ -147,6 +147,22 @@ public class RetailerDataViewerController implements Initializable {
                 filteredRetailerList.add(retailer);
             }
         }
+        while (filteredRetailerList.size() < 50 && !loadedAll) {
+            ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+            if (retailerArrayList.size() == 0) {
+                loadedAll = true;
+            }
+            retailerList.addAll(retailerArrayList);
+            loadedData += StaticVariables.step;
+            for (Retailer retailer : retailerList) {
+                if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("None"))
+                        && (retailer.getTypeID().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
+                        && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("None"))
+                        ) {
+                    filteredRetailerList.add(retailer);
+                }
+            }
+        }
     }
 
     /**
@@ -259,7 +275,11 @@ public class RetailerDataViewerController implements Initializable {
             error.setVisible(true);
         } else {
             error.setVisible(false);
-
+            /** String query = StaticVariables.singleStringQuery(Retailer.tableName, "name", searchEntry.getText());
+            * ArrayList<Retailer> result = dbRetriever.queryRetailer(query);
+            * retailerList = FXCollections.observableArrayList(result);
+            * filter();
+             */
         }
     }
 }

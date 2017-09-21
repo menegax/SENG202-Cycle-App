@@ -160,6 +160,23 @@ public class TripDataViewerController implements Initializable {
                 filteredTripList.add(trip);
             }
         }
+        while (filteredTripList.size() < 50 && !loadedAll) {
+            ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
+            if (tripArrayList.size() == 0) {
+                loadedAll = true;
+            }
+            tripList.addAll(tripArrayList);
+            loadedData += StaticVariables.step;
+            for (Trip trip : tripList) {
+                if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("None"))
+                        && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("None"))
+                        && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("None"))
+                        && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("None"))
+                        ) {
+                    filteredTripList.add(trip);
+                }
+            }
+        }
     }
 
     public void view(int tripIndex) {
@@ -253,70 +270,78 @@ public class TripDataViewerController implements Initializable {
         genderEntry.getSelectionModel().select(trip.getGender());
         // Formatting zip entry to only accept integers
         startIDEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length(); i++) {
-                        if (Character.isDigit(newValue.charAt(i))) {
-                            formatted += newValue.charAt(i);
-                        }
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
         endIDEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length(); i++) {
-                        if (Character.isDigit(newValue.charAt(i))) {
-                            formatted += newValue.charAt(i);
-                        }
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
         bikeIDEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length(); i++) {
-                        if (Character.isDigit(newValue.charAt(i))) {
-                            formatted += newValue.charAt(i);
-                        }
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length(); i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
         ageEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length() && i < 4; i++) {
-                        if (Character.isDigit(newValue.charAt(i))) {
-                            formatted += newValue.charAt(i);
-                        }
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 3; i++) {
+                    if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
         startTimeEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length() && i < 8; i++) {
-                        if (Character.isDigit(newValue.charAt(i)) || newValue.charAt(i) == ':') {
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 8; i++) {
+                    if (i == 2 || i == 5) {
+                        if (newValue.charAt(i) == ':') {
                             formatted += newValue.charAt(i);
                         }
+                    } else if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
         endTimeEntry.textProperty().addListener(
-                (observable, oldValue, newValue) -> {
-                    String formatted = "";
-                    for (int i = 0; i < newValue.length() && i < 8; i++) {
-                        if (Character.isDigit(newValue.charAt(i)) || newValue.charAt(i) == ':') {
+            (observable, oldValue, newValue) -> {
+                String formatted = "";
+                for (int i = 0; i < newValue.length() && i < 8; i++) {
+                    if (i == 2 || i == 5) {
+                        if (newValue.charAt(i) == ':') {
                             formatted += newValue.charAt(i);
                         }
+                    } else if (Character.isDigit(newValue.charAt(i))) {
+                        formatted += newValue.charAt(i);
                     }
-                    ((StringProperty)observable).setValue(formatted);
                 }
+                ((StringProperty)observable).setValue(formatted);
+            }
         );
     }
 
