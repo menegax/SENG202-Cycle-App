@@ -9,8 +9,13 @@ import java.util.List;
  */
 public class JSHandler {
 
+    private DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+    /**
+     * Wrapper method for interacting with Javascript inside WebEngine
+     * @return list of Wifi objects
+     */
     public List<Wifi> getWifiJS(){
-        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+
         return databaseRetriever.getWifiList();
     }
 

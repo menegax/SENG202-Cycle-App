@@ -1,6 +1,7 @@
 package seng202.team7;
 
 import com.sun.javafx.webkit.WebConsoleListener;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -24,15 +25,23 @@ public class MapAnalyticController implements Initializable {
     @FXML private WebView webViewMap;
     @FXML private TextField inText;
     private WebEngine webEngine;
+    private JSObject jsBridge;
 
 
     public void initialize(URL url, ResourceBundle rb)
     {
         webEngine = webViewMap.getEngine();
-        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
+
         webEngine.setJavaScriptEnabled(true);
-    JSObject jsObject = (JSObject) webEngine.executeScript("window");
-        jsObject.setMember("bridge", new JSHandler());
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (Worker.State.SUCCEEDED == newValue) {
+                JSObject jsObject = (JSObject) webEngine.executeScript("window");
+                jsObject.setMember("bridge", new JSHandler());
+                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+            }
+        });
+        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
+
 
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
         @Override
@@ -47,7 +56,7 @@ public class MapAnalyticController implements Initializable {
 
     public void displayClicked()
     {
-
+        webEngine.executeScript("loadWifi();");
     }
 
     @FXML
