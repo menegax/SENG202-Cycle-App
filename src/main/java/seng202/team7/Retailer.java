@@ -14,24 +14,24 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      */
     public static String tableName = "retailer";
 
-    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"}
+    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"};
     /**
      * SQL table creation script
      */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
             + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
             + columns[1]+" text,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" integer,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" real NOT NULL,\n"
-            + columns[1]+" real NOT NULL,\n"
-            + columns[1]+" text,\n"
-            + columns[1]+" blob\n"
+            + columns[2]+" text,\n"
+            + columns[3]+" text,\n"
+            + columns[4]+" text,\n"
+            + columns[5]+" text,\n"
+            + columns[6]+" integer,\n"
+            + columns[7]+" text,\n"
+            + columns[8]+" text,\n"
+            + columns[9]+" real NOT NULL,\n"
+            + columns[10]+" real NOT NULL,\n"
+            + columns[11]+" text,\n"
+            + columns[12]+" blob\n"
             + ");";
     /**
      * Retailer name
