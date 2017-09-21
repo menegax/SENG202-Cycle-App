@@ -12,6 +12,10 @@ public class StaticVariables {
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
+    public static String singleStringQueryLike(String tableName, String col, String toMatch)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") LIKE \"%" + toMatch.toLowerCase() +"%\"";
+    }
 
     public static String singleStringQuery(String tableName, String col, String toMatch)
     {

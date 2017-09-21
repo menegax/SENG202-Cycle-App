@@ -7,26 +7,26 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
     public static String tableName = "trip";
 
-
+    public static String columns[] = {"id","duration","startStationID","startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
 
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
-            + "	id integer PRIMARY KEY NOT NULL ,\n"
-            + "	duration integer,\n"
-            + "	startStationID integer,\n"
-            + " startStation obj,\n"
-            + "	endStationID integer,\n"
-            + " endStation obj,\n"
-            + " bikeID integer,\n"
-            + "	gender text,\n"
-            + "	age integer,\n"
-            + "	userType text,\n"
-            + "	startDate date,\n"
-            + " startTime time,\n"
-            + " endDate date,\n"
-            + " endTime time,\n"
-            + " distance real,\n"
-            + "	datagroup text,\n"
-            + "	obj blob\n"
+            + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
+            + columns[1]+" integer,\n"
+            + columns[2]+" integer,\n"
+            + columns[3]+" obj,\n"
+            + columns[4]+" integer,\n"
+            + columns[5]+" obj,\n"
+            + columns[6]+" integer,\n"
+            + columns[7]+" text,\n"
+            + columns[8]+" integer,\n"
+            + columns[9]+" text,\n"
+            + columns[10]+" date,\n"
+            + columns[11]+" time,\n"
+            + columns[12]+" date,\n"
+            + columns[13]+" time,\n"
+            + columns[14]+" real,\n"
+            + columns[15]+" text,\n"
+            + columns[16]+" blob\n"
             + ");";
     /**
      * Station at the start of the trip
@@ -83,7 +83,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
 
     /**
-     * Todo make birthyear take either age or birthyear. if number is greater than 1000 is birthyear else is age?? FIX GENDER HERE
+     * Trip Constructor
      * @param startStation station object at start of route
      * @param endStation station object at nd of route
      * @param duration duration of trip in seconds
@@ -112,12 +112,12 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.userType = userType;
         this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;
         System.out.println("age:" + this.age);
-        if (gender == 0) {
-            this.gender = "Unknown";
-        } else if (gender == 1 ) {
+        if (gender == 1 ) {
             this.gender = "Male";
-        } else {
+        } else  if(gender == 2){
             this.gender = "Female";
+        } else {
+        this.gender = "Unknown";
         }
         this.dataGroup = dataGroup;
 
