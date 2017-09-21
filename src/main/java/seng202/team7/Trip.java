@@ -7,6 +7,8 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
     public static String tableName = "trip";
 
+
+
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
             + "	id integer PRIMARY KEY NOT NULL ,\n"
             + "	duration integer,\n"

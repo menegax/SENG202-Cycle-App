@@ -13,23 +13,25 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * SQL tablename
      */
     public static String tableName = "retailer";
+
+    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"}
     /**
      * SQL table creation script
      */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
-            + "	id integer PRIMARY KEY NOT NULL ,\n"
-            + "	name text,\n"
-            + "	city text,\n"
-            + "	pAddress text,\n"
-            + " sAddress text,\n"
-            + "	state text,\n"
-            + "	zipCode integer,\n"
-            + "	typeID text,\n"
-            + "	type text,\n"
-            + " latitude real NOT NULL,\n"
-            + " longitude real NOT NULL,\n"
-            + "	datagroup text,\n"
-            + "	obj blob\n"
+            + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" integer,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" real NOT NULL,\n"
+            + columns[1]+" real NOT NULL,\n"
+            + columns[1]+" text,\n"
+            + columns[1]+" blob\n"
             + ");";
     /**
      * Retailer name
