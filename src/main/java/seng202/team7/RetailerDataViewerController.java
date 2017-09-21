@@ -73,10 +73,7 @@ public class RetailerDataViewerController implements Initializable {
      */
     public void initialize(URL url, ResourceBundle rb) {
 
-        /*
-         *DatabaseTester.deleteTables();
-         *DatabaseTester.createTables();
-        */
+
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
@@ -123,6 +120,14 @@ public class RetailerDataViewerController implements Initializable {
                         if (retailerArrayList.size() == 0) {
                             loadedAll = true;
                         }
+                        for (Retailer retailer : retailerArrayList) {
+                            if (!streetCB.getItems().contains(retailer.getStreet())) {
+                                streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+                            }
+                            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                                zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+                            }
+                        }
                         retailerList.addAll(retailerArrayList);
                         loadedData += StaticVariables.step;
                         filter();
@@ -154,6 +159,14 @@ public class RetailerDataViewerController implements Initializable {
             ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
             if (retailerArrayList.size() == 0) {
                 loadedAll = true;
+            }
+            for (Retailer retailer : retailerArrayList) {
+                if (!streetCB.getItems().contains(retailer.getStreet())) {
+                    streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+                }
+                if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                    zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+                }
             }
             retailerList.addAll(retailerArrayList);
             loadedData += StaticVariables.step;
@@ -290,6 +303,14 @@ public class RetailerDataViewerController implements Initializable {
         loadedAll = false;
         loadedData = 0;
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+        for (Retailer retailer : retailerArrayList) {
+            if (!streetCB.getItems().contains(retailer.getStreet())) {
+                streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+            }
+            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+            }
+        }
         retailerList = FXCollections.observableArrayList(retailerArrayList);
         if (retailerList.size() < 50) {
             loadedAll = true;

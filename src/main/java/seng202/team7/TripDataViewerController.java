@@ -109,8 +109,15 @@ public class TripDataViewerController implements Initializable {
         if (tripList.size() < 50) {
             loadedAll = true;
         }
-        startStationCB.getItems().addAll("5th ave","34 square","None");
-        endStationCB.getItems().addAll("5th ave","34 square","None");
+        ArrayList<Station> stationArrayList = dbRetriever.getStationList();
+        ArrayList<String> stationAddresses = new ArrayList<>();
+        for (Station station : stationArrayList) {
+            stationAddresses.add(station.getAddress());
+        }
+        startStationCB.getItems().addAll(stationAddresses);
+        endStationCB.getItems().addAll(stationAddresses);
+        startStationCB.getItems().add("None");
+        endStationCB.getItems().add("None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));

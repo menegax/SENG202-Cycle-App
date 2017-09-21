@@ -118,6 +118,11 @@ public class WifiDataViewerController implements Initializable {
                         if (wifiArrayList.size() == 0) {
                             loadedAll = true;
                         }
+                        for (Wifi wifi : wifiArrayList) {
+                            if (!providerCB.getItems().contains(wifi.getProvider())) {
+                                providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+                            }
+                        }
                         wifiList.addAll(wifiArrayList);
                         loadedData += StaticVariables.step;
                         filter();
@@ -149,6 +154,11 @@ public class WifiDataViewerController implements Initializable {
             ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
             if (wifiArrayList.size() == 0) {
                 loadedAll = true;
+            }
+            for (Wifi wifi : wifiArrayList) {
+                if (!providerCB.getItems().contains(wifi.getProvider())) {
+                    providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+                }
             }
             wifiList.addAll(wifiArrayList);
             loadedData += StaticVariables.step;
@@ -262,6 +272,11 @@ public class WifiDataViewerController implements Initializable {
         loadedAll = false;
         loadedData = 0;
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+        for (Wifi wifi : wifiArrayList) {
+            if (!providerCB.getItems().contains(wifi.getProvider())) {
+                providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+            }
+        }
         wifiList = FXCollections.observableArrayList(wifiArrayList);
         searchEntry.setText("");
         if (wifiList.size() < 50) {

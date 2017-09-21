@@ -85,12 +85,19 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.pAddress = pAddress;
         boolean streetStart = false;
         String street = "";
-        for (char character : pAddress.toCharArray()) {
+        for (int i = 0; i < pAddress.length(); i++) {
+            char character = pAddress.charAt(i);
             if (streetStart) {
                 street += character;
             } else if (!Character.isDigit(character)) {
-                street += character;
-                streetStart = true;
+                if (!Character.isDigit(pAddress.charAt(i + 1))) {
+                    if (i == 0) {
+                        street += character;
+                        streetStart = true;
+                    } else if (character == ' ') {
+                        streetStart = true;
+                    }
+                }
             }
         }
         this.street = street;
