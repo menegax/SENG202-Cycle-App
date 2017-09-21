@@ -110,7 +110,7 @@ public class DataEntryWindowController implements Initializable{
         birthYearTextfield.textProperty().addListener(
             (observable, oldValue, newValue) -> {
                 String formatted = "";
-                for (int i = 0; i < newValue.length() && i < 3; i++) {
+                for (int i = 0; i < newValue.length() && i < 4; i++) {
                     if (Character.isDigit(newValue.charAt(i))) {
                         formatted += newValue.charAt(i);
                     }
