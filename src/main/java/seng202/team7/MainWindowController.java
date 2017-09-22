@@ -2,10 +2,13 @@ package seng202.team7;
 
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.control.Menu;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -14,6 +17,9 @@ public class MainWindowController implements Initializable{
     public BorderPane mainBorderPane;
     public TreeView<String> navigationTree;
     public AnchorPane centerAnchorPane;
+    public MenuItem mainMenuExitButton;
+    public Menu mainMenuHelpButton;
+
     private HomeWindow homeViewer;
     private RoutePlannerViewer routePlannerViewer;
     private RetailerDataViewer retailerViewer;
@@ -146,4 +152,5 @@ public class MainWindowController implements Initializable{
     private void setMainScreen(Node screen) {
         centerAnchorPane.getChildren().add(screen);
     }
+
 }

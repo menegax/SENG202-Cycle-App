@@ -19,8 +19,8 @@ public class MainWindow extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainWindow.fxml"));
-
         Scene scene = new Scene(root);
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("MainStyle.css").toExternalForm());
         primaryStage.setTitle("Meraki Bikes");
         primaryStage.setScene(scene);
         primaryStage.show();
