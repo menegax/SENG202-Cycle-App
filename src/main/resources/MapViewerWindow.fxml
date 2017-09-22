@@ -63,7 +63,7 @@
                                     <ComboBox fx:id="mapComboProvider" prefWidth="150.0" promptText="Select Provider" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <ComboBox fx:id="mapComboWifiType" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <ComboBox fx:id="mapComboBorough" prefWidth="150.0" promptText="Borough" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button fx:id="mapComboSelectWifi" mnemonicParsing="false" onAction="#displayClicked" prefHeight="25.0" prefWidth="123.0" text="View Selected Wifi" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                    <Button fx:id="mapComboSelectWifi" mnemonicParsing="false" onAction="#displayWifi" prefHeight="25.0" prefWidth="123.0" text="View Selected Wifi" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer" GridPane.rowIndex="5">
                                        <font>
                                           <Font size="16.0" />
@@ -87,7 +87,7 @@
                                           <Insets left="10.0" />
                                        </GridPane.margin>
                                     </Text>
-                                    <Button fx:id="mapComboSelectRetailer" mnemonicParsing="false" text="View Selected Retailer" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
+                                    <Button fx:id="mapComboSelectRetailer" mnemonicParsing="false" onAction="#displayRetailer" text="View Selected Retailer" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="9" />
                                     <ComboBox fx:id="mapComboRetailerType" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                     <ComboBox fx:id="mapComboStreet" prefWidth="150.0" promptText="Select Street" GridPane.columnIndex="1" GridPane.rowIndex="7" />
                                     <ComboBox fx:id="mapComboZipcode" prefWidth="150.0" promptText="Select Zip Code" GridPane.columnIndex="1" GridPane.rowIndex="8" />

@@ -31,12 +31,18 @@ public class StaticVariables {
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+")\""+ match2.toLowerCase()+"\"";
     }
+    public static String mapViewWifiQuery(String burough, String type, String provider)
+    {
+        return "SELECT obj FROM " + Wifi.tableName + " WHERE LOWER("+Wifi.columns[1]+") = '"+ burough.toLowerCase()
+                + "' AND LOWER("+Wifi.columns[2]+") = '" + type.toLowerCase()  + "' AND LOWER("+Wifi.columns[3]+") = '" + provider.toLowerCase()+ "';";
+    }
 
     public static String steppedQuery(String tableName, int start)
     {
         return "SELECT obj FROM " + tableName + " LIMIT " + start + "," + (start+step);
 
     }
+
     /**
      * SQL query for station by ID
      * @param stationID ID to search for

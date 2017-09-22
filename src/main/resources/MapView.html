@@ -8,11 +8,11 @@
         #map_canvas { height: 100% }
     </style>
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8&sensor=false">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8">
     </script>
     <script type="text/javascript">
 	var map;
-	var bridge;
+	var Abridge;
         function initialize() {
 	  
 			//Sets options for the map to be made
@@ -32,7 +32,7 @@
 		function loadWifi(){
 		    console.log("in wifi function");
 			//loads wifi objects from JShandler through bridge specified in controller
-			var wifis = bridge.getWifiJS();
+			var wifis = Abridge.getWifiJS();
 
 			//loops through all wifi objects
 			for(var i =0; i < wifis.size(); i++){

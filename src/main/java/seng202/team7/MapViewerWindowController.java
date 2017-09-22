@@ -1,5 +1,6 @@
 package seng202.team7;
 
+import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -50,6 +51,7 @@ public class MapViewerWindowController implements Initializable {
     private JSObject jsBridge;
     private ObservableList<Wifi> wifiList;
     private ObservableList<Wifi> filteredWifiList;
+    private JSObject jsObject;
 
 
     /**
@@ -66,15 +68,23 @@ public class MapViewerWindowController implements Initializable {
         //initialise the map view
         webEngine = mapView.getEngine();
         webEngine.setJavaScriptEnabled(true);
+        webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
-                JSObject jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("bridge", new JSHandler());
+                jsObject = (JSObject) webEngine.executeScript("window");
+                jsObject.setMember("Mbridge", new JSHandler());
+                System.out.println("created bridge");
                 jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
-        webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
 
+
+        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
+            @Override
+            public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
+                System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+            }
+        });
 
 
         //Initialise retailers and wifi in combo boxes
@@ -151,7 +161,31 @@ public class MapViewerWindowController implements Initializable {
 
     public void displayClicked()
     {
-        webEngine.executeScript("loadWifi();");
+
+
+    }
+
+    public void displayWifi()
+    {
+        ArrayList<String> selected = new ArrayList<String>();
+        String burough = mapComboBorough.getSelectionModel().selectedItemProperty().getValue();
+        String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
+        String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
+
+//        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+//        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.mapViewWifiQuery(burough,type,provider)))
+//        {
+//            w.print();
+//        }
+
+
+        //webEngine.executeScript("loadWifi('"+burough+"','"+type+"','"+provider+"');");
+        //webEngine.executeScript("loadWifi();");
+        jsObject.call("loadWifi",burough,type,provider);
+    }
+
+    public void displayRetailer()
+    {
         webEngine.executeScript("loadRetailers();");
     }
 }

@@ -19,6 +19,11 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<Wifi> getWifiJS(String burough, String type, String provider){
+
+        return databaseRetriever.queryWifi(StaticVariables.mapViewWifiQuery(burough,type,provider));
+    }
+
     public List<Retailer> getRetailerJS() {
         return databaseRetriever.getRetailerList();
     }
