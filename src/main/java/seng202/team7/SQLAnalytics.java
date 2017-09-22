@@ -199,19 +199,19 @@ public class SQLAnalytics {
      * @param datagroup datagroup to search
      * @return sum of trips
      */
-    public static int totalTimeTrips(String startTime, String endTime,String datagroup)
+    public static int totalTimeTrips(int startTime, int endTime,String datagroup)
     {
         int trips = 0;
         String sql;
 
         if(datagroup != ""){
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
-                    + " WHERE datagroup = \""+datagroup+"\" \n" +
-                    " AND STRFTIME('%H', startTime) < \"" +endTime+"\" \n"
-                    + "AND STRFTIME('%H',startTime) > \"" + startTime+"\";";
+                    + " WHERE datagroup = \""+datagroup+"\" \n"
+                    + " AND cast(STRFTIME('%H', datetime(startTime/1000,'unixepoch')) AS INTEGER) BETWEEN " +startTime+" AND " + endTime + ";";
         } else {
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
-                    + " WHERE startTime BETWEEN \""+startTime+"\" AND \""+endTime+"\";";
+                    + " WHERE cast(STRFTIME('%H', datetime(startTime/1000,'unixepoch')) AS INTEGER) BETWEEN " +startTime+" AND " + endTime + ";";
+            System.out.println("in right sql");
         }
 
         try (Connection conn = DatabaseHandler.connect();
