@@ -2,6 +2,7 @@ package seng202.team7;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
@@ -60,9 +61,20 @@ public class MapViewerWindowController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
+
+
         //initialise the map view
         webEngine = mapView.getEngine();
+        webEngine.setJavaScriptEnabled(true);
+        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+            if (Worker.State.SUCCEEDED == newValue) {
+                JSObject jsObject = (JSObject) webEngine.executeScript("window");
+                jsObject.setMember("bridge", new JSHandler());
+                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+            }
+        });
         webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
+
 
 
         //Initialise retailers and wifi in combo boxes
@@ -135,6 +147,12 @@ public class MapViewerWindowController implements Initializable {
                 "SI",
                 "None"
         );
+    }
+
+    public void displayClicked()
+    {
+        webEngine.executeScript("loadWifi();");
+        webEngine.executeScript("loadRetailers();");
     }
 }
 

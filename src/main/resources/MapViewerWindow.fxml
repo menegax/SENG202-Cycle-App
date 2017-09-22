@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.web.*?>
 <?import java.lang.*?>
 <?import javafx.collections.*?>
 <?import javafx.geometry.*?>
@@ -7,10 +8,6 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.web.WebView?>
-
-
-
-
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="925.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.MapViewerWindowController">
    <children>
@@ -66,7 +63,7 @@
                                     <ComboBox fx:id="mapComboProvider" prefWidth="150.0" promptText="Select Provider" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <ComboBox fx:id="mapComboWifiType" prefWidth="150.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <ComboBox fx:id="mapComboBorough" prefWidth="150.0" promptText="Borough" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <Button fx:id="mapComboSelectWifi" mnemonicParsing="false" prefHeight="25.0" prefWidth="123.0" text="View Selected Wifi" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
+                                    <Button fx:id="mapComboSelectWifi" mnemonicParsing="false" onAction="#displayClicked" prefHeight="25.0" prefWidth="123.0" text="View Selected Wifi" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="4" />
                                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Retailer" GridPane.rowIndex="5">
                                        <font>
                                           <Font size="16.0" />
