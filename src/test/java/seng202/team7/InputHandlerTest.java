@@ -31,13 +31,13 @@ public class InputHandlerTest
     @Test
     public void testRetailer() throws IOException {
 
-        assertEquals(771, tester.loadCSV(file_retailer, "retailer").size());
+        assertEquals(771, tester.loadCSV(file_retailer, "retailer", "default").size());
 
     }
     @Test
     public void testWifi() throws IOException {
 
-        assertEquals(2566, tester.loadCSV(file_wifi, "wifi").size());
+        assertEquals(2566, tester.loadCSV(file_wifi, "wifi", "default").size());
 
     }
 

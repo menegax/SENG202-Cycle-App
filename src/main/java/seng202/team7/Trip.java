@@ -107,7 +107,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param gender gander of cyclist
      * @param dataGroup datagroup string for sorting within tables
      */
-    public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup)
+    public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
     {
         this.startStation = startStation;
         this.startStationID = startStation.getId();
