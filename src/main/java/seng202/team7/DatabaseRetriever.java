@@ -344,13 +344,14 @@ public class DatabaseRetriever {
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME(\"%H\",startTime) AS \"startHour\", endTime FROM trip")){
+             ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME('%H',datetime(startTime/1000,'unixepoch')) AS startHour, endTime FROM trip;")){
+             //ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME(\"%H\",startTime) AS \"startHour\", endTime FROM trip")){
 
             // loop through the result set
             while (rs.next()) {
 
 
-                System.out.println("StartTime: " + rs.getTime("startTime") + "StartHour: " + rs.getString("startHour"));
+                System.out.println("StartTime: " + rs.getString("startTime") + "StartHour: " + rs.getString("startHour"));
                 System.out.println("EndTime: " + rs.getTime("endTime"));
                 System.out.println("Distance: " + rs.getDouble("distance"));
 

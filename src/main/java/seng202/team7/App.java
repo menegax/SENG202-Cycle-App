@@ -23,8 +23,8 @@ public class App
         System.out.println("Joshua's test");
 
 
-        DatabaseTester.deleteTables();
+        //DatabaseTester.deleteTables();
         DatabaseTester.createTables();
-        //DatabaseTester.init();
+        DatabaseTester.init();
     }
 }
