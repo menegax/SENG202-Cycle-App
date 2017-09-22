@@ -61,6 +61,11 @@ public class InputHandler {
         BufferedReader reader = new BufferedReader(new FileReader(file));   //file in format "blahblahblah.csv"
         String line = reader.readLine(); // Reading header, Ignoring/getting rid of it if there is one
 
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        DatabaseUpdater uploader = new DatabaseUpdater();
+
+
+
 
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
@@ -85,7 +90,7 @@ public class InputHandler {
 
 
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
-                        if (checkValidity(wifiDataTest) == "Success") {
+                        if (checkValidity(wifiDataTest).equals("Success")) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -105,7 +110,7 @@ public class InputHandler {
                         String typeID;
 
                         if (fields[8].isEmpty()) {
-                            System.out.println("No retailer type given");
+                            //System.out.println("No retailer type given");
                             break;
                         }
                         else {
@@ -117,7 +122,7 @@ public class InputHandler {
                         dataGroup = "default";
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
-                        if (checkValidity(retailerDataTest) == "Success") {
+                        if (checkValidity(retailerDataTest).equals("Success")) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -126,6 +131,7 @@ public class InputHandler {
                         break;
 
                     case "trip":
+
                         int duration = Integer.parseInt(fields[0]);
                         dataGroup = "default";
                         String userType = fields[12];
@@ -135,34 +141,66 @@ public class InputHandler {
                         String startDate = fields[1];
                         String endDate = fields[2];
 
+                        Station startStation;
+                        Station endStation;
+                        //create stations for trip object, first check if they are in DB
+
                         int startStationID = Integer.parseInt(fields[3]);
-                        String startStationAddress = fields[4];
-                        String startStationDataGroup = "default";
-                        double startStationLat = Double.parseDouble(fields[5]);
-                        double startStationLong = Double.parseDouble(fields[6]);
+                        if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).isEmpty()) {
+                            //station isn't in database, so create it
 
-                        int endStationID = Integer.parseInt(fields[7]);
-                        String endStationAddress = fields[8];
-                        String endStationDataGroup = "default";
-                        double endStationLat = Double.parseDouble(fields[9]);
-                        double endStationLong = Double.parseDouble(fields[10]);
+                            String startStationAddress = fields[4];
+                            String startStationDataGroup = "default";
+                            double startStationLat = Double.parseDouble(fields[5]);
+                            double startStationLong = Double.parseDouble(fields[6]);
 
-                        //create stations for creating a trip object
-                        //testing station validity, else ditch this piece of data
-                        Station startStation = new Station(startStationID, startStationAddress, startStationDataGroup, startStationLat, startStationLong);
-                        if (!checkValidity(startStation)) {
-                            break;
+                            //testing station validity, else ditch this piece of data
+                            startStation = new Station(startStationID, startStationAddress, startStationDataGroup, startStationLat, startStationLong);
+                            if (!checkValidity(startStation)) {
+                                break;
+                            }
+                            else {
+                                //add to database as it doesnt exist there yet
+                                uploader.insertStation(startStation);
+                                //System.out.println("Station uploaded");
+                            }
+                        }
+                        else {
+                            startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                            //System.out.println("Station fetched");
+
                         }
 
-                        //testing station validity, else ditch this piece of data
-                        Station endStation = new Station(endStationID, endStationAddress, endStationDataGroup, endStationLat, endStationLong);
-                        if (!checkValidity(endStation)) {
-                            break;
+
+                        int endStationID = Integer.parseInt(fields[7]);
+                        if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).isEmpty()) {
+                            //station isn't in database, so create it
+
+                            String endStationAddress = fields[8];
+                            String endStationDataGroup = "default";
+                            double endStationLat = Double.parseDouble(fields[9]);
+                            double endStationLong = Double.parseDouble(fields[10]);
+
+                            //testing station validity, else ditch this piece of data
+                            endStation = new Station(endStationID, endStationAddress, endStationDataGroup, endStationLat, endStationLong);
+                            if (!checkValidity(endStation)) {
+                                break;
+                            }
+                            else {
+                                //add to database as it doesnt exist there yet
+                                uploader.insertStation(endStation);
+                                //System.out.println("Station uploaded");
+
+                            }
+                        }
+                        else {
+                            //System.out.println("Station fetched");
+                            endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
                         }
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
-                        if (checkValidity(tripDataTest) == "Success") {
+                        if (checkValidity(tripDataTest).equals("Success")) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -179,7 +217,7 @@ public class InputHandler {
 
                 //e.printStackTrace();
                 fail_counter++;
-                System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
+                //System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
 
 
@@ -190,6 +228,7 @@ public class InputHandler {
 
         }
 
+        //System.out.println("List created");
         reader.close();    //don't need it anymore
         return data;       //return array of objects for use
 
@@ -263,7 +302,7 @@ public class InputHandler {
 
 
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
-            validTrip = "Invalid trip duration " + trip.getDuration();
+            validTrip = "Invalid trip duration " + trip.getDuration() + "seconds";
         }
 
         else if (!Arrays.asList(validGenders).contains(trip.getGender())) {

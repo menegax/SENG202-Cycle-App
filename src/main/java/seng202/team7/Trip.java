@@ -124,7 +124,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.userType = userType;
         this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;
-        System.out.println("age:" + this.age);
+        //System.out.println("age:" + this.age);
         if (gender == 1 ) {
             this.gender = "Male";
         } else  if(gender == 2){
@@ -135,6 +135,8 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.dataGroup = dataGroup;
 
         this.distance = findDistance();
+        //System.out.println("trip created");
+
     }
 
 

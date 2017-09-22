@@ -1,14 +1,16 @@
 package seng202.team7;
 
-import junit.framework.TestCase;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 
 
 import java.io.IOException;
 
-public class InputHandlerTest extends TestCase
+import static junit.framework.TestCase.assertEquals;
+
+public class InputHandlerTest
 {
 
     InputHandler tester = new InputHandler();
@@ -38,12 +40,13 @@ public class InputHandlerTest extends TestCase
         assertEquals(2566, tester.loadCSV(file_wifi, "wifi").size());
 
     }
-    @Test
+
+    /*@Test
     public void testTrip() throws IOException {
 
         assertEquals(21832, tester.loadCSV(file_trip, "trip").size());
 
-    }
+    }*/
 
 
 
