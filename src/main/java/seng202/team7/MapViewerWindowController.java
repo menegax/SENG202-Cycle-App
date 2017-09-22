@@ -7,6 +7,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
+import netscape.javascript.JSObject;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -31,7 +32,7 @@ public class MapViewerWindowController implements Initializable {
     @FXML
     private ComboBox<String> mapComboStreet;
     @FXML
-    private ComboBox<String> mapComboZipCode;
+    private ComboBox<String> mapComboZipcode;
     @FXML
     private WebView mapView;
 
@@ -44,6 +45,10 @@ public class MapViewerWindowController implements Initializable {
     private boolean scrollAdded = false;
     private ObservableList<Retailer> retailerList;
     private ObservableList<Retailer> filteredRetailerList;
+    private WebEngine webEngine;
+    private JSObject jsBridge;
+    private ObservableList<Wifi> wifiList;
+    private ObservableList<Wifi> filteredWifiList;
 
 
     /**
@@ -54,16 +59,27 @@ public class MapViewerWindowController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Initialise retailers and wifi
+
+        //initialise the map view
+        webEngine = mapView.getEngine();
+        webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
+
+
+        //Initialise retailers and wifi in combo boxes
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
-        dbRetriever = new DatabaseRetriever();
-        dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);
         filteredRetailerList = FXCollections.observableArrayList(retailerList);
+        if (retailerList.size() < 50) {
+            loadedAll = true;
+        }
+        ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+        wifiList = FXCollections.observableArrayList(wifiArrayList);
+        filteredWifiList = FXCollections.observableArrayList(wifiList);
+        if (wifiList.size() < 50) {
+            loadedAll = true;
+        }
 
         ArrayList<String> streets = new ArrayList<>();
         ArrayList<String> zips = new ArrayList<>();
@@ -76,7 +92,18 @@ public class MapViewerWindowController implements Initializable {
             }
         }
 
+        ArrayList<String> providers = new ArrayList<String>();
+        for (Wifi wifi : wifiList) {
+            if (!providers.contains(wifi.getProvider())) {
+                providers.add(wifi.getProvider());
+            }
+        }
 
+        //Retailers combo boxes
+        mapComboZipcode.getItems().addAll(zips);
+        mapComboZipcode.getItems().add("None");
+        mapComboStreet.getItems().addAll(streets);
+        mapComboStreet.getItems().add("None");
         mapComboRetailerType.getItems().removeAll(mapComboRetailerType.getItems());
         mapComboRetailerType.getItems().addAll(
                 "Food",
@@ -89,9 +116,27 @@ public class MapViewerWindowController implements Initializable {
         );
         mapComboRetailerType.getSelectionModel().select("None");
 
-        //Initialises Map View
-        final WebEngine webEngine = new WebEngine(getClass().getResource("googlemaps.html").toString());
-
+        //Wifi combo boxes
+        mapComboProvider.getItems().addAll(providers);
+        mapComboProvider.getItems().add("None");
+        mapComboWifiType.getItems().removeAll();
+        mapComboWifiType.getItems().addAll(
+                "Free",
+                "Limited Free",
+                "Partner Site",
+                "None"
+        );
+        mapComboBorough.getItems().removeAll();
+        mapComboBorough.getItems().addAll(
+                "QU",
+                "BK",
+                "BX",
+                "MN",
+                "SI",
+                "None"
+        );
     }
 }
+
+
 
