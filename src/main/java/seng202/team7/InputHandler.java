@@ -143,7 +143,7 @@ public class InputHandler {
 
                         Station startStation;
                         Station endStation;
-                        //create stations for creating a trip object
+                        //create stations for trip object, first check if they are in DB
 
                         int startStationID = Integer.parseInt(fields[3]);
                         if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).isEmpty()) {
