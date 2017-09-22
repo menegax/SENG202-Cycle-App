@@ -204,7 +204,6 @@ public class DataEntryWindowController implements Initializable{
 
 
         try {
-
             String nameRetailer = nameTextfield.getText();
             int ZIP = Integer.parseInt(ZIPTextfield.getText());
             String state = stateTextfield.getText();
@@ -215,7 +214,7 @@ public class DataEntryWindowController implements Initializable{
             String typeRetailer = typeRetailerTextfield.getText();
 
             Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-            if (toTest.checkValidity(retailer) == "Success") {
+            if (toTest.checkValidity(retailer).equals("Success")) {
                 Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
                 toAdd.add(retailerToAdd);
                 status_text.setText("Retailer added");
@@ -259,7 +258,7 @@ public class DataEntryWindowController implements Initializable{
 
 
             Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-            if (toTest.checkValidity(wifi) == "Success") {
+            if (toTest.checkValidity(wifi).equals("Success")) {
                 Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
                 toAdd.add(wifiToAdd);
                 status_text.setText("Wifi added");
@@ -308,10 +307,10 @@ public class DataEntryWindowController implements Initializable{
 
             String genderGiven = genderTextfield.getText();
             int gender;
-            if (genderGiven == "Male" || genderGiven == "male" || genderGiven == "M" || genderGiven == "m") {
+            if (genderGiven.equals( "Male") || genderGiven.equals("male") || genderGiven.equals("M") || genderGiven.equals("m")) {
                 gender = 1;
             }
-            else if (genderGiven == "Female" || genderGiven == "female" || genderGiven == "F" || genderGiven == "f") {
+            else if (genderGiven.equals("Female") || genderGiven.equals("female") || genderGiven.equals("F") || genderGiven.equals("f")) {
                 gender = 2;
             }
             else {
@@ -368,7 +367,7 @@ public class DataEntryWindowController implements Initializable{
             int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
             trip.setDuration(newDuration);           //duration is derived
 
-            if ((toTest.checkValidity(trip) == "Success") && data_valid) {
+            if ((toTest.checkValidity(trip).equals("Success")) && data_valid) {
                 Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
                 toAdd.add(tripToAdd);
                 status_text.setText("Trip added");
