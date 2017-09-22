@@ -11,9 +11,13 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+
+/**
+ * Controller for Graph viewing of analytics
+ * @author Morgan English
+ */
 public class TripAnalyticController{
-    @FXML
-    private Button userButton;
+    @FXML private Button userButton;
     @FXML private Button timeButton;
     @FXML private Button genderButton;
     @FXML private Button durButton;
@@ -38,6 +42,9 @@ public class TripAnalyticController{
 
     DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
+    /**
+     * Creates a PIE graph showing Gender of selected Bike trips
+     */
     public void genderGraph()
     {
         bar.setVisible(false);
@@ -58,6 +65,10 @@ public class TripAnalyticController{
 
     }
 
+
+    /**
+     * Creates a PIE graph showing Usertype of selected BikeTrips
+     */
     public void userGraph()
     {
         bar.setVisible(false);
@@ -72,6 +83,10 @@ public class TripAnalyticController{
         pie.setVisible(true);
     }
 
+
+    /**
+     * creates Bar graph of Age
+     */
     public void ageGraph()
     {
         bar.setVisible(false);
@@ -90,6 +105,10 @@ public class TripAnalyticController{
         pie.setVisible(true);
     }
 
+
+    /**
+     * creates Bar graph of times by time of day
+     */
     public void timeGraph()
     {
         pie.setVisible(false);
@@ -102,14 +121,14 @@ public class TripAnalyticController{
         bar.setTitle("Time of Day Trips Taken");
 
         barChartData.addAll(
-                new XYChart.Data<>("12AM to 3AM", 2),
-                new XYChart.Data<>("3AM to 6AM", 3),
-                new XYChart.Data<>("6AM to 9AM", 6),
-                new XYChart.Data<>("9AM to 12PM", 5),
-                new XYChart.Data<>("12PM to 3PM", 5),
-                new XYChart.Data<>("3PM to 6PM", 5),
-                new XYChart.Data<>("6PM to 9PM", 5),
-                new XYChart.Data<>("9PM to 12AM", 5)
+                new XYChart.Data<>("12AM to 3AM", SQLAnalytics.totalTimeTrips(0,3,"")),
+                new XYChart.Data<>("3AM to 6AM", SQLAnalytics.totalTimeTrips(3,6,"")),
+                new XYChart.Data<>("6AM to 9AM", SQLAnalytics.totalTimeTrips(6,9,"")),
+                new XYChart.Data<>("9AM to 12PM", SQLAnalytics.totalTimeTrips(9,12,"")),
+                new XYChart.Data<>("12PM to 3PM", SQLAnalytics.totalTimeTrips(12,15,"")),
+                new XYChart.Data<>("3PM to 6PM", SQLAnalytics.totalTimeTrips(15,18,"")),
+                new XYChart.Data<>("6PM to 9PM", SQLAnalytics.totalTimeTrips(18,21,"")),
+                new XYChart.Data<>("9PM to 12AM", SQLAnalytics.totalTimeTrips(21,24,""))
         );
 
         XYChart.Series timeSeries = new XYChart.Series(barChartData);
@@ -119,6 +138,9 @@ public class TripAnalyticController{
         bar.setVisible(true);
     }
 
+    /**
+     * Creates bar graph by duration
+     */
     public void durationGraph()
     {
         pie.setVisible(false);
@@ -146,6 +168,10 @@ public class TripAnalyticController{
         bar.setVisible(true);
     }
 
+
+    /**
+     * Creates bar graph by distance
+     */
     public void distanceGraph()
     {
         pie.setVisible(false);

@@ -1,14 +1,16 @@
 package seng202.team7;
 
-import junit.framework.TestCase;
 import org.junit.Test;
-import static org.junit.Assert.*;
+import junit.framework.TestCase;
+import junit.framework.TestSuite;
 
 
 
 import java.io.IOException;
 
-public class InputHandlerTest extends TestCase
+import static junit.framework.TestCase.assertEquals;
+
+public class InputHandlerTest
 {
 
     InputHandler tester = new InputHandler();
@@ -17,7 +19,7 @@ public class InputHandlerTest extends TestCase
     String file_retailer = "Team7_Seng202\\src\\test\\test_resources\\retailer_data_test.csv";
     String file_wifi = "Team7_Seng202\\src\\test\\test_resources\\wifi_data_test.csv";
     String file_trip = "Team7_Seng202\\src\\test\\test_resources\\trip_data_test.csv";
-
+    not sure how to do this, below works fine for now
     */
 
     String file_retailer = "retailer_data_test.csv";
@@ -38,12 +40,13 @@ public class InputHandlerTest extends TestCase
         assertEquals(2566, tester.loadCSV(file_wifi, "wifi").size());
 
     }
-    @Test
+
+    /*@Test
     public void testTrip() throws IOException {
 
         assertEquals(21832, tester.loadCSV(file_trip, "trip").size());
 
-    }
+    }*/
 
 
 

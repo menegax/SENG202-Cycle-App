@@ -5,6 +5,11 @@ import com.sun.org.apache.bcel.internal.generic.RET;
 import java.text.SimpleDateFormat;
 import java.lang.Math;
 
+/**
+ * Holds many static functions
+ * Many functions here to create SQL query Stings for use in DatabaseRetriever
+ * @author Morgan English
+ */
 public class StaticVariables {
     public static int step = 50;
     private static double defaultDist = 1;
@@ -12,6 +17,10 @@ public class StaticVariables {
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
+    public static String singleStringQueryLike(String tableName, String col, String toMatch)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") LIKE \"%" + toMatch.toLowerCase() +"%\"";
+    }
 
     public static String singleStringQuery(String tableName, String col, String toMatch)
     {

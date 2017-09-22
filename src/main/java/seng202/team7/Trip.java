@@ -2,29 +2,43 @@ package seng202.team7;
 import java.text.ParseException;
 import java.util.Date;
 
-
+/**
+ * @author Morgan English
+ */
 public class Trip extends Location implements Data, java.io.Serializable {
 
+    /**
+     * String for the name of the table in the database
+     */
     public static String tableName = "trip";
 
+    /**
+     * Strings of all the columns in the database
+     */
+    public static String columns[] = {"id","duration","startStationID","startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
+
+
+    /**
+     * SQL string to create table
+     */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
-            + "	id integer PRIMARY KEY NOT NULL ,\n"
-            + "	duration integer,\n"
-            + "	startStationID integer,\n"
-            + " startStation obj,\n"
-            + "	endStationID integer,\n"
-            + " endStation obj,\n"
-            + " bikeID integer,\n"
-            + "	gender text,\n"
-            + "	age integer,\n"
-            + "	userType text,\n"
-            + "	startDate date,\n"
-            + " startTime time,\n"
-            + " endDate date,\n"
-            + " endTime time,\n"
-            + " distance real,\n"
-            + "	datagroup text,\n"
-            + "	obj blob\n"
+            + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
+            + columns[1]+" integer,\n"
+            + columns[2]+" integer,\n"
+            + columns[3]+" obj,\n"
+            + columns[4]+" integer,\n"
+            + columns[5]+" obj,\n"
+            + columns[6]+" integer,\n"
+            + columns[7]+" text,\n"
+            + columns[8]+" integer,\n"
+            + columns[9]+" text,\n"
+            + columns[10]+" date,\n"
+            + columns[11]+" time,\n"
+            + columns[12]+" date,\n"
+            + columns[13]+" time,\n"
+            + columns[14]+" real,\n"
+            + columns[15]+" text,\n"
+            + columns[16]+" blob\n"
             + ");";
     /**
      * Station at the start of the trip
@@ -53,8 +67,9 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * End time as java datetime object
      */
     private Date endDate;
-    /*What type should we make this
-     * thinking ENUM so more types can be added
+
+    /**
+     * String for the Usertype
      */
     private String userType;
     /**
@@ -81,7 +96,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
 
     /**
-     *
+     * Trip Constructor
      * @param startStation station object at start of route
      * @param endStation station object at nd of route
      * @param duration duration of trip in seconds
@@ -108,53 +123,21 @@ public class Trip extends Location implements Data, java.io.Serializable {
             System.out.println(e.getMessage());
         }
         this.userType = userType;
-        this.age = StaticVariables.currentYear - birthYear;
-        if (gender == 0) {
-            this.gender = "Unknown";
-        } else if (gender == 1 ) {
+        this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;
+        //System.out.println("age:" + this.age);
+        if (gender == 1 ) {
             this.gender = "Male";
-        } else {
+        } else  if(gender == 2){
             this.gender = "Female";
+        } else {
+        this.gender = "Unknown";
         }
         this.dataGroup = dataGroup;
 
         this.distance = findDistance();
-    }
+        //System.out.println("trip created");
 
-    /**
-     * Todo make birthyear take either age or birthyear. if number is greater than 1000 is birthyear else is age?? FIX GENDER HERE
-     * @param startStation station object at start of route
-     * @param endStation station object at nd of route
-     * @param duration duration of trip in seconds
-     * @param startDate startdate of trip as java date object
-     * @param endDate enddate of trip as java date object
-     * @param userType usertype of cyclist
-     * @param birthYear year of birth for user can then be used to calculate age
-     * @param gender gender of cyclist
-     * @param dataGroup datagroup string for sorting within tables
-     */
-    public Trip(Station startStation, Station endStation, int duration, Date startDate, Date endDate, String userType, int birthYear, int gender, String dataGroup)
-    {
-        this.startStation = startStation;
-        this.startStationID = startStation.getId();
-        this.endStation = endStation;
-        this.endStationID = endStation.getId();
-        this.duration = duration;
-        this.startDate = startDate;
-        this.endDate = endDate;
-        this.userType = userType;
-        this.age = StaticVariables.currentYear - birthYear;
-        if (gender == 0) {
-            this.gender = "Unknown";
-        } else if (gender == 1 ) {
-            this.gender = "Male";
-        } else {
-            this.gender = "Female";
-        }
-        this.dataGroup = dataGroup;
-        this.distance = findDistance();
     }
-
 
 
     /**
@@ -317,7 +300,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
     }
 
     /**
-     * Prints object for testing
+     * Prints object for manual testing
      */
     public void testPrint()
     {

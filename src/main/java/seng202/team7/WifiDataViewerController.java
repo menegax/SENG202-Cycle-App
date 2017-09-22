@@ -16,7 +16,7 @@ import java.util.ResourceBundle;
 /**
  * Wifi data controller to control raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 17/09/17
+ * Last updated 22/09/17
  */
 
 public class WifiDataViewerController implements Initializable {
@@ -37,7 +37,8 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> providerCB;
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> boroughCB;
-    @FXML private Text noWifiSelected;
+    @FXML private TextField searchEntry;
+    @FXML private Text error;
 
 
     // Single record viewer widgets
@@ -45,7 +46,6 @@ public class WifiDataViewerController implements Initializable {
     @FXML private Label typeLabel;
     @FXML private Label locationLabel;
     @FXML private Label boroughLabel;
-    @FXML private Label nameLabel;
     @FXML private Label remarksLabel;
 
     // Editor widgets
@@ -53,7 +53,6 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> typeEntry;
     @FXML private TextArea locationEntry;
     @FXML private ComboBox<String> boroughEntry;
-    @FXML private TextField nameEntry;
     @FXML private TextArea remarksEntry;
 
     // Important attributes for functionality
@@ -79,17 +78,19 @@ public class WifiDataViewerController implements Initializable {
          * DatabaseTester.createTables();
          */
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
         wifiList = FXCollections.observableArrayList(wifiArrayList);
         filteredWifiList = FXCollections.observableArrayList(wifiList);
+        if (wifiList.size() < 50) {
+            loadedAll = true;
+        }
 
         providerColumn.setCellValueFactory(new PropertyValueFactory<>("provider"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         boroughColumn.setCellValueFactory(new PropertyValueFactory<>("borough"));
-        wifiDataTable.setItems(filteredWifiList); //need a method to get Arraylist of retailer objects
+        wifiDataTable.setItems(filteredWifiList);
         ArrayList<String> providers = new ArrayList<String>();
         for (Wifi wifi : wifiList) {
             if (!providers.contains(wifi.getProvider())) {
@@ -116,6 +117,11 @@ public class WifiDataViewerController implements Initializable {
                         if (wifiArrayList.size() == 0) {
                             loadedAll = true;
                         }
+                        for (Wifi wifi : wifiArrayList) {
+                            if (!providerCB.getItems().contains(wifi.getProvider())) {
+                                providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+                            }
+                        }
                         wifiList.addAll(wifiArrayList);
                         loadedData += StaticVariables.step;
                         filter();
@@ -130,6 +136,7 @@ public class WifiDataViewerController implements Initializable {
      * Called whenever a filter combobox is changed to filter all the loaded data again
      */
     public void filter() {
+        error.setVisible(false);
         filteredWifiList.clear();
         String providerSelection = providerCB.getValue();
         String typeSelection = typeCB.getValue();
@@ -142,15 +149,40 @@ public class WifiDataViewerController implements Initializable {
                 filteredWifiList.add(wifi);
             }
         }
+        while (filteredWifiList.size() < 50 && !loadedAll) {
+            ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+            if (wifiArrayList.size() == 0) {
+                loadedAll = true;
+            }
+            for (Wifi wifi : wifiArrayList) {
+                if (!providerCB.getItems().contains(wifi.getProvider())) {
+                    providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+                }
+            }
+            wifiList.addAll(wifiArrayList);
+            loadedData += StaticVariables.step;
+            for (Wifi wifi : wifiList) {
+                if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("None"))
+                        && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
+                        && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("None"))
+                        ) {
+                    filteredWifiList.add(wifi);
+                }
+            }
+        }
     }
 
+    /**
+     * Updates the attributes of the single record viewer with the attributes of the wifi
+     * provided through the retailerIndex
+     * @param wifiIndex The index of the wifi to be displayed
+     */
     public void view(int wifiIndex) {
         Wifi wifi = filteredWifiList.get(wifiIndex);
         providerLabel.setText(wifi.getProvider());
         typeLabel.setText(wifi.getType());
         locationLabel.setText(wifi.getLocation());
         boroughLabel.setText(wifi.getBorough());
-        //are we implementing this?? nameLabel.setText(wifi.getName());
         remarksLabel.setText(wifi.getRemarks());
     }
 
@@ -183,9 +215,10 @@ public class WifiDataViewerController implements Initializable {
     public void viewRecord() {
         currentWifiIndex = wifiDataTable.getSelectionModel().getSelectedIndex();
         if (currentWifiIndex == -1) {
-            noWifiSelected.setVisible(true);
+            error.setText("Please select a retailer to view");
+            error.setVisible(true);
         } else {
-            noWifiSelected.setVisible(false);
+            error.setVisible(false);
             dataViewer.setVisible(false);
             editor.setVisible(false);
             recordViewer.setVisible(true);
@@ -203,6 +236,9 @@ public class WifiDataViewerController implements Initializable {
         recordViewer.setVisible(false);
     }
 
+    /**
+     * Brings up the edit page on the currently selected wifi
+     */
     public void viewEdit() {
         recordViewer.setVisible(false);
         editor.setVisible(true);
@@ -211,19 +247,57 @@ public class WifiDataViewerController implements Initializable {
         typeEntry.getSelectionModel().select(wifi.getType());
         locationEntry.setText(wifi.getLocation());
         boroughEntry.getSelectionModel().select(wifi.getBorough());
-        // implementing?? nameEntry.setText(wifi.getName());
         remarksEntry.setText(wifi.getRemarks());
     }
 
+    /**
+     * Makes the provided changes to the selected wifi
+     */
     public void confirmEdit(){
         Wifi wifi = filteredWifiList.get(currentWifiIndex);
         wifi.setProvider(providerEntry.getText());
         wifi.setType(typeEntry.getValue());
         wifi.setLocation(locationEntry.getText());
         wifi.setBorough(boroughEntry.getValue());
-        // wifi.setName(nameEntry.getText());
         wifi.setRemarks(remarksEntry.getText());
         dbUpdater.updateWifi(wifi);
         viewRecord();
+    }
+
+    /**
+     * Searches through the entire wifi list for matches to the search entry and then displays them
+     */
+    public void search() {
+        if (searchEntry.getText().isEmpty()) {
+            error.setText("No search entered");
+            error.setVisible(true);
+        } else {
+            error.setVisible(false);
+            String query = StaticVariables.singleStringQueryLike(Wifi.tableName, "provider", searchEntry.getText());
+            ArrayList<Wifi> result = dbRetriever.queryWifi(query);
+            wifiList = FXCollections.observableArrayList(result);
+            loadedAll = true;
+            filter();
+        }
+    }
+
+    /**
+     * Resets the search so that the records are no longer filtered by the search criteria
+     */
+    public void reset() {
+        loadedAll = false;
+        loadedData = 0;
+        ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
+        for (Wifi wifi : wifiArrayList) {
+            if (!providerCB.getItems().contains(wifi.getProvider())) {
+                providerCB.getItems().add(providerCB.getItems().size() - 2, wifi.getProvider());
+            }
+        }
+        wifiList = FXCollections.observableArrayList(wifiArrayList);
+        searchEntry.setText("");
+        if (wifiList.size() < 50) {
+            loadedAll = true;
+        }
+        filter();
     }
 }

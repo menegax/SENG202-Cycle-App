@@ -1,21 +1,31 @@
 package seng202.team7;
 
+/**
+ * Station objects primarily used for Trips
+ * @author Morgan English
+ */
 public class Station extends Location implements Data, java.io.Serializable {
     /**
      * SQL tablename
      */
     public static String tableName = "station";
+
+    /**
+     * String list of columns for database table
+     */
+    public static String columns[] = {"stationid","address","latitude","longitude","datagroup","obj"};
     /**
      * SQL creation table string
      */
-    public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"//need a name field
-            + "	stationid integer PRIMARY KEY NOT NULL,\n"
-            + "	address text,\n"
-            + " latitude real NOT NULL,\n"
-            + " longitude real NOT NULL,\n"
-            + "	datagroup text,\n"
-            + " obj blob"
+    public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
+            + columns[0]+" integer PRIMARY KEY NOT NULL,\n"
+            + columns[1]+" text,\n"
+            + columns[2]+" real NOT NULL,\n"
+            + columns[3]+" real NOT NULL,\n"
+            + columns[4]+" text,\n"
+            + columns[5]+" blob"
             + ");";
+
     private int id;
     private String address;
     private String dataGroup;

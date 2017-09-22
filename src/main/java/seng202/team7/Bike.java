@@ -1,5 +1,9 @@
 package seng202.team7;
 
+/**
+ * UNUSED class for bike objects
+ * @author Morgan English
+ */
 public class Bike implements Data{
     /**
      * name for the table

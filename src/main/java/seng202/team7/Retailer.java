@@ -5,7 +5,7 @@ import java.util.Map;
 
 /**
  * Base class for a Retailer object to hold parameters and basic getters and setters
- * @author Aidan Smith asm142, (Morgan English???)
+ * @author Aidan Smith asm142, Morgan English
  * Last edited 05/09/17
  */
 public class Retailer extends Location implements Data, java.io.Serializable{
@@ -13,23 +13,25 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * SQL tablename
      */
     public static String tableName = "retailer";
+
+    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"};
     /**
      * SQL table creation script
      */
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS "+tableName+" (\n"
-            + "	id integer PRIMARY KEY NOT NULL ,\n"
-            + "	name text,\n"
-            + "	city text,\n"
-            + "	pAddress text,\n"
-            + " sAddress text,\n"
-            + "	state text,\n"
-            + "	zipCode integer,\n"
-            + "	typeID text,\n"
-            + "	type text,\n"
-            + " latitude real NOT NULL,\n"
-            + " longitude real NOT NULL,\n"
-            + "	datagroup text,\n"
-            + "	obj blob\n"
+            + columns[0]+" integer PRIMARY KEY NOT NULL ,\n"
+            + columns[1]+" text,\n"
+            + columns[2]+" text,\n"
+            + columns[3]+" text,\n"
+            + columns[4]+" text,\n"
+            + columns[5]+" text,\n"
+            + columns[6]+" integer,\n"
+            + columns[7]+" text,\n"
+            + columns[8]+" text,\n"
+            + columns[9]+" real NOT NULL,\n"
+            + columns[10]+" real NOT NULL,\n"
+            + columns[11]+" text,\n"
+            + columns[12]+" blob\n"
             + ");";
     /**
      * Retailer name
@@ -83,12 +85,19 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.pAddress = pAddress;
         boolean streetStart = false;
         String street = "";
-        for (char character : pAddress.toCharArray()) {
+        for (int i = 0; i < pAddress.length(); i++) {
+            char character = pAddress.charAt(i);
             if (streetStart) {
                 street += character;
             } else if (!Character.isDigit(character)) {
-                street += character;
-                streetStart = true;
+                if (!Character.isDigit(pAddress.charAt(i + 1))) {
+                    if (i == 0) {
+                        street += character;
+                        streetStart = true;
+                    } else if (character == ' ') {
+                        streetStart = true;
+                    }
+                }
             }
         }
         this.street = street;

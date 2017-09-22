@@ -4,7 +4,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<BorderPane fx:id="mainBorderPane" prefHeight="500.0" prefWidth="1100.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.MainWindowController">
+<BorderPane fx:id="mainBorderPane" prefHeight="500.0" prefWidth="1100.0" stylesheets="@MainStyle.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.MainWindowController">
   <bottom>
     <HBox BorderPane.alignment="CENTER" />
   </bottom>
@@ -16,10 +16,10 @@
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="Exit" />
+            <MenuItem fx:id="mainMenuExitButton" mnemonicParsing="false" text="Exit" />
           </items>
         </Menu>
-            <Menu mnemonicParsing="false" text="Help" />
+            <Menu fx:id="mainMenuHelpButton" mnemonicParsing="false" text="Help" />
       </menus>
     </MenuBar>
   </top>

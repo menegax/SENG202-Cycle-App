@@ -7,22 +7,18 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 
-
+/**
+ * Handles the parsing of csv files then creates the relevant objects
+ * @author Lachlan Brewster
+ */
 public class InputHandler {
 
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
     private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
-    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", ""};
-    private String validCity[] = {"New York", "Brooklyn", "Bronx", "Queens", "Staten Island", "Fresh Meadows", "Laurelton", "Cambria Heights",
-            "Whitestone", "Briarwood", "Rego Park", "Jackson Heights", "Rosedale", "College Point", "Far Rockaway", "Ridgewood",
-            "Howard Beach", "Rockaway Beach", "East Elmhurst", "Maspeth", "Corona", "Queens Village", "South Hollis", "Arverne",
-            "Glen Oaks", "Woodhaven", "Bellerose", "Hollis", "Little Neck", "Broad Channel", "South Ozone Park", "Ozone Park",
-            "Rockaway Park", "Long Island City", "Middle Village", "Jamaica", "Glendale", "Woodside", "Richmond Hill", "Forest Hills",
-            "Elmhurst", "Bayside", "Flushing", "Saint Albans"};
-    //ON CITI BIKE IT HAS BEEN TAKING NEIGHBOURHOODS AS CITIES, ONLY 300/2500 OR SO, DO WE REALLY WANT THEM? IT'S VALID DATA I SUPPOSE
+    private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber"};
     private String validState[] = {"NY"};
-    private int counter = 0;                          //for testing how many objects were created etc
+    private int fail_counter = 0;                          //for testing how many objects were created etc
 
 
     /*
@@ -65,6 +61,11 @@ public class InputHandler {
         BufferedReader reader = new BufferedReader(new FileReader(file));   //file in format "blahblahblah.csv"
         String line = reader.readLine(); // Reading header, Ignoring/getting rid of it if there is one
 
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        DatabaseUpdater uploader = new DatabaseUpdater();
+
+
+
 
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
@@ -89,7 +90,7 @@ public class InputHandler {
 
 
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
-                        if (checkValidity(wifiDataTest)) {
+                        if (checkValidity(wifiDataTest).equals("Success")) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -109,6 +110,7 @@ public class InputHandler {
                         String typeID;
 
                         if (fields[8].isEmpty()) {
+                            //System.out.println("No retailer type given");
                             break;
                         }
                         else {
@@ -120,7 +122,7 @@ public class InputHandler {
                         dataGroup = "default";
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
-                        if (checkValidity(retailerDataTest)) {
+                        if (checkValidity(retailerDataTest).equals("Success")) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -129,6 +131,7 @@ public class InputHandler {
                         break;
 
                     case "trip":
+
                         int duration = Integer.parseInt(fields[0]);
                         dataGroup = "default";
                         String userType = fields[12];
@@ -138,34 +141,66 @@ public class InputHandler {
                         String startDate = fields[1];
                         String endDate = fields[2];
 
+                        Station startStation;
+                        Station endStation;
+                        //create stations for trip object, first check if they are in DB
+
                         int startStationID = Integer.parseInt(fields[3]);
-                        String startStationAddress = fields[4];
-                        String startStationDataGroup = "default";
-                        double startStationLat = Double.parseDouble(fields[5]);
-                        double startStationLong = Double.parseDouble(fields[6]);
+                        if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).isEmpty()) {
+                            //station isn't in database, so create it
 
-                        int endStationID = Integer.parseInt(fields[7]);
-                        String endStationAddress = fields[8];
-                        String endStationDataGroup = "default";
-                        double endStationLat = Double.parseDouble(fields[9]);
-                        double endStationLong = Double.parseDouble(fields[10]);
+                            String startStationAddress = fields[4];
+                            String startStationDataGroup = "default";
+                            double startStationLat = Double.parseDouble(fields[5]);
+                            double startStationLong = Double.parseDouble(fields[6]);
 
-                        //create stations for creating a trip object
-                        //testing station validity, else ditch this piece of data
-                        Station startStation = new Station(startStationID, startStationAddress, startStationDataGroup, startStationLat, startStationLong);
-                        if (!checkValidity(startStation)) {
-                            break;
+                            //testing station validity, else ditch this piece of data
+                            startStation = new Station(startStationID, startStationAddress, startStationDataGroup, startStationLat, startStationLong);
+                            if (!checkValidity(startStation)) {
+                                break;
+                            }
+                            else {
+                                //add to database as it doesnt exist there yet
+                                uploader.insertStation(startStation);
+                                //System.out.println("Station uploaded");
+                            }
+                        }
+                        else {
+                            startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                            //System.out.println("Station fetched");
+
                         }
 
-                        //testing station validity, else ditch this piece of data
-                        Station endStation = new Station(endStationID, endStationAddress, endStationDataGroup, endStationLat, endStationLong);
-                        if (!checkValidity(endStation)) {
-                            break;
+
+                        int endStationID = Integer.parseInt(fields[7]);
+                        if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).isEmpty()) {
+                            //station isn't in database, so create it
+
+                            String endStationAddress = fields[8];
+                            String endStationDataGroup = "default";
+                            double endStationLat = Double.parseDouble(fields[9]);
+                            double endStationLong = Double.parseDouble(fields[10]);
+
+                            //testing station validity, else ditch this piece of data
+                            endStation = new Station(endStationID, endStationAddress, endStationDataGroup, endStationLat, endStationLong);
+                            if (!checkValidity(endStation)) {
+                                break;
+                            }
+                            else {
+                                //add to database as it doesnt exist there yet
+                                uploader.insertStation(endStation);
+                                //System.out.println("Station uploaded");
+
+                            }
+                        }
+                        else {
+                            //System.out.println("Station fetched");
+                            endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
                         }
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
-                        if (checkValidity(tripDataTest) == true) {
+                        if (checkValidity(tripDataTest).equals("Success")) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -181,7 +216,8 @@ public class InputHandler {
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
                 //e.printStackTrace();
-                System.out.println("Wrong type of data in csv while parsing or creating object");
+                fail_counter++;
+                //System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
 
 
@@ -192,15 +228,17 @@ public class InputHandler {
 
         }
 
+        //System.out.println("List created");
         reader.close();    //don't need it anymore
-        return data;       //return appropriate array of objects for use
+        return data;       //return array of objects for use
 
     }
 
 
 
-
-
+    public int getFail_counter() {
+        return fail_counter;
+    }
 
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
@@ -217,33 +255,34 @@ public class InputHandler {
      * @param retailer
      * @return validRetailer
      */
-    public Boolean checkValidity(Retailer retailer)
+    public String checkValidity(Retailer retailer)
     {
 
-        boolean validRetailer = true;
+        String validRetailer = "Success";
 
 
-        if (retailer.getCity().length() > 20 || retailer.getCity().length() < 2) {
-            validRetailer = false;
+        if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
+            validRetailer = "Invalid retailer city " + retailer.getCity();
         }
-        else if (retailer.getName().length() > 30) {
-            validRetailer = false;
+        else if (retailer.getName().length() > 50) {
+            validRetailer = "Invalid retailer name " + retailer.getName();
+
         }
 
         //no viable way to test valid address
 
         else if (!Arrays.asList(validState).contains(retailer.getState())) {
-            validRetailer = false;
+            validRetailer = "Invalid retailer state " + retailer.getState();
         }
         else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
-            validRetailer = false;
+            validRetailer = "Invalid retailer ZIP " + retailer.getZipCode();
         }
-        else if (retailer.getType().length() > 30) {
-            validRetailer = false;
+        else if (retailer.getType().length() > 50) {
+            validRetailer = "Invalid retailer type " + retailer.getType();
         }
 
-        else if (retailer.getTypeID().length() > 20) {
-            validRetailer = false;
+        else if (retailer.getTypeID().length() > 31) {
+            validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
 
 
@@ -257,21 +296,21 @@ public class InputHandler {
      * @param trip
      * @return validRetailer
      */
-    public Boolean checkValidity(Trip trip)
+    public String checkValidity(Trip trip)
     {
-        boolean validTrip = true;
+        String validTrip = "Success";
 
 
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
-            validTrip = false;
+            validTrip = "Invalid trip duration " + trip.getDuration() + "seconds";
         }
 
         else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
-            validTrip = false;
+            validTrip = "Invalid gender " + trip.getGender();
         }
 
         else if (0 > trip.getAge() || trip.getAge() > 120) {
-            validTrip = false;
+            validTrip = "Invalid age " + trip.getAge();
         }
 
         /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
@@ -279,7 +318,7 @@ public class InputHandler {
         }*/
 
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
-            validTrip = false;
+            validTrip = "Invalid user type " + trip.getUserType();
         }
 
 
@@ -293,39 +332,39 @@ public class InputHandler {
      * @param wifi
      * @return validRetailer
      */
-    public Boolean checkValidity(Wifi wifi)
+    public String checkValidity(Wifi wifi)
     {
 
-        boolean validWifi = true;
+        String validWifi = "Success";
 
 
         if (!Arrays.asList(validBorough).contains(wifi.getBorough())) {
-            validWifi = false;
+            validWifi = "Invalid wifi borough " + wifi.getBorough();
         }
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
-            validWifi = false;
+            validWifi = "Invalid wifi type " + wifi.getType();
         }
-        else if (wifi.getProvider().length() > 20) {
-            validWifi = false;
+        else if (wifi.getProvider().length() > 100) {
+            validWifi = "Invalid provider " + wifi.getProvider();
         }
-        else if (wifi.getLocation().length() > 20) {
-            validWifi = false;
+        else if (wifi.getLocation().length() > 100) {
+            validWifi = "Invalid wifi location " + wifi.getLocation();
         }
 
         else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
-            validWifi = false;
+            validWifi = "Invalid wifi latitude " + wifi.getLatitude();
         }
         else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
-            validWifi = false;
+            validWifi = "Invalid wifi longitude " + wifi.getLongitude();
         }
-        else if (wifi.getRemarks().length() > 50) {
-            validWifi = false;
+        else if (wifi.getRemarks().length() > 100) {
+            validWifi = "Invalid remark " + wifi.getRemarks();
         }
-        else if (wifi.getCity().length() > 20 || wifi.getCity().length() < 2) {
-            validWifi = false;
+        else if (wifi.getCity().length() > 30 || wifi.getCity().length() < 2) {
+            validWifi = "Invalid wifi city " + wifi.getCity();
         }
-        else if (wifi.getSSID().length() > 20) {
-            validWifi = false;
+        else if (wifi.getSSID().length() > 50) {
+            validWifi = "Invalid SSID " + wifi.getSSID();
         }
 
 
@@ -346,16 +385,20 @@ public class InputHandler {
 
         if (station.getId() <= 0) {
             validStation = false;
+            //System.out.println("Invalid station ID " + station.getId());
         }
-        else if (station.getAddress().length() > 30 || station.getAddress().length() == 0) {
+        else if (station.getAddress().length() > 50 || station.getAddress().length() == 0) {
             validStation = false;
+            //System.out.println("Invalid station address " + station.getAddress());
         }
 
         else if (90 < station.getLatitude() || station.getLatitude() < -90) {
             validStation = false;
+            //System.out.println("Invalid station latitude " + station.getLatitude());
         }
         else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
             validStation = false;
+            //System.out.println("Invalid station longitude " + station.getLongitude());
         }
 
 

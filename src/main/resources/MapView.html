@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+        html { height: 100% }
+        body { height: 100%; margin: 0; padding: 0 }
+        #map_canvas { height: 100% }
+    </style>
+    <script type="text/javascript"
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8&sensor=false">
+    </script>
+    <script type="text/javascript">
+	var map;
+	var bridge;
+        function initialize() {
+	  
+			//Sets options for the map to be made
+            var mapOptions = {
+                center: new google.maps.LatLng(40.7128, -74.0059),
+				zoom: 8,
+				disableDefaultUI: true,
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			};
+		
+			//Creates the map object and displays it
+			map = new google.maps.Map(document.getElementById("map_canvas"),
+				mapOptions);
+				console.log("javascript console");
+		}
+
+		function loadWifi(){
+		    console.log("in wifi function");
+			//loads wifi objects from JShandler through bridge specified in controller
+			var wifis = bridge.getWifiJS();
+
+			//loops through all wifi objects
+			for(var i =0; i < wifis.size(); i++){
+				var wifi = wifis.get(i);
+				//creates a location for the pointer using the wifi object
+				var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
+				//Creates a new marker for the wifi object at the specified lat and lon
+				var marker = new google.maps.Marker({
+					position: latlon,
+					map: map,
+					title: 'wifi'
+				});
+			//logger to make sure everything is working as expected.
+			console.log("Index: " + i + ", Model: " + wifi.getLatitude() + ", Total Size: " + wifis.size());
+			}
+		}
+		
+		var jsConnector = {
+			showResult: function (result) {
+			document.getElementById('result').innerHTML = result;
+			}
+		
+		};
+		
+		function getJsConnector() {
+		return jsConnector;
+		}
+ 
+
+    </script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="width:600px; height:342px"></div>
+</body>
+</html>

@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
+<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" stylesheets="@MainStyle.css" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
    <children>
       <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -20,11 +20,11 @@
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="93.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="97.0" minWidth="10.0" prefWidth="68.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="113.0" minWidth="10.0" prefWidth="84.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="57.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="48.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="85.0" minWidth="10.0" prefWidth="100.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="107.0" minWidth="10.0" prefWidth="82.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="159.0" minWidth="10.0" prefWidth="98.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="156.0" minWidth="10.0" prefWidth="129.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="119.0" minWidth="10.0" prefWidth="89.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="115.0" minWidth="10.0" prefWidth="115.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints maxHeight="274.0" minHeight="10.0" prefHeight="126.0" vgrow="SOMETIMES" />
@@ -34,11 +34,6 @@
             <RowConstraints />
         </rowConstraints>
          <children>
-            <Button fx:id="addDataButton" mnemonicParsing="false" onAction="#addDataButton" text="Add Data" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
-               <GridPane.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </GridPane.margin>
-            </Button>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Trip " GridPane.halignment="LEFT" GridPane.valignment="TOP">
                <GridPane.margin>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,9 +68,9 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Station ID" GridPane.columnIndex="5" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Bike ID" GridPane.columnIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="User Type" GridPane.columnIndex="7" />
-            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="DOB" GridPane.columnIndex="8" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="YOB" GridPane.columnIndex="8" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Gender" GridPane.columnIndex="9" />
-            <TextField fx:id="startTimeTextfield" prefHeight="25.0" prefWidth="30.0" GridPane.columnIndex="1">
+            <TextField fx:id="startTimeTextfield" prefHeight="25.0" prefWidth="30.0" promptText="HH:MM:SS" GridPane.columnIndex="1">
                <GridPane.margin>
                   <Insets left="5.0" right="10.0" top="50.0" />
                </GridPane.margin>
@@ -83,7 +78,7 @@
                   <Insets />
                </opaqueInsets>
             </TextField>
-            <TextField fx:id="endTimeTextfield" GridPane.columnIndex="3">
+            <TextField fx:id="endTimeTextfield" promptText="HH:MM:SS" GridPane.columnIndex="3">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -114,7 +109,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </ComboBox>
-            <TextField fx:id="birthYearTextfield" GridPane.columnIndex="8">
+            <TextField fx:id="birthYearTextfield" promptText="YYYY" GridPane.columnIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
@@ -239,7 +234,22 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </GridPane.margin>
             </Button>
-            <ComboBox fx:id="dataEntryComboBox" prefWidth="150.0" promptText="Data type" visibleRowCount="3" GridPane.columnIndex="6" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
+            <Button fx:id="add_r_button" mnemonicParsing="false" onAction="#add_r_button" text="Add retailer" GridPane.columnIndex="10" GridPane.rowIndex="2">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="add_t_button" mnemonicParsing="false" onAction="#add_t_button" text="Add trip" GridPane.columnIndex="10" GridPane.rowIndex="0">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <Button fx:id="add_w_button" mnemonicParsing="false" onAction="#add_w_button" text="Add wifi" GridPane.columnIndex="10" GridPane.rowIndex="1">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+            </Button>
+            <ComboBox fx:id="dataEntryComboBox" prefHeight="39.0" prefWidth="152.0" promptText="Data type" visibleRowCount="3" GridPane.columnIndex="8" GridPane.halignment="RIGHT" GridPane.rowIndex="4" GridPane.valignment="BOTTOM">
                <items>
                   <FXCollections fx:factory="observableArrayList">
                      <String fx:value="retailer" />
@@ -267,6 +277,7 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </DatePicker>
+            <Text fx:id="status_text" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="186.6708984375" GridPane.columnIndex="6" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

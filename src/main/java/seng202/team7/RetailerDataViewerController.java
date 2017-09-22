@@ -3,7 +3,7 @@ package seng202.team7;
 /**
  * Retailer data controller to control raw data viewing of retailer data
  * @author Aidan Smith asm142
- * Last updated 17/09/17
+ * Last updated 22/09/17
  */
 
 import javafx.beans.property.StringProperty;
@@ -36,9 +36,8 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> streetCB;
     @FXML private ComboBox<String> zipCB;
-    @FXML private Text noRetailerSelected;
     @FXML private TextField searchEntry;
-    @FXML private Text nothingEntered;
+    @FXML private Text error;
 
     // Single record viewer widgets
     @FXML private Label nameLabel;
@@ -67,23 +66,21 @@ public class RetailerDataViewerController implements Initializable {
     private ObservableList<Retailer> filteredRetailerList;
 
     /**
-     * Initialises the data within the table to the data provide by xxx
-     *
+     * Initialises the data within the table to the data provided by the database retriever
      * @param url Required parameter that is not used in the function
      * @param rb  Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
 
-        /*
-         *DatabaseTester.deleteTables();
-         *DatabaseTester.createTables();
-        */
+
         dbUpdater = new DatabaseUpdater();
-        DatabaseTester.addData(dbUpdater);
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
         retailerList = FXCollections.observableArrayList(retailerArrayList);
         filteredRetailerList = FXCollections.observableArrayList(retailerList);
+        if (retailerList.size() < 50) {
+            loadedAll = true;
+        }
 
         nameColumn.setCellValueFactory(new PropertyValueFactory<>("name"));
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeID"));
@@ -122,6 +119,14 @@ public class RetailerDataViewerController implements Initializable {
                         if (retailerArrayList.size() == 0) {
                             loadedAll = true;
                         }
+                        for (Retailer retailer : retailerArrayList) {
+                            if (!streetCB.getItems().contains(retailer.getStreet())) {
+                                streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+                            }
+                            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                                zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+                            }
+                        }
                         retailerList.addAll(retailerArrayList);
                         loadedData += StaticVariables.step;
                         filter();
@@ -136,7 +141,7 @@ public class RetailerDataViewerController implements Initializable {
      * Called whenever a filter combobox is changed to filter all the loaded data again
      */
     public void filter() {
-        nothingEntered.setVisible(false);
+        error.setVisible(false);
         filteredRetailerList.clear();
         String typeSelection = typeCB.getValue();
         String streetSelection = streetCB.getValue();
@@ -147,6 +152,30 @@ public class RetailerDataViewerController implements Initializable {
                     && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("None"))
                     ) {
                 filteredRetailerList.add(retailer);
+            }
+        }
+        while (filteredRetailerList.size() < 50 && !loadedAll) {
+            ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+            if (retailerArrayList.size() == 0) {
+                loadedAll = true;
+            }
+            for (Retailer retailer : retailerArrayList) {
+                if (!streetCB.getItems().contains(retailer.getStreet())) {
+                    streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+                }
+                if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                    zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+                }
+            }
+            retailerList.addAll(retailerArrayList);
+            loadedData += StaticVariables.step;
+            for (Retailer retailer : retailerList) {
+                if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("None"))
+                        && (retailer.getTypeID().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
+                        && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("None"))
+                        ) {
+                    filteredRetailerList.add(retailer);
+                }
             }
         }
     }
@@ -195,11 +224,10 @@ public class RetailerDataViewerController implements Initializable {
     public void viewRecord() {
         currentRetailerIndex = retailerDataTable.getSelectionModel().getSelectedIndex();
         if (currentRetailerIndex == -1) {
-            nothingEntered.setVisible(false);
-            noRetailerSelected.setVisible(true);
+            error.setText("Please select a retailer to view");
+            error.setVisible(true);
         } else {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(false);
+            error.setVisible(false);
             editor.setVisible(false);
             dataViewer.setVisible(false);
             recordViewer.setVisible(true);
@@ -217,6 +245,9 @@ public class RetailerDataViewerController implements Initializable {
         recordViewer.setVisible(false);
     }
 
+    /**
+     * Brings up the edit page on the currently selected retailer
+     */
     public void viewEdit() {
         recordViewer.setVisible(false);
         editor.setVisible(true);
@@ -242,7 +273,7 @@ public class RetailerDataViewerController implements Initializable {
     }
 
     /**
-     * todo
+     * Makes the provided changes to the selected retailer
      */
     public void confirmEdit(){
         Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
@@ -256,14 +287,43 @@ public class RetailerDataViewerController implements Initializable {
         viewRecord();
     }
 
+    /**
+     * Searches through the entire retailer list for matches to the search entry and then displays them
+     */
     public void search() {
-        if (searchEntry.getText() == null) {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(true);
+        if (searchEntry.getText().isEmpty()) {
+            error.setText("No search entered");
+            error.setVisible(true);
         } else {
-            noRetailerSelected.setVisible(false);
-            nothingEntered.setVisible(false);
-
+            error.setVisible(false);
+            String query = StaticVariables.singleStringQueryLike(Retailer.tableName, "name", searchEntry.getText());
+            ArrayList<Retailer> result = dbRetriever.queryRetailer(query);
+            retailerList = FXCollections.observableArrayList(result);
+            loadedAll = true;
+            filter();
         }
+    }
+
+    /**
+     * Resets the search so that the records are no longer filtered by the search criteria
+     */
+    public void reset() {
+        loadedAll = false;
+        loadedData = 0;
+        ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));
+        for (Retailer retailer : retailerArrayList) {
+            if (!streetCB.getItems().contains(retailer.getStreet())) {
+                streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
+            }
+            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
+            }
+        }
+        retailerList = FXCollections.observableArrayList(retailerArrayList);
+        if (retailerList.size() < 50) {
+            loadedAll = true;
+        }
+        searchEntry.setText("");
+        filter();
     }
 }

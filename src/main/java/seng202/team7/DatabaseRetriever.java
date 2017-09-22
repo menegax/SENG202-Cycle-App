@@ -9,6 +9,10 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 
+/**
+ * Retrieves data from the Database
+ * @author Morgan English
+ */
 public class DatabaseRetriever {
 
     /**
@@ -330,19 +334,24 @@ public class DatabaseRetriever {
         return tripList;
     }
 
+
+    /**
+     * Testing the queryability of time objects within SQL. Currently not working as expected
+     */
     public void testQueryTrip()
     {
         ArrayList<Trip> tripList = new ArrayList<Trip>();
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME(\"%H\",startTime) AS \"startHour\", endTime FROM trip")){
+             ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME('%H',datetime(startTime/1000,'unixepoch')) AS startHour, endTime FROM trip;")){
+             //ResultSet rs    = stmt.executeQuery("SELECT distance, startTime, STRFTIME(\"%H\",startTime) AS \"startHour\", endTime FROM trip")){
 
             // loop through the result set
             while (rs.next()) {
 
 
-                System.out.println("StartTime: " + rs.getTime("startTime") + "StartHour: " + rs.getString("startHour"));
+                System.out.println("StartTime: " + rs.getString("startTime") + "StartHour: " + rs.getString("startHour"));
                 System.out.println("EndTime: " + rs.getTime("endTime"));
                 System.out.println("Distance: " + rs.getDouble("distance"));
 
@@ -353,5 +362,107 @@ public class DatabaseRetriever {
             System.out.println(e.getMessage());
         }
 
+    }
+
+    /**
+     * Returns a list of strings from a specific column where another column matches the integer passed in
+     * @param tableName table to search
+     * @param value value to match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<String> getStringListFromInt(String tableName, int value, String columnSearch, String columnReturn){
+        ArrayList<String> stringList = new ArrayList<String>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " = " + value;
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                String returnStr =  rs.getString(columnReturn);
+
+                if(returnStr != null && !returnStr.equals(""))
+                {
+                    //station.print();
+                    stringList.add(returnStr);
+                } else {
+                    System.out.println("No String");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Got String Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
+    }
+
+    /**
+     * Returns a list of strings from a specific column where another column matches the string passed in with LIKE '%___%' SQL syntax
+     * @param tableName table to search
+     * @param value value to match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<String> getStringListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
+        ArrayList<String> stringList = new ArrayList<String>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                String returnStr =  rs.getString(columnReturn);
+
+                if(returnStr != null && !returnStr.equals(""))
+                {
+                    //station.print();
+                    stringList.add(returnStr);
+                } else {
+                    System.out.println("No String");
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Got String Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
+    }
+
+    /**
+     * Returns a list of ints from a specific column where another column matches the string passed in with LIKE '%___%' SQL syntax
+     * @param tableName table to search
+     * @param value string to LIKE match
+     * @param columnSearch column to search
+     * @param columnReturn column to return
+     * @return String Array
+     */
+    public ArrayList<Integer> getIntListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
+        ArrayList<Integer> stringList = new ArrayList<Integer>();
+        String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)) {
+
+            // loop through the result set
+            while (rs.next()) {
+
+
+                int returnInt =  rs.getInt(columnReturn);
+                stringList.add(returnInt);
+
+            }
+        } catch (SQLException e){
+            System.out.println("Got Int Error");
+            System.out.println(e.getMessage());
+        }
+        return stringList;
     }
 }
