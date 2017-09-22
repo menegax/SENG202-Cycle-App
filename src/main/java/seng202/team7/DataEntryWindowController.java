@@ -1,7 +1,6 @@
 package seng202.team7;
 
 
-
 import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
