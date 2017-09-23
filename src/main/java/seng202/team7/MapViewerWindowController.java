@@ -13,6 +13,7 @@ import netscape.javascript.JSObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -173,6 +174,11 @@ public class MapViewerWindowController implements Initializable {
         String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
         String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
 
+
+        System.out.println(burough+type+provider);
+        JSHandler jsHandler = new JSHandler();
+        List<Wifi> listo = jsHandler.getWifiJSFiltered(burough,type,provider);
+        System.out.println(listo.size());
 //        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 //        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.mapViewWifiQuery(burough,type,provider)))
 //        {
