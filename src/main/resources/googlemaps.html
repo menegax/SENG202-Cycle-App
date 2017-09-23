@@ -14,12 +14,6 @@
         var wifiMarkers = [];
         var retailerMarkers = [];
 
-		var wifiBlue = {
-		url: 'https://seng202team7.000webhostapp.com/img/wifiBlue.png',
-		anchor: new google.maps.Point(0,8),
-		size: new google.maps.Size(16,16)
-		
-		};
 		
 		var retailerBlue = {
 		url: 'https://seng202team7.000webhostapp.com/img/retailerBlue.png',
@@ -36,9 +30,8 @@
 		
 		//Adds a Blue wifi image from webhost
 		var wifiBlue = {
-		url:'https://seng202team7.000webhostapp.com/img/wifiBlue',
-		size: new google.maps.Point(16,16),
-		origin: new google.maps.Point(0,0),
+		url:'https://seng202team7.000webhostapp.com/img/wifiBlue.png',
+		size: new google.maps.Size(16,16),
 		anchor: new google.maps.Point(0,8)
 		};
 		
@@ -77,6 +70,7 @@
         console.log("in wifi function");
         //loads wifi objects from JShandler through bridge specified in controller
 		try{
+		console.log(burough.toString()+type.toString()+provider.toString());
         var wifis = Mbridge.getWifiJSFiltered(burough.toString(), type.toString(), provider.toString());
 		} catch(e) {
 			console.log("wifis failed");
