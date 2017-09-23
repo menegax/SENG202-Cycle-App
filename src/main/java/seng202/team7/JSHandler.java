@@ -19,6 +19,10 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<Retailer> getRetailerJS() {
+        return databaseRetriever.getRetailerList();
+    }
+
 
 
 

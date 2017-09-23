@@ -52,7 +52,7 @@ public class InputHandler {
      * @throws IOException
      * @throws NumberFormatException
      */
-    public ArrayList<Data> loadCSV(String file, String dataType) throws IOException, NumberFormatException
+    public ArrayList<Data> loadCSV(String file, String dataType, String dataGroup) throws IOException, NumberFormatException
     {
 
         ArrayList<Data> data = new ArrayList<Data>();  //will add multiple objects, so need an array
@@ -80,7 +80,6 @@ public class InputHandler {
                         String provider = fields[4];
                         String location = fields[6];
 
-                        String dataGroup = "default";
                         double longitude = Double.parseDouble(fields[8]);
                         double latitude = Double.parseDouble(fields[7]);
 
@@ -119,7 +118,6 @@ public class InputHandler {
                         }
 
 
-                        dataGroup = "default";
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
                         if (checkValidity(retailerDataTest).equals("Success")) {
@@ -133,7 +131,6 @@ public class InputHandler {
                     case "trip":
 
                         int duration = Integer.parseInt(fields[0]);
-                        dataGroup = "default";
                         String userType = fields[12];
                         int bikeID = Integer.parseInt(fields[11]);
                         int gender = Integer.parseInt(fields[14]);
@@ -160,7 +157,7 @@ public class InputHandler {
                                 break;
                             }
                             else {
-                                //add to database as it doesnt exist there yet
+                                //add to database as it doesn't exist there yet
                                 uploader.insertStation(startStation);
                                 //System.out.println("Station uploaded");
                             }
@@ -187,7 +184,7 @@ public class InputHandler {
                                 break;
                             }
                             else {
-                                //add to database as it doesnt exist there yet
+                                //add to database as it doesn't exist there yet
                                 uploader.insertStation(endStation);
                                 //System.out.println("Station uploaded");
 
@@ -199,9 +196,9 @@ public class InputHandler {
                         }
 
 
-                        Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup); //temp test object
+                        Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
                         if (checkValidity(tripDataTest).equals("Success")) {
-                            dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup);  //create actual 'Data' object
+                            dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }

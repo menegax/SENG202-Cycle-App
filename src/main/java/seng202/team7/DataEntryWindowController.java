@@ -1,7 +1,6 @@
 package seng202.team7;
 
 
-
 import javafx.beans.property.StringProperty;
 import javafx.fxml.Initializable;
 import javafx.scene.control.DatePicker;
@@ -31,7 +30,7 @@ public class DataEntryWindowController implements Initializable{
     public Button add_w_button;
     public Button add_t_button;
 
-
+    @FXML private TextField dataGroupTextfield;
     @FXML private Text status_text;
     @FXML private ComboBox dataEntryComboBox;
 
@@ -41,7 +40,7 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField bikeIDTextfield;
     @FXML private ComboBox userTypeComboBox;
     @FXML private TextField birthYearTextfield;
-    @FXML private TextField genderTextfield;
+    @FXML private ComboBox genderComboBox;
     @FXML private TextField startStationIDTextfield;
     @FXML private TextField endStationIDTextfield;
     @FXML private DatePicker startDatePicked;
@@ -171,23 +170,32 @@ public class DataEntryWindowController implements Initializable{
         ArrayList<Data> toAdd = null;
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-
-        String csvFile;
-        Stage stage = new Stage();
-        FileChooser chooser = new FileChooser();
-        File file = chooser.showOpenDialog(stage);
-
+        String dataGroup;
         try {
-            csvFile = file.toString();
-            toAdd =  toParse.loadCSV(csvFile, dataTypeAdded);
-            toUpload.addData(toAdd);
-            status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
-                    toParse.getFail_counter() + " objects failed to load, likely empty fields");
+            dataGroup = dataGroupTextfield.getText();
+            String tester = dataGroup.substring(1);
 
-        } catch (IOException | NullPointerException e) {
-            //e.printStackTrace();
-            status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv");
+            String csvFile;
+            Stage stage = new Stage();
+            FileChooser chooser = new FileChooser();
+            File file = chooser.showOpenDialog(stage);
+
+            try {
+                csvFile = file.toString();
+                toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+                toUpload.addData(toAdd);
+                status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
+                        toParse.getFail_counter() + " objects failed to load, likely empty fields");
+
+            } catch (IOException | NullPointerException e) {
+                //e.printStackTrace();
+                status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv");
+            }
+
+        } catch (StringIndexOutOfBoundsException e) {
+            status_text.setText("No data group entered!");
         }
+
 
 
     }
@@ -202,34 +210,43 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
 
-
+        String dataGroup;
         try {
-            String nameRetailer = nameTextfield.getText();
-            int ZIP = Integer.parseInt(ZIPTextfield.getText());
-            String state = stateTextfield.getText();
-            String cityRetailer = cityRetailerTextfield.getText();
-            String pAddress = pAddressTextfield.getText();
-            String sAddress = sAddressTextfield.getText();
-            String typeID = typeIDTextfield.getText();
-            String typeRetailer = typeRetailerTextfield.getText();
+            dataGroup = dataGroupTextfield.getText();
+            String tester = dataGroup.substring(1);
 
-            Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-            if (toTest.checkValidity(retailer).equals("Success")) {
-                Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, "default");
-                toAdd.add(retailerToAdd);
-                status_text.setText("Retailer added");
+            try {
+                String nameRetailer = nameTextfield.getText();
+                int ZIP = Integer.parseInt(ZIPTextfield.getText());
+                String state = stateTextfield.getText();
+                String cityRetailer = cityRetailerTextfield.getText();
+                String pAddress = pAddressTextfield.getText();
+                String sAddress = sAddressTextfield.getText();
+                String typeID = typeIDTextfield.getText();
+                String typeRetailer = typeRetailerTextfield.getText();
 
-            } else {
-                status_text.setText(toTest.checkValidity(retailer));
+                Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
+                if (toTest.checkValidity(retailer).equals("Success")) {
+                    Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
+                    toAdd.add(retailerToAdd);
+                    status_text.setText("Retailer added");
+
+                } else {
+                    status_text.setText(toTest.checkValidity(retailer));
+                }
+
+
+            } catch (NumberFormatException | NullPointerException e) {
+                //e.printStackTrace();
+                status_text.setText("Not enough retailer data or incorrect data inputted");
             }
 
+            dataUploader.addData(toAdd);
 
-        } catch (NumberFormatException | NullPointerException e) {
-            //e.printStackTrace();
-            status_text.setText("Not enough retailer data or incorrect data inputted");
+        } catch (StringIndexOutOfBoundsException e) {
+            status_text.setText("No data group entered!");
         }
 
-        dataUploader.addData(toAdd);
     }
 
 
@@ -243,35 +260,45 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
 
-
+        String dataGroup;
         try {
+            dataGroup = dataGroupTextfield.getText();
+            String tester = dataGroup.substring(1);
 
-            String provider = providerTextfield.getText();
-            String typeWifi = typeWifiTextfield.getText();
-            String location = locationWifiTextfield.getText();
-            String cityWifi = cityWifiTextfield.getText();
-            String borough = boroughTextfield.getText();
-            String SSID = SSIDTextfield.getText();
-            String remarks = remarksTextfield.getText();
-            double longitude = Double.parseDouble(longitudeTextfield.getText());
-            double latitude = Double.parseDouble(latitudeTextfield.getText());
+            try {
+
+                String provider = providerTextfield.getText();
+                String typeWifi = typeWifiTextfield.getText();
+                String location = locationWifiTextfield.getText();
+                String cityWifi = cityWifiTextfield.getText();
+                String borough = boroughTextfield.getText();
+                String SSID = SSIDTextfield.getText();
+                String remarks = remarksTextfield.getText();
+                double longitude = Double.parseDouble(longitudeTextfield.getText());
+                double latitude = Double.parseDouble(latitudeTextfield.getText());
 
 
-            Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-            if (toTest.checkValidity(wifi).equals("Success")) {
-                Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, "default", longitude, latitude);
-                toAdd.add(wifiToAdd);
-                status_text.setText("Wifi added");
-            } else {
-                status_text.setText(toTest.checkValidity(wifi));
+                Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
+                if (toTest.checkValidity(wifi).equals("Success")) {
+                    Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
+                    toAdd.add(wifiToAdd);
+                    status_text.setText("Wifi added");
+                } else {
+                    status_text.setText(toTest.checkValidity(wifi));
+                }
+
+            } catch (NumberFormatException | NullPointerException e) {
+                //e.printStackTrace();
+                status_text.setText("Not enough wifi data or incorrect data inputted");
             }
 
-        } catch (NumberFormatException | NullPointerException e) {
-            //e.printStackTrace();
-            status_text.setText("Not enough wifi data or incorrect data inputted");
+            dataUploader.addData(toAdd);
+
+        } catch (StringIndexOutOfBoundsException e) {
+            status_text.setText("No data group entered!");
         }
 
-        dataUploader.addData(toAdd);
+
     }
 
 
@@ -286,103 +313,112 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         Boolean data_valid = true;
 
+        String dataGroup;
         try {
-
-
-            String startDate = startDatePicked.getValue().toString();
-            String endDate = endDatePicked.getValue().toString();
-
-            String startTime = startTimeTextfield.getText();
-            String endTime = endTimeTextfield.getText();
-
-            String start = startDate + " " + startTime;
-            String end = endDate + " " + endTime;
-
-            String bikeID = bikeIDTextfield.getText();
-            String userType = (String ) userTypeComboBox.getValue();
-            int birthYear = Integer.parseInt(birthYearTextfield.getText());
-            int startStationID = Integer.parseInt(startStationIDTextfield.getText());
-            int endStationID = Integer.parseInt(endStationIDTextfield.getText());
-            int duration = 1;   //derive duration using start and end times etc
-
-            String genderGiven = genderTextfield.getText();
-            int gender;
-            if (genderGiven.equals( "Male") || genderGiven.equals("male") || genderGiven.equals("M") || genderGiven.equals("m")) {
-                gender = 1;
-            }
-            else if (genderGiven.equals("Female") || genderGiven.equals("female") || genderGiven.equals("F") || genderGiven.equals("f")) {
-                gender = 2;
-            }
-            else {
-                gender = 0;
-            }
-
-            //start and end station address, lat and long derived here
-            double startStationLat;
-            double startStationLong;
-            String startStationAddress;
-            double endStationLat;
-            double endStationLong;
-            String endStationAddress;
+            dataGroup = dataGroupTextfield.getText();
+            String tester = dataGroup.substring(1);
 
             try {
-                DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-                Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
-                Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
 
-                startStationLat = startQuery.getLatitude();
-                startStationLong = startQuery.getLongitude();
-                startStationAddress = startQuery.getAddress();
+                String startDate = startDatePicked.getValue().toString();
+                String endDate = endDatePicked.getValue().toString();
 
-                endStationLat = endQuery.getLatitude();
-                endStationLong = endQuery.getLongitude();
-                endStationAddress = endQuery.getAddress();
+                String startTime = startTimeTextfield.getText();
+                String endTime = endTimeTextfield.getText();
 
-            } catch (IndexOutOfBoundsException e) {
-                status_text.setText("station isn't in database yet to derive values, default values assigned");
+                String start = startDate + " " + startTime;
+                String end = endDate + " " + endTime;
 
-                startStationLat = 0;
-                startStationLong = 0;
-                startStationAddress = "default";
+                int bikeID = Integer.parseInt(bikeIDTextfield.getText());
+                String userType = (String ) userTypeComboBox.getValue();
+                int birthYear = Integer.parseInt(birthYearTextfield.getText());
+                int startStationID = Integer.parseInt(startStationIDTextfield.getText());
+                int endStationID = Integer.parseInt(endStationIDTextfield.getText());
+                int duration = 1;   //derive duration using start and end times etc
 
-                endStationLat = 0;
-                endStationLong = 0;
-                endStationAddress = "default";
+                String genderGiven = (String ) genderComboBox.getValue();
+                int gender;
+                if (genderGiven.equals( "Male")) {
+                    gender = 1;
+                }
+                else if (genderGiven.equals("Female")) {
+                    gender = 2;
+                }
+                else {
+                    gender = 0;
+                }
+
+                //start and end station address, lat and long derived here
+                double startStationLat;
+                double startStationLong;
+                String startStationAddress;
+                double endStationLat;
+                double endStationLong;
+                String endStationAddress;
+
+                try {
+                    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                    Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                    Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+
+                    startStationLat = startQuery.getLatitude();
+                    startStationLong = startQuery.getLongitude();
+                    startStationAddress = startQuery.getAddress();
+
+                    endStationLat = endQuery.getLatitude();
+                    endStationLong = endQuery.getLongitude();
+                    endStationAddress = endQuery.getAddress();
+
+                } catch (IndexOutOfBoundsException e) {
+                    status_text.setText("station isn't in database yet to derive values, default values assigned");
+
+                    startStationLat = 0;
+                    startStationLong = 0;
+                    startStationAddress = "default";
+
+                    endStationLat = 0;
+                    endStationLong = 0;
+                    endStationAddress = "default";
+                }
+
+
+                Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
+                if (!toTest.checkValidity(startStation)) {
+                    status_text.setText("Invalid start station");
+                    data_valid = false;
+                }
+
+                Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
+                if (!toTest.checkValidity(endStation)) {
+                    status_text.setText("Invalid end station");
+                    data_valid = false;
+                }
+
+                Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
+                trip.setDuration(newDuration);           //duration is derived
+
+                if ((toTest.checkValidity(trip).equals("Success")) && data_valid) {
+                    Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                    toAdd.add(tripToAdd);
+                    status_text.setText("Trip added");
+                } else {
+                    status_text.setText(toTest.checkValidity(trip));
+                }
+
+
+            } catch (NumberFormatException | NullPointerException e) {
+                //e.printStackTrace();
+                status_text.setText("Not enough trip data or incorrect data inputted");
             }
 
-
-            Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
-            if (!toTest.checkValidity(startStation)) {
-                status_text.setText("Invalid start station");
-                data_valid = false;
-            }
-
-            Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
-            if (!toTest.checkValidity(endStation)) {
-                status_text.setText("Invalid end station");
-                data_valid = false;
-            }
-
-            Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, "default");
-            int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
-            trip.setDuration(newDuration);           //duration is derived
-
-            if ((toTest.checkValidity(trip).equals("Success")) && data_valid) {
-                Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, "default");
-                toAdd.add(tripToAdd);
-                status_text.setText("Trip added");
-            } else {
-                status_text.setText(toTest.checkValidity(trip));
-            }
+            dataUploader.addData(toAdd);
 
 
-        } catch (NumberFormatException | NullPointerException e) {
-            //e.printStackTrace();
-            status_text.setText("Not enough trip data or incorrect data inputted");
+        } catch (StringIndexOutOfBoundsException e) {
+            status_text.setText("No data group entered!");
         }
 
-        dataUploader.addData(toAdd);
     }
-
 
 }

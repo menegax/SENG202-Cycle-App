@@ -1,0 +1,103 @@
+<html>
+<head>
+    <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+    <style type="text/css">
+  html { height: 100% }
+  body { height: 100%; margin: 0px; padding: 0px }
+  #map_canvas { height: 100%; background-color: #666970; }
+</style>
+    <script type="text/javascript" src="http://maps.google.com/maps/api/js?sensor=false">
+    </script>
+    <script type="text/javascript">
+        var map;
+        var bridge;
+        function initialize() {
+
+        //Sets options for the map to be made
+        var mapOptions = {
+        center: new google.maps.LatLng(40.7128, -74.0059),
+        zoom: 8,
+        disableDefaultUI: true,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+
+        //Creates the map object and displays it
+        map = new google.maps.Map(document.getElementById("map_canvas"),
+        mapOptions);
+        console.log("javascript console");
+        }
+
+
+
+        document.zoomIn = function zoomIn() {
+        var zoomLevel = document.map.getZoom();
+        if (zoomLevel <= 20) document.map.setZoom(zoomLevel + 1);
+        }
+
+        document.zoomOut = function zoomOut() {
+        var zoomLevel = document.map.getZoom();
+        if (zoomLevel > 0) document.map.setZoom(zoomLevel - 1);
+        }
+
+
+
+        function loadWifi(){
+        console.log("in wifi function");
+        //loads wifi objects from JShandler through bridge specified in controller
+        var wifis = bridge.getWifiJS();
+
+        //loops through all wifi objects
+        for(var i =0; i < wifis.size(); i++){
+        var wifi = wifis.get(i);
+        //creates a location for the pointer using the wifi object
+        var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
+        //Creates a new marker for the wifi object at the specified lat and lon
+        //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
+        var marker = new google.maps.Marker({
+        position: latlon,
+        map: map,
+        //icon: image_1,
+        title: 'wifi'
+        });
+        //logger to make sure everything is working as expected.
+        console.log("Index: " + i + ", Model: " + wifi.getLatitude() + ", Total Size: " + wifis.size());
+        }
+        }
+
+        function loadRetailers () {
+        //loads Retailer objects from JShandler through bridge specified in controller
+        var retailers = bridge.getRetailerJS();
+
+        //loops through all retailer objects
+        for(var i = 0; i < retailers.size(); i++) {
+        var retailer = retailers.get(i);
+        //creates a location for the pointer using the wifi obect
+        var latlon = {lat: retailer.getLatitude(), lng: retailer.getLongitude()};
+        //creates a new marker for the wifi object at the specified lat and lon
+        //var image = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\retailer.png';
+        var marker = new google.maps.Marker({
+        position: latlon,
+        map: map,
+        //icon: image,
+        title: 'retailer'
+        });
+        }
+        }
+
+        var jsConnector = {
+        showResult: function (result) {
+        document.getElementById('result').innerHTML = result;
+        }
+
+        };
+
+        function getJsConnector() {
+        return jsConnector;
+        }
+
+    </script>
+</head>
+<body onload="initialize()">
+<div id="map_canvas" style="width:100%; height:100%"></div>
+</body>
+</html>
