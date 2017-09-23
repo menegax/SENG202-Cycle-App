@@ -29,7 +29,7 @@ public class StaticVariables {
 
     public static  String doubleStringQuery(String tableName, String col1, String match1, String col2, String match2)
     {
-        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+")\""+ match2.toLowerCase()+"\"";
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+") = \""+ match2.toLowerCase()+"\"";
     }
     public static String mapViewWifiQuery(String burough, String type, String provider)
     {
