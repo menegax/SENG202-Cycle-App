@@ -14,6 +14,14 @@
         var wifiMarkers = [];
         var retailerMarkers = [];
 		
+		//Adds a Blue wifi image from webhost
+		var wifiBlue = {
+		url:'https://seng202team7.000webhostapp.com/img/wifiBlue',
+		size: new google.maps.Point(16,16),
+		origin: new google.maps.Point(0,0),
+		anchor: new google.maps.Point(0,8)
+		};
+		
         function initialize() {
 
         //Sets options for the map to be made
@@ -48,10 +56,19 @@
         deleteWifiMarkers();
         console.log("in wifi function");
         //loads wifi objects from JShandler through bridge specified in controller
-        //var wifis = bridge.getWifiJS(burough.toString(), type.toString(), provider.toString());
-		var wifis = Mbridge.getWifiJS(burough, type, provider);
+		try{
+        var wifis = Mbridge.getWifiJSFiltered(burough.toString(), type.toString(), provider.toString());
+		} catch(e) {
+			console.log("wifis failed");
+		}
+		//var wifis = Mbridge.getWifiJS();
+		try{
 		var sizeW = wifis.size();
-
+		console.log("wifi size: " + sizeW);
+		} catch(e){
+		console.log("wifi size failed");
+		}
+		
         //loops through all wifi objects
         for(var i =0; i < sizeW; i++){
         var wifi = wifis.get(i);
@@ -65,7 +82,7 @@
         //icon: image_1,
         title: 'wifi'
         });
-		//wifiMarker.push(marker);
+		wifiMarkers.push(marker);
         //logger to make sure everything is working as expected.
         //console.log("Index: " + i + ", Model: " + wifi.getType() + ", Total Size: " + sizeW);
         }
@@ -107,7 +124,7 @@
 		// Deletes all markers in the array by removing references to them.
 		function deleteWifiMarkers() {
 			clearWifiMarkers();
-			markers = [];
+			wifiMarkers = [];
 		}
 
         var jsConnector = {
@@ -123,10 +140,6 @@
 
     </script>
 </head>
-<span style="display:none;">
-<img id="wifiBlue" src="~/img/wifiBlue">
-
-</span>
 <body onload="initialize()">
 <div id="map_canvas" style="width:100%; height:100%"></div>
 </body>

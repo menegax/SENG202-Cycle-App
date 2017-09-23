@@ -68,7 +68,6 @@ public class MapViewerWindowController implements Initializable {
         //initialise the map view
         webEngine = mapView.getEngine();
         webEngine.setJavaScriptEnabled(true);
-        webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 jsObject = (JSObject) webEngine.executeScript("window");
@@ -77,6 +76,8 @@ public class MapViewerWindowController implements Initializable {
                 jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
+        webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
+
 
 
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
