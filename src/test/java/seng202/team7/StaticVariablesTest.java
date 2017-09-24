@@ -27,11 +27,9 @@ public class StaticVariablesTest
 
         StaticVariables tester = new StaticVariables();
 
-        assertEquals(tester.calculateDistance(lat1, lon1, lat2, lon2), 768.2461727646099);
-
+        assertEquals(768.2461727646099, tester.calculateDistance(lat1, lon1, lat2, lon2));
 
     }
-
 
 
     @Test
@@ -46,8 +44,33 @@ public class StaticVariablesTest
         StaticVariables tester = new StaticVariables();
         String expected = "SELECT obj FROM "+ Retailer.tableName + " WHERE (latitude BETWEEN ("+(lat-latOffset)+") AND ("+(lat+latOffset)+")) AND (longitude BETWEEN ("+(lon-lonOffset)+") AND ("+(lon+lonOffset)+"));";
 
-        assertEquals(tester.retailerByLocation(lat, latOffset, lon, lonOffset), expected);
+        assertEquals(expected, tester.retailerByLocation(lat, latOffset, lon, lonOffset));
 
+
+    }
+
+    @Test
+    public void stationIDQueryTest() {
+
+        int stationID = 10;
+        String expected = "SELECT * FROM "+ Station.tableName + " WHERE stationid = " + stationID;
+        StaticVariables tester = new StaticVariables();
+
+        assertEquals(expected, tester.stationIDQuery(stationID));
+    }
+
+    @Test
+    public void mapViewWifiQueryTest() {
+        String burough = "BX";
+        String provider = "Vodafone";
+        String type = "The good type";
+
+        StaticVariables tester = new StaticVariables();
+
+        String expected = "SELECT obj FROM " + Wifi.tableName + " WHERE LOWER("+Wifi.columns[1]+") = '"+ burough.toLowerCase()
+                + "' AND LOWER("+Wifi.columns[2]+") = '" + type.toLowerCase()  + "' AND LOWER("+Wifi.columns[3]+") = '" + provider.toLowerCase()+ "';";
+
+        assertEquals(expected, tester.mapViewWifiQuery(burough, type, provider));
 
     }
 

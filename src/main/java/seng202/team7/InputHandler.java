@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class InputHandler {
 
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
-    private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
+    private String validType[] = {"Free", "Limited free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
     private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", "\"customer\"", "\"subscriber\"", "\"Customer\"", "\"Subscriber\"",};
     private String validState[] = {"NY"};
