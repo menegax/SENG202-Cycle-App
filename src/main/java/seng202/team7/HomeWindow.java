@@ -12,7 +12,7 @@ import java.io.IOException;
 public class HomeWindow extends AnchorPane {
 
     public HomeWindow(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("HomeWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Home.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();
