@@ -19,7 +19,7 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        primaryStage.initStyle(StageStyle.UNIFIED);
+        //primaryStage.initStyle(StageStyle.UNIFIED);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainWindow.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("MainStyle.css").toExternalForm());

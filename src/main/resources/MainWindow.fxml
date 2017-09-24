@@ -9,7 +9,7 @@
     <TreeView fx:id="navigationTree" prefHeight="450.0" prefWidth="175.0" stylesheets="@MainStyle.css" BorderPane.alignment="CENTER" />
   </left>
   <top>
-    <MenuBar BorderPane.alignment="CENTER" stylesheets="@MainStyle.css">
+    <MenuBar maxHeight="25.0" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="0.0" stylesheets="@MainStyle.css" BorderPane.alignment="CENTER">
       <menus>
         <Menu mnemonicParsing="false" text="File">
           <items>
@@ -21,6 +21,6 @@
     </MenuBar>
   </top>
    <center>
-      <AnchorPane fx:id="centerAnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" stylesheets="@MainStyle.css"/>
+      <AnchorPane fx:id="centerAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@MainStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" />
    </center>
 </BorderPane>

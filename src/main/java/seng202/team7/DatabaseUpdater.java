@@ -115,7 +115,7 @@ public class DatabaseUpdater {
      */
     public void insertRetailer(Retailer retailer)
     {
-        String sql = "INSERT INTO "+ retailer.tableName+" (id, name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ retailer.tableName+" (id, name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj, street) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
             //ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -143,6 +143,7 @@ public class DatabaseUpdater {
             pstmt.setDouble(11, retailer.getLongitude());
             pstmt.setString(12, retailer.getDataGroup());
             pstmt.setObject(13, bos.toByteArray());
+            pstmt.setString(14,retailer.getStreet());
             pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
