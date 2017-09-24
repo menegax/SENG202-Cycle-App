@@ -148,6 +148,7 @@ public class InputHandler {
                         String startDate = fields[1];
                         String endDate = fields[2];
 
+                        //some trip files have strangely formatted dates, this fixes most
                         if (startDate.charAt(0) == '"') {
                             startDate = startDate.substring(1, startDate.length() - 1);
                             endDate = endDate.substring(1, endDate.length() - 1);
