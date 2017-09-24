@@ -17,6 +17,11 @@ public class StaticVariables {
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
+    public static String singleIntQuery(String tableName, String col, int toMatch)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE "+col+" = "+toMatch;
+    }
+
     public static String singleStringQueryLike(String tableName, String col, String toMatch)
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") LIKE \"%" + toMatch.toLowerCase() +"%\"";
@@ -30,6 +35,17 @@ public class StaticVariables {
     public static  String doubleStringQuery(String tableName, String col1, String match1, String col2, String match2)
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+") = \""+ match2.toLowerCase()+"\"";
+    }
+
+    public static String stringIntQuery(String tableName, String col1, String match1, String col2, int match2)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND "+col2+" = "+ match2;
+    }
+
+    public static String doubleStringIntQuery(String tableName, String col1, String match1, String col2, String match2, String col3, int match3)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+") = \""+ match2.toLowerCase()+"\" AND "+col3+" = "+match3;
+
     }
     public static String mapViewWifiQuery(String burough, String type, String provider)
     {

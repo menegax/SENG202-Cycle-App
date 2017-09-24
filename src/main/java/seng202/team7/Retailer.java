@@ -14,7 +14,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      */
     public static String tableName = "retailer";
 
-    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"};
+    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj","street"};
     /**
      * SQL table creation script
      */
@@ -31,7 +31,8 @@ public class Retailer extends Location implements Data, java.io.Serializable{
             + columns[9]+" real NOT NULL,\n"
             + columns[10]+" real NOT NULL,\n"
             + columns[11]+" text,\n"
-            + columns[12]+" blob\n"
+            + columns[12]+" blob,\n"
+            + columns[13]+" text"
             + ");";
     /**
      * Retailer name

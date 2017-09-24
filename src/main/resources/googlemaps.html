@@ -106,26 +106,45 @@
 		wifis = null;
         }
 
-        function loadRetailers () {
+        function loadRetailers(zip, type, street) {
 		deleteRetailerMarkers();
         //loads Retailer objects from JShandler through bridge specified in controller
-        var retailers = Mbridge.getRetailerJS();
-
+        
+		try{
+		console.log("javascript filters:"+zip.toString()+type.toString()+street.toString());
+        var retailers = Mbridge.getRetailerJSFiltered(zip.toString(), type.toString(), street.toString());
+		} catch(e) {
+			console.log("retailers failed");
+		}
+		try{
+		var sizeR = retailers.size();
+		console.log("retailer size: " + sizeR);
+		} catch(e){
+		console.log("retailer size failed");
+		console.log(e.message);
+		}
+		
         //loops through all retailer objects
-        for(var i = 0; i < retailers.size(); i++) {
+        for(var i =0; i < sizeR; i++){
+		console.log("retailer marker");
+		try{
         var retailer = retailers.get(i);
-        //creates a location for the pointer using the wifi obect
+        //creates a location for the pointer using the wifi object
         var latlon = {lat: retailer.getLatitude(), lng: retailer.getLongitude()};
-        //creates a new marker for the wifi object at the specified lat and lon
-        //var image = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\retailer.png';
+        //Creates a new marker for the wifi object at the specified lat and lon
+        //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
-        icon: blueRetailer,
+        icon: retailerBlue,
         title: 'retailer'
         });
 		retailerMarkers.push(marker);
+        
+		}catch(e){console.log("error processing retailer point");}
         }
+		retailers = null;
+       
         }
 		
 		

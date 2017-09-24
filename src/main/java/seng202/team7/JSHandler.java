@@ -1,6 +1,7 @@
 package seng202.team7;
 
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -65,24 +66,28 @@ public class JSHandler {
             return databaseRetriever.getRetailerList();
         } else if(zipF&&!typeF&&!streetF){
             //only zip selected
+            return databaseRetriever.queryRetailer(StaticVariables.singleIntQuery(Retailer.tableName,Retailer.columns[6], Integer.parseInt(zip)));
 
         } else if(zipF&&typeF&&!streetF){
             //only zip and type
-
+            return databaseRetriever.queryRetailer(StaticVariables.stringIntQuery(Retailer.tableName,Retailer.columns[7], type, Retailer.columns[6],Integer.parseInt(zip)));
         } else if(zipF&&typeF&&streetF){
             //all
-
+            return databaseRetriever.getRetailerList();
         } else if(!zipF&&typeF&&!streetF) {
             //only type
-
+            return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[7], type));
         } else if(!zipF&&typeF&&streetF){
             //type and street
+            return databaseRetriever.queryRetailer(StaticVariables.doubleStringQuery(Retailer.tableName,Retailer.columns[7], type, Retailer.columns[13],street));
 
         } else if(zipF&&!typeF&&streetF){
-            //street and burough
+            //street and zip
+            return databaseRetriever.queryRetailer(StaticVariables.stringIntQuery(Retailer.tableName,Retailer.columns[13], street, Retailer.columns[6],Integer.parseInt(zip)));
 
         } else if(!zipF&&!typeF&&streetF){
             //only street
+            return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[13], street));
         }
         return databaseRetriever.getRetailerList();
 

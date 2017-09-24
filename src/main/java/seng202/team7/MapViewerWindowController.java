@@ -53,6 +53,7 @@ public class MapViewerWindowController implements Initializable {
     private ObservableList<Wifi> wifiList;
     private ObservableList<Wifi> filteredWifiList;
     private JSObject jsObject;
+    private JSHandler jshandler = new JSHandler();
 
 
     /**
@@ -72,7 +73,7 @@ public class MapViewerWindowController implements Initializable {
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("Mbridge", new JSHandler());
+                jsObject.setMember("Mbridge", jshandler);
                 System.out.println("created bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
@@ -169,6 +170,8 @@ public class MapViewerWindowController implements Initializable {
 
     public void displayWifi()
     {
+
+        jsObject.setMember("Mbridge", jshandler);
         String burough = mapComboBorough.getSelectionModel().selectedItemProperty().getValue();
         String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
         String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
@@ -184,6 +187,8 @@ public class MapViewerWindowController implements Initializable {
 
     public void displayRetailer()
     {
+        jsObject.setMember("Mbridge", jshandler);
+
         String zip = mapComboZipcode.getSelectionModel().selectedItemProperty().getValue();
         String typeR = mapComboRetailerType.getSelectionModel().selectedItemProperty().getValue();
         String street = mapComboStreet.getSelectionModel().selectedItemProperty().getValue();
@@ -194,7 +199,7 @@ public class MapViewerWindowController implements Initializable {
         List<Retailer> listo = jsHandler.getRetailerJSFiltered(zip,typeR,street);
         System.out.println(listo.size());
 
-        jsObject.call("loadWifi",zip,typeR,street);
+        jsObject.call("loadRetailers",zip,typeR,street);
     }
 }
 
