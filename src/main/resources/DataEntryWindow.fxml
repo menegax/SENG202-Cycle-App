@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.DataEntryWindowController">
    <children>
       <GridPane layoutY="-1.0" prefHeight="400.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
@@ -112,11 +112,6 @@
             <TextField fx:id="birthYearTextfield" promptText="YYYY" GridPane.columnIndex="8">
                <GridPane.margin>
                   <Insets right="10.0" top="50.0" />
-               </GridPane.margin>
-            </TextField>
-            <TextField fx:id="genderTextfield" GridPane.columnIndex="9">
-               <GridPane.margin>
-                  <Insets right="5.0" top="50.0" />
                </GridPane.margin>
             </TextField>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider" GridPane.rowIndex="1">
@@ -277,7 +272,20 @@
                   <Insets right="10.0" top="50.0" />
                </GridPane.margin>
             </DatePicker>
-            <Text fx:id="status_text" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="186.6708984375" GridPane.columnIndex="6" GridPane.rowIndex="4" />
+            <Text fx:id="status_text" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="186.6708984375" GridPane.columnIndex="4" GridPane.rowIndex="4" />
+            <ComboBox fx:id="genderComboBox" prefWidth="150.0" promptText="Gender" GridPane.columnIndex="9">
+               <GridPane.margin>
+                  <Insets right="10.0" top="50.0" />
+               </GridPane.margin>
+               <items>
+                  <FXCollections fx:factory="observableArrayList">
+                     <String fx:value="Male" />
+                     <String fx:value="Female" />
+                     <String fx:value="Other" />
+                  </FXCollections>
+               </items>
+            </ComboBox>
+            <TextField fx:id="dataGroupTextfield" promptText="DataGroup" GridPane.columnIndex="7" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

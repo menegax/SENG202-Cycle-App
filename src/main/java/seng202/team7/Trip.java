@@ -107,7 +107,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param gender gander of cyclist
      * @param dataGroup datagroup string for sorting within tables
      */
-    public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup)
+    public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
     {
         this.startStation = startStation;
         this.startStationID = startStation.getId();
@@ -124,7 +124,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.userType = userType;
         this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;
-        System.out.println("age:" + this.age);
+        //System.out.println("age:" + this.age);
         if (gender == 1 ) {
             this.gender = "Male";
         } else  if(gender == 2){
@@ -135,6 +135,8 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.dataGroup = dataGroup;
 
         this.distance = findDistance();
+        //System.out.println("trip created");
+
     }
 
 

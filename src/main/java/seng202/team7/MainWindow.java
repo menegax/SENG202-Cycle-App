@@ -5,9 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-
-import java.io.File;
-import java.net.URL;
+import javafx.stage.StageStyle;
 
 /** Main window model for running the main program
  * @author Connor McEwan-McDowall
@@ -21,10 +19,10 @@ public class MainWindow extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        primaryStage.initStyle(StageStyle.UNIFIED);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MainWindow.fxml"));
-
         Scene scene = new Scene(root);
-        scene.getStylesheets().add(getClass().getClassLoader().getResource("Style.css").toExternalForm());
+        scene.getStylesheets().add(getClass().getClassLoader().getResource("MainStyle.css").toExternalForm());
         primaryStage.setTitle("Meraki Bikes");
         primaryStage.setScene(scene);
         primaryStage.show();

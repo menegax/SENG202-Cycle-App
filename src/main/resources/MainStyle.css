@@ -1,0 +1,56 @@
+.root {
+    -fx-font: 10px Tahoma;
+}
+
+.border-pane {
+    -fx-text-fill: #FFFFFF;
+    -fx-font: 10px Tahoma;
+    -fx-background-color: #383838;
+
+    -fx-border-style: none;
+    -fx-border-color: blue;
+    -fx-border-width: 25;
+
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.border-pane {
+    -fx-background-insets: 0, 0 0 1 0;
+}
+
+.menu-bar {
+    -fx-background-color: #383838;
+    -fx-base: #383838;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tree-view {
+    -fx-background-color: #383838;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+.tree-cell:selected {
+    -fx-background-color: #404040;
+}
+
+.tree-cell {
+    -fx-font-size: 10pt;
+    -fx-background-color: #383838;
+    -fx-text-fill: #FFFFFF;
+}
+
+.tree-cell:expanded, .tree-cell:sub-tree-item {
+    -fx-background-color: #404040;
+}
+
+.tree-cell:focused {
+    -fx-background-color: #494949;
+}
+
+.tree-cell > .tree-disclosure-node > .arrow  {
+    -fx-background-color: #FFFFFF;
+}
+
