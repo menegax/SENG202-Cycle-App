@@ -74,7 +74,7 @@ public class MapViewerWindowController implements Initializable {
                 jsObject = (JSObject) webEngine.executeScript("window");
                 jsObject.setMember("Mbridge", new JSHandler());
                 System.out.println("created bridge");
-                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+                //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
         webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
@@ -179,6 +179,7 @@ public class MapViewerWindowController implements Initializable {
         System.out.println(listo.size());
 
         jsObject.call("loadWifi",burough,type,provider);
+
     }
 
     public void displayRetailer()
