@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * todo
  * @author MorganEnglish
  */
 public class MapAnalyticController implements Initializable {
@@ -27,44 +28,57 @@ public class MapAnalyticController implements Initializable {
     private WebEngine webEngine;
     private JSObject jsBridge;
 
-
+    /**
+     * todo
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb)
     {
-        webEngine = webViewMap.getEngine();
-
-        webEngine.setJavaScriptEnabled(true);
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            if (Worker.State.SUCCEEDED == newValue) {
-                JSObject jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("bridge", new JSHandler());
-                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
-            }
-        });
-        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
-
-
-        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
-        @Override
-        public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
-            System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
-        }
-    });
+//        webEngine = webViewMap.getEngine();
+//
+//        webEngine.setJavaScriptEnabled(true);
+//        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+//            if (Worker.State.SUCCEEDED == newValue) {
+//                JSObject jsObject = (JSObject) webEngine.executeScript("window");
+//                jsObject.setMember("Abridge", new JSHandler());
+//                System.out.println("set bridge");
+//                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+//            }
+//        });
+//        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
+//
+//
+//        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
+//        @Override
+//        public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
+//            System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+//        }
+//    });
 
     }
 
 
-
+    /**
+     * todo
+     */
     public void displayClicked()
     {
         webEngine.executeScript("loadWifi();");
     }
 
+    /**
+     * todo
+     */
     @FXML
     private void wifiChecked()
     {
 
     }
 
+    /**
+     * todo
+     */
     @FXML
     private void retailerChecked()
     {

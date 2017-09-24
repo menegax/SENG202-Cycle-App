@@ -14,7 +14,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      */
     public static String tableName = "retailer";
 
-    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj"};
+    public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj","street"};
     /**
      * SQL table creation script
      */
@@ -31,7 +31,8 @@ public class Retailer extends Location implements Data, java.io.Serializable{
             + columns[9]+" real NOT NULL,\n"
             + columns[10]+" real NOT NULL,\n"
             + columns[11]+" text,\n"
-            + columns[12]+" blob\n"
+            + columns[12]+" blob,\n"
+            + columns[13]+" text"
             + ");";
     /**
      * Retailer name
@@ -73,11 +74,27 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * Street where the retailer is to be used for filtering
      */
     private String street;
-
+    /**
+     * The latitude where the retailer is to be placed
+     */
     private double latitude;
+    /**
+     * The longitude where the retailer is to be placed
+     */
     private double longitude;
 
-
+    /**
+     * todo
+     * @param name
+     * @param city
+     * @param pAddress
+     * @param sAddress
+     * @param state
+     * @param zipCode
+     * @param typeID
+     * @param type
+     * @param dataGroup
+     */
     public Retailer(String name, String city, String pAddress, String sAddress, String state, int zipCode, String typeID, String type, String dataGroup)
     {
         this.name = name;

@@ -109,7 +109,10 @@ public class Wifi extends Location implements Data, java.io.Serializable{
         this.latitude = latitude;
     }
 
-
+    /**
+     * todo
+     * @return
+     */
     public String getBorough() {
         return borough;
     }

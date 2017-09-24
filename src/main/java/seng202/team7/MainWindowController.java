@@ -1,5 +1,8 @@
 package seng202.team7;
-
+/**
+ * Controls manual data entry and data uploaded via csv
+ * @author Connor McEwan-McDowall
+ */
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
@@ -22,11 +25,12 @@ public class MainWindowController implements Initializable{
 
     private HomeWindow homeViewer;
     private RoutePlannerViewer routePlannerViewer;
+    private MapViewerWindow mapViewer;
     private RetailerDataViewer retailerViewer;
     private WifiDataViewer wifiViewer;
     private TripDataViewer tripViewer;
     private DataEntryWindow dataEntryViewer;
-    private MapAnalyticWindow mapViewer;
+    private MapAnalyticWindow mapAnalyticViewer;
     private TripAnalyticWindow graphViewer;
     private String currentScreen; // Currently visible screen
 
@@ -47,11 +51,12 @@ public class MainWindowController implements Initializable{
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
         routePlannerViewer = new RoutePlannerViewer();
+        mapViewer = new MapViewerWindow();
         retailerViewer = new RetailerDataViewer();
         wifiViewer = new WifiDataViewer();
         tripViewer = new TripDataViewer();
         dataEntryViewer = new DataEntryWindow();
-        mapViewer = new MapAnalyticWindow();
+        mapAnalyticViewer = new MapAnalyticWindow();
         graphViewer = new TripAnalyticWindow();
 
         populateNavigationBar();
@@ -73,9 +78,12 @@ public class MainWindowController implements Initializable{
         // Route Planner branch
         makeBranch("Route Planning", root);
 
+        // Map Viewer branch
+        makeBranch("Map Viewer", root);
+
         // Analytics branch
         TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
-        makeBranch("Map View", analyticsBranch);
+        //makeBranch("Map View", analyticsBranch);
         makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
@@ -93,7 +101,7 @@ public class MainWindowController implements Initializable{
         navigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                     String currentSelection = newValue.getValue();
-                    if (currentScreen != currentSelection) {
+                    if (!(currentScreen.equals(currentSelection))) {
                         changeMainScreen(currentSelection);
                     }
                 });
@@ -117,8 +125,9 @@ public class MainWindowController implements Initializable{
         switch (currentScreen) {
             case "Home": removeMainScreen(homeViewer); break;
             case "Route Planning": removeMainScreen(routePlannerViewer); break;
+            case "Map Viewer": removeMainScreen(mapViewer); break;
             case "Analytics": break;
-            case "Map View": removeMainScreen(mapViewer); break;
+            case "Map View": removeMainScreen(mapAnalyticViewer); break;
             case "Graph View": removeMainScreen(graphViewer); break;
             case "Data Viewer": break;
             case "Retailer": removeMainScreen(retailerViewer); break;
@@ -131,8 +140,9 @@ public class MainWindowController implements Initializable{
         switch (newScreen) {
             case "Home": setMainScreen(homeViewer); break;
             case "Route Planning": setMainScreen(routePlannerViewer); break;
+            case "Map Viewer": setMainScreen(mapViewer); break;
             case "Analytics": break;
-            case "Map View": setMainScreen(mapViewer); break;
+            case "Map View": setMainScreen(mapAnalyticViewer); break;
             case "Graph View": setMainScreen(graphViewer); break;
             case "Data Viewer": break;
             case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewer()); break;
@@ -145,10 +155,18 @@ public class MainWindowController implements Initializable{
         currentScreen = newScreen;
     }
 
+    /**
+     * todo
+     * @param screen
+     */
     private void removeMainScreen(Node screen) {
         centerAnchorPane.getChildren().remove(screen);
     }
 
+    /**
+     * todo
+     * @param screen
+     */
     private void setMainScreen(Node screen) {
         centerAnchorPane.getChildren().add(screen);
     }

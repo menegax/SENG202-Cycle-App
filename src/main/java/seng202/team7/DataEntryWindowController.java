@@ -19,6 +19,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static java.lang.System.identityHashCode;
+
 /**
  * Controls manual data entry and data uploaded via csv
  * @author Lachlan Brewster
@@ -185,7 +187,8 @@ public class DataEntryWindowController implements Initializable{
                 toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
                 toUpload.addData(toAdd);
                 status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
-                        toParse.getFail_counter() + " objects failed to load, likely empty fields");
+                        toParse.getFail_counter() + " issues, likely empty fields or incorrect formats");
+                toParse.resetFailCounter();
 
             } catch (IOException | NullPointerException e) {
                 //e.printStackTrace();
@@ -209,6 +212,7 @@ public class DataEntryWindowController implements Initializable{
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
+        DatabaseRetriever retriever = new DatabaseRetriever();
 
         String dataGroup;
         try {
@@ -229,7 +233,13 @@ public class DataEntryWindowController implements Initializable{
                 if (toTest.checkValidity(retailer).equals("Success")) {
                     Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
                     toAdd.add(retailerToAdd);
-                    status_text.setText("Retailer added");
+
+                    //check if its in the database already, if not then upload it
+                    int hashID = toAdd.hashCode();
+                    if ((retriever.getStringListFromInt("retailer", hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
+                        dataUploader.addData(toAdd);
+                        status_text.setText("Retailer added");
+                    }
 
                 } else {
                     status_text.setText(toTest.checkValidity(retailer));
@@ -239,9 +249,10 @@ public class DataEntryWindowController implements Initializable{
             } catch (NumberFormatException | NullPointerException e) {
                 //e.printStackTrace();
                 status_text.setText("Not enough retailer data or incorrect data inputted");
+
             }
 
-            dataUploader.addData(toAdd);
+
 
         } catch (StringIndexOutOfBoundsException e) {
             status_text.setText("No data group entered!");
@@ -259,6 +270,7 @@ public class DataEntryWindowController implements Initializable{
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
+        DatabaseRetriever retriever = new DatabaseRetriever();
 
         String dataGroup;
         try {
@@ -282,17 +294,26 @@ public class DataEntryWindowController implements Initializable{
                 if (toTest.checkValidity(wifi).equals("Success")) {
                     Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
                     toAdd.add(wifiToAdd);
-                    status_text.setText("Wifi added");
+
+                    //check if its in the database already, if not then upload it
+                    int hashID = toAdd.hashCode();
+                    if ((retriever.getStringListFromInt("wifi", hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty() ) {
+                        dataUploader.addData(toAdd);
+                        status_text.setText("Wifi added");
+
+                    }
                 } else {
                     status_text.setText(toTest.checkValidity(wifi));
                 }
+
+
 
             } catch (NumberFormatException | NullPointerException e) {
                 //e.printStackTrace();
                 status_text.setText("Not enough wifi data or incorrect data inputted");
             }
 
-            dataUploader.addData(toAdd);
+
 
         } catch (StringIndexOutOfBoundsException e) {
             status_text.setText("No data group entered!");
@@ -311,6 +332,7 @@ public class DataEntryWindowController implements Initializable{
         ArrayList<Data> toAdd = new ArrayList<Data>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
+        DatabaseRetriever retriever = new DatabaseRetriever();
         Boolean data_valid = true;
 
         String dataGroup;
@@ -401,7 +423,15 @@ public class DataEntryWindowController implements Initializable{
                 if ((toTest.checkValidity(trip).equals("Success")) && data_valid) {
                     Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
                     toAdd.add(tripToAdd);
-                    status_text.setText("Trip added");
+
+                    //check if its in the database already, if not then upload it
+                    int hashID = identityHashCode(toAdd);
+                    if ((retriever.getStringListFromInt("trip", hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
+                        dataUploader.addData(toAdd);
+                        //System.out.println(hashID);
+                        status_text.setText("Trip added");
+                    }
+
                 } else {
                     status_text.setText(toTest.checkValidity(trip));
                 }
@@ -412,7 +442,6 @@ public class DataEntryWindowController implements Initializable{
                 status_text.setText("Not enough trip data or incorrect data inputted");
             }
 
-            dataUploader.addData(toAdd);
 
 
         } catch (StringIndexOutOfBoundsException e) {

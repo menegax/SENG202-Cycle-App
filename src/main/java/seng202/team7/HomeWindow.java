@@ -6,13 +6,13 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
-/**
- * todo
+/** Data entry window where users can manually enter their own data
+ * @author Connor McEwan-McDowall
  */
 public class HomeWindow extends AnchorPane {
 
     public HomeWindow(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("HomeWindow.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Home.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();

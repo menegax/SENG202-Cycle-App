@@ -11,32 +11,126 @@ import java.lang.Math;
  * @author Morgan English
  */
 public class StaticVariables {
+    /**
+     * Step size used for lazyloading
+     */
     public static int step = 50;
+    /**
+     * default distance for searching for nearby locations
+     */
     private static double defaultDist = 1;
+    /**
+     * current year, for finding age of users
+     */
     public static int currentYear = 2017;
+    /**
+     * String for making a date object from the string supplied in the csv
+     */
     public static SimpleDateFormat ft = new SimpleDateFormat ("yyyy-MM-dd hh:mm:ss");
     public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
 
+    /**
+     * Creates an SQL query String for search by an int
+     * @param tableName table to search
+     * @param col column to search
+     * @param toMatch int to match
+     * @return sql query to run on databaseRetriver object
+     */
+    public static String singleIntQuery(String tableName, String col, int toMatch)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE "+col+" = "+toMatch;
+    }
+
+    /**
+     * creates an SQL query string for searching by containing the string using LIKE(%string%) syntax
+     * @param tableName table to search
+     * @param col column to search
+     * @param toMatch String to match
+     * @return SQL query string
+     */
     public static String singleStringQueryLike(String tableName, String col, String toMatch)
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") LIKE \"%" + toMatch.toLowerCase() +"%\"";
     }
 
+    /**
+     * Creates an SQL query to matching strings. Case in-sensitive
+     * @param tableName table to search
+     * @param col column to search
+     * @param toMatch string to match(case in-sensitiive)
+     * @return SQL Query string
+     */
     public static String singleStringQuery(String tableName, String col, String toMatch)
     {
         return "SELECT obj FROM " + tableName + " WHERE LOWER("+col+") = \"" + toMatch.toLowerCase() +"\"";
     }
 
+    /**
+     * Creates an SQL query to match two strings. Case in-sensitive
+     * @param tableName table to search
+     * @param col1 col to find first string
+     * @param match1 first string to match
+     * @param col2 col fo find second string
+     * @param match2 second string to match
+     * @return SQL Query String
+     */
     public static  String doubleStringQuery(String tableName, String col1, String match1, String col2, String match2)
     {
-        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+")\""+ match2.toLowerCase()+"\"";
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+") = \""+ match2.toLowerCase()+"\"";
     }
 
+    /**
+     * Creates and SQL query to match a String and an Int
+     * @param tableName table to search
+     * @param col1 string column to search
+     * @param match1 string to match(case in-sensitive)
+     * @param col2 int column to search
+     * @param match2 int to match
+     * @return SQL Query String
+     */
+    public static String stringIntQuery(String tableName, String col1, String match1, String col2, int match2)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND "+col2+" = "+ match2;
+    }
+
+    public static String doubleStringIntQuery(String tableName, String col1, String match1, String col2, String match2, String col3, int match3)
+    {
+        return "SELECT obj FROM " + tableName + " WHERE LOWER("+col1+") = \"" + match1.toLowerCase() +"\" AND LOWER("+col2+") = \""+ match2.toLowerCase()+"\" AND "+col3+" = "+match3;
+
+    }
+
+    /**
+     * SQL query String for filtering wifi objects when all fields are filled in the mapViewer window
+     * @param burough burough to search
+     * @param type type to search
+     * @param provider provider to search
+     * @return SQL Query string
+     */
+    public static String mapViewWifiQuery(String burough, String type, String provider)
+    {
+        return "SELECT obj FROM " + Wifi.tableName + " WHERE LOWER("+Wifi.columns[1]+") = '"+ burough.toLowerCase()
+                + "' AND LOWER("+Wifi.columns[2]+") = '" + type.toLowerCase()  + "' AND LOWER("+Wifi.columns[3]+") = '" + provider.toLowerCase()+ "';";
+    }
+
+    public static String mapViewRetailerQuery(int zip, String street, String type)
+    {
+        return "SELECT obj FROM " + Retailer.tableName + " WHERE LOWER("+Retailer.columns[13]+") = '"+ street.toLowerCase()
+                + "' AND LOWER("+Retailer.columns[7]+") = '" + type.toLowerCase()  + "' AND "+Retailer.columns[3]+" = " + zip;
+    }
+
+
+    /**
+     * SQL query used to implement lazy loading. relies on StaticVariable.step
+     * @param tableName table to load from
+     * @param start the starting point for the current loading segment
+     * @return SQL Query string for lazy loading
+     */
     public static String steppedQuery(String tableName, int start)
     {
         return "SELECT obj FROM " + tableName + " LIMIT " + start + "," + (start+step);
 
     }
+
     /**
      * SQL query for station by ID
      * @param stationID ID to search for

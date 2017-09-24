@@ -1,4 +1,7 @@
 package seng202.team7;
+/**
+ * @author Morgan English
+ */
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -9,6 +12,9 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * The map analytic window where users can view the analytic data
+ */
 public class MapAnalyticWindow extends AnchorPane {
 
     public MapAnalyticWindow(){
