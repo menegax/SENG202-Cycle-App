@@ -187,7 +187,8 @@ public class DataEntryWindowController implements Initializable{
                 toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
                 toUpload.addData(toAdd);
                 status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
-                        toParse.getFail_counter() + " objects failed to load, likely empty fields");
+                        toParse.getFail_counter() + " issues, likely empty fields or incorrect formats");
+                toParse.resetFailCounter();
 
             } catch (IOException | NullPointerException e) {
                 //e.printStackTrace();
@@ -430,7 +431,7 @@ public class DataEntryWindowController implements Initializable{
             int hashID = identityHashCode(toAdd);
             if ((retriever.getStringListFromInt("trip", hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                 dataUploader.addData(toAdd);
-                System.out.println(hashID);
+                //System.out.println(hashID);
                 status_text.setText("Trip added");
             }
 

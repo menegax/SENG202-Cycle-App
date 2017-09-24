@@ -119,7 +119,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
             this.endDate = StaticVariables.ft.parse(endDate);
         } catch (ParseException e) {
             System.out.println("Error parsing Dates in Trip.java Constructor");
-            e.printStackTrace();
+            //e.printStackTrace();
             System.out.println(e.getMessage());
         }
         this.userType = userType;
@@ -133,7 +133,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.gender = "Unknown";
         }
         this.dataGroup = dataGroup;
-
+        this.bikeID = bikeID;
         this.distance = findDistance();
         //System.out.println("trip created");
 
