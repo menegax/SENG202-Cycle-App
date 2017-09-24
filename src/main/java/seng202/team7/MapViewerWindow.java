@@ -1,28 +1,23 @@
 package seng202.team7;
 
-import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
+import java.io.IOException;
 
 /**
  * Map viewer window to view data points on a map
  * @author Mitchell Fenwick
  */
 
-public class MapViewerWindow extends Application {
+public class MapViewerWindow extends AnchorPane {
 
-    public static void main(String[] args) {
-        launch(args);
+    public MapViewerWindow(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("MapViewerWindow.fxml"));
+        fxmlLoader.setRoot(this);
+        try {
+            fxmlLoader.load();
+        } catch (IOException exception) {
+            throw new RuntimeException(exception);
+        }
     }
-
-    public void start(Stage primaryStage) throws Exception{
-        Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("MapViewerWindow.fxml"));
-
-        primaryStage.setTitle("MapViewer");
-        primaryStage.setScene(new Scene(root));
-        primaryStage.show();
-    }
-
 }
