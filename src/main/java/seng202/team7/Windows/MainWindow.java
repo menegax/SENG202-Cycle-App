@@ -6,16 +6,25 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-/** Main window model for running the main program
+/**
+ * Main window model for running the main program
  * @author Connor McEwan-McDowall
  */
-
 public class MainWindow extends Application {
 
+    /**
+     * Launches the application
+     * @param args Unused parameter
+     */
     public static void main(String[] args) {
         launch(args);
     }
 
+    /**
+     * Starts the application. Sets the stage and title. This is the main entry point for the application.
+     * @param primaryStage The main window stage containing all core screens
+     * @throws Exception The exception that can be thrown.
+     */
     @Override
     public void start(Stage primaryStage) throws Exception{
         //primaryStage.initStyle(StageStyle.UNIFIED);

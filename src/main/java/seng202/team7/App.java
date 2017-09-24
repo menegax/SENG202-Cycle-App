@@ -25,8 +25,10 @@ public class App
         System.out.println("Connor's test");
         System.out.println("Joshua's test");
 
-        //DatabaseHandler.createDatabase();
-       // DatabaseTester.createTables();
+//        DatabaseHandler.createDatabase();
+//
+//        DatabaseHandler.createDatabase();
+//        DatabaseTester.createTables();
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 //        DatabaseUpdater databaseUpdater = new DatabaseUpdater();

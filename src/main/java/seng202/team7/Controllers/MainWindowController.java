@@ -1,8 +1,6 @@
 package seng202.team7.Controllers;
-/**
- * Controls manual data entry and data uploaded via csv
- * @author Connor McEwan-McDowall
- */
+
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
@@ -12,17 +10,20 @@ import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import seng202.team7.Windows.*;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * Controls all main window switching for main application
+ * @author Connor McEwan-McDowall
+ */
 public class MainWindowController implements Initializable{
 
-    public BorderPane mainBorderPane;
-    public TreeView<String> navigationTree;
-    public AnchorPane centerAnchorPane;
-    public MenuItem mainMenuExitButton;
-    public Menu mainMenuHelpButton;
+    @FXML public BorderPane mainBorderPane;
+    @FXML public TreeView<String> navigationTree;
+    @FXML public AnchorPane centerAnchorPane;
+    @FXML public MenuItem mainMenuExitButton;
+    @FXML public Menu mainMenuHelpButton;
 
     private HomeWindow homeViewer;
     private RoutePlannerViewerWindow routePlannerViewer;
@@ -33,22 +34,22 @@ public class MainWindowController implements Initializable{
     private DataEntryWindow dataEntryViewer;
     private MapAnalyticWindow mapAnalyticViewer;
     private TripAnalyticWindow graphViewer;
-    private String currentScreen; // Currently visible screen
+    private String currentWindow; // Currently visible window
 
     /**
      * Runs as the program initially starts. Initialises each of the custom
      * JavaFX panels (loads them into memory) and calls for the navigation bar
-     * to be populated.
+     * to be populated. Home window is shown initially as default
      *
-     * @param location URL of the location
-     * @param resources ResourceBundle of the resources
+     * @param location Unused parameter (There to fit signature)
+     * @param resources Unused parameter (There to fit signature)
      */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        // Set home panel to default screen
+        // Set home window as initial window
         homeViewer = new HomeWindow();
         centerAnchorPane.getChildren().add(homeViewer);
-        currentScreen = "Home";
+        currentWindow = "Home";
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
         routePlannerViewer = new RoutePlannerViewerWindow();
@@ -66,7 +67,7 @@ public class MainWindowController implements Initializable{
     /**
      * Populates the navigation bar with all necessary tree items. Also creates
      * an event listener for whenever a tree item in the navigation bar is clicked.
-     * This listener call and appropriate handler.
+     * This listener calls the changeMainScreen function when tree selection changes.
      */
     private void populateNavigationBar() {
         // Tree root
@@ -102,7 +103,7 @@ public class MainWindowController implements Initializable{
         navigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                     String currentSelection = newValue.getValue();
-                    if (!(currentScreen.equals(currentSelection))) {
+                    if (!(currentWindow.equals(currentSelection))) {
                         changeMainScreen(currentSelection);
                     }
                 });
@@ -121,55 +122,58 @@ public class MainWindowController implements Initializable{
         return item;
     }
 
+    /**
+     * Changes the window currently shown in the centerAnchorPane to be newScreen
+     * @param newScreen The new window that will replace the current window
+     */
     private void changeMainScreen(String newScreen) {
-        // Removes the current screen to make room for the new screen
-        switch (currentScreen) {
+        // Removes the current window to make room for the new window
+        switch (currentWindow) {
             case "Home": removeMainScreen(homeViewer); break;
             case "Route Planning": removeMainScreen(routePlannerViewer); break;
             case "Map Viewer": removeMainScreen(mapViewer); break;
-            case "Analytics": break;
+            case "Analytics": break; // todo
             case "Map View": removeMainScreen(mapAnalyticViewer); break;
             case "Graph View": removeMainScreen(graphViewer); break;
-            case "Data Viewer": break;
+            case "Data Viewer": break; // todo
             case "Retailer": removeMainScreen(retailerViewer); break;
             case "Trip": removeMainScreen(tripViewer); break;
             case "Wifi": removeMainScreen(wifiViewer); break;
             case "Data Entry": removeMainScreen(dataEntryViewer); break;
             default: System.out.println("ERROR: No such removal handle exists");
         }
-        // Add the new screen where the old one was
+        // Add the new window where the old one was
         switch (newScreen) {
             case "Home": setMainScreen(homeViewer); break;
             case "Route Planning": setMainScreen(routePlannerViewer); break;
             case "Map Viewer": setMainScreen(mapViewer); break;
-            case "Analytics": break;
+            case "Analytics": break; // todo
             case "Map View": setMainScreen(mapAnalyticViewer); break;
             case "Graph View": setMainScreen(graphViewer); break;
-            case "Data Viewer": break;
-            case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break;
-            case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break;
-            case "Wifi": setMainScreen(wifiViewer = new WifiDataViewerWindow()); break;
+            case "Data Viewer": break; // todo
+            case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break; // Recreates viewer
+            case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break; // Recreates viewer
+            case "Wifi": setMainScreen(wifiViewer = new WifiDataViewerWindow()); break; // Recreates viewer
             case "Data Entry": setMainScreen(dataEntryViewer); break;
             default: System.out.println("ERROR: No such set handle exists");
         }
-        // Update screen tracker
-        currentScreen = newScreen;
+        // Update window tracker
+        currentWindow = newScreen;
     }
 
     /**
-     * todo
-     * @param screen
+     * Removes the current window inside centerAnchorPane
+     * @param window The window to be removed
      */
-    private void removeMainScreen(Node screen) {
-        centerAnchorPane.getChildren().remove(screen);
+    private void removeMainScreen(Node window) {
+        centerAnchorPane.getChildren().remove(window);
     }
 
     /**
-     * todo
-     * @param screen
+     * Adds the current window inside centerAnchorPane
+     * @param window The window to be added
      */
-    private void setMainScreen(Node screen) {
-        centerAnchorPane.getChildren().add(screen);
+    private void setMainScreen(Node window) {
+        centerAnchorPane.getChildren().add(window);
     }
-
 }
