@@ -1,24 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.geometry.*?>
+<?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.image.*?>
-<?import java.lang.*?>
-<?import java.util.*?>
-<?import javafx.scene.*?>
-<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
 <fx:root id="AnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1000.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.HomeWindowController">
     <children>
-        <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+        <AnchorPane fx:id="mainHomeAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
            <children>
-              <ImageView fitHeight="400.0" fitWidth="1000.0" layoutX="225.0" layoutY="125.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-              <Text layoutX="378.0" layoutY="92.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Meraki Bikes">
-                 <font>
-                    <Font size="44.0" />
-                 </font>
-              </Text>
+              <ImageView fx:id="backgroundImage" fitHeight="2256.0" fitWidth="3528.0" layoutX="28.0" layoutY="-76.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="-1856.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2528.0" AnchorPane.topAnchor="0.0">
+               <image>
+                  <Image url="@HomeWindowBackgroundImage.jpg" />
+               </image>
+               <viewport>
+                  <Rectangle2D minX="222.0" minY="222.0" width="22.0" />
+               </viewport>
+            </ImageView>
+            <GridPane layoutX="15.0" layoutY="5.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+               <columnConstraints>
+                  <ColumnConstraints hgrow="SOMETIMES" maxWidth="0.0" minWidth="0.0" percentWidth="25.0" prefWidth="0.0" />
+                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+               </columnConstraints>
+               <rowConstraints>
+                  <RowConstraints maxHeight="0.0" minHeight="0.0" percentHeight="20.0" prefHeight="0.0" vgrow="SOMETIMES" />
+                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+               </rowConstraints>
+               <children>
+                    <Text layoutX="15.0" layoutY="52.48046875" strokeType="OUTSIDE" strokeWidth="0.0" text="Meraki Bikes">
+                       <font>
+                          <Font name="System Italic" size="44.0" />
+                       </font>
+                     <GridPane.margin>
+                        <Insets />
+                     </GridPane.margin>
+                    </Text>
+               </children>
+            </GridPane>
            </children>
         </AnchorPane>
     </children>
