@@ -89,7 +89,9 @@ public class InputHandler {
 
 
                         Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
-                        if (checkValidity(wifiDataTest).equals("Success")) {
+                        //check if its in the database already, if not then upload it, also checks 'validity'
+                        int hashID = wifiDataTest.hashCode();
+                        if (checkValidity(wifiDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -120,7 +122,9 @@ public class InputHandler {
 
 
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
-                        if (checkValidity(retailerDataTest).equals("Success")) {
+                        //check if its in the database already, if not then upload it, also checks 'validity'
+                        hashID = retailerDataTest.hashCode();
+                        if (checkValidity(retailerDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -197,7 +201,9 @@ public class InputHandler {
 
 
                         Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
-                        if (checkValidity(tripDataTest).equals("Success")) {
+                        //check if its in the database already, if not then upload it, also checks 'validity'
+                        hashID = tripDataTest.hashCode();
+                        if (checkValidity(tripDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
@@ -217,8 +223,8 @@ public class InputHandler {
                 //System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
 
-
-            if (dataToAdd != null) {         //if object wasn't valid then don't add it
+            //if object wasn't valid then don't add it
+            if (dataToAdd != null) {
                 data.add(dataToAdd);         //add object into array to be returned
 
             }
@@ -310,9 +316,8 @@ public class InputHandler {
             validTrip = "Invalid age " + trip.getAge();
         }
 
-        /*else if (0 >= trip.getBikeID()) {               //not in constructor.. yet?
-            validTrip = false;
-        }*/
+        else if (0 >= trip.getBikeID()) {
+            validTrip = "Invalid bike ID " + trip.getBikeID();        }
 
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
             validTrip = "Invalid user type " + trip.getUserType();
