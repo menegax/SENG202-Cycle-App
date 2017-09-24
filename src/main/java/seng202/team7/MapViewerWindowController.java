@@ -149,6 +149,9 @@ public class MapViewerWindowController implements Initializable {
         );
     }
 
+    /**
+     * The controller button that communicates with the javascript and calls a method
+     */
     public void displayClicked()
     {
         webEngine.executeScript("loadWifi();");

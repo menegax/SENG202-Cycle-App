@@ -5,7 +5,8 @@ import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
 /**
- * todo
+ * The analytics window for the trips to view data analysis of previous trips in the database
+ * @author Morgan English
  */
 public class TripAnalyticWindow extends AnchorPane {
     public TripAnalyticWindow(){
