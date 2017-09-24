@@ -35,7 +35,7 @@ public class InputHandlerTest
     public void testRetailer() throws IOException {
         InputHandler testerRetailer = new InputHandler();
         assertEquals(771, testerRetailer.loadCSV(file_retailer, "retailer", "default").size());
-        assertEquals(0, testerRetailer.getFail_counter());
+        assertEquals(52, testerRetailer.getFail_counter());
         testerRetailer.resetFailCounter();
     }
     @Test
