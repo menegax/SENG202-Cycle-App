@@ -309,7 +309,6 @@ public class InputHandler {
 
 
 
-
         return validRetailer;
     }
 
