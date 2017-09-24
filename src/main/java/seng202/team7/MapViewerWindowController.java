@@ -1,5 +1,6 @@
 package seng202.team7;
 
+import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
@@ -12,6 +13,7 @@ import netscape.javascript.JSObject;
 
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.ResourceBundle;
 
 /**
@@ -50,6 +52,8 @@ public class MapViewerWindowController implements Initializable {
     private JSObject jsBridge;
     private ObservableList<Wifi> wifiList;
     private ObservableList<Wifi> filteredWifiList;
+    private JSObject jsObject;
+    private JSHandler jshandler = new JSHandler();
 
 
     /**
@@ -68,13 +72,22 @@ public class MapViewerWindowController implements Initializable {
         webEngine.setJavaScriptEnabled(true);
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
-                JSObject jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("bridge", new JSHandler());
-                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+                jsObject = (JSObject) webEngine.executeScript("window");
+                jsObject.setMember("Mbridge", jshandler);
+                System.out.println("created bridge");
+                //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
         webEngine.load(getClass().getClassLoader().getResource("googlemaps.html").toExternalForm());
 
+
+
+        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
+            @Override
+            public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
+                System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+            }
+        });
 
 
         //Initialise retailers and wifi in combo boxes
@@ -154,8 +167,42 @@ public class MapViewerWindowController implements Initializable {
      */
     public void displayClicked()
     {
-        webEngine.executeScript("loadWifi();");
-        webEngine.executeScript("loadRetailers();");
+
+
+    }
+
+    public void displayWifi()
+    {
+
+        jsObject.setMember("Mbridge", jshandler);
+        String burough = mapComboBorough.getSelectionModel().selectedItemProperty().getValue();
+        String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
+        String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
+        System.out.println(burough+type+provider);
+
+        JSHandler jsHandler = new JSHandler();
+        List<Wifi> listo = jsHandler.getWifiJSFiltered(burough,type,provider);
+        System.out.println(listo.size());
+
+        jsObject.call("loadWifi",burough,type,provider);
+
+    }
+
+    public void displayRetailer()
+    {
+        jsObject.setMember("Mbridge", jshandler);
+
+        String zip = mapComboZipcode.getSelectionModel().selectedItemProperty().getValue();
+        String typeR = mapComboRetailerType.getSelectionModel().selectedItemProperty().getValue();
+        String street = mapComboStreet.getSelectionModel().selectedItemProperty().getValue();
+
+        System.out.println(zip+typeR+street);
+
+        JSHandler jsHandler = new JSHandler();
+        List<Retailer> listo = jsHandler.getRetailerJSFiltered(zip,typeR,street);
+        System.out.println(listo.size());
+
+        jsObject.call("loadRetailers",zip,typeR,street);
     }
 }
 

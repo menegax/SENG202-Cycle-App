@@ -41,7 +41,8 @@ public class MapAnalyticController implements Initializable {
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 JSObject jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("bridge", new JSHandler());
+                jsObject.setMember("Abridge", new JSHandler());
+                System.out.println("set bridge");
                 jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
