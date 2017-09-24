@@ -15,10 +15,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import seng202.team7.DatabaseRetriever;
-import seng202.team7.DatabaseUpdater;
-import seng202.team7.Retailer;
-import seng202.team7.StaticVariables;
+import seng202.team7.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -75,8 +72,6 @@ public class RetailerDataViewerController implements Initializable {
      * @param rb  Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-
-
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerArrayList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, loadedData));

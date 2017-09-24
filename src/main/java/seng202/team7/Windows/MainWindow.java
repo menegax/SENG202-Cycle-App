@@ -10,6 +10,7 @@ import javafx.stage.Stage;
  * Main window model for running the main program
  * @author Connor McEwan-McDowall
  */
+
 public class MainWindow extends Application {
 
     /**

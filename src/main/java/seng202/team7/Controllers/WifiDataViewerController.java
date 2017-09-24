@@ -8,10 +8,7 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import seng202.team7.DatabaseRetriever;
-import seng202.team7.DatabaseUpdater;
-import seng202.team7.StaticVariables;
-import seng202.team7.Wifi;
+import seng202.team7.*;
 
 import java.net.URL;
 import java.util.ArrayList;
@@ -81,6 +78,7 @@ public class WifiDataViewerController implements Initializable {
          * DatabaseTester.deleteTables();
          * DatabaseTester.createTables();
          */
+
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
