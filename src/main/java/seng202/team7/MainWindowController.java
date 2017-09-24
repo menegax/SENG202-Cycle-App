@@ -1,5 +1,8 @@
 package seng202.team7;
-
+/**
+ * Controls manual data entry and data uploaded via csv
+ * @author Connor McEwan-McDowall
+ */
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.Menu;
@@ -145,10 +148,18 @@ public class MainWindowController implements Initializable{
         currentScreen = newScreen;
     }
 
+    /**
+     * todo
+     * @param screen
+     */
     private void removeMainScreen(Node screen) {
         centerAnchorPane.getChildren().remove(screen);
     }
 
+    /**
+     * todo
+     * @param screen
+     */
     private void setMainScreen(Node screen) {
         centerAnchorPane.getChildren().add(screen);
     }

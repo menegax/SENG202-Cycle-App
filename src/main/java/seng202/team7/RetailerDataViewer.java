@@ -10,10 +10,6 @@ import java.io.IOException;
  * Last updated 13/09/17
  */
 
-
-/**
- * todo
- */
 public class RetailerDataViewer extends AnchorPane {
 
     public RetailerDataViewer(){

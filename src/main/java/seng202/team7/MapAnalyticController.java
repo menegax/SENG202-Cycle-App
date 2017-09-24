@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 /**
+ * todo
  * @author MorganEnglish
  */
 public class MapAnalyticController implements Initializable {
@@ -27,7 +28,11 @@ public class MapAnalyticController implements Initializable {
     private WebEngine webEngine;
     private JSObject jsBridge;
 
-
+    /**
+     * todo
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb)
     {
         webEngine = webViewMap.getEngine();
@@ -53,18 +58,26 @@ public class MapAnalyticController implements Initializable {
     }
 
 
-
+    /**
+     * todo
+     */
     public void displayClicked()
     {
         webEngine.executeScript("loadWifi();");
     }
 
+    /**
+     * todo
+     */
     @FXML
     private void wifiChecked()
     {
 
     }
 
+    /**
+     * todo
+     */
     @FXML
     private void retailerChecked()
     {

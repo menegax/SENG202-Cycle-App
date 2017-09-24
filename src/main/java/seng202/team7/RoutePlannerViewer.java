@@ -7,6 +7,11 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
+/**
+ * Route planner window where users can manually enter their desired start and end locations for the route they would
+ * like to bike
+ * @author Joshua Meneghini
+ */
 public class RoutePlannerViewer extends AnchorPane {
 
     public RoutePlannerViewer(){
