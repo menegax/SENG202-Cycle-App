@@ -67,7 +67,6 @@ public class InputHandler {
 
 
 
-
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
             String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
