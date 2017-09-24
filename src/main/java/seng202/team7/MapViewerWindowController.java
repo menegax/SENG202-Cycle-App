@@ -126,7 +126,7 @@ public class MapViewerWindowController implements Initializable {
                 "Community Resources",
                 "None"
         );
-        mapComboRetailerType.getSelectionModel().select("None");
+
 
         //Wifi combo boxes
         mapComboProvider.getItems().addAll(providers);
