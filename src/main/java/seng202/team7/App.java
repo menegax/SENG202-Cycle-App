@@ -25,13 +25,17 @@ public class App
         System.out.println("Connor's test");
         System.out.println("Joshua's test");
 
-        DatabaseHandler.createDatabase();
-        DatabaseTester.createTables();
+        //DatabaseHandler.createDatabase();
+       // DatabaseTester.createTables();
 
-//        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 //        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
 //
-//        ArrayList<Retailer> retailers = databaseRetriever.getRetailerList();
+        ArrayList<Retailer> retailers = databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[13],"New York Plaza"));
+        for(Retailer r: retailers){
+            System.out.println(r.getStreet()+r.getZipCode()+r.getTypeID());
+
+        }
 //
 //        DatabaseHandler.deleteTable(Retailer.tableName);
 //        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);

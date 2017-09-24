@@ -20,6 +20,13 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    /**
+     * Returns a list of Wifi objects for use in the MapViewer filtered by 3 parameters
+     * @param burough burough to filter by
+     * @param type type to filter by
+     * @param provider provider to filter by
+     * @return List of Wifi
+     */
     public List<Wifi> getWifiJSFiltered(String burough, String type, String provider)
     {
         boolean buroughF = !(burough.equals("")|| burough.toLowerCase().equals("none")||burough==null);
@@ -55,6 +62,13 @@ public class JSHandler {
     }
 
 
+    /**
+     * Returns a list of Retailer objects for use in Mapviewer filtered by 3 fields
+     * @param zip xipcode to filter by in string form
+     * @param type type to filter by. Whole string needed not letter
+     * @param street Street to filter by
+     * @return list of Retailer objects matching the filter
+     */
     public List<Retailer> getRetailerJSFiltered(String zip, String type, String street)
     {
         boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("none")||zip==null);
@@ -73,7 +87,7 @@ public class JSHandler {
             return databaseRetriever.queryRetailer(StaticVariables.stringIntQuery(Retailer.tableName,Retailer.columns[7], type, Retailer.columns[6],Integer.parseInt(zip)));
         } else if(zipF&&typeF&&streetF){
             //all
-            return databaseRetriever.getRetailerList();
+            return databaseRetriever.queryRetailer(StaticVariables.mapViewRetailerQuery(Integer.parseInt(zip),street, type));
         } else if(!zipF&&typeF&&!streetF) {
             //only type
             return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[7], type));
