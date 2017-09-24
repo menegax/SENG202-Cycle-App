@@ -27,6 +27,12 @@ public class Bike implements Data{
      */
     private String datagroup;
 
+    /**
+     * todo
+     * @param bikeID Bike number ID
+     * @param datagroup
+     * todo
+     */
     public Bike(int bikeID, String datagroup)
     {
         this.bikeID = bikeID;
@@ -34,17 +40,34 @@ public class Bike implements Data{
 
     }
 
+    /**
+     * @return the bikeID number
+     */
     public int getBikeID() {
         return bikeID;
     }
+
+    /**
+     * creates a bike ID and sets it to a bike object
+     * @param bikeID The bike ID number
+     */
     public void setBikeID(int bikeID) {
         this.bikeID = bikeID;
     }
 
+    /**
+     * todo
+     * @return
+     */
     public String getDatagroup() {
         return datagroup;
 
     }
+
+    /**
+     * todo
+     * @param datagroup
+     */
     public void setDatagroup(String datagroup) {
         this.datagroup = datagroup;
     }

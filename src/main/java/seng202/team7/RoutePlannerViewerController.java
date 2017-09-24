@@ -15,6 +15,10 @@ import netscape.javascript.JSObject;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * todo
+ * @author Joshua Meneghini
+ */
 public class RoutePlannerViewerController implements Initializable{
 
     @FXML
