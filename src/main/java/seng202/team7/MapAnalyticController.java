@@ -35,26 +35,26 @@ public class MapAnalyticController implements Initializable {
      */
     public void initialize(URL url, ResourceBundle rb)
     {
-        webEngine = webViewMap.getEngine();
-
-        webEngine.setJavaScriptEnabled(true);
-        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
-            if (Worker.State.SUCCEEDED == newValue) {
-                JSObject jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("Abridge", new JSHandler());
-                System.out.println("set bridge");
-                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
-            }
-        });
-        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
-
-
-        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
-        @Override
-        public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
-            System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
-        }
-    });
+//        webEngine = webViewMap.getEngine();
+//
+//        webEngine.setJavaScriptEnabled(true);
+//        webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
+//            if (Worker.State.SUCCEEDED == newValue) {
+//                JSObject jsObject = (JSObject) webEngine.executeScript("window");
+//                jsObject.setMember("Abridge", new JSHandler());
+//                System.out.println("set bridge");
+//                jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
+//            }
+//        });
+//        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
+//
+//
+//        WebConsoleListener.setDefaultListener(new WebConsoleListener() {
+//        @Override
+//        public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
+//            System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+//        }
+//    });
 
     }
 
