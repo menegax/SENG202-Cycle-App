@@ -96,7 +96,7 @@ public class MainWindowController implements Initializable{
         navigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                     String currentSelection = newValue.getValue();
-                    if (currentScreen != currentSelection) {
+                    if (!(currentScreen.equals(currentSelection))) {
                         changeMainScreen(currentSelection);
                     }
                 });
