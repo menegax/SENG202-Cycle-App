@@ -1,8 +1,4 @@
 package seng202.team7;
-import java.io.IOException;
-import java.io.ObjectInputStream;
-import java.io.ObjectOutputStream;
-import java.io.Serializable;
 
 /**
  * Basic Wifi class to store information about a specific wifi location

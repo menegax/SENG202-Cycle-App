@@ -6,6 +6,5 @@ public class Location implements Mappable{
 
     @Override
     public void placeOnMap(double latitude, double longitude) {
-
     }
 }

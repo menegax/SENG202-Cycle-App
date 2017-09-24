@@ -1,7 +1,5 @@
 package seng202.team7.Controllers;
 
-import com.sun.javafx.webkit.WebConsoleListener;
-import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;

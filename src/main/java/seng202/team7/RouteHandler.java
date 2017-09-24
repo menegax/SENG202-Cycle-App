@@ -1,6 +1,5 @@
 package seng202.team7;
 
-
 import java.util.List;
 
 /**
@@ -10,6 +9,7 @@ import java.util.List;
 public class RouteHandler {
 
     private DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+
     /**
      * Wrapper method for interacting with Javascript inside WebEngine
      * @return list of Station objects
@@ -18,9 +18,4 @@ public class RouteHandler {
 
         return databaseRetriever.getStationList();
     }
-
-
-
-
-
 }

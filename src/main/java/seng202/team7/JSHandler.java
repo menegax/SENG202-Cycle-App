@@ -1,11 +1,9 @@
 package seng202.team7;
 
-
-import java.util.ArrayList;
 import java.util.List;
 
 /**
- * acts as the handler between java and javascript to pass onjects into google maps javascipt API
+ * Acts as the handler between java and javascript to pass objects into google maps javascript API
  * @author MorganEnglish
  */
 public class JSHandler {
@@ -22,7 +20,7 @@ public class JSHandler {
 
     /**
      * Returns a list of Wifi objects for use in the MapViewer filtered by 3 parameters
-     * @param burough burough to filter by
+     * @param burough borough to filter by
      * @param type type to filter by
      * @param provider provider to filter by
      * @return List of Wifi

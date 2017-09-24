@@ -1,7 +1,4 @@
 package seng202.team7.Controllers;
-/*
- * Created by jam357 on 21/09/17.
- */
 
 import com.sun.javafx.webkit.WebConsoleListener;
 import javafx.concurrent.Worker;
