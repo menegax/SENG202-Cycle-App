@@ -1,5 +1,16 @@
 package seng202.team7;
 
+import org.w3c.dom.Document;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.xpath.XPath;
+import javax.xml.xpath.XPathConstants;
+import javax.xml.xpath.XPathExpression;
+import javax.xml.xpath.XPathFactory;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.net.URLEncoder;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -131,7 +142,12 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         typeMap.put("C", "Community Resources");
         this.typeID = typeMap.get(typeID);
         this.dataGroup = dataGroup;
-        addressToLATLONG();
+        String new_address = Integer.toString(zipCode) + ", " + city;
+        try {
+            addressToLATLONG(new_address);
+        } catch (java.lang.Exception e) {
+            System.out.println("Exception raised");
+        }
     }
 
 
@@ -139,12 +155,36 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * Converts an address to a latitude and longitude and stores them within the object.
      * Should be ran on instantiation
      */
-    private void addressToLATLONG()
+    public void addressToLATLONG(String address) throws Exception
     {
-
-        //find lat and long
-        this.latitude = 0;
-        this.longitude = 0;
+        int responseCode = 0;
+        String api = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=true";
+        System.out.println("URL : "+api);
+        URL url = new URL(api);
+        HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
+        httpConnection.connect();
+        responseCode = httpConnection.getResponseCode();
+        if(responseCode == 200) {
+            DocumentBuilder builder = DocumentBuilderFactory.newInstance().newDocumentBuilder();
+            ;
+            Document document = builder.parse(httpConnection.getInputStream());
+            XPathFactory xPathfactory = XPathFactory.newInstance();
+            XPath xpath = xPathfactory.newXPath();
+            XPathExpression expr = xpath.compile("/GeocodeResponse/status");
+            String status = (String) expr.evaluate(document, XPathConstants.STRING);
+            if (status.equals("OK")) {
+                expr = xpath.compile("//geometry/location/lat");
+                String latitude = (String) expr.evaluate(document, XPathConstants.STRING);
+                expr = xpath.compile("//geometry/location/lng");
+                String longitude = (String) expr.evaluate(document, XPathConstants.STRING);
+                double d_latitude = Double.parseDouble(latitude);
+                double d_longitude = Double.parseDouble(longitude);
+                this.latitude = d_latitude;
+                this.longitude = d_longitude;
+            } else {
+                throw new Exception("Error from the API - response status: " + status);
+            }
+        }
     }
 
     public String getName() {
