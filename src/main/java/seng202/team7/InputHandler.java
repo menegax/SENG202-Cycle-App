@@ -96,6 +96,9 @@ public class InputHandler {
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
+                        else {
+                            System.out.println(checkValidity(wifiDataTest));
+                        }
 
                         break;
 
@@ -128,6 +131,9 @@ public class InputHandler {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
+                        }
+                        else {
+                            System.out.println(checkValidity(retailerDataTest));
                         }
 
                         break;
@@ -214,6 +220,9 @@ public class InputHandler {
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                             System.out.println("Trip added to to upload list");
+                        }
+                        else {
+                            System.out.println(checkValidity(tripDataTest));
                         }
 
 

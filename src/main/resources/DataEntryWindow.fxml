@@ -286,6 +286,7 @@
                </items>
             </ComboBox>
             <TextField fx:id="dataGroupTextfield" promptText="DataGroup" GridPane.columnIndex="7" GridPane.rowIndex="4" />
+            <Text fx:id="progressText" strokeType="OUTSIDE" strokeWidth="0.0" GridPane.columnIndex="10" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </children>

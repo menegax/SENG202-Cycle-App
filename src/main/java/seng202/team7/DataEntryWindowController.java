@@ -183,8 +183,10 @@ public class DataEntryWindowController implements Initializable{
             File file = chooser.showOpenDialog(stage);
 
             try {
+                status_text.setText("Parsing csv file");
                 csvFile = file.toString();
                 toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+                status_text.setText("Uploading data");
                 toUpload.addData(toAdd);
                 status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
                         toParse.getFail_counter() + " issues, likely empty fields or incorrect formats");
