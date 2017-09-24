@@ -46,8 +46,46 @@ public class JSHandler {
         } else if(buroughF&&!typeF&&providerF){
             //provider and burough
             return  databaseRetriever.queryWifi(StaticVariables.doubleStringQuery(Wifi.tableName, Wifi.columns[1],burough,Wifi.columns[3],provider));
+        } else if(!buroughF&&!typeF&&providerF){
+            //only provider
+            return  databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[3],provider));
         }
         return databaseRetriever.getWifiList();
+    }
+
+
+    public List<Retailer> getRetailerJSFiltered(String zip, String type, String street)
+    {
+        boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("none")||zip==null);
+        boolean typeF = !(type.equals("")||type.toLowerCase().equals("none")||type==null);
+        boolean streetF = !(street.equals("")||street.toLowerCase().equals("none")||street==null);
+
+        if(!zipF&&!typeF&&!streetF){
+            //No fields selected
+            return databaseRetriever.getRetailerList();
+        } else if(zipF&&!typeF&&!streetF){
+            //only zip selected
+
+        } else if(zipF&&typeF&&!streetF){
+            //only zip and type
+
+        } else if(zipF&&typeF&&streetF){
+            //all
+
+        } else if(!zipF&&typeF&&!streetF) {
+            //only type
+
+        } else if(!zipF&&typeF&&streetF){
+            //type and street
+
+        } else if(zipF&&!typeF&&streetF){
+            //street and burough
+
+        } else if(!zipF&&!typeF&&streetF){
+            //only street
+        }
+        return databaseRetriever.getRetailerList();
+
     }
 
 //    public List<Wifi> getWifiJSFiltered(String burough, String type, String provider)

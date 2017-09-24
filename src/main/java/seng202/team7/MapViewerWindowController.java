@@ -169,31 +169,31 @@ public class MapViewerWindowController implements Initializable {
 
     public void displayWifi()
     {
-        ArrayList<String> selected = new ArrayList<String>();
         String burough = mapComboBorough.getSelectionModel().selectedItemProperty().getValue();
         String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
         String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
-
-
         System.out.println(burough+type+provider);
+
         JSHandler jsHandler = new JSHandler();
         List<Wifi> listo = jsHandler.getWifiJSFiltered(burough,type,provider);
         System.out.println(listo.size());
-//        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-//        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.mapViewWifiQuery(burough,type,provider)))
-//        {
-//            w.print();
-//        }
 
-
-        //webEngine.executeScript("loadWifi('"+burough+"','"+type+"','"+provider+"');");
-        //webEngine.executeScript("loadWifi();");
         jsObject.call("loadWifi",burough,type,provider);
     }
 
     public void displayRetailer()
     {
-        webEngine.executeScript("loadRetailers();");
+        String zip = mapComboZipcode.getSelectionModel().selectedItemProperty().getValue();
+        String typeR = mapComboRetailerType.getSelectionModel().selectedItemProperty().getValue();
+        String street = mapComboStreet.getSelectionModel().selectedItemProperty().getValue();
+
+        System.out.println(zip+typeR+street);
+
+        JSHandler jsHandler = new JSHandler();
+        List<Retailer> listo = jsHandler.getRetailerJSFiltered(zip,typeR,street);
+        System.out.println(listo.size());
+
+        jsObject.call("loadWifi",zip,typeR,street);
     }
 }
 
