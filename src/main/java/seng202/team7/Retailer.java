@@ -142,11 +142,11 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         this.typeID = typeMap.get(typeID);
         this.dataGroup = dataGroup;
         String new_address = Integer.toString(zipCode) + ", " + city;
-//        try {
-//            addressToLATLONG(new_address);
-//        } catch (java.lang.Exception e) {
-//            System.out.println("Exception raised");
-//        }
+        try {
+            addressToLATLONG(new_address);
+        } catch (java.lang.Exception e) {
+            System.out.println("Exception raised");
+        }
     }
 
 
