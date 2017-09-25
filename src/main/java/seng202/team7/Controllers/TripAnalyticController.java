@@ -186,11 +186,11 @@ public class TripAnalyticController{
         bar.setTitle("Distance of Trips Taken");
 
         barChartData.addAll(
-                new XYChart.Data<>("0 to 0.5", SQLAnalytics.totalDistTrips(0,500,dataGroupToSearch)),
-                new XYChart.Data<>("0.5 to 1", SQLAnalytics.totalDistTrips(500,1000,dataGroupToSearch)),
-                new XYChart.Data<>("1 to 2.5", SQLAnalytics.totalDistTrips(1000,2500,dataGroupToSearch)),
-                new XYChart.Data<>("2.5 to 5", SQLAnalytics.totalDistTrips(2500,5000,dataGroupToSearch)),
-                new XYChart.Data<>("5+", SQLAnalytics.totalDistTrips(5000,Integer.MAX_VALUE,dataGroupToSearch))
+                new XYChart.Data<>("0 to 0.5", SQLAnalytics.totalDistTrips(0,0.5,dataGroupToSearch)),
+                new XYChart.Data<>("0.5 to 1", SQLAnalytics.totalDistTrips(0.5,1.0,dataGroupToSearch)),
+                new XYChart.Data<>("1 to 2.5", SQLAnalytics.totalDistTrips(1.0,2.5,dataGroupToSearch)),
+                new XYChart.Data<>("2.5 to 5", SQLAnalytics.totalDistTrips(2.5,5.0,dataGroupToSearch)),
+                new XYChart.Data<>("5+", SQLAnalytics.totalDistTrips(5.0,Integer.MAX_VALUE,dataGroupToSearch))
         );
 
         XYChart.Series distanceSeries = new XYChart.Series(barChartData);
