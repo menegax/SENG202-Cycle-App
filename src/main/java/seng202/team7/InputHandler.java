@@ -94,8 +94,7 @@ public class InputHandler {
                         int hashID = wifiDataTest.hashCode();
                         if (checkValidity(wifiDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
                             dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
-                            //counter++;                         //for testing how many objects were created successfully
-                            //System.out.println(counter);
+
                         }
                         else {
                             System.out.println(checkValidity(wifiDataTest));
@@ -130,8 +129,7 @@ public class InputHandler {
                         hashID = retailerDataTest.hashCode();
                         if (checkValidity(retailerDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                             dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
-                            //counter++;                    //for testing how many objects were created successfully
-                            //System.out.println(counter);
+
                         }
                         else {
                             System.out.println(checkValidity(retailerDataTest));
@@ -274,9 +272,10 @@ public class InputHandler {
     }
 
     /**
-     * Tests an inputted retailer objects data individually to see if it is valid, returns true if valid
+     * Tests an inputted retailer objects data individually to see if it is valid, returns success if valid
+     * or an error message if not
      * @param retailer retailer object to be tested for validity
-     * @return validRetailer True if retailer object is valid
+     * @return validRetailer String success if valid
      */
     public String checkValidity(Retailer retailer)
     {
@@ -314,9 +313,10 @@ public class InputHandler {
     }
 
     /**
-     * Tests an inputted trip objects data individually to see if it is valid, returns true if valid
+     * Tests an inputted trip objects data individually to see if it is valid, returns success if valid
+     * or an error message if not
      * @param trip Trip object to be tested for validity
-     * @return validRetailer True if
+     * @return validTrip String success if valid
      */
     public String checkValidity(Trip trip)
     {
@@ -355,9 +355,10 @@ public class InputHandler {
     }
 
     /**
-     * Tests an inputted wifi objects data individually to see if it is valid, returns true if valid
+     * Tests an inputted wifi objects data individually to see if it is valid, returns success if valid
+     * or an error message if not
      * @param wifi
-     * @return validTrip True if Trip is valid
+     * @return validWifi String success if valid
      */
     public String checkValidity(Wifi wifi)
     {
