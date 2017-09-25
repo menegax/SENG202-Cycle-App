@@ -81,6 +81,8 @@ public class SQLAnalytics {
     /**
      * Finds the sum of all trips within and age range for a datagroup of trips
      * @param datagroup datagroup string to match. if "" will look at all trips
+     * @param lowAge Lowest age in the range of ages
+     * @param highAge Highest age in the range of ages
      * @return total duration of matched trips
      */
     public static int totalAgeTrips(int lowAge, int highAge, String datagroup)

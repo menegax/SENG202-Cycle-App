@@ -81,7 +81,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     /**
      * Constructor For Wifi objects
      * @param borough burough located in e.g ("QU")
-     * @param type
+     * @param type Type of wifi as string
      * @param provider provider as string
      * @param location location as string
      * @param city city as String
@@ -107,7 +107,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
 
     /**
      * todo
-     * @return
+     * @return borough of retailer object
      */
     public String getBorough() {
         return borough;

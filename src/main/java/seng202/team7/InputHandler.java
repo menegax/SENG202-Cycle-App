@@ -47,11 +47,12 @@ public class InputHandler {
     /**
      *     Method to parse a given csv file using the default IO package and buffered reader using split line () etc
      *     Returns an array of objects of type Trip, Wifi, or Retailer
-     * @param file
-     * @param dataType
-     * @return data
-     * @throws IOException
-     * @throws NumberFormatException
+     * @param file csv file to be read
+     * @param dataType Type of data to be processed from Retailer, Wifi or Trips
+     * @param dataGroup name of the group that the data belongs to
+     * @return data returns an arraylist of the processed data from the input file
+     * @throws IOException Exception thrown when there is an Input/Output error
+     * @throws NumberFormatException Exception thrown when there is a number format error
      */
     public ArrayList<Data> loadCSV(String file, String dataType, String dataGroup) throws IOException, NumberFormatException
     {
@@ -251,7 +252,9 @@ public class InputHandler {
         return data;       //return array of objects for use
 
     }
-
+    /**
+     * Reset the fail counter to zero
+     */
     public void resetFailCounter() {
         fail_counter = 0;
     }
@@ -262,8 +265,8 @@ public class InputHandler {
 
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
-     * @param dataToTest
-     * @return
+     * @param dataToTest The data object that is to be tested for validity
+     * @return True if dataToTest is valid
      */
     public Boolean checkValidity(Data dataToTest)
     {
@@ -272,8 +275,8 @@ public class InputHandler {
 
     /**
      * Tests an inputted retailer objects data individually to see if it is valid, returns true if valid
-     * @param retailer
-     * @return validRetailer
+     * @param retailer retailer object to be tested for validity
+     * @return validRetailer True if retailer object is valid
      */
     public String checkValidity(Retailer retailer)
     {
@@ -312,8 +315,8 @@ public class InputHandler {
 
     /**
      * Tests an inputted trip objects data individually to see if it is valid, returns true if valid
-     * @param trip
-     * @return validRetailer
+     * @param trip Trip object to be tested for validity
+     * @return validRetailer True if
      */
     public String checkValidity(Trip trip)
     {
@@ -354,7 +357,7 @@ public class InputHandler {
     /**
      * Tests an inputted wifi objects data individually to see if it is valid, returns true if valid
      * @param wifi
-     * @return validRetailer
+     * @return validTrip True if Trip is valid
      */
     public String checkValidity(Wifi wifi)
     {
@@ -399,8 +402,8 @@ public class InputHandler {
 
     /**
      * Tests an inputted station objects data individually to see if it is valid, returns true if valid
-     * @param station
-     * @return validRetailer
+     * @param station Station to be tested for validity
+     * @return validStation True if station is valid
      */
     public Boolean checkValidity(Station station)
     {

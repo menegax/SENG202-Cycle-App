@@ -163,15 +163,12 @@ public class MapViewerWindowController implements Initializable {
         );
     }
 
+
     /**
-     * The controller button that communicates with the javascript and calls a method
+     * Method used to display wifi on the map
+     * is called when the view wifi button is clicked in the map view
+     * connects to HTML file
      */
-    public void displayClicked()
-    {
-
-
-    }
-
     public void displayWifi()
     {
 
@@ -189,6 +186,12 @@ public class MapViewerWindowController implements Initializable {
 
     }
 
+
+    /**
+     * Method used to display retailers on the map
+     * is called when the view retailers button is clicked in the map view
+     * connects to HTML file
+     */
     public void displayRetailer()
     {
         jsObject.setMember("Mbridge", jshandler);

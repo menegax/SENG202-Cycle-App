@@ -95,15 +95,15 @@ public class Retailer extends Location implements Data, java.io.Serializable{
 
     /**
      * todo
-     * @param name
-     * @param city
-     * @param pAddress
-     * @param sAddress
-     * @param state
-     * @param zipCode
-     * @param typeID
-     * @param type
-     * @param dataGroup
+     * @param name Name of retailer
+     * @param city City where retailer is located
+     * @param pAddress Primary address of retailer
+     * @param sAddress Secondary address of retailer
+     * @param state State where retailer is located
+     * @param zipCode Zip code of retailer
+     * @param typeID ID for type of retailer
+     * @param type Type of retailer
+     * @param dataGroup Data group that retailer belongs to
      */
     public Retailer(String name, String city, String pAddress, String sAddress, String state, int zipCode, String typeID, String type, String dataGroup)
     {
@@ -153,8 +153,9 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     /**
      * Converts an address to a latitude and longitude and stores them within the object.
      * Should be ran on instantiation
+     * @param address the address in format of zip code, city of retailer
      */
-    public void addressToLATLONG(String address) throws Exception
+    public void addressToLATLONG(String address) throws Exception, java.lang.Exception
     {
         int responseCode = 0;
         String api = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=true";

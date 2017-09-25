@@ -152,7 +152,7 @@ public class DatabaseTester {
 
     /**
      * prints wifis
-     * @param databaseRetriever
+     * @param databaseRetriever object to retrieve items from database
      */
     private static void printWifi(DatabaseRetriever databaseRetriever)
     {
@@ -163,7 +163,7 @@ public class DatabaseTester {
 
     /**
      * prints retailer
-     * @param databaseRetriever
+     * @param databaseRetriever object to retrieve items from database
      */
     private static void printRetailer(DatabaseRetriever databaseRetriever)
     {

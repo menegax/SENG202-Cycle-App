@@ -110,11 +110,11 @@ public class MainWindowController implements Initializable{
     }
 
     /**
-     * Creates a new TreeItem<String> representing a branch. The new branch has the
+     * Creates a new TreeItem with Strings representing a branch. The new branch has the
      * text title in it and is a child of parent.
      * @param title A String representing the text title for the branch.
-     * @param parent The parent TreeItem<String> of new branch to be created.
-     * @return The newly created branch (TreeItem<String>).
+     * @param parent The parent TreeItem of new branch to be created.
+     * @return The newly created branch (TreeItem).
      */
     private TreeItem<String> makeBranch(String title, TreeItem<String> parent) {
         TreeItem<String> item = new TreeItem<>(title);

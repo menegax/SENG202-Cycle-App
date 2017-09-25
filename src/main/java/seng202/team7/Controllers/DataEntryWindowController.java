@@ -72,8 +72,8 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Initializes the formatting listeners for the appropriate text fields
-     * @param url
-     * @param rb
+     * @param url Just a testing argument
+     * @param rb Just a testing argument
      */
     public void initialize(URL url, ResourceBundle rb) {
         startStationIDTextfield.textProperty().addListener(
@@ -165,7 +165,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads a file of data from a csv file name provided
-     * @param event
+     * @param event Event when button is clicked
      */
     public void uploadcsvButton(ActionEvent event) {
         InputHandler toParse = new InputHandler();
@@ -208,7 +208,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted retailer data and adds to database
-     * @param event
+     * @param event Event when add retailer button is clicked
      */
     public void add_r_button(ActionEvent event) {
 
@@ -266,7 +266,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted wifi data and adds to database
-     * @param event
+     * @param event even when add wifi button is clicked
      */
     public void add_w_button(ActionEvent event) {
 
@@ -328,7 +328,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted trip data and adds to database
-     * @param event
+     * @param event when add trip data is clicked
      */
     public void add_t_button(ActionEvent event) {
 

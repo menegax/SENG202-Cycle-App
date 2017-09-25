@@ -28,8 +28,8 @@ public class MapAnalyticController implements Initializable {
 
     /**
      * todo
-     * @param url
-     * @param rb
+     * @param url For testing
+     * @param rb For testing
      */
     public void initialize(URL url, ResourceBundle rb)
     {

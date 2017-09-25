@@ -107,6 +107,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param birthYear year of birth for user can then be used to calculate age
      * @param gender gander of cyclist
      * @param dataGroup datagroup string for sorting within tables
+     * @param bikeID ID of bike that was used for the trip
      */
     public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
     {

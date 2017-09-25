@@ -57,7 +57,7 @@ public class Bike implements Data{
 
     /**
      * todo
-     * @return
+     * @return the datagroup
      */
     public String getDatagroup() {
         return datagroup;
@@ -66,7 +66,7 @@ public class Bike implements Data{
 
     /**
      * todo
-     * @param datagroup
+     * @param datagroup set of data
      */
     public void setDatagroup(String datagroup) {
         this.datagroup = datagroup;
