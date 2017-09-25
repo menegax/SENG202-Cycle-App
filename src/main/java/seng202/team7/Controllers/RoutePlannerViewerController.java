@@ -27,6 +27,11 @@ public class RoutePlannerViewerController implements Initializable{
     private WebEngine webEngine1;
     private JSObject jsBridge1;
 
+    /**
+     * todo
+     * @param url
+     * @param rb
+     */
     public void initialize(URL url, ResourceBundle rb)
     {
         webEngine1 = webViewMap1.getEngine();
@@ -49,5 +54,8 @@ public class RoutePlannerViewerController implements Initializable{
         });
     }
 
+    /**
+     * todo
+     */
     public void displayClicked1() { /*webEngine1.executeScript("loadStation();");*/ }
 }
