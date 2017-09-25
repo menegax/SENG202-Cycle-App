@@ -15,7 +15,7 @@ import java.util.Arrays;
 public class InputHandler {
 
     private String validBorough[] = {"MN", "BK", "QU", "SI", "BX"};
-    private String validType[] = {"Free", "Limited Free", "Partner Site", "SI", "BX"};
+    private String validType[] = {"Free", "Limited free", "Limited Free", "Partner Site", "SI", "BX"};
     private String validGenders[] = {"Unknown", "Male", "Female"};
     private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", "\"customer\"", "\"subscriber\"", "\"Customer\"", "\"Subscriber\"",};
     private String validState[] = {"NY"};
@@ -96,6 +96,9 @@ public class InputHandler {
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
+                        else {
+                            System.out.println(checkValidity(wifiDataTest));
+                        }
 
                         break;
 
@@ -129,6 +132,9 @@ public class InputHandler {
                             //counter++;                    //for testing how many objects were created successfully
                             //System.out.println(counter);
                         }
+                        else {
+                            System.out.println(checkValidity(retailerDataTest));
+                        }
 
                         break;
 
@@ -142,6 +148,7 @@ public class InputHandler {
                         String startDate = fields[1];
                         String endDate = fields[2];
 
+                        //some trip files have strangely formatted dates, this fixes most
                         if (startDate.charAt(0) == '"') {
                             startDate = startDate.substring(1, startDate.length() - 1);
                             endDate = endDate.substring(1, endDate.length() - 1);
@@ -214,6 +221,9 @@ public class InputHandler {
                             //counter++;                         //for testing how many objects were created successfully
                             //System.out.println(counter);
                             System.out.println("Trip added to to upload list");
+                        }
+                        else {
+                            System.out.println(checkValidity(tripDataTest));
                         }
 
 
@@ -296,7 +306,6 @@ public class InputHandler {
         else if (retailer.getTypeID().length() > 31) {
             validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
-
 
 
 
