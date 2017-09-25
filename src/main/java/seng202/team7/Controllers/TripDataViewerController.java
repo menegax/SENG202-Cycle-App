@@ -95,8 +95,8 @@ public class TripDataViewerController implements Initializable {
      */
     public void initialize(URL url, ResourceBundle rb) {
          // Used for testing only
-        DatabaseTester.deleteTables();
-        DatabaseTester.createTables();
+        //DatabaseTester.deleteTables();
+        //DatabaseTester.createTables();
 
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
