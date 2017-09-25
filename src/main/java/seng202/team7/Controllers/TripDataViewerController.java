@@ -96,12 +96,10 @@ public class TripDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-        /**
-         * Used for testing only
-         * DatabaseTester.deleteTables();
-         * DatabaseTester.createTables();
-         */
-
+         /* Used for testing only
+          * DatabaseTester.deleteTables();
+          * DatabaseTester.createTables();
+          */
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
