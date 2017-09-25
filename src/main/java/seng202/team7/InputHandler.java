@@ -123,7 +123,6 @@ public class InputHandler {
                         }
 
 
-
                         Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
                         //check if its in the database already, if not then upload it, also checks 'validity'
                         hashID = retailerDataTest.hashCode();
