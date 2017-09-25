@@ -284,7 +284,7 @@ public class InputHandler {
         if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
             validRetailer = "Invalid retailer city " + retailer.getCity();
         }
-        else if (retailer.getName().length() > 50) {
+        else if (retailer.getName().length() > 50 || retailer.getName().length() < 1) {
             validRetailer = "Invalid retailer name " + retailer.getName();
 
         }
@@ -297,7 +297,7 @@ public class InputHandler {
         else if (0 >= retailer.getZipCode() || retailer.getZipCode() > 1000000) {
             validRetailer = "Invalid retailer ZIP " + retailer.getZipCode();
         }
-        else if (retailer.getType().length() > 50) {
+        else if (retailer.getType().length() > 50 || retailer.getType().length() < 1) {
             validRetailer = "Invalid retailer type " + retailer.getType();
         }
 
@@ -370,7 +370,7 @@ public class InputHandler {
         else if (!Arrays.asList(validType).contains(wifi.getType())) {
             validWifi = "Invalid wifi type " + wifi.getType();
         }
-        else if (wifi.getProvider().length() > 100) {
+        else if (wifi.getProvider().length() > 100 || wifi.getProvider().length() < 2) {
             validWifi = "Invalid provider " + wifi.getProvider();
         }
         else if (wifi.getLocation().length() > 100) {
