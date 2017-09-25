@@ -12,9 +12,9 @@
            <children>
               <SplitPane dividerPositions="0.2709" prefHeight="400.0" prefWidth="925.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                 <items>
-                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="230.0" prefHeight="0.0" prefWidth="230.0" SplitPane.resizableWithParent="false">
+                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="250.0" prefHeight="0.0" prefWidth="230.0" SplitPane.resizableWithParent="false">
                        <children>
-                          <ScrollPane layoutY="46.0" prefHeight="241.0" prefWidth="247.0">
+                          <ScrollPane layoutY="46.0" prefHeight="241.0" prefWidth="247.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="45.0">
                             <content>
                               <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="465.0" prefWidth="232.0">
                                    <children>
@@ -104,7 +104,7 @@
                                 <Font size="26.0" />
                              </font>
                           </Text>
-                          <Pane layoutY="287.0" prefHeight="111.0" prefWidth="247.0">
+                          <Pane layoutY="287.0" prefHeight="111.0" prefWidth="247.0" visible="false">
                              <children>
                                 <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Legend:" />
                              </children>
