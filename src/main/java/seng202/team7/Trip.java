@@ -118,9 +118,9 @@ public class Trip extends Location implements Data, java.io.Serializable {
             this.startDate = StaticVariables.ft.parse(startDate);
             this.endDate = StaticVariables.ft.parse(endDate);
         } catch (ParseException e) {
-            System.out.println("Error parsing Dates in Trip.java Constructor");
+            //System.out.println("Error parsing Dates in Trip.java Constructor");
             //e.printStackTrace();
-            System.out.println(e.getMessage());
+            //System.out.println(e.getMessage());
         }
         this.userType = userType;
         this.age = birthYear>1000 ? StaticVariables.currentYear - birthYear:birthYear;

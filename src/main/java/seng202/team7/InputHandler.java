@@ -218,8 +218,6 @@ public class InputHandler {
                         //System.out.println(tripDataTest.getStartDate());
                         if (checkValidity(tripDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                             dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
-                            //counter++;                         //for testing how many objects were created successfully
-                            //System.out.println(counter);
                             System.out.println("Trip added to to upload list");
                         }
                         else {
@@ -248,7 +246,7 @@ public class InputHandler {
 
         }
 
-        //System.out.println("List created");
+        System.out.println("List created to be added into DB");
         reader.close();    //don't need it anymore
         return data;       //return array of objects for use
 
