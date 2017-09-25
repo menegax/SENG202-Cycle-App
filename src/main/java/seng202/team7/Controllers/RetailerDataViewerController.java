@@ -122,7 +122,7 @@ public class RetailerDataViewerController implements Initializable {
                             if (!streetCB.getItems().contains(retailer.getStreet())) {
                                 streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
                             }
-                            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                            if (!zipCB.getItems().contains(Integer.toString(retailer.getZipCode()))) {
                                 zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
                             }
                         }
@@ -162,7 +162,7 @@ public class RetailerDataViewerController implements Initializable {
                 if (!streetCB.getItems().contains(retailer.getStreet())) {
                     streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
                 }
-                if (!zipCB.getItems().contains(retailer.getZipCode())) {
+                if (!zipCB.getItems().contains(Integer.toString(retailer.getZipCode()))) {
                     zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
                 }
             }
@@ -314,7 +314,7 @@ public class RetailerDataViewerController implements Initializable {
             if (!streetCB.getItems().contains(retailer.getStreet())) {
                 streetCB.getItems().add(streetCB.getItems().size() - 2, retailer.getStreet());
             }
-            if (!zipCB.getItems().contains(retailer.getZipCode())) {
+            if (!zipCB.getItems().contains(Integer.toString(retailer.getZipCode()))) {
                 zipCB.getItems().add(zipCB.getItems().size() - 2, Integer.toString(retailer.getZipCode()));
             }
         }
