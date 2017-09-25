@@ -3,7 +3,7 @@ package seng202.team7;
 import java.util.List;
 
 /**
- * acts as the handler between java and javascript to pass onjects into google maps javascipt API
+ * Acts as the handler between java and javascript to pass objects into google maps javascript API
  * @author Joshua Meneghini
  */
 public class RouteHandler {
