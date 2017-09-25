@@ -49,8 +49,8 @@ public class InputHandlerTest
     /*@Test
     public void testTrip() throws IOException {
         InputHandler testerTrip = new InputHandler();
-        assertEquals(21832, testerTrip.loadCSV(file_trip, "trip").size());
-        assertEquals(100, testerTrip.getFail_counter());
+        assertEquals(21832, testerTrip.loadCSV(file_trip, "trip", "default").size());
+        assertEquals(0, testerTrip.getFail_counter());
         testerTrip.resetFailCounter();
     }*/
 
