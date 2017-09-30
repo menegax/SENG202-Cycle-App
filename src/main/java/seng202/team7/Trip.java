@@ -44,12 +44,12 @@ public class Trip extends Location implements Data, java.io.Serializable {
     /**
      * Station at the start of the trip
      */
-    private Station startStation;
+    //private Station startStation;
     private int startStationID;
     /**
      * Station at the end of trip
      */
-    private Station endStation;
+    //private Station endStation;
     private int endStationID;
 
     /**
@@ -98,8 +98,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
     /**
      * Trip Constructor
-     * @param startStation station object at start of route
-     * @param endStation station object at nd of route
      * @param duration duration of trip in seconds
      * @param startDate startdate of trip as string given with format "yyyy-mm-dd hh:mm:ss" 24hr time
      * @param endDate enddate of trip as string given with format "yyyy-mm-dd hh:mm:ss" 24hr time
@@ -109,12 +107,18 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param dataGroup datagroup string for sorting within tables
      * @param bikeID ID of bike that was used for the trip
      */
-    public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
+    public Trip(int startStationID, int endStationID, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
+    // public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
+
     {
-        this.startStation = startStation;
-        this.startStationID = startStation.getId();
-        this.endStation = endStation;
-        this.endStationID = endStation.getId();
+        //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        //this.startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+        //this.endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+
+        //this.startStation = startStation;
+        this.startStationID = startStationID;
+        //this.endStation = endStation;
+        this.endStationID = endStationID;
         this.duration = duration;
         try {
             this.startDate = StaticVariables.ft.parse(startDate);
@@ -139,6 +143,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.distance = findDistance();
         //System.out.println("trip created");
 
+
     }
 
 
@@ -148,18 +153,42 @@ public class Trip extends Location implements Data, java.io.Serializable {
      */
     private double findDistance()
     {
-        return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
+        //return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
+
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        double startLat = 0;
+        double startLong = 0;
+
+        double endLat = 0;
+        double endLong = 0;
+        try {
+            startLat = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0).getLatitude();
+            startLong = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0).getLongitude();
+
+            endLat = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0).getLatitude();
+            endLong = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0).getLongitude();
+
+            return StaticVariables.calculateDistance(startLat, startLong, endLat, endLong);
+
+        } catch (IndexOutOfBoundsException e) {
+            //not too sure what to do in this situation, means that the stations not in the database yet,
+
+            return 0.0;
+
+        }
 
     }
 
 
     public Station getStartStation() {
-        return startStation;
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        return databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+        //return startStation;
     }
 
-    public void setStartStation(Station startStation) {
+    /*public void setStartStation(Station startStation) {
         this.startStation = startStation;
-    }
+    }*/
 
     public int getStartStationID() {
         return startStationID;
@@ -170,12 +199,14 @@ public class Trip extends Location implements Data, java.io.Serializable {
     }
 
     public Station getEndStation() {
-        return endStation;
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        return databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+        //return endStation;
     }
 
-    public void setEndStation(Station endStation) {
+    /*public void setEndStation(Station endStation) {
         this.endStation = endStation;
-    }
+    }*/
 
     public int getEndStationID() {
         return endStationID;
@@ -290,15 +321,19 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @return location of ending bikestation
      */
     public String getEnd() {
-        return endStation.getAddress();
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        return databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0).getAddress();
+        //return endStation.getAddress();
     }
 
     /**
      * gets the start of the bike trip from the bike station attached
-     * @return location of starting bikestation
+     * @return location of starting bike station
      */
     public String getStart() {
-        return startStation.getAddress();
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        return databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0).getAddress();
+        //return startStation.getAddress();
     }
 
     /**
@@ -310,6 +345,13 @@ public class Trip extends Location implements Data, java.io.Serializable {
                 "Duration:" + this.getDuration() + "\n" +
                 "Distance: " + this.getDistance());
     }
+
+    /*@Override
+    public int hashCode() {
+        int result = 0;
+        result = (int) ((startStationID + endStationID + duration  + dataGroup.length()) / 11);
+        return result;
+    }*/
 
 
 }

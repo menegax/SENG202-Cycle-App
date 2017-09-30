@@ -173,10 +173,8 @@ public class DataEntryWindowController implements Initializable{
         ArrayList<Data> toAdd = null;
         String dataTypeAdded = (String ) dataEntryComboBox.getValue();
 
-        String dataGroup;
-        try {
-            dataGroup = dataGroupTextfield.getText();
-            String tester = dataGroup.substring(1);
+        String dataGroup = dataGroupTextfield.getText();
+        if (!dataGroup.isEmpty()) {
 
             String csvFile;
             Stage stage = new Stage();
@@ -184,13 +182,13 @@ public class DataEntryWindowController implements Initializable{
             File file = chooser.showOpenDialog(stage);
 
             try {
-                status_text.setText("Parsing csv file");
+                //status_text.setText("Parsing csv file");
                 csvFile = file.toString();
                 toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
-                status_text.setText("Uploading data");
+                //status_text.setText("Uploading data");
                 toUpload.addData(toAdd);
                 status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
-                        toParse.getFail_counter() + " issues, likely empty fields or incorrect formats");
+                        toParse.getFail_counter() + " issues, likely empty fields or incorrect formats, maybe wrong type selected?");
                 toParse.resetFailCounter();
 
             } catch (IOException | NullPointerException e) {
@@ -198,8 +196,9 @@ public class DataEntryWindowController implements Initializable{
                 status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv");
             }
 
-        } catch (StringIndexOutOfBoundsException e) {
-            status_text.setText("No data group entered!");
+        }
+        else {
+            status_text.setText("No " + dataTypeAdded + " data group entered!");
         }
 
 
@@ -217,20 +216,25 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup;
-        try {
-            dataGroup = dataGroupTextfield.getText();
-            String tester = dataGroup.substring(1);
+        String dataGroup = dataGroupTextfield.getText();
+        if (!dataGroup.isEmpty()) {
 
             try {
                 String nameRetailer = nameTextfield.getText();
-                int ZIP = Integer.parseInt(ZIPTextfield.getText());
                 String state = stateTextfield.getText();
                 String cityRetailer = cityRetailerTextfield.getText();
                 String pAddress = pAddressTextfield.getText();
                 String sAddress = sAddressTextfield.getText();
                 String typeID = typeIDTextfield.getText();
                 String typeRetailer = typeRetailerTextfield.getText();
+
+                int ZIP = 0;
+                try {
+                    ZIP = Integer.parseInt(ZIPTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid retailer ZIP!");
+                    return;
+                }
 
                 Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
                 if (toTest.checkValidity(retailer).equals("Success")) {
@@ -249,16 +253,15 @@ public class DataEntryWindowController implements Initializable{
                 }
 
 
-            } catch (NumberFormatException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //e.printStackTrace();
                 status_text.setText("Not enough retailer data or incorrect data inputted");
 
             }
 
-
-
-        } catch (StringIndexOutOfBoundsException e) {
-            status_text.setText("No data group entered!");
+        }
+        else {
+            status_text.setText("No retailer data group entered!");
         }
 
     }
@@ -275,10 +278,8 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup;
-        try {
-            dataGroup = dataGroupTextfield.getText();
-            String tester = dataGroup.substring(1);
+        String dataGroup = dataGroupTextfield.getText();
+        if (!dataGroup.isEmpty()) {
 
             try {
 
@@ -289,8 +290,22 @@ public class DataEntryWindowController implements Initializable{
                 String borough = boroughTextfield.getText();
                 String SSID = SSIDTextfield.getText();
                 String remarks = remarksTextfield.getText();
-                double longitude = Double.parseDouble(longitudeTextfield.getText());
-                double latitude = Double.parseDouble(latitudeTextfield.getText());
+                double longitude;
+                double latitude;
+
+                try {
+                    longitude = Double.parseDouble(longitudeTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid Wifi longitude!");
+                    return;
+                }
+
+                try {
+                    latitude = Double.parseDouble(latitudeTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid Wifi latitude!");
+                    return;
+                }
 
 
                 Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
@@ -303,6 +318,7 @@ public class DataEntryWindowController implements Initializable{
                     if ((retriever.getStringListFromInt("wifi", hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty() ) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Wifi added");
+                        System.out.println(hashID);
 
                     }
                 } else {
@@ -316,10 +332,9 @@ public class DataEntryWindowController implements Initializable{
                 status_text.setText("Not enough wifi data or incorrect data inputted");
             }
 
-
-
-        } catch (StringIndexOutOfBoundsException e) {
-            status_text.setText("No data group entered!");
+        }
+        else {
+            status_text.setText("No wifi data group entered!");
         }
 
 
@@ -336,14 +351,13 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
-        Boolean data_valid = true;
 
-        String dataGroup;
-        try {
-            dataGroup = dataGroupTextfield.getText();
-            String tester = dataGroup.substring(1);
+        String dataGroup = dataGroupTextfield.getText();
+        if (!dataGroup.isEmpty()) {
 
             try {
+
+                int duration = 1;   //derive duration using start and end times later
 
                 String startDate = startDatePicked.getValue().toString();
                 String endDate = endDatePicked.getValue().toString();
@@ -353,13 +367,42 @@ public class DataEntryWindowController implements Initializable{
 
                 String start = startDate + " " + startTime;
                 String end = endDate + " " + endTime;
-
-                int bikeID = Integer.parseInt(bikeIDTextfield.getText());
                 String userType = (String ) userTypeComboBox.getValue();
-                int birthYear = Integer.parseInt(birthYearTextfield.getText());
-                int startStationID = Integer.parseInt(startStationIDTextfield.getText());
-                int endStationID = Integer.parseInt(endStationIDTextfield.getText());
-                int duration = 1;   //derive duration using start and end times etc
+
+                int bikeID;
+                int endStationID;
+                int startStationID;
+                int birthYear;
+
+                try {
+                    bikeID = Integer.parseInt(bikeIDTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid trip bike ID !");
+                    return;
+                }
+
+                try {
+                    endStationID = Integer.parseInt(endStationIDTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid trip end station ID!");
+                    return;
+                }
+
+                try {
+                    startStationID = Integer.parseInt(startStationIDTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid trip start station ID!");
+                    return;
+
+                }
+
+                try {
+                    birthYear = Integer.parseInt(birthYearTextfield.getText());
+                } catch (NumberFormatException e) {
+                    status_text.setText("Invalid trip birth year!");
+                    return;
+                }
+
 
                 String genderGiven = (String ) genderComboBox.getValue();
                 int gender;
@@ -373,13 +416,32 @@ public class DataEntryWindowController implements Initializable{
                     gender = 0;
                 }
 
+
+                try {
+                    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                    Station startQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    status_text.setText("Station don't exist in our data base! Double check your station ID: " + startStationID);
+                    return;
+                }
+
+                try {
+                    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+                    Station endQuery  = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
+                } catch (IndexOutOfBoundsException e) {
+                    status_text.setText("Station don't exist in our data base! Double check your station ID: " + endStationID);
+                    return;
+                }
+
                 //start and end station address, lat and long derived here
+                /*
                 double startStationLat;
                 double startStationLong;
                 String startStationAddress;
                 double endStationLat;
                 double endStationLong;
                 String endStationAddress;
+
 
                 try {
                     DatabaseRetriever databaseRetriever = new DatabaseRetriever();
@@ -395,7 +457,8 @@ public class DataEntryWindowController implements Initializable{
                     endStationAddress = endQuery.getAddress();
 
                 } catch (IndexOutOfBoundsException e) {
-                    status_text.setText("station isn't in database yet to derive values, default values assigned");
+                    status_text.setText("Station isn't in database yet to derive values, default values assigned");
+                    //should we even let this data in?
 
                     startStationLat = 0;
                     startStationLong = 0;
@@ -410,21 +473,22 @@ public class DataEntryWindowController implements Initializable{
                 Station startStation = new Station(startStationID, startStationAddress, "default", startStationLat, startStationLong);
                 if (!toTest.checkValidity(startStation)) {
                     status_text.setText("Invalid start station");
-                    data_valid = false;
+                    return;
                 }
 
                 Station endStation = new Station(endStationID, endStationAddress, "default", endStationLat, endStationLong);
                 if (!toTest.checkValidity(endStation)) {
                     status_text.setText("Invalid end station");
-                    data_valid = false;
+                    return;
                 }
+                */
 
-                Trip trip = new Trip(startStation, endStation, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                Trip trip = new Trip(startStationID, endStationID, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
                 int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
                 trip.setDuration(newDuration);           //duration is derived
 
-                if ((toTest.checkValidity(trip).equals("Success")) && data_valid) {
-                    Data tripToAdd = new Trip(startStation, endStation, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                if (toTest.checkValidity(trip).equals("Success")) {
+                    Data tripToAdd = new Trip(startStationID, endStationID, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
                     toAdd.add(tripToAdd);
 
                     //check if its in the database already, if not then upload it
@@ -440,15 +504,13 @@ public class DataEntryWindowController implements Initializable{
                 }
 
 
-            } catch (NumberFormatException | NullPointerException e) {
+            } catch (NullPointerException e) {
                 //e.printStackTrace();
                 status_text.setText("Not enough trip data or incorrect data inputted");
             }
 
-
-
-        } catch (StringIndexOutOfBoundsException e) {
-            status_text.setText("No data group entered!");
+        } else {
+            status_text.setText("No trip data group entered!");
         }
 
     }

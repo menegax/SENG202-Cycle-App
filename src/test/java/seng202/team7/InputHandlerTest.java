@@ -62,9 +62,9 @@ public class InputHandlerTest
         Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);
         Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);
 
-        Trip t1 = new Trip(s1,s2,4345,"2015-10-01 05:22:42","2015-10-01 00:38:42", "customer", 1990, 0, "kl", 1);
-        Trip t2 = new Trip(s2,s1,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 34, 1, "test", 2);
-        Trip t3 = new Trip(s1,s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 2, "test", 3);
+        Trip t1 = new Trip(231,3241,4345,"2015-10-01 05:22:42","2015-10-01 00:38:42", "customer", 1990, 0, "kl", 1);
+        Trip t2 = new Trip(231,3241,4345,"2015-10-01 00:20:42","2015-10-01 00:29:42", "CUSTOMER", 34, 1, "test", 2);
+        Trip t3 = new Trip(231,3241,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 2, "test", 3);
 
         assertEquals("Success", tester.checkValidity(t1));
         assertEquals("Invalid user type CUSTOMER", tester.checkValidity(t2));

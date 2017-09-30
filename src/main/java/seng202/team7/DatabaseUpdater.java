@@ -178,8 +178,12 @@ public class DatabaseUpdater {
 
             //Writing Objects
             oosTrip.writeObject(trip);
-            oosStartStation.writeObject(trip.getStartStation());
-            oosEndStation.writeObject(trip.getEndStation());
+            DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+            Station startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getStartStationID())).get(0);
+            Station endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getEndStationID())).get(0);
+
+            oosStartStation.writeObject(startStation);
+            oosEndStation.writeObject(endStation);
             oosStartDate.writeObject(trip.getStartDate());
             oosEndDate.writeObject(trip.getEndDate());
 
