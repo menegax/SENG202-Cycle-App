@@ -130,6 +130,46 @@ public class DatabaseRetriever {
         return retailerList;
     }
 
+
+    /**
+     * Gets the ArrayList of all retailers in database
+     * @return Arraylist of all retailers
+     */
+    public ArrayList<Retailer> getOnlineRetailerList()
+    {
+        ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
+        String sql = "SELECT obj FROM " + Retailer.tableName;
+        try (Connection conn = DatabaseHandler.connectOnline();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                Retailer retailer = null;
+                try {
+                    ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
+                    ObjectInputStream ois = new ObjectInputStream(bais);
+                    retailer = (Retailer) ois.readObject();
+                }catch (IOException io){
+                    io.printStackTrace();
+                }catch (ClassNotFoundException cnf){
+                    cnf.printStackTrace();
+                }
+                if(retailer != null)
+                {
+                    retailerList.add(retailer);
+                    //wifi.print();
+                } else {
+                    System.out.println("No retailer");
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return retailerList;
+    }
+
     /**
      * Gets an ArrayList of all trips
      * @return ArrayList of all trip objects
