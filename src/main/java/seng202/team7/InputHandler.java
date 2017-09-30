@@ -210,11 +210,10 @@ public class InputHandler {
                         }
 
                         //check if its in the database already, if not then upload it, also checks 'validity'
-                        Trip tripDataTest = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
+                        Trip tripDataTest = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
                         hashID = tripDataTest.hashCode();
-                        //System.out.println(tripDataTest.getStartDate());
                         if (checkValidity(tripDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
-                            dataToAdd = new Trip(startStation, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
+                            dataToAdd = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
                             System.out.println("Trip added to to upload list");
                         }
                         else {
