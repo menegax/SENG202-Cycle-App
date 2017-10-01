@@ -202,7 +202,7 @@ public class DataEntryWindowController implements Initializable{
 
             } catch (IOException | NullPointerException e) {
                 //e.printStackTrace();
-                status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv");
+                status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
             }
 
         }
