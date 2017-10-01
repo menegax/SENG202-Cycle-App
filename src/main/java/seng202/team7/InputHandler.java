@@ -183,6 +183,7 @@ public class InputHandler {
                             }
                         } else {
                             //fetch start station to use
+                            startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
                         }
 
 
@@ -208,11 +209,12 @@ public class InputHandler {
                             }
                         } else {
                             //fetch end station to use
+                            endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
                         }
 
 
                         //check if its in the database already, if not then upload it, also checks 'validity'
-                        tripDataToAdd = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
+                        tripDataToAdd = new Trip(startStationID, startStation, endStationID, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
                         hashID = tripDataToAdd.hashCode();
                         if (checkValidity(tripDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                             System.out.println("Trip added to to upload list");

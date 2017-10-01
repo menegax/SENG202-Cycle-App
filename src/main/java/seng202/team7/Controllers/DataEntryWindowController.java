@@ -454,7 +454,6 @@ public class DataEntryWindowController implements Initializable{
                 }
 
                 //start and end station address, lat and long derived here
-                /*
                 double startStationLat;
                 double startStationLong;
                 String startStationAddress;
@@ -501,14 +500,14 @@ public class DataEntryWindowController implements Initializable{
                     status_text.setText("Invalid end station");
                     return;
                 }
-                */
 
-                Trip trip = new Trip(startStationID, endStationID, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+
+                Trip trip = new Trip(startStationID, startStation, endStationID, endStation, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
                 int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
                 trip.setDuration(newDuration);           //duration is derived
 
                 if (toTest.checkValidity(trip).equals("Success")) {
-                    Data tripToAdd = new Trip(startStationID, endStationID, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                    Data tripToAdd = new Trip(startStationID, startStation, endStationID, endStation, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
                     toAdd.add(tripToAdd);
 
                     //check if its in the database already, if not then upload it
