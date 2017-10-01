@@ -25,28 +25,35 @@ public class App
         System.out.println("Connor's test");
         System.out.println("Joshua's test");
 
-        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-
-        for(Retailer r:databaseRetriever.getOnlineRetailerList())
-        {
-            r.print();
-        }
-
-       // DatabaseHandler.deleteTable(Trip.tableName);
-
 //        DatabaseHandler.createDatabase();
 //
 //        DatabaseHandler.createDatabase();
 //        DatabaseTester.createTables();
 
-//        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-//        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
-////
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+
+//
+//        for (Station s: databaseRetriever.getStationList())
+//        {
+//            s.print();
+//        }
+
+        DatabaseHandler.deleteTable(Trip.tableName);
+        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
+
+//        for(Retailer r : databaseRetriever.getOnlineRetailerList())
+//        {
+//            r.print();
+//        }
+////        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
+//
 //        ArrayList<Retailer> retailers = databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[13],"New York Plaza"));
 //        for(Retailer r: retailers){
 //            System.out.println(r.getStreet()+r.getZipCode()+r.getTypeID());
 //
 //        }
+//
+
 //
 //        DatabaseHandler.deleteTable(Retailer.tableName);
 //        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
@@ -58,6 +65,5 @@ public class App
 //        DatabaseTester.deleteTables();
 //        DatabaseTester.createTables();
 //        DatabaseTester.init();
-
     }
 }

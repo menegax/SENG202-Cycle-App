@@ -1,8 +1,6 @@
 package seng202.team7;
 
-import java.io.ByteArrayInputStream;
-import java.io.IOException;
-import java.io.ObjectInputStream;
+import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -332,6 +330,30 @@ public class DatabaseRetriever {
         return stationList;
     }
 
+    public ByteArrayInputStream getStationObj(String query)
+    {
+        ByteArrayInputStream bais = null;
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(query)) {
+
+            // loop through the result set
+            while (rs.next()) {
+                Station station = null;
+                try {
+                    bais = new ByteArrayInputStream(rs.getBytes("obj"));
+
+                }catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } catch (SQLException e){
+            System.out.println("Get Station error");
+            System.out.println(e.getMessage());
+        }
+        return bais;
+    }
+
 
     /**
      * Completes sql query on trip table must have obj in query
@@ -505,4 +527,7 @@ public class DatabaseRetriever {
         }
         return stringList;
     }
+
+
+
 }
