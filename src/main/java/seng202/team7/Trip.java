@@ -39,7 +39,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
             + columns[13]+" time,\n"
             + columns[14]+" real,\n"
             + columns[15]+" text,\n"
-            + columns[17]+" blob\n"
+            + columns[16]+" blob\n"
             + ");";
     /**
      * Station at the start of the trip

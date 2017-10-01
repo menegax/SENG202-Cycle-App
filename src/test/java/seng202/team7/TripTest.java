@@ -52,11 +52,11 @@ public class TripTest extends TestCase {
         Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);
         Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);
 
-        Trip testDistance = new Trip(3199, s1, 3199, s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 1);
-        Trip testDistanceLarge = new Trip(3199, s1, 3194, s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 2);
+        Trip testDistance = new Trip(231, s1, 231, s1,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 1);
+        Trip testDistanceLarge = new Trip(231, s1, 3241, s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 2);
 
         assertEquals(0.0, testDistance.getDistance());
-        assertTrue(testDistanceLarge.getDistance()<4 && testDistanceLarge.getDistance() > 3);
+        assertTrue(testDistanceLarge.getDistance()<2400 && testDistanceLarge.getDistance() > 2300);
     }
 
 
