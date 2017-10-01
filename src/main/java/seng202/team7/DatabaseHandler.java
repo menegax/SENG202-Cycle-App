@@ -9,6 +9,7 @@ import java.sql.*;
  */
 public class DatabaseHandler {
     public static String url = "jdbc:sqlite:./src/Database/database.db";
+    public static String onlineURL = "jdbc:sqlite:http://seng202team7.000webhostapp.com/database.db";
 
     /**
      * Creates a database
@@ -42,6 +43,33 @@ public class DatabaseHandler {
         }
         return conn;
     }
+
+
+    /**
+     * Connects to online database maybe :o
+     * @return
+     */
+    public static Connection connectOnline()
+    {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(DatabaseHandler.url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+
+
+    /**
+     * Caopies all the contents from an online table into the local database
+     * @param tableName
+     */
+    public static void copyOnline(String tableName)
+    {
+
+    }
+
 
 
     /**
