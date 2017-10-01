@@ -156,11 +156,11 @@ public class Trip extends Location implements Data, java.io.Serializable {
         //return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-        double startLat = 0;
-        double startLong = 0;
+        double startLat;
+        double startLong;
 
-        double endLat = 0;
-        double endLong = 0;
+        double endLat;
+        double endLong;
         try {
             startLat = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0).getLatitude();
             startLong = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0).getLongitude();
@@ -173,7 +173,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         } catch (IndexOutOfBoundsException e) {
             //not too sure what to do in this situation, means that the stations not in the database yet,
 
-            return 0.0;
+            return 1.0;
 
         }
 

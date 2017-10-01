@@ -20,7 +20,7 @@ public class InputHandler {
     private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", "\"customer\"", "\"subscriber\"", "\"Customer\"", "\"Subscriber\"",};
     private String validState[] = {"NY"};
     private int fail_counter = 0;                          //for testing how many objects were created etc
-
+    private int success_counter = 0;
 
     /*
     USED FOR TESTING ACTUAL FUNCTIONALITY, put print statements on each test object created,
@@ -58,7 +58,12 @@ public class InputHandler {
     {
 
         ArrayList<Data> data = new ArrayList<Data>();  //will add multiple objects, so need an array
-        Data dataToAdd = null;   //individual data packets to add to DB, each are one object
+        //Data dataToAdd = null;   //individual data packets to add to DB, each are one object
+
+        Trip tripDataToAdd = null;
+        Wifi wifiDataToAdd = null;
+        Retailer retailerDataToAdd = null;
+
 
         BufferedReader reader = new BufferedReader(new FileReader(file));   //file in format "blahblahblah.csv"
         String line = reader.readLine(); // Reading header, Ignoring/getting rid of it if there is one
@@ -88,22 +93,22 @@ public class InputHandler {
                         String city = fields[13];
                         String SSID = fields[14];
 
-
-                        Wifi wifiDataTest = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
                         //check if its in the database already, if not then upload it, also checks 'validity'
-                        int hashID = wifiDataTest.hashCode();
-                        if (checkValidity(wifiDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
-                            dataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude);   //create actual 'Data' object
-
+                        wifiDataToAdd = new Wifi(borough, type, provider, location, city, SSID, remarks, dataGroup, longitude, latitude); //temp test object
+                        int hashID = wifiDataToAdd.hashCode();
+                        if (checkValidity(wifiDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
+                            System.out.println("Wifi added to upload list");
                         }
                         else {
-                            System.out.println(checkValidity(wifiDataTest));
+                            System.out.println(checkValidity(wifiDataToAdd));
+                            wifiDataToAdd = null;
                         }
 
                         break;
 
 
                     case "retailer":
+
                         String name = fields[0];
                         city = fields[3];
                         String pAddress = fields[1];
@@ -122,15 +127,16 @@ public class InputHandler {
                             type = fields[8].substring(2);
                         }
 
-                        Retailer retailerDataTest = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
                         //check if its in the database already, if not then upload it, also checks 'validity'
-                        hashID = retailerDataTest.hashCode();
-                        if (checkValidity(retailerDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
-                            dataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
-
+                        retailerDataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);  //temp test object
+                        hashID = retailerDataToAdd.hashCode();
+                        if (checkValidity(retailerDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
+                            retailerDataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
+                            System.out.println("Retailer added to upload list");
                         }
                         else {
-                            System.out.println(checkValidity(retailerDataTest));
+                            System.out.println(checkValidity(retailerDataToAdd));
+                            retailerDataToAdd = null;
                         }
 
                         break;
@@ -176,11 +182,6 @@ public class InputHandler {
                                 //System.out.println("Station uploaded");
                             }
                         }
-                        else {
-                            startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
-                            //System.out.println("Station fetched");
-
-                        }
 
 
                         int endStationID = Integer.parseInt(fields[7]);
@@ -200,29 +201,24 @@ public class InputHandler {
                             else {
                                 //add to database as it doesn't exist there yet
                                 uploader.insertStation(endStation);
-                                //System.out.println("Station uploaded");
+                                System.out.println("New station uploaded");
 
                             }
                         }
-                        else {
-                            //System.out.println("Station fetched");
-                            endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
-                        }
+
 
                         //check if its in the database already, if not then upload it, also checks 'validity'
-                        Trip tripDataTest = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
-                        hashID = tripDataTest.hashCode();
-                        if (checkValidity(tripDataTest).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
-                            dataToAdd = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID);  //create actual 'Data' object
+                        tripDataToAdd = new Trip(startStationID, endStationID, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
+                        hashID = tripDataToAdd.hashCode();
+                        if (checkValidity(tripDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                             System.out.println("Trip added to to upload list");
                         }
                         else {
-                            System.out.println(checkValidity(tripDataTest));
+                            System.out.println(checkValidity(tripDataToAdd));
+                            tripDataToAdd = null;
                         }
 
-
                         break;
-
 
                 }
 
@@ -235,8 +231,23 @@ public class InputHandler {
             }
 
             //if object wasn't valid then don't add it
-            if (dataToAdd != null) {
-                data.add(dataToAdd);         //add object into array to be returned
+            if (dataType.equals("trip")) {
+                if (tripDataToAdd != null) {
+                    data.add(tripDataToAdd);
+                    success_counter++;
+                }
+
+            } else if (dataType.equals("retailer")) {
+                    if (retailerDataToAdd != null) {
+                        data.add(retailerDataToAdd);
+                        success_counter++;
+                    }
+
+            } else if (dataType.equals("wifi")) {
+                if (wifiDataToAdd != null) {
+                    data.add(wifiDataToAdd);
+                    success_counter++;
+                }
 
             }
 
@@ -258,14 +269,22 @@ public class InputHandler {
         return fail_counter;
     }
 
+    public void resetSuccessCounter() {
+        success_counter = 0;
+    }
+
+    public int getSuccess_counter() {
+        return success_counter;
+    }
+
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
      * @param dataToTest The data object that is to be tested for validity
      * @return True if dataToTest is valid
      */
-    public Boolean checkValidity(Data dataToTest)
+    public boolean checkValidity(Data dataToTest)
     {
-        return true;
+    return true;
     }
 
     /**

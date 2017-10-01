@@ -45,20 +45,16 @@ public class TripTest extends TestCase {
         assertEquals("Unknown", testOther.getGender());
     }
 
-    /*@Test
+    @Test
     public void test_distance()
     {
-        Station s1 = new Station(231,"5th ave", "CitiBike", 36.0, 74.0);
-        Station s2 = new Station(231,"5th ave", "CitiBike", 39.0, 79.0);
-        //DatabaseUpdater databaseUpdater = new DatabaseUpdater();
-        //databaseUpdater.insertStation(s1);
-        //databaseUpdater.insertStation(s2);
-        Trip testDistance = new Trip(231,3241,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 1);
-        Trip testDistanceLarge = new Trip(231,3241,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 2);
+
+        Trip testDistance = new Trip(3199,3199,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 1);
+        Trip testDistanceLarge = new Trip(3199,3194,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 2);
 
         assertEquals(0.0, testDistance.getDistance());
-        assertTrue(testDistanceLarge.getDistance()<560 && testDistanceLarge.getDistance() > 550);
-    }*/
+        assertTrue(testDistanceLarge.getDistance()<4 && testDistanceLarge.getDistance() > 3);
+    }
 
 
 }

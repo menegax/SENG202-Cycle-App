@@ -187,8 +187,17 @@ public class DataEntryWindowController implements Initializable{
                 toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
                 //status_text.setText("Uploading data");
                 toUpload.addData(toAdd);
-                status_text.setText("Csv " + dataTypeAdded + " file parsed and uploaded, " +
-                        toParse.getFail_counter() + " issues, likely empty fields or incorrect formats, maybe wrong type selected?");
+                if (toParse.getFail_counter() == 0) {
+                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                            + dataTypeAdded + " objects added");
+
+                } else {
+                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                            + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                            + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+
+                }
+                toParse.resetSuccessCounter();
                 toParse.resetFailCounter();
 
             } catch (IOException | NullPointerException e) {
@@ -315,10 +324,11 @@ public class DataEntryWindowController implements Initializable{
 
                     //check if its in the database already, if not then upload it
                     int hashID = toAdd.hashCode();
-                    if ((retriever.getStringListFromInt("wifi", hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty() ) {
+                    if ((retriever.queryWifi(StaticVariables.singleIntQuery(Wifi.tableName, Wifi.columns[0], hashID)).isEmpty())) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Wifi added");
                         System.out.println(hashID);
+                        System.out.println("adding ");
 
                     }
                 } else {
@@ -492,7 +502,7 @@ public class DataEntryWindowController implements Initializable{
                     toAdd.add(tripToAdd);
 
                     //check if its in the database already, if not then upload it
-                    int hashID = identityHashCode(toAdd);
+                    int hashID = toAdd.hashCode();
                     if ((retriever.getStringListFromInt("trip", hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                         dataUploader.addData(toAdd);
                         //System.out.println(hashID);
