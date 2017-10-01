@@ -1,22 +1,25 @@
 package seng202.team7.Windows;
 
+import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 
-/**Trip data model for raw data viewing of trip data
+/** Loading popup for when the user starts to load a CSV
  * @author Aidan Smith asm142
- * Last updated 13/09/17
+ * Last updated 01/10/17
  */
-
-public class TripDataViewerWindow extends AnchorPane {
+public class LoadingPopupWindow extends AnchorPane {
 
     /**
      * Main constructor that loads the fxml file
      */
-    public TripDataViewerWindow(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/TripDataViewer.fxml"));
+    public LoadingPopupWindow() {
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/LoadingPopup.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();
@@ -24,4 +27,5 @@ public class TripDataViewerWindow extends AnchorPane {
             throw new RuntimeException(exception);
         }
     }
+
 }

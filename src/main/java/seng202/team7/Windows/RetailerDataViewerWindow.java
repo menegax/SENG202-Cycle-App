@@ -12,6 +12,9 @@ import java.io.IOException;
 
 public class RetailerDataViewerWindow extends AnchorPane {
 
+    /**
+     * Main constructor that loads the fxml file
+     */
     public RetailerDataViewerWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/RetailerDataViewer.fxml"));
         fxmlLoader.setRoot(this);

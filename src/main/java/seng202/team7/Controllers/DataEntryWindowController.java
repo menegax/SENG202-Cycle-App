@@ -1,8 +1,12 @@
 package seng202.team7.Controllers;
 
 
+import javafx.application.Application;
 import javafx.beans.property.StringProperty;
+import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.DatePicker;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -11,16 +15,16 @@ import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team7.*;
+import seng202.team7.Windows.LoadingPopupWindow;
 
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
-
-import static java.lang.System.identityHashCode;
 
 /**
  * Controls manual data entry and data uploaded via csv
@@ -170,41 +174,56 @@ public class DataEntryWindowController implements Initializable{
     public void uploadcsvButton(ActionEvent event) {
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
-        ArrayList<Data> toAdd = null;
-        String dataTypeAdded = (String ) dataEntryComboBox.getValue();
+        String dataTypeAdded = (String) dataEntryComboBox.getValue();
 
         String dataGroup = dataGroupTextfield.getText();
         if (!dataGroup.isEmpty()) {
 
-            String csvFile;
             Stage stage = new Stage();
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(stage);
 
-            try {
-                //status_text.setText("Parsing csv file");
-                csvFile = file.toString();
-                toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
-                //status_text.setText("Uploading data");
-                toUpload.addData(toAdd);
-                if (toParse.getFail_counter() == 0) {
-                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                            + dataTypeAdded + " objects added");
+            Parent layout = new LoadingPopupWindow();
+            Scene scene = new Scene(layout);
+            Stage popupStage = new Stage();
+            popupStage.setTitle("Loading");
+            popupStage.initModality(Modality.WINDOW_MODAL);
+            popupStage.setScene(scene);
+            popupStage.show();
 
-                } else {
-                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                            + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                            + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+            Task<Void> task = new Task<Void>() {
+                @Override
+                public Void call() {
+                    try {
+                        //status_text.setText("Parsing csv file");
+                        ArrayList<Data> toAdd;
+                        String csvFile = file.toString();
+                        toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+                        //status_text.setText("Uploading data");
+                        toUpload.addData(toAdd);
+                        if (toParse.getFail_counter() == 0) {
+                            status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                    + dataTypeAdded + " objects added");
 
+                        } else {
+                            status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                    + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                                    + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+
+                        }
+                        toParse.resetSuccessCounter();
+                        toParse.resetFailCounter();
+
+                    } catch (IOException | NullPointerException e) {
+                        //e.printStackTrace();
+                        status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
+                    }
+                    return null;
                 }
-                toParse.resetSuccessCounter();
-                toParse.resetFailCounter();
-
-            } catch (IOException | NullPointerException e) {
-                //e.printStackTrace();
-                status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
-            }
-
+            };
+            task.setOnSucceeded(e -> popupStage.close());
+            Thread thread = new Thread(task);
+            thread.start();
         }
         else {
             status_text.setText("No " + dataTypeAdded + " data group entered!");

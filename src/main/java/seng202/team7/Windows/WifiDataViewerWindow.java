@@ -12,6 +12,9 @@ import java.io.IOException;
 
 public class WifiDataViewerWindow extends AnchorPane {
 
+    /**
+     * Main constructor that loads the fxml file
+     */
     public WifiDataViewerWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/WifiDataViewer.fxml"));
         fxmlLoader.setRoot(this);
