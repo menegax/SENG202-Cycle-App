@@ -138,6 +138,10 @@ public class StaticVariables {
     {
         return "SELECT * FROM "+ Station.tableName + " WHERE stationid = " + stationID;
     }
+    public static String wifiIDQuery(int wifiID)
+    {
+        return "SELECT * FROM "+ Wifi.tableName + " WHERE id = " + wifiID;
+    }
 
     /**
      * SQL String used to find nearby retailers with default distance

@@ -181,6 +181,8 @@ public class InputHandler {
                                 uploader.insertStation(startStation);
                                 //System.out.println("Station uploaded");
                             }
+                        } else {
+                            //fetch start station to use
                         }
 
 
@@ -204,6 +206,8 @@ public class InputHandler {
                                 System.out.println("New station uploaded");
 
                             }
+                        } else {
+                            //fetch end station to use
                         }
 
 
@@ -258,6 +262,7 @@ public class InputHandler {
         return data;       //return array of objects for use
 
     }
+
     /**
      * Reset the fail counter to zero
      */
@@ -265,14 +270,25 @@ public class InputHandler {
         fail_counter = 0;
     }
 
+    /**
+     * returns how many issues the parser had
+     * @return fail_counter
+     */
     public int getFail_counter() {
         return fail_counter;
     }
 
+    /**
+     * Reset the success counter to zero
+     */
     public void resetSuccessCounter() {
         success_counter = 0;
     }
 
+    /**
+     * returns how many successful object creation the parser had
+     * @return success_counter
+     */
     public int getSuccess_counter() {
         return success_counter;
     }
@@ -282,10 +298,7 @@ public class InputHandler {
      * @param dataToTest The data object that is to be tested for validity
      * @return True if dataToTest is valid
      */
-    public boolean checkValidity(Data dataToTest)
-    {
-    return true;
-    }
+    public boolean checkValidity(Data dataToTest) { return true; }
 
     /**
      * Tests an inputted retailer objects data individually to see if it is valid, returns success if valid

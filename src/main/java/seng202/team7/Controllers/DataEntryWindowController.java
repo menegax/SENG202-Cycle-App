@@ -234,10 +234,17 @@ public class DataEntryWindowController implements Initializable{
                 String cityRetailer = cityRetailerTextfield.getText();
                 String pAddress = pAddressTextfield.getText();
                 String sAddress = sAddressTextfield.getText();
-                String typeID = typeIDTextfield.getText();
                 String typeRetailer = typeRetailerTextfield.getText();
 
-                int ZIP = 0;
+                String typeID;
+                try {
+                    typeID = typeIDTextfield.getText();
+                } catch (NullPointerException e) {
+                    status_text.setText("Invalid type ID!");
+                    return;
+                }
+
+                int ZIP;
                 try {
                     ZIP = Integer.parseInt(ZIPTextfield.getText());
                 } catch (NumberFormatException e) {
@@ -255,6 +262,8 @@ public class DataEntryWindowController implements Initializable{
                     if ((retriever.getStringListFromInt("retailer", hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Retailer added");
+                    } else {
+                        status_text.setText("Retailer already in database");
                     }
 
                 } else {
@@ -327,10 +336,11 @@ public class DataEntryWindowController implements Initializable{
                     if ((retriever.queryWifi(StaticVariables.singleIntQuery(Wifi.tableName, Wifi.columns[0], hashID)).isEmpty())) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Wifi added");
-                        System.out.println(hashID);
-                        System.out.println("adding ");
-
+                        //System.out.println((retriever.queryWifi(StaticVariables.wifiIDQuery(hashID))));
+                    } else {
+                        status_text.setText("Wifi already in database");
                     }
+
                 } else {
                     status_text.setText(toTest.checkValidity(wifi));
                 }
@@ -507,6 +517,8 @@ public class DataEntryWindowController implements Initializable{
                         dataUploader.addData(toAdd);
                         //System.out.println(hashID);
                         status_text.setText("Trip added");
+                    } else {
+                        status_text.setText("Trip already in database");
                     }
 
                 } else {
