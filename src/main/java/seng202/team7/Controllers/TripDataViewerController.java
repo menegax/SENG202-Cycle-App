@@ -134,9 +134,12 @@ public class TripDataViewerController implements Initializable {
             ScrollBar scrollBar = (ScrollBar) tripDataTable.lookup(".scroll-bar:vertical");
             scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
                 if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
+                    System.out.println("if1");
                     if (!loadedAll) {
+                        System.out.println("if2");
                         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
                         if (tripArrayList.size() == 0) {
+                            System.out.println("if3");
                             loadedAll = true;
                         }
                         tripList.addAll(tripArrayList);

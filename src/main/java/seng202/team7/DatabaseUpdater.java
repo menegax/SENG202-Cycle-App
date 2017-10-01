@@ -157,15 +157,15 @@ public class DatabaseUpdater {
      */
     public void insertTrip(Trip trip)
     {
-        String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, startStation, endStationID, endStation bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //ByteArrayOutputStream initialization
         ByteArrayOutputStream bosTrip, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
         bosTrip = new ByteArrayOutputStream();
         bosStartStation = new ByteArrayOutputStream();
         bosEndStation = new ByteArrayOutputStream();
-        bosStartDate = new ByteArrayOutputStream();
-        bosEndDate = new ByteArrayOutputStream();
+        //bosStartDate = new ByteArrayOutputStream();
+        //bosEndDate = new ByteArrayOutputStream();
 
         try {
             //ObjectOutputStream initialization
@@ -173,8 +173,8 @@ public class DatabaseUpdater {
             oosTrip = new ObjectOutputStream(bosTrip);
             oosStartStation = new ObjectOutputStream(bosStartStation);
             oosEndStation = new ObjectOutputStream(bosEndStation);
-            oosStartDate = new ObjectOutputStream(bosStartDate);
-            oosEndDate = new ObjectOutputStream(bosEndDate);
+            //oosStartDate = new ObjectOutputStream(bosStartDate);
+            //oosEndDate = new ObjectOutputStream(bosEndDate);
 
             //Writing Objects
             oosTrip.writeObject(trip);
@@ -184,29 +184,29 @@ public class DatabaseUpdater {
 
             oosStartStation.writeObject(startStation);
             oosEndStation.writeObject(endStation);
-            oosStartDate.writeObject(trip.getStartDate());
-            oosEndDate.writeObject(trip.getEndDate());
+            //oosStartDate.writeObject(trip.getStartDate());
+            //oosEndDate.writeObject(trip.getEndDate());
 
             //Tiding up -- Flushing oos's
             oosTrip.flush();
             oosStartStation.flush();
             oosEndStation.flush();
-            oosStartDate.flush();
-            oosEndDate.flush();
+            //oosStartDate.flush();
+            //oosEndDate.flush();
 
             //Tiding up -- Closing oos's
             oosTrip.close();
             oosStartStation.close();
             oosEndStation.close();
-            oosStartDate.close();
-            oosEndDate.close();
+            //oosStartDate.close();
+            //oosEndDate.close();
 
             //Tiding up -- Closing bos's
             bosTrip.close();
             bosStartStation.close();
             bosEndStation.close();
-            bosStartDate.close();
-            bosEndDate.close();
+            //bosStartDate.close();
+            //bosEndDate.close();
 
         } catch(Exception e){
             e.printStackTrace();
@@ -238,6 +238,94 @@ public class DatabaseUpdater {
         System.out.println("Trip added");
     }
 
+
+
+    /**
+     * Inserts a trip into the database
+     * @param trip trip to be stored in the database
+     */
+    public void insertTripWithStationObj(Trip trip, ByteArrayInputStream startStationBos, ByteArrayInputStream endStationBos)
+    {
+        String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, startStation, endStationID, endStation bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        //ByteArrayOutputStream initialization
+        ByteArrayOutputStream bosTrip;//, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
+        bosTrip = new ByteArrayOutputStream();
+        //bosStartStation = new ByteArrayOutputStream();
+        //bosEndStation = new ByteArrayOutputStream();
+        //bosStartDate = new ByteArrayOutputStream();
+        //bosEndDate = new ByteArrayOutputStream();
+
+        try {
+            //ObjectOutputStream initialization
+            ObjectOutputStream oosTrip, oosStartStation, oosEndStation, oosStartDate, oosEndDate;
+            oosTrip = new ObjectOutputStream(bosTrip);
+            //oosStartStation = new ObjectOutputStream(bosStartStation);
+            //oosEndStation = new ObjectOutputStream(bosEndStation);
+            //oosStartDate = new ObjectOutputStream(bosStartDate);
+            //oosEndDate = new ObjectOutputStream(bosEndDate);
+
+            //Writing Objects
+            oosTrip.writeObject(trip);
+            DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+            Station startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getStartStationID())).get(0);
+            Station endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getEndStationID())).get(0);
+
+            //oosStartStation.writeObject(startStation);
+            //oosEndStation.writeObject(endStation);
+            //oosStartDate.writeObject(trip.getStartDate());
+            //oosEndDate.writeObject(trip.getEndDate());
+
+            //Tiding up -- Flushing oos's
+            oosTrip.flush();
+            //oosStartStation.flush();
+            //oosEndStation.flush();
+            //oosStartDate.flush();
+            //oosEndDate.flush();
+
+            //Tiding up -- Closing oos's
+            oosTrip.close();
+            //oosStartStation.close();
+            //oosEndStation.close();
+            //oosStartDate.close();
+            //oosEndDate.close();
+
+            //Tiding up -- Closing bos's
+            bosTrip.close();
+            //bosStartStation.close();
+            //bosEndStation.close();
+            //bosStartDate.close();
+            //bosEndDate.close();
+
+        } catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try (Connection conn = DatabaseHandler.connect();
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,trip.hashCode());
+            pstmt.setInt(2,trip.getDuration());
+            pstmt.setInt(3,trip.getStartStationID());
+            pstmt.setObject(4, startStationBos);
+            pstmt.setInt(5, trip.getEndStationID());
+            pstmt.setObject(6, endStationBos);
+            pstmt.setInt(7,trip.getBikeID());
+            pstmt.setString(8,trip.getGender());
+            pstmt.setInt(9,trip.getAge());
+            pstmt.setString(10,trip.getUserType());
+            pstmt.setDate(11,new java.sql.Date(trip.getStartDate().getDate()));
+            pstmt.setTime(12,new java.sql.Time(trip.getStartDate().getTime()));
+            pstmt.setDate(13,new java.sql.Date(trip.getEndDate().getDate()));
+            pstmt.setTime(14, new java.sql.Time(trip.getEndDate().getTime()));
+            pstmt.setDouble(15, trip.getDistance());
+            pstmt.setString(16, trip.getDataGroup());
+            pstmt.setObject(17, bosTrip.toByteArray());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Trip added");
+    }
     /**
      * Deletes Wifi object based off its hashcode as id
      * @param wifi Wifi object to be deleted from database

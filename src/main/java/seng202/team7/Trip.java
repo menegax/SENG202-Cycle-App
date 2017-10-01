@@ -16,7 +16,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
     /**
      * Strings of all the columns in the database
      */
-    public static String columns[] = {"id","duration","startStationID","startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
+    public static String columns[] = {"id","duration","startStationID", "startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
 
 
     /**
@@ -39,17 +39,17 @@ public class Trip extends Location implements Data, java.io.Serializable {
             + columns[13]+" time,\n"
             + columns[14]+" real,\n"
             + columns[15]+" text,\n"
-            + columns[16]+" blob\n"
+            + columns[17]+" blob\n"
             + ");";
     /**
      * Station at the start of the trip
      */
-    //private Station startStation;
+    private Station startStation;
     private int startStationID;
     /**
      * Station at the end of trip
      */
-    //private Station endStation;
+    private Station endStation;
     private int endStationID;
 
     /**
@@ -107,7 +107,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param dataGroup datagroup string for sorting within tables
      * @param bikeID ID of bike that was used for the trip
      */
-    public Trip(int startStationID, int endStationID, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
+    public Trip(int startStationID, Station startStation, int endStationID, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
     // public Trip(Station startStation, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
 
     {
@@ -115,9 +115,9 @@ public class Trip extends Location implements Data, java.io.Serializable {
         //this.startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
         //this.endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
 
-        //this.startStation = startStation;
+        this.startStation = startStation;
         this.startStationID = startStationID;
-        //this.endStation = endStation;
+        this.endStation = endStation;
         this.endStationID = endStationID;
         this.duration = duration;
         try {
