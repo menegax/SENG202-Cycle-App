@@ -26,7 +26,7 @@ public class App
         System.out.println("Joshua's test");
 
 //        DatabaseHandler.createDatabase();
-//
+////
 //        DatabaseHandler.createDatabase();
 //        DatabaseTester.createTables();
 
@@ -38,11 +38,11 @@ public class App
             s.print();
         }
 
-        DatabaseHandler.deleteTable(Retailer.tableName);
-        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
-
-        DatabaseHandler.deleteTable(Wifi.tableName);
-        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
+//        DatabaseHandler.deleteTable(Retailer.tableName);
+//        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
+//
+//        DatabaseHandler.deleteTable(Wifi.tableName);
+//        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
 
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
