@@ -12,7 +12,7 @@ public class Datagroup {
     public static String tableCreation = "CREATE TABLE IF NOT EXISTS " +
             tableName +" (\n" +
             columns[0] + " integer PRIMARY KEY NOT NULL, \n" +
-            columns[1] + " text" +
+            columns[1] + " text UNIQUE" +
             ");";
 
     public static ArrayList<String> getDatagroups()

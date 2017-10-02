@@ -29,11 +29,12 @@ public class App
 ////
 //        DatabaseHandler.createDatabase();
 //        DatabaseTester.createTables();
-
+        DatabaseHandler.deleteTable(Datagroup.tableName);
         DatabaseHandler.createTable(Datagroup.tableName, Datagroup.tableCreation);
 
         Datagroup.addDatagroup("test1");
         Datagroup.addDatagroup("test2");
+        Datagroup.addDatagroup("test3");
         Datagroup.addDatagroup("test3");
 
         for (String s : Datagroup.getDatagroups()){
