@@ -296,6 +296,7 @@ public class DataEntryWindowController implements Initializable{
     }
 
 
+
     /**
      * Loads manually inputted wifi data and adds to database
      * @param event even when add wifi button is clicked
