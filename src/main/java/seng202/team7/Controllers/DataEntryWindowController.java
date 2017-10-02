@@ -55,10 +55,10 @@ public class DataEntryWindowController implements Initializable{
 
     // Wifi
     @FXML private TextField providerTextfield;
-    @FXML private TextField typeWifiTextfield;
+    @FXML private ComboBox typeWifiComboBox;
     @FXML private TextField locationWifiTextfield;
     @FXML private TextField cityWifiTextfield;
-    @FXML private TextField boroughTextfield;
+    @FXML private ComboBox boroughComboBox;
     @FXML private TextField SSIDTextfield;
     @FXML private TextField remarksTextfield;
     @FXML private TextField longitudeTextfield;
@@ -67,12 +67,12 @@ public class DataEntryWindowController implements Initializable{
     // Retailer
     @FXML private TextField nameTextfield;
     @FXML private TextField ZIPTextfield;
-    @FXML private TextField stateTextfield;
+    @FXML private ComboBox stateComboBox;
     @FXML private TextField cityRetailerTextfield;
     @FXML private TextField pAddressTextfield;
     @FXML private TextField sAddressTextfield;
-    @FXML private TextField typeIDTextfield;
-    @FXML private TextField typeRetailerTextfield;
+    //@FXML private TextField typeIDTextfield;
+    @FXML private ComboBox typeRetailerComboBox;
 
     /**
      * Initializes the formatting listeners for the appropriate text fields
@@ -248,19 +248,13 @@ public class DataEntryWindowController implements Initializable{
 
             try {
                 String nameRetailer = nameTextfield.getText();
-                String state = stateTextfield.getText();
+                String state = (String ) stateComboBox.getValue();
                 String cityRetailer = cityRetailerTextfield.getText();
                 String pAddress = pAddressTextfield.getText();
                 String sAddress = sAddressTextfield.getText();
-                String typeRetailer = typeRetailerTextfield.getText();
+                String typeRetailer = (String) typeRetailerComboBox.getValue();
+                String typeID = typeRetailer.substring(0, 1);
 
-                String typeID;
-                try {
-                    typeID = typeIDTextfield.getText();
-                } catch (NullPointerException e) {
-                    status_text.setText("Invalid type ID!");
-                    return;
-                }
 
                 int ZIP;
                 try {
@@ -319,10 +313,10 @@ public class DataEntryWindowController implements Initializable{
             try {
 
                 String provider = providerTextfield.getText();
-                String typeWifi = typeWifiTextfield.getText();
+                String typeWifi = (String ) typeWifiComboBox.getValue();
                 String location = locationWifiTextfield.getText();
                 String cityWifi = cityWifiTextfield.getText();
-                String borough = boroughTextfield.getText();
+                String borough = (String ) boroughComboBox.getValue();
                 String SSID = SSIDTextfield.getText();
                 String remarks = remarksTextfield.getText();
                 double longitude;
