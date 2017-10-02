@@ -32,14 +32,20 @@ public class App
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
-//
-//        for (Station s: databaseRetriever.getStationList())
-//        {
-//            s.print();
-//        }
 
-        DatabaseHandler.deleteTable(Trip.tableName);
-        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
+        for (Station s: databaseRetriever.getStationList())
+        {
+            s.print();
+        }
+
+        DatabaseHandler.deleteTable(Retailer.tableName);
+        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
+
+        DatabaseHandler.deleteTable(Wifi.tableName);
+        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
+
+//        DatabaseHandler.deleteTable(Trip.tableName);
+//        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 
 //        for(Retailer r : databaseRetriever.getOnlineRetailerList())
 //        {
