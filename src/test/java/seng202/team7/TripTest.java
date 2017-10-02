@@ -48,7 +48,6 @@ public class TripTest extends TestCase {
     @Test
     public void test_distance()
     {
-        //the stations don't really matter in this case
         Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);
         Station s2 = new Station(3241,"34 square", "Bike Shah", 2387.987, 384.98);
 
@@ -56,7 +55,7 @@ public class TripTest extends TestCase {
         Trip testDistanceLarge = new Trip(231, s1, 3241, s2,4345,"2015-10-01 00:22:42","2015-10-01 00:38:42", "Subscriber", 1990, 1, "test", 2);
 
         assertEquals(0.0, testDistance.getDistance());
-        assertTrue(testDistanceLarge.getDistance()<2400 && testDistanceLarge.getDistance() > 2300);
+        assertTrue(testDistanceLarge.getDistance() < 2400 && testDistanceLarge.getDistance() > 2300);
     }
 
 
