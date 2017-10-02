@@ -194,7 +194,8 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     @Override
     public int hashCode() {
         int result = 0;
-        result = (int) (((longitude * latitude * provider.length()  * dataGroup.length()) / 11) * 37);
+        result = (int) (((longitude * latitude * provider.length()  * dataGroup.length() * remarks.length()
+                * SSID.length() * city.length() * provider.length() * city.length()) / 11) * 37);
         return result;
     }
 

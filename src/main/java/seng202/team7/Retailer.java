@@ -274,7 +274,8 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     @Override
     public int hashCode() {
         int result = 0;
-        result = (int) ((longitude * latitude * name.length() * dataGroup.length()) / 11) * 37;
+        result = (int) ((name.length() * dataGroup.length() * zipCode * type.length()
+                * pAddress.length() * sAddress.length()) / 11) * 37;
         return result;
     }
 }
