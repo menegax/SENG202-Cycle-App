@@ -29,6 +29,24 @@
             line-height: 30px;
             padding-left: 10px;
         }
+        #floating-panel1 {
+            position: absolute;
+            top: 10px;
+            left: 85%;
+            z-index: 5;
+            background-color: #fff;
+            padding: 5px;
+            border: 1px solid #999;
+            text-align: center;
+            font-family: 'Roboto','sans-serif';
+            line-height: 30px;
+            padding-left: 10px;
+        }
+
+        #output {
+            font-family: 'Roboto','sans-serif';
+            font-size: 11px;
+        }
     </style>
 </head>
 <body>
@@ -37,10 +55,18 @@
     <input id="address1" type="textbox" value="New York, NY">
     <input id="submit" type="button" value="Show Route">
 </div>
+<div id="floating-panel1">
+    <div>
+        <strong>Distance:</strong>
+    </div>
+    <div id="output"></div>
+</div>
 <div id="map"></div>
 <script>
     var map;
     var bridge;
+    var marker1;
+    var mapList;
     /**
      * initialises the route planning map
      */
@@ -50,16 +76,80 @@
         console.log("test");
         //creates map to the desired type
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 10,
+            zoom: 4,
             center: {lat: 40.7128, lng: -74.0059}
         });
         //creates map and display it
         directionsDisplay.setMap(map);
 
+        var service = new google.maps.DistanceMatrixService();
+
         document.getElementById('submit').addEventListener('click', function() {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
+            service.getDistanceMatrix(
+                {
+                    origins: [document.getElementById('address').value],
+                    destinations: [document.getElementById('address1').value],
+                    travelMode: 'BICYCLING',
+                    unitSystem: google.maps.UnitSystem.METRIC,
+                }, callback);
+        });
+
+        var count = 0;
+        mapList = [];
+        google.maps.event.addListener(map, 'click', function(event) {
+            marker = new google.maps.Marker({
+                position: event.latLng,
+                map: map,
+                draggable: true
+            });
+            mapList.push(marker);
+/*            if (mapList.length = 2)
+            {
+                calculateAndDisplay(directionsService, directionsDisplay);
+            } else */if (mapList.length > 2)
+            {
+                var deleteMarker = mapList[0];
+                deleteMarker.setMap(null);
+                mapList.shift();
+                /*calculateAndDisplay(directionsService, directionsDisplay);*/
+            }
         });
     }
+
+    function callback(response, status) {
+        if (status == 'OK') {
+            var outputDiv = document.getElementById('output');
+            outputDiv.innerHTML = '';
+            var origins = response.originAddresses;
+            var destinations = response.destinationAddresses;
+
+            for (var i = 0; i < origins.length; i++) {
+                var results = response.rows[i].elements;
+                for (var j = 0; j < results.length; j++) {
+                    var element = results[j];
+                    var distance = element.distance.text;
+                    outputDiv.innerHTML += distance;
+                }
+            }
+            console.log(response);
+        }
+    }
+
+/*    function calculateAndDisplay(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin: document.getElementById(mapList[0]).value,
+            destination: document.getElementById(mapList[1]).value,
+            travelMode: 'BICYCLING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }*/
+
 
     /**
      * Calculates the most efficient route and display it on the map
@@ -104,10 +194,6 @@
         }
     }
 
-    /**
-     * todo
-     * @type {{showResult: jsConnector.showResult}}
-     */
     var jsConnector = {
         showResult: function (result) {
             document.getElementById('result').innerHTML = result;
@@ -115,10 +201,6 @@
 
     };
 
-    /**
-     * todo
-     * @returns {{showResult: jsConnector.showResult}}
-     */
     function getJsConnector() {
         return jsConnector;
     }
