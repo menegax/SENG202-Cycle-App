@@ -234,7 +234,6 @@ public class StaticVariables {
         } else {
             return convertedValue;
         }
-
     }
 
     /**
