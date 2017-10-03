@@ -348,9 +348,12 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
     @Override
     public int hashCode() {
+        StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = (int) ((startStationID * endStationID * duration  * dataGroup.length()
-                * age * userType.length() * bikeID * gender.length()) / 11) * 37;
+        result = (((startStationID) + (endStationID) + (duration)
+                + converter.asciiConverter(dataGroup)+ converter.asciiConverter(userType)
+                + bikeID + converter.asciiConverter(gender) ) * (37 + age)) / 11 ;
+
         return result;
     }
 

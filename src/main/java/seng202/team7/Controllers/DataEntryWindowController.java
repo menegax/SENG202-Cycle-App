@@ -206,7 +206,8 @@ public class DataEntryWindowController implements Initializable{
                         } else {
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                     + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                    + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+                                    + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                    + toParse.getDuplicate_counter() + " duplicates (not added)");
 
                         }
                         toParse.resetSuccessCounter();

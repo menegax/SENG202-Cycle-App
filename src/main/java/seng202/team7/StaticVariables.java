@@ -218,6 +218,26 @@ public class StaticVariables {
     }
 
     /**
+     * returns the ascii value of a given string, or 1 if the result is 0
+     * @param toConvert
+     * @return convertedValue
+     */
+    public static  int asciiConverter(String toConvert) {
+
+        int convertedValue = 0;
+        for (int i = 0; i < toConvert.length(); i++) {
+            convertedValue += ((int ) (toConvert.charAt(i)));
+        }
+
+        if (convertedValue == 0) {
+            return 1;
+        } else {
+            return convertedValue;
+        }
+
+    }
+
+    /**
      * Converts degrees to radians. Helper for calculateDistance
      * @param degree degrees to convert
      * @return radian out as double
