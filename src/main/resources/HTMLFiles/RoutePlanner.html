@@ -104,10 +104,10 @@
                 draggable: true
             });
             mapList.push(marker);
-            /*            if (mapList.length = 2)
-             {
-             calculateAndDisplay(directionsService, directionsDisplay);
-             } else */if (mapList.length > 2)
+/*            if (mapList.length = 2)
+            {
+                calculateAndDisplay(directionsService, directionsDisplay);
+            } else */if (mapList.length > 2)
             {
                 var deleteMarker = mapList[0];
                 deleteMarker.setMap(null);
@@ -136,19 +136,19 @@
         }
     }
 
-    /*    function calculateAndDisplay(directionsService, directionsDisplay) {
-     directionsService.route({
-     origin: document.getElementById(mapList[0]).value,
-     destination: document.getElementById(mapList[1]).value,
-     travelMode: 'BICYCLING'
-     }, function(response, status) {
-     if (status === 'OK') {
-     directionsDisplay.setDirections(response);
-     } else {
-     window.alert('Directions request failed due to ' + status);
-     }
-     });
-     }*/
+/*    function calculateAndDisplay(directionsService, directionsDisplay) {
+        directionsService.route({
+            origin: document.getElementById(mapList[0]).value,
+            destination: document.getElementById(mapList[1]).value,
+            travelMode: 'BICYCLING'
+        }, function(response, status) {
+            if (status === 'OK') {
+                directionsDisplay.setDirections(response);
+            } else {
+                window.alert('Directions request failed due to ' + status);
+            }
+        });
+    }*/
 
 
     /**
