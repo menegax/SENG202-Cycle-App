@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 /**
  * Main window model for running the main program
@@ -28,7 +29,7 @@ public class MainWindow extends Application {
      */
     @Override
     public void start(Stage primaryStage) throws Exception{
-        //primaryStage.initStyle(StageStyle.UNIFIED);
+        //primaryStage.initStyle(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Views/MainWindow.fxml"));
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("Stylesheets/MainStyle.css").toExternalForm());
