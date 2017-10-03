@@ -54,3 +54,17 @@
     -fx-background-color: #FFFFFF;
 }
 
+#statusBar {
+    -fx-background-color: #383838;
+    -fx-base: #383838;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+
+#sideBar {
+    -fx-background-color: #383838;
+    -fx-base: #383838;
+    -fx-focus-color: transparent;
+    -fx-faint-focus-color: transparent;
+}
+

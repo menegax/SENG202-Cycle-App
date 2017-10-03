@@ -26,20 +26,36 @@ public class App
         System.out.println("Joshua's test");
 
 //        DatabaseHandler.createDatabase();
-//
+////
 //        DatabaseHandler.createDatabase();
 //        DatabaseTester.createTables();
+        DatabaseHandler.deleteTable(Datagroup.tableName);
+        DatabaseHandler.createTable(Datagroup.tableName, Datagroup.tableCreation);
 
+        Datagroup.addDatagroup("test1");
+        Datagroup.addDatagroup("test2");
+        Datagroup.addDatagroup("test3");
+        Datagroup.addDatagroup("test3");
+
+        for (String s : Datagroup.getDatagroups()){
+            System.out.println(s);
+        }
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
-//
-//        for (Station s: databaseRetriever.getStationList())
-//        {
-//            s.print();
-//        }
 
-        DatabaseHandler.deleteTable(Trip.tableName);
-        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
+        for (Station s: databaseRetriever.getStationList())
+        {
+            s.print();
+        }
+
+//        DatabaseHandler.deleteTable(Retailer.tableName);
+//        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
+//
+//        DatabaseHandler.deleteTable(Wifi.tableName);
+//        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
+
+//        DatabaseHandler.deleteTable(Trip.tableName);
+//        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 
 //        for(Retailer r : databaseRetriever.getOnlineRetailerList())
 //        {

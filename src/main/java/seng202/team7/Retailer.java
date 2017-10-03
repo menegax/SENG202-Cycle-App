@@ -271,10 +271,14 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         System.out.println("Name: " + name +" Lat: "+latitude + " Lon: "+ longitude);
     }
 
-    /*@Override
+    @Override
     public int hashCode() {
+        StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = (int) ((longitude + latitude + name.length() + dataGroup.length()) / 11);
+        result = ((converter.asciiConverter(name) + converter.asciiConverter(dataGroup) + zipCode
+                + converter.asciiConverter(type) + converter.asciiConverter(pAddress)
+                + converter.asciiConverter(sAddress) ) * 37) / 11;
+
         return result;
-    }*/
+    }
 }

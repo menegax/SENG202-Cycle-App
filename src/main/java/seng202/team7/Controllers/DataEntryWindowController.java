@@ -55,10 +55,10 @@ public class DataEntryWindowController implements Initializable{
 
     // Wifi
     @FXML private TextField providerTextfield;
-    @FXML private TextField typeWifiTextfield;
+    @FXML private ComboBox typeWifiComboBox;
     @FXML private TextField locationWifiTextfield;
     @FXML private TextField cityWifiTextfield;
-    @FXML private TextField boroughTextfield;
+    @FXML private ComboBox boroughComboBox;
     @FXML private TextField SSIDTextfield;
     @FXML private TextField remarksTextfield;
     @FXML private TextField longitudeTextfield;
@@ -67,12 +67,12 @@ public class DataEntryWindowController implements Initializable{
     // Retailer
     @FXML private TextField nameTextfield;
     @FXML private TextField ZIPTextfield;
-    @FXML private TextField stateTextfield;
+    @FXML private ComboBox stateComboBox;
     @FXML private TextField cityRetailerTextfield;
     @FXML private TextField pAddressTextfield;
     @FXML private TextField sAddressTextfield;
-    @FXML private TextField typeIDTextfield;
-    @FXML private TextField typeRetailerTextfield;
+    //@FXML private TextField typeIDTextfield;
+    @FXML private ComboBox typeRetailerComboBox;
 
     /**
      * Initializes the formatting listeners for the appropriate text fields
@@ -195,24 +195,24 @@ public class DataEntryWindowController implements Initializable{
                 @Override
                 public Void call() {
                     try {
-                        //status_text.setText("Parsing csv file");
                         ArrayList<Data> toAdd;
                         String csvFile = file.toString();
                         toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
-                        //status_text.setText("Uploading data");
                         toUpload.addData(toAdd);
                         if (toParse.getFail_counter() == 0) {
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                                    + dataTypeAdded + " objects added");
+                                    + dataTypeAdded + " objects added, " + toParse.getDuplicate_counter() + " duplicates (not added)");
 
                         } else {
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                     + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                    + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+                                    + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                    + toParse.getDuplicate_counter() + " duplicates (not added)");
 
                         }
                         toParse.resetSuccessCounter();
                         toParse.resetFailCounter();
+                        toParse.resetDuplicateCounter();
 
                     } catch (IOException | NullPointerException e) {
                         //e.printStackTrace();
@@ -249,19 +249,13 @@ public class DataEntryWindowController implements Initializable{
 
             try {
                 String nameRetailer = nameTextfield.getText();
-                String state = stateTextfield.getText();
+                String state = (String ) stateComboBox.getValue();
                 String cityRetailer = cityRetailerTextfield.getText();
                 String pAddress = pAddressTextfield.getText();
                 String sAddress = sAddressTextfield.getText();
-                String typeRetailer = typeRetailerTextfield.getText();
+                String typeRetailer = (String) typeRetailerComboBox.getValue();
+                String typeID = typeRetailer.substring(0, 1);
 
-                String typeID;
-                try {
-                    typeID = typeIDTextfield.getText();
-                } catch (NullPointerException e) {
-                    status_text.setText("Invalid type ID!");
-                    return;
-                }
 
                 int ZIP;
                 try {
@@ -271,13 +265,12 @@ public class DataEntryWindowController implements Initializable{
                     return;
                 }
 
-                Retailer retailer = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
-                if (toTest.checkValidity(retailer).equals("Success")) {
-                    Data retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
+                Retailer retailerToAdd = new Retailer(nameRetailer, cityRetailer, pAddress, sAddress, state, ZIP, typeID, typeRetailer, dataGroup);
+                if (toTest.checkValidity(retailerToAdd).equals("Success")) {
                     toAdd.add(retailerToAdd);
 
                     //check if its in the database already, if not then upload it
-                    int hashID = toAdd.hashCode();
+                    int hashID = retailerToAdd.hashCode();
                     if ((retriever.getStringListFromInt("retailer", hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Retailer added");
@@ -286,7 +279,7 @@ public class DataEntryWindowController implements Initializable{
                     }
 
                 } else {
-                    status_text.setText(toTest.checkValidity(retailer));
+                    status_text.setText(toTest.checkValidity(retailerToAdd));
                 }
 
 
@@ -302,6 +295,7 @@ public class DataEntryWindowController implements Initializable{
         }
 
     }
+
 
 
     /**
@@ -321,10 +315,10 @@ public class DataEntryWindowController implements Initializable{
             try {
 
                 String provider = providerTextfield.getText();
-                String typeWifi = typeWifiTextfield.getText();
+                String typeWifi = (String ) typeWifiComboBox.getValue();
                 String location = locationWifiTextfield.getText();
                 String cityWifi = cityWifiTextfield.getText();
-                String borough = boroughTextfield.getText();
+                String borough = (String ) boroughComboBox.getValue();
                 String SSID = SSIDTextfield.getText();
                 String remarks = remarksTextfield.getText();
                 double longitude;
@@ -345,23 +339,21 @@ public class DataEntryWindowController implements Initializable{
                 }
 
 
-                Wifi wifi = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
-                if (toTest.checkValidity(wifi).equals("Success")) {
-                    Data wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
+                Wifi wifiToAdd = new Wifi(borough, typeWifi, provider, location, cityWifi, SSID, remarks, dataGroup, longitude, latitude);
+                if (toTest.checkValidity(wifiToAdd).equals("Success")) {
                     toAdd.add(wifiToAdd);
 
                     //check if its in the database already, if not then upload it
-                    int hashID = toAdd.hashCode();
-                    if ((retriever.queryWifi(StaticVariables.singleIntQuery(Wifi.tableName, Wifi.columns[0], hashID)).isEmpty())) {
+                    int hashID = wifiToAdd.hashCode();
+                    if (retriever.getStringListFromInt("wifi", hashID, Wifi.columns[0], Wifi.columns[0]).isEmpty()) {
                         dataUploader.addData(toAdd);
                         status_text.setText("Wifi added");
-                        //System.out.println((retriever.queryWifi(StaticVariables.wifiIDQuery(hashID))));
                     } else {
                         status_text.setText("Wifi already in database");
                     }
 
                 } else {
-                    status_text.setText(toTest.checkValidity(wifi));
+                    status_text.setText(toTest.checkValidity(wifiToAdd));
                 }
 
 
@@ -521,12 +513,11 @@ public class DataEntryWindowController implements Initializable{
                 }
 
 
-                Trip trip = new Trip(startStationID, startStation, endStationID, endStation, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
-                int newDuration = ((int ) (trip.getEndDate().getTime() - trip.getStartDate().getTime())) / 1000;
-                trip.setDuration(newDuration);           //duration is derived
+                Trip tripToAdd = new Trip(startStationID, startStation, endStationID, endStation, duration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                int newDuration = ((int ) (tripToAdd.getEndDate().getTime() - tripToAdd.getStartDate().getTime())) / 1000;
+                tripToAdd.setDuration(newDuration);           //duration is derived
 
-                if (toTest.checkValidity(trip).equals("Success")) {
-                    Data tripToAdd = new Trip(startStationID, startStation, endStationID, endStation, newDuration, start, end, userType, birthYear, gender, dataGroup, bikeID);
+                if (toTest.checkValidity(tripToAdd).equals("Success")) {
                     toAdd.add(tripToAdd);
 
                     //check if its in the database already, if not then upload it
@@ -540,7 +531,7 @@ public class DataEntryWindowController implements Initializable{
                     }
 
                 } else {
-                    status_text.setText(toTest.checkValidity(trip));
+                    status_text.setText(toTest.checkValidity(tripToAdd));
                 }
 
 

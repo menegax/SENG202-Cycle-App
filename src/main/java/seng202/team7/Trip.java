@@ -346,12 +346,16 @@ public class Trip extends Location implements Data, java.io.Serializable {
                 "Distance: " + this.getDistance());
     }
 
-    /*@Override
+    @Override
     public int hashCode() {
+        StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = (int) ((startStationID + endStationID + duration  + dataGroup.length()) / 11);
+        result = (((startStationID) + (endStationID) + (duration)
+                + converter.asciiConverter(dataGroup)+ converter.asciiConverter(userType)
+                + bikeID + converter.asciiConverter(gender) ) * (37 + age)) / 11 ;
+
         return result;
-    }*/
+    }
 
 
 }

@@ -21,6 +21,7 @@ public class InputHandler {
     private String validState[] = {"NY"};
     private int fail_counter = 0;                          //for testing how many objects were created etc
     private int success_counter = 0;
+    private int duplicate_counter;
 
     /*
     USED FOR TESTING ACTUAL FUNCTIONALITY, put print statements on each test object created,
@@ -99,6 +100,10 @@ public class InputHandler {
                         if (checkValidity(wifiDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
                             System.out.println("Wifi added to upload list");
                         }
+                        else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
+                            duplicate_counter++;
+                            wifiDataToAdd = null;
+                        }
                         else {
                             System.out.println(checkValidity(wifiDataToAdd));
                             wifiDataToAdd = null;
@@ -133,6 +138,11 @@ public class InputHandler {
                         if (checkValidity(retailerDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                             retailerDataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             System.out.println("Retailer added to upload list");
+                        }
+                        else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
+                            duplicate_counter++;
+                            retailerDataToAdd = null;
+
                         }
                         else {
                             System.out.println(checkValidity(retailerDataToAdd));
@@ -217,7 +227,11 @@ public class InputHandler {
                         tripDataToAdd = new Trip(startStationID, startStation, endStationID, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
                         hashID = tripDataToAdd.hashCode();
                         if (checkValidity(tripDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
-                            System.out.println("Trip added to to upload list");
+                            System.out.println("Trip added to upload list");
+                        }
+                        else if (!databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0]).isEmpty()) {
+                            duplicate_counter++;
+                            tripDataToAdd = null;
                         }
                         else {
                             System.out.println(checkValidity(tripDataToAdd));
@@ -294,6 +308,22 @@ public class InputHandler {
     public int getSuccess_counter() {
         return success_counter;
     }
+
+    public void resetDuplicateCounter() {
+        duplicate_counter = 0;
+    }
+
+    /**
+     * returns how many successful object creation the parser had
+     * @return duplicate_counter
+     */
+    public int getDuplicate_counter() {
+        return duplicate_counter;
+    }
+
+
+
+
 
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
