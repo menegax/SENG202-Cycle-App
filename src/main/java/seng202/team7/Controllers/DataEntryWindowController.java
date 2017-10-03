@@ -186,7 +186,7 @@ public class DataEntryWindowController implements Initializable{
             Parent layout = new LoadingPopupWindow();
             Scene scene = new Scene(layout);
             Stage popupStage = new Stage();
-            popupStage.setTitle("Loading");
+            popupStage.setTitle("Caution");
             popupStage.initModality(Modality.WINDOW_MODAL);
             popupStage.setScene(scene);
             popupStage.show();
@@ -221,9 +221,10 @@ public class DataEntryWindowController implements Initializable{
                     return null;
                 }
             };
-            task.setOnSucceeded(e -> popupStage.close());
-            Thread thread = new Thread(task);
-            thread.start();
+            task.setOnSucceeded(e -> uploadcsvButton.setVisible(true));
+            ThreadHandler threadHandler =  new ThreadHandler(task);
+            threadHandler.start();
+            uploadcsvButton.setVisible(false);
         }
         else {
             status_text.setText("No " + dataTypeAdded + " data group entered!");

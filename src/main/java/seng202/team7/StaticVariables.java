@@ -14,9 +14,9 @@ public class StaticVariables {
      */
     public static int step = 50;
     /**
-     * default distance for searching for nearby locations
+     * default distance for searching for nearby locations (1.12 km)
      */
-    private static double defaultDist = 1;
+    private static double defaultDist = 0.01;
     /**
      * current year, for finding age of users
      */
