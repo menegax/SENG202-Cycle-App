@@ -18,12 +18,6 @@ public class App
 
         String url = "jdbc:sqlite:DataStorage.db";
 
-        System.out.println( "Hello World! How is it going?" );
-        System.out.println("Just testing a change");
-        System.out.println("test commit Morgan");
-        System.out.println("Aidan's test");
-        System.out.println("Connor's test");
-        System.out.println("Joshua's test");
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
 //        ArrayList<Trip> tempT= new ArrayList<Trip>();
@@ -79,7 +73,7 @@ public class App
 //            s.print();
 //        }
 
-         System.out.println(databaseRetriever.getTripList().size());
+         //System.out.println(databaseRetriever.getTripList().size());
 
 //        DatabaseHandler.deleteTable(Retailer.tableName);
 //        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
@@ -90,10 +84,15 @@ public class App
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 
-//        for(Retailer r : databaseRetriever.getOnlineRetailerList())
-//        {
-//            r.print();
-//        }
+        for(Retailer r : databaseRetriever.getOnlineRetailerList())
+        {
+            r.print();
+        }
+
+        for(Wifi w : databaseRetriever.getOnlineWifiList())
+        {
+            w.print();
+        }
 ////        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
 //
 //        ArrayList<Retailer> retailers = databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[13],"New York Plaza"));
