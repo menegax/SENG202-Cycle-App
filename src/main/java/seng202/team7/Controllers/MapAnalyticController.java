@@ -67,7 +67,7 @@ public class MapAnalyticController implements Initializable {
      */
     public void displayClicked()
     {
-        StaticVariables.
+        StaticVariables.pointMultiplier = Integer.parseInt(inText.getText());
         System.out.println("display");
         jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("loadHeat","test");
