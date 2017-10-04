@@ -7,4 +7,21 @@ public class Location implements Mappable{
     @Override
     public void placeOnMap(double latitude, double longitude) {
     }
+
+    public Location(){
+
+    }
+
+    public Location(double latitude, double longitude){
+        this.latitude = latitude;
+        this.longitude = longitude;
+    }
+
+    public double getLongitude() {
+        return longitude;
+    }
+
+    public double getLatitude() {
+        return latitude;
+    }
 }

@@ -11,6 +11,7 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.JSHandler;
+import seng202.team7.StaticVariables;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -66,9 +67,17 @@ public class MapAnalyticController implements Initializable {
      */
     public void displayClicked()
     {
+        StaticVariables.pointMultiplier = Integer.parseInt(inText.getText());
         System.out.println("display");
         jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("loadHeat","test");
+    }
+
+
+    public void clearClicked()
+    {
+        jsObject.setMember("Abridge", new JSHandler());
+        jsObject.call("clearHeat");
     }
 
     /**
