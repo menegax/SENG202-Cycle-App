@@ -12,6 +12,7 @@
     </script>
     <script type="text/javascript">
 	var map;
+	var heatmap;
 	var Abridge;
 	var wifiBlue = {
 		url: 'https://seng202team7.000webhostapp.com/img/wifiBlue.png',
@@ -35,6 +36,27 @@
 				console.log("javascript console");
 		}
 
+
+        function loadHeat(datagroup)
+        {
+            var points = Abridge.getPointsJS(datagroup.toString());
+
+            var heatMapPoints = [];
+            for(var i = 0; i < points.size(); i++)
+            {
+                var point = points.get(i);
+                heatMapPoints.push(new google.maps.LatLng(point.getLat(), point.getLon()));
+            }
+
+            heatmap = new google.maps.visualization.HeatmapLayer({
+            data: heatMapPoints),
+            map: map
+            });
+
+
+
+
+        }
 		function loadWifi(){
 		    console.log("in wifi function");
 			//loads wifi objects from JShandler through bridge specified in controller

@@ -5,6 +5,16 @@ import java.util.ArrayList;
 public class Analytics {
 
 
+    public static ArrayList<PointM> checkRoutes(ArrayList<Trip> trips)
+    {
+        ArrayList<PointM> points = new ArrayList<PointM>();
+        for (Trip t: trips)
+        {
+            points.addAll(checkRoute(t.getStartPoint(), t.getEndPoint()));
+        }
+        return points;
+    }
+
     public static ArrayList<PointM> checkRoute(PointM startpt, PointM endpt) {
         ArrayList<PointM> squares = new ArrayList<PointM>();
 

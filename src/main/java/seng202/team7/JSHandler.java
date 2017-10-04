@@ -18,6 +18,13 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<PointM> getPointsJS(String datagroup)
+    {
+
+        //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
+        return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10"));
+    }
+
     /**
      * Returns a list of Wifi objects for use in the MapViewer filtered by 3 parameters
      * @param burough borough to filter by
