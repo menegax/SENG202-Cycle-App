@@ -3,9 +3,20 @@
 <head>
     <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
     <style type="text/css">
-        html { height: 100% }
-        body { height: 100%; margin: 0; padding: 0 }
-        #map_canvas { height: 100% }
+
+     /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+            height: 100%;
+            width: 100%;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+            height: 100%;
+            margin: 0;
+            padding: 0;
+        }
+
     </style>
     <script type="text/javascript"
             src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8&libraries=visualization">
@@ -68,6 +79,6 @@
     </script>
 </head>
 <body onload="initialize()">
-<div id="map_canvas" style="width:600px; height:342px"></div>
+<div id="map_canvas" style="width:100%; height:100%"></div>
 </body>
 </html>
