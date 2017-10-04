@@ -197,7 +197,9 @@ public class DataEntryWindowController implements Initializable{
                     try {
                         ArrayList<Data> toAdd;
                         String csvFile = file.toString();
+                        status_text.setText("Parsing " + dataTypeAdded + " csv");
                         toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+                        status_text.setText("Uploading " + dataTypeAdded + " objects");
                         toUpload.addData(toAdd);
                         if (toParse.getFail_counter() == 0) {
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
