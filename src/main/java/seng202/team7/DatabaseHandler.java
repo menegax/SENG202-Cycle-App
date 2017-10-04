@@ -1,5 +1,20 @@
 package seng202.team7;
 
+import org.apache.commons.io.FileUtils;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.nio.channels.Channels;
+import java.nio.channels.ReadableByteChannel;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.sql.*;
 
 /**
@@ -9,7 +24,50 @@ import java.sql.*;
  */
 public class DatabaseHandler {
     public static String url = "jdbc:sqlite:./src/Database/database.db";
-    public static String onlineURL = "jdbc:sqlite:http://seng202team7.000webhostapp.com/database.db";
+    public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
+    public static String onlineDatabaseLocal = "./src/Database/databaseOnline.db";
+    public static String onlineDatabaseUrl = "http://seng202team7.000webhostapp.com/database.db";
+    public static URL dbUrl = null;
+
+    public static void createURL(){
+
+    }
+
+    //public static String onlineURL = "jdbc:sqlite:https//seng202team7.000webhostapp.com/database.db";
+
+    public static void getOnlineDatabase()
+    {
+        try {
+            File dbFile = new File(onlineDatabaseLocal);
+            URL website = new URL(onlineDatabaseUrl);
+            FileUtils.copyURLToFile(website, dbFile);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+//
+//        try {
+//            URL website = new URL(onlineDatabaseUrl);
+//            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
+//            FileOutputStream fos = new FileOutputStream(onlineDatabaseLocal);
+//            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
+//        } catch (Exception e)
+//        {
+//            e.printStackTrace();
+//        }
+
+//
+//        try
+//        {
+//            dbUrl = new URL("https://seng202team7.000webhostapp.com/database.db");
+//            try (InputStream in = dbUrl.openStream()) {
+//                Files.copy(in,new Path("./src/Database/database.db") ,StandardCopyOption.REPLACE_EXISTING);
+//            } catch (IOException e) {
+//                e.printStackTrace();
+//            }
+//        } catch (MalformedURLException e) {
+//            e.printStackTrace();
+//        }
+    }
 
     /**
      * Creates a database
@@ -53,7 +111,7 @@ public class DatabaseHandler {
     {
         Connection conn = null;
         try {
-            conn = DriverManager.getConnection(DatabaseHandler.url);
+            conn = DriverManager.getConnection(DatabaseHandler.onlineUrl);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
