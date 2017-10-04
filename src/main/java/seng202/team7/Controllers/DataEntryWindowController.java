@@ -246,7 +246,6 @@ public class DataEntryWindowController implements Initializable{
                 loadingText.setVisible(true);
             }
         }
-
     }
 
     /**
