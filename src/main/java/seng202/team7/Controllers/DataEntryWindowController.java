@@ -182,13 +182,14 @@ public class DataEntryWindowController implements Initializable{
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(stage);
 
-            Parent layout = new LoadingPopupWindow();
-            Scene scene = new Scene(layout);
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Caution");
-            popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.setScene(scene);
-            popupStage.show();
+            if (file != null) {
+                Parent layout = new LoadingPopupWindow();
+                Scene scene = new Scene(layout);
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Caution");
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                popupStage.setScene(scene);
+                popupStage.show();
 
             Task<Void> task = new Task<Void>() {
                 @Override
@@ -204,37 +205,43 @@ public class DataEntryWindowController implements Initializable{
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                     + dataTypeAdded + " objects added, " + toParse.getDuplicate_counter() + " duplicates (not added)");
 
-                        } else {
-                            status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                                    + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                    + " issues, likely empty fields or incorrect formats, or wrong type selected? "
-                                    + toParse.getDuplicate_counter() + " duplicates (not added)");
+                            } else {
+                                status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                        + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                                        + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                        + toParse.getDuplicate_counter() + " duplicates (not added)");
 
+                            }
+                            toParse.resetSuccessCounter();
+                            toParse.resetFailCounter();
+                            toParse.resetDuplicateCounter();
+
+                        } catch (IOException | NullPointerException e) {
+                            //e.printStackTrace();
+                            status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
                         }
-                        toParse.resetSuccessCounter();
-                        toParse.resetFailCounter();
-                        toParse.resetDuplicateCounter();
-
-                    } catch (IOException | NullPointerException e) {
-                        //e.printStackTrace();
-                        status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
+                        return null;
                     }
-                    return null;
-                }
-            };
-            task.setOnSucceeded(e -> {
-                uploadcsvButton.setVisible(true);
-                loadingBar.setVisible(false);
-                loadingText.setVisible(false);
-            });
-            Thread thread =  new Thread(task);
-            thread.start();
-            uploadcsvButton.setVisible(false);
-            loadingBar.setVisible(true);
-            loadingText.setVisible(true);
+                };
+                task.setOnSucceeded(e -> {
+                    uploadcsvButton.setVisible(true);
+                    loadingBar.setVisible(false);
+                    loadingText.setVisible(false);
+                    popupStage.close();
+                });
+                Thread thread = new Thread(task);
+                thread.start();
+                uploadcsvButton.setVisible(false);
+                loadingBar.setVisible(true);
+                loadingText.setVisible(true);
+            }
         }
         else {
-            status_text.setText("No " + dataTypeAdded + " data group entered!");
+            if (dataTypeAdded == null) {
+                status_text.setText("No data group entered!");
+            } else {
+                status_text.setText("No " + dataTypeAdded + " data group entered!");
+            }
         }
 
 
