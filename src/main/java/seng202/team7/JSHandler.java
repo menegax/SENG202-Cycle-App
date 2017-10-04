@@ -22,7 +22,8 @@ public class JSHandler {
     {
 
         //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
-        return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10"));
+        System.out.println(Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10")));
+        return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 1000"));
     }
 
     /**

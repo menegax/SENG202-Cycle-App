@@ -48,7 +48,7 @@ public class MapAnalyticController implements Initializable {
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
-        webEngine.load(getClass().getClassLoader().getResource("MapView.html").toExternalForm());
+        webEngine.load(getClass().getClassLoader().getResource("HTMLFiles/MapView.html").toExternalForm());
 
 
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
@@ -66,6 +66,7 @@ public class MapAnalyticController implements Initializable {
      */
     public void displayClicked()
     {
+        System.out.println("display");
         jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("loadHeat","test");
     }

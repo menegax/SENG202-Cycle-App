@@ -8,19 +8,15 @@
         #map_canvas { height: 100% }
     </style>
     <script type="text/javascript"
-            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8">
+            src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBHdir5sJIaAL05vrd19bBn6CkmWAqcBi8&libraries=visualization">
     </script>
     <script type="text/javascript">
 	var map;
 	var heatmap;
 	var Abridge;
-	var wifiBlue = {
-		url: 'https://seng202team7.000webhostapp.com/img/wifiBlue.png',
-		anchor: new google.maps.Point(0,8),
-		size: new google.maps.Size(16,16)
-		
-		};
+
         function initialize() {
+            console.log("map analytic js");
 	  
 			//Sets options for the map to be made
             var mapOptions = {
@@ -39,45 +35,23 @@
 
         function loadHeat(datagroup)
         {
+            console.log("heatmap");
             var points = Abridge.getPointsJS(datagroup.toString());
-
+			console.log("heatmap2");
             var heatMapPoints = [];
             for(var i = 0; i < points.size(); i++)
             {
                 var point = points.get(i);
                 heatMapPoints.push(new google.maps.LatLng(point.getLat(), point.getLon()));
             }
+			console.log("heatmap3");
 
             heatmap = new google.maps.visualization.HeatmapLayer({
-            data: heatMapPoints),
+            data: heatMapPoints,
             map: map
             });
-
-
-
-
         }
-		function loadWifi(){
-		    console.log("in wifi function");
-			//loads wifi objects from JShandler through bridge specified in controller
-			var wifis = Abridge.getWifiJS();
 
-			//loops through all wifi objects
-			for(var i =0; i < wifis.size(); i++){
-				var wifi = wifis.get(i);
-				//creates a location for the pointer using the wifi object
-				var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
-				//Creates a new marker for the wifi object at the specified lat and lon
-				var marker = new google.maps.Marker({
-					position: latlon,
-					map: map,
-					title: 'wifi',
-					icon: wifiBlue
-				});
-			//logger to make sure everything is working as expected.
-			console.log("Index: " + i + ", Model: " + wifi.getLatitude() + ", Total Size: " + wifis.size());
-			}
-		}
 		
 		var jsConnector = {
 			showResult: function (result) {
