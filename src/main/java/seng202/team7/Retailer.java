@@ -275,7 +275,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = ((converter.asciiConverter(name) + converter.asciiConverter(dataGroup) + zipCode
+        result = ((converter.asciiConverter(name) + zipCode
                 + converter.asciiConverter(type) + converter.asciiConverter(pAddress)
                 + converter.asciiConverter(sAddress) ) * 37) / 11;
 
