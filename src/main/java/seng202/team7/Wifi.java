@@ -202,4 +202,5 @@ public class Wifi extends Location implements Data, java.io.Serializable{
         return result;
     }
 
+
 }
