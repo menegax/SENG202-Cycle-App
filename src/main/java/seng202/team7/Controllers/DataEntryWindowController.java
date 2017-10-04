@@ -2,7 +2,11 @@ package seng202.team7.Controllers;
 
 
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -20,8 +24,7 @@ import seng202.team7.Windows.LoadingPopupWindow;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
 
 /**
  * Controls manual data entry and data uploaded via csv
@@ -34,7 +37,7 @@ public class DataEntryWindowController implements Initializable{
     public Button add_w_button;
     public Button add_t_button;
 
-    @FXML private TextField dataGroupTextfield;
+    @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
     @FXML private ComboBox dataEntryComboBox;
     @FXML private ProgressBar loadingBar;
@@ -70,8 +73,18 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField cityRetailerTextfield;
     @FXML private TextField pAddressTextfield;
     @FXML private TextField sAddressTextfield;
-    //@FXML private TextField typeIDTextfield;
     @FXML private ComboBox typeRetailerComboBox;
+
+    @FXML public void setDataGroupComboItems() {
+
+        DatabaseRetriever retriever = new DatabaseRetriever();
+        //ObservableList<String> items = FXCollections.observableArrayList(DATA GROUP QUERY HERE);
+        //BELOW QUERY JUST AS PLACEHOLDER
+        ObservableList<String> items = FXCollections.observableArrayList(retriever.getStringListFromInt("retailer", 0, Retailer.columns[0], Retailer.columns[0]));
+
+        dataGroupCombo.setItems(items);
+    }
+
 
     /**
      * Initializes the formatting listeners for the appropriate text fields
@@ -79,6 +92,7 @@ public class DataEntryWindowController implements Initializable{
      * @param rb Just a testing argument
      */
     public void initialize(URL url, ResourceBundle rb) {
+
         startStationIDTextfield.textProperty().addListener(
             (observable, oldValue, newValue) -> {
                 String formatted = "";
@@ -174,7 +188,7 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
-        String dataGroup = dataGroupTextfield.getText();
+        String dataGroup = (String) dataGroupCombo.getValue();
 
         if (dataTypeAdded == null && dataGroup.isEmpty()) {
             status_text.setText("No data group or data type entered!");
@@ -259,7 +273,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
+        String dataGroup = (String) dataGroupCombo.getValue();
         if (!dataGroup.isEmpty()) {
 
             try {
@@ -324,7 +338,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
+        String dataGroup = (String) dataGroupCombo.getValue();
         if (!dataGroup.isEmpty()) {
 
             try {
@@ -398,7 +412,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
+        String dataGroup = (String) dataGroupCombo.getValue();
         if (!dataGroup.isEmpty()) {
 
             try {
@@ -560,5 +574,9 @@ public class DataEntryWindowController implements Initializable{
         }
 
     }
+
+
+
+
 
 }

@@ -459,16 +459,7 @@
                <children>
                   <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="200.0" spacing="5.0">
                      <children>
-                        <TextField fx:id="dataGroupTextfield" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="100.0" promptText="DataGroup" />
-                        <ComboBox fx:id="dataEntryComboBox" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="100.0" promptText="Data type" visibleRowCount="3">
-                           <items>
-                              <FXCollections fx:factory="observableArrayList">
-                                 <String fx:value="retailer" />
-                                 <String fx:value="wifi" />
-                                 <String fx:value="trip" />
-                              </FXCollections>
-                           </items>
-                        </ComboBox>
+                        <ComboBox fx:id="dataGroupCombo" editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onShowing="#setDataGroupComboItems" prefHeight="25.0" prefWidth="100.0" promptText="DataGroup" />
                         <Button fx:id="uploadcsvButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#uploadcsvButton" prefHeight="25.0" prefWidth="75.0" text="Upload csv" />
                      </children>
                   </HBox>
