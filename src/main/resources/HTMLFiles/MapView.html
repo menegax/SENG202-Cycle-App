@@ -44,6 +44,7 @@
 		}
 
 
+		var heatMaps = [];
         function loadHeat(datagroup)
         {
             console.log("heatmap");
@@ -61,8 +62,18 @@
             data: heatMapPoints,
             map: map
             });
+			heatMaps.push(heatmap);
         }
 
+		
+		function clearHeat()
+		{
+		for(var i = 0; i < heatMaps.length; i++)
+			{
+			heatMaps[i].setMap(null);
+			}
+			heatMaps = [];
+		}
 		
 		var jsConnector = {
 			showResult: function (result) {
