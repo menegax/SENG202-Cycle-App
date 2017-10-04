@@ -129,6 +129,42 @@ public class DatabaseRetriever {
     }
 
 
+    public ArrayList<Wifi> getOnlineWifiList()
+    {
+        ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
+        String sql = "SELECT obj FROM " + Wifi.tableName;
+        try (Connection conn = DatabaseHandler.connectOnline();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                Wifi wifi = null;
+                try {
+                    ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
+                    ObjectInputStream ois = new ObjectInputStream(bais);
+                    wifi = (Wifi) ois.readObject();
+                }catch (IOException io){
+                    io.printStackTrace();
+                }catch (ClassNotFoundException cnf){
+                    cnf.printStackTrace();
+                }
+                if(wifi != null)
+                {
+                    wifiList.add(wifi);
+                    //wifi.print();
+                } else {
+                    System.out.println("No wifi");
+                }
+
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return wifiList;
+    }
+
+
     /**
      * Gets the ArrayList of all retailers in database
      * @return Arraylist of all retailers
