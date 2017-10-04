@@ -62,7 +62,7 @@ public class JSHandler {
 
     /**
      * Returns a list of Retailer objects for use in Mapviewer filtered by 3 fields
-     * @param zip xipcode to filter by in string form
+     * @param zip zipcode to filter by in string form
      * @param type type to filter by. Whole string needed not letter
      * @param street Street to filter by
      * @return list of Retailer objects matching the filter

@@ -71,7 +71,6 @@ public class App
         for (String s : Datagroup.getDatagroups()){
             System.out.println(s);
         }
-        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
 
         for (Station s: databaseRetriever.getStationList())
