@@ -31,4 +31,14 @@ public class PointM {
     {
         System.out.println("X: " + x + " | Y: " + y);
     }
+
+    public double getLat()
+    {
+        return (double) x / 1000;
+    }
+
+    public double getLon()
+    {
+        return (double) y/1000;
+    }
 }
