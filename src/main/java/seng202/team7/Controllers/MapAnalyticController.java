@@ -27,6 +27,7 @@ public class MapAnalyticController implements Initializable {
     @FXML private CheckBox retailerCB;
     @FXML private WebView webViewMap;
     @FXML private TextField inText;
+    @FXML private TextField limitText;
     private WebEngine webEngine;
     private JSObject jsBridge;
     private JSObject jsObject;
@@ -67,7 +68,10 @@ public class MapAnalyticController implements Initializable {
      */
     public void displayClicked()
     {
-        StaticVariables.pointMultiplier = Integer.parseInt(inText.getText());
+        if(!limitText.getText().equals(""))
+            StaticVariables.limit = Integer.parseInt(limitText.getText());
+        if(!inText.getText().equals(""))
+            StaticVariables.pointMultiplier = Integer.parseInt(inText.getText());
         System.out.println("display");
         jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("loadHeat","test");
