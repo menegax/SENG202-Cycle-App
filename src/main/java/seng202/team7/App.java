@@ -26,20 +26,20 @@ public class App
         System.out.println("Joshua's test");
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
-        ArrayList<Trip> tempT= new ArrayList<Trip>();
-        for(Trip t: databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 1"))
-        {
-            tempT.add(t);
-        }
-        ArrayList<PointM> points = new ArrayList<PointM>();
-        for(Trip t: tempT)
-        {
-            points.addAll(Analytics.checkRoute(t.getStartPoint(), t.getEndPoint()));
-        }
-        for(PointM p: points)
-        {
-            p.print();
-        }
+//        ArrayList<Trip> tempT= new ArrayList<Trip>();
+//        for(Trip t: databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 1"))
+//        {
+//            tempT.add(t);
+//        }
+//        ArrayList<PointM> points = new ArrayList<PointM>();
+//        for(Trip t: tempT)
+//        {
+//            points.addAll(Analytics.checkRoute(t.getStartPoint(), t.getEndPoint()));
+//        }
+//        for(PointM p: points)
+//        {
+//            p.print();
+//        }
 
 
 
@@ -47,8 +47,8 @@ public class App
 //
 //        DatabaseHandler.createDatabase();
 //        DatabaseTester.createTables();
-        DatabaseHandler.deleteTable(Datagroup.tableName);
-        DatabaseHandler.createTable(Datagroup.tableName, Datagroup.tableCreation);
+//        DatabaseHandler.deleteTable(Datagroup.tableName);
+//        DatabaseHandler.createTable(Datagroup.tableName, Datagroup.tableCreation);
 
 //        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 //
@@ -63,21 +63,23 @@ public class App
 //
 //        DatabaseHandler.deleteTable(Wifi.tableName);
 //        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
-        Datagroup.addDatagroup("test1");
-        Datagroup.addDatagroup("test2");
-        Datagroup.addDatagroup("test3");
-        Datagroup.addDatagroup("test3");
+//        Datagroup.addDatagroup("test1");
+//        Datagroup.addDatagroup("test2");
+//        Datagroup.addDatagroup("test3");
+//        Datagroup.addDatagroup("test3");
+//
+//        for (String s : Datagroup.getDatagroups()){
+//            System.out.println(s);
+//        }
+//        //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+//
+//
+//        for (Station s: databaseRetriever.getStationList())
+//        {
+//            s.print();
+//        }
 
-        for (String s : Datagroup.getDatagroups()){
-            System.out.println(s);
-        }
-        //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-
-
-        for (Station s: databaseRetriever.getStationList())
-        {
-            s.print();
-        }
+         System.out.println(databaseRetriever.getTripList().size());
 
 //        DatabaseHandler.deleteTable(Retailer.tableName);
 //        DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);

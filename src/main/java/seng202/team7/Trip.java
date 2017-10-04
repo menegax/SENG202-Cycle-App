@@ -359,11 +359,11 @@ public class Trip extends Location implements Data, java.io.Serializable {
 
     public PointM getStartPoint()
     {
-        return new PointM(startStation.getLatitude()*1000, startStation.getLongitude()*1000);
+        return new PointM(startStation.getLatitude()*StaticVariables.pointMultiplier, startStation.getLongitude()*StaticVariables.pointMultiplier);
     }
     public PointM getEndPoint()
     {
-        return new PointM(endStation.getLatitude()*1000, endStation.getLongitude()*1000);
+        return new PointM(endStation.getLatitude()*StaticVariables.pointMultiplier, endStation.getLongitude()*StaticVariables.pointMultiplier);
     }
 
 

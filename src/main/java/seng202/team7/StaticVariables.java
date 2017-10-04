@@ -9,6 +9,9 @@ import java.lang.Math;
  * @author Morgan English
  */
 public class StaticVariables {
+
+
+    public static int pointMultiplier = 2000;
     /**
      * Step size used for lazyloading
      */
