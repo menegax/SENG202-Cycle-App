@@ -7,12 +7,9 @@ import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -40,6 +37,8 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField dataGroupTextfield;
     @FXML private Text status_text;
     @FXML private ComboBox dataEntryComboBox;
+    @FXML private ProgressBar loadingBar;
+    @FXML private Text loadingText;
 
     // Trip
     @FXML private TextField startTimeTextfield;
@@ -223,10 +222,16 @@ public class DataEntryWindowController implements Initializable{
                     return null;
                 }
             };
-            task.setOnSucceeded(e -> uploadcsvButton.setVisible(true));
-            ThreadHandler threadHandler =  new ThreadHandler(task);
-            threadHandler.start();
+            task.setOnSucceeded(e -> {
+                uploadcsvButton.setVisible(true);
+                loadingBar.setVisible(false);
+                loadingText.setVisible(false);
+            });
+            Thread thread =  new Thread(task);
+            thread.start();
             uploadcsvButton.setVisible(false);
+            loadingBar.setVisible(true);
+            loadingText.setVisible(true);
         }
         else {
             status_text.setText("No " + dataTypeAdded + " data group entered!");
