@@ -174,9 +174,19 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
-
         String dataGroup = dataGroupTextfield.getText();
-        if (!dataGroup.isEmpty()) {
+
+        if (dataTypeAdded == null && dataGroup.isEmpty()) {
+            status_text.setText("No data group or data type entered!");
+        }
+        else if (dataGroup.isEmpty() && !(dataTypeAdded == null)) {
+            status_text.setText("No " + dataTypeAdded + " data group entered!");
+        }
+        else if (dataTypeAdded == null && !(dataGroup.isEmpty())) {
+            status_text.setText("No data type entered!");
+        }
+
+        else {
 
             Stage stage = new Stage();
             FileChooser chooser = new FileChooser();
@@ -236,15 +246,6 @@ public class DataEntryWindowController implements Initializable{
                 loadingText.setVisible(true);
             }
         }
-        else {
-            if (dataTypeAdded == null) {
-                status_text.setText("No data group entered!");
-            } else {
-                status_text.setText("No " + dataTypeAdded + " data group entered!");
-            }
-        }
-
-
 
     }
 
