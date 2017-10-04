@@ -20,6 +20,9 @@ public class App
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
+        DatabaseHandler.getOnlineDatabase();
+
+
 //        ArrayList<Trip> tempT= new ArrayList<Trip>();
 //        for(Trip t: databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 1"))
 //        {
