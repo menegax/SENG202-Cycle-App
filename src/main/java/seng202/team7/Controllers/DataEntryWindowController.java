@@ -264,6 +264,7 @@ public class DataEntryWindowController implements Initializable{
         }
     }
 
+
     /**
      * Loads manually inputted retailer data and adds to database
      * @param event Event when add retailer button is clicked
