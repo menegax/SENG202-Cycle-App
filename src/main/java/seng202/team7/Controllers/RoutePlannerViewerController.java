@@ -5,6 +5,7 @@ import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
@@ -24,6 +25,8 @@ public class RoutePlannerViewerController implements Initializable{
     private Button displayButton1;
     @FXML
     private WebView webViewMap1;
+    @FXML private ComboBox<String> wifiTypeCB;
+    @FXML private ComboBox<String> retailerTypeCB;
 
     private WebEngine webEngine1;
     private JSObject jsBridge1;
@@ -35,6 +38,16 @@ public class RoutePlannerViewerController implements Initializable{
      */
     public void initialize(URL url, ResourceBundle rb)
     {
+        String[] wifiTypes = {"Free", "Limited Free", "Partner Site"};
+        wifiTypeCB.getItems().add("All");
+        wifiTypeCB.getItems().addAll(wifiTypes);
+        wifiTypeCB.getSelectionModel().select(0);
+
+        String[] retailerTypes = {"Food", "Nightlife", "Shopping", "Personal/Professional Services", "Visitor Services", "Community Resources"};
+        retailerTypeCB.getItems().add("All");
+        retailerTypeCB.getItems().addAll(retailerTypes);
+        retailerTypeCB.getSelectionModel().select(0);
+
         webEngine1 = webViewMap1.getEngine();
 
         webEngine1.setJavaScriptEnabled(true);
@@ -60,26 +73,56 @@ public class RoutePlannerViewerController implements Initializable{
      */
     public void displayClicked1() { /*webEngine1.executeScript("loadStation();");*/ }
 
+
+    public void displayWifis() {
+        // TODO: 5/10/2017
+    }
+
+    public void displayRetailers() {
+        // TODO: 5/10/2017
+    }
+
+    public void addWifi() {
+//         Wifi wifi;
+//         if (webview.getSelected == 0) {
+//              wifi = findNearestWifi(webview.getPoint());
+//         } else {
+//              wifi = findNearestWifi(webview.getStart, webView.getEnd);
+//         }
+//         webview.addToRoute(wifi);
+    }
+
+    public void addRetailer() {
+//         Retailer retailer;
+//         if (webview.getSelected == 0) {
+//             retailer = findNearestRetailer(webview.getPoint());
+//         } else {
+//              retailer = findNearestRetailer(webview.getStart, webView.getEnd);
+//         }
+//         webview.addToRoute(retailer);
+    }
+
+
     /**
      * Finds the nearest wifi location to a retailer object
-     * @param retailer The retailer object to search around
+     * @param point The point to search around
      * @return The nearest wifi object
      * @throws DatabaseEmptyException thrown when there are no wifi objects in the database
      */
-    public Wifi findNearestWifi(Retailer retailer) throws DatabaseEmptyException{
+    public Wifi findNearestWifi(Location point) throws DatabaseEmptyException{
         if (wifiInDatabase()) {
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
-            ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(retailer.getLatitude(), retailer.getLongitude()));
+            ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(point.getLatitude(), point.getLongitude()));
             double defaultDist = StaticVariables.defaultDist;
             while (wifiList.isEmpty()) {
                 defaultDist *= 2;
-                wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(retailer.getLatitude(), defaultDist, retailer.getLongitude(), defaultDist));
+                wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(point.getLatitude(), defaultDist, point.getLongitude(), defaultDist));
             }
             double minDistance = -1;
             double currentDistance;
             int minIndex = 0;
             for (Wifi wifi : wifiList) {
-                currentDistance = StaticVariables.calculateDistance(retailer.getLatitude(), retailer.getLongitude(), wifi.getLatitude(), wifi.getLongitude());
+                currentDistance = StaticVariables.calculateDistance(point.getLatitude(), point.getLongitude(), wifi.getLatitude(), wifi.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
                 } else if (minDistance > currentDistance) {
@@ -154,6 +197,39 @@ public class RoutePlannerViewerController implements Initializable{
             int minIndex = 0;
             for (Retailer retailer : retailerList) {
                 currentDistance = StaticVariables.calculateDistance(start, end, retailer.getLatitude(), retailer.getLongitude());
+                if (minDistance == -1) {
+                    minDistance = currentDistance;
+                } else if (minDistance > currentDistance) {
+                    minDistance = currentDistance;
+                    minIndex = retailerList.indexOf(retailer);
+                }
+            }
+            return retailerList.get(minIndex);
+        } else {
+            throw new DatabaseEmptyException();
+        }
+    }
+
+    /**
+     * Finds the nearest retailer location to a retailer object
+     * @param point The point to search around
+     * @return The nearest retailer object
+     * @throws DatabaseEmptyException thrown when there are no retailer objects in the database
+     */
+    public Retailer findNearestRetailer(Location point) throws DatabaseEmptyException{
+        if (retailerInDatabase()) {
+            DatabaseRetriever dbRetriever = new DatabaseRetriever();
+            ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(point.getLatitude(), point.getLongitude()));
+            double defaultDist = StaticVariables.defaultDist;
+            while (retailerList.isEmpty()) {
+                defaultDist *= 2;
+                retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(point.getLatitude(), defaultDist, point.getLongitude(), defaultDist));
+            }
+            double minDistance = -1;
+            double currentDistance;
+            int minIndex = 0;
+            for (Retailer retailer : retailerList) {
+                currentDistance = StaticVariables.calculateDistance(point.getLatitude(), point.getLongitude(), retailer.getLatitude(), retailer.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
                 } else if (minDistance > currentDistance) {
