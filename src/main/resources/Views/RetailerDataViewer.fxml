@@ -32,13 +32,13 @@
                     <ComboBox fx:id="typeCB" onAction="#filter" prefWidth="165.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="1">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="All" />
                           <String fx:value="Food" />
                           <String fx:value="Nightlife" />
                           <String fx:value="Shopping" />
                           <String fx:value="Personal/Professional Services" />
                           <String fx:value="Visitor Services" />
                           <String fx:value="Community Resources" />
-                          <String fx:value="None" />
                         </FXCollections>
                       </items>
                     </ComboBox>

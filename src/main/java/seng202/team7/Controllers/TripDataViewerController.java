@@ -111,10 +111,10 @@ public class TripDataViewerController implements Initializable {
         for (Station station : stationArrayList) {
             stationAddresses.add(station.getAddress());
         }
+        startStationCB.getItems().add("All");
+        endStationCB.getItems().add("All");
         startStationCB.getItems().addAll(stationAddresses);
         endStationCB.getItems().addAll(stationAddresses);
-        startStationCB.getItems().add("None");
-        endStationCB.getItems().add("None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
@@ -160,10 +160,10 @@ public class TripDataViewerController implements Initializable {
         String genderSelection = genderCB.getValue();
         String userTypeSelection = userTypeCB.getValue();
         for (Trip trip : tripList) {
-            if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("None"))
-                    && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("None"))
-                    && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("None"))
-                    && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("None"))
+            if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("All"))
+                    && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
+                    && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
+                    && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
                     ) {
                 filteredTripList.add(trip);
             }
@@ -176,10 +176,10 @@ public class TripDataViewerController implements Initializable {
             tripList.addAll(tripArrayList);
             loadedData += StaticVariables.step;
             for (Trip trip : tripList) {
-                if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("None"))
-                        && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("None"))
-                        && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("None"))
-                        && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("None"))
+                if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("All"))
+                        && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
+                        && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
+                        && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
                         ) {
                     filteredTripList.add(trip);
                 }

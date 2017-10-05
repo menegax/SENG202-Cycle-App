@@ -96,10 +96,10 @@ public class RetailerDataViewerController implements Initializable {
                 zips.add(Integer.toString(retailer.getZipCode()));
             }
         }
+        streetCB.getItems().add("All");
         streetCB.getItems().addAll(streets);
-        streetCB.getItems().add("None");
+        zipCB.getItems().add("All");
         zipCB.getItems().addAll(zips);
-        zipCB.getItems().add("None");
     }
 
     /**
@@ -146,9 +146,13 @@ public class RetailerDataViewerController implements Initializable {
         String streetSelection = streetCB.getValue();
         String zipSelection = zipCB.getValue();
         for (Retailer retailer : retailerList) {
-            if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("None"))
-                    && (retailer.getTypeID().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
-                    && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("None"))
+            String typeID = retailer.getTypeID();
+            if (typeID == null) {
+                typeID = "Null";
+            }
+            else if ((streetSelection == null || retailer.getStreet().equals(streetSelection) || streetSelection.equals("All"))
+                    && (typeSelection == null || typeID.equals(typeSelection) || typeSelection.equals("All"))
+                    && (zipSelection == null || Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection.equals("All"))
                     ) {
                 filteredRetailerList.add(retailer);
             }
@@ -169,9 +173,13 @@ public class RetailerDataViewerController implements Initializable {
             retailerList.addAll(retailerArrayList);
             loadedData += StaticVariables.step;
             for (Retailer retailer : retailerList) {
-                if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("None"))
-                        && (retailer.getTypeID().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
-                        && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("None"))
+                String typeID = retailer.getTypeID();
+                if (typeID == null) {
+                    typeID = "Null";
+                }
+                if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("All"))
+                        && (typeID.equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
+                        && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("All"))
                         ) {
                     filteredRetailerList.add(retailer);
                 }

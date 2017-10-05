@@ -126,40 +126,40 @@ public class MapViewerWindowController implements Initializable {
         }
 
         //Retailers combo boxes
+        mapComboZipcode.getItems().add("All");
         mapComboZipcode.getItems().addAll(zips);
-        mapComboZipcode.getItems().add("None");
+        mapComboStreet.getItems().add("All");
         mapComboStreet.getItems().addAll(streets);
-        mapComboStreet.getItems().add("None");
         mapComboRetailerType.getItems().removeAll(mapComboRetailerType.getItems());
         mapComboRetailerType.getItems().addAll(
+                "All",
                 "Food",
                 "Nightlife",
                 "Shopping",
                 "Personal/Professional Services",
                 "Visitor Services",
-                "Community Resources",
-                "None"
+                "Community Resources"
         );
 
 
         //Wifi combo boxes
+        mapComboProvider.getItems().add("All");
         mapComboProvider.getItems().addAll(providers);
-        mapComboProvider.getItems().add("None");
         mapComboWifiType.getItems().removeAll();
         mapComboWifiType.getItems().addAll(
+                "All",
                 "Free",
                 "Limited Free",
-                "Partner Site",
-                "None"
+                "Partner Site"
         );
         mapComboBorough.getItems().removeAll();
         mapComboBorough.getItems().addAll(
+                "All",
                 "QU",
                 "BK",
                 "BX",
                 "MN",
-                "SI",
-                "None"
+                "SI"
         );
     }
 

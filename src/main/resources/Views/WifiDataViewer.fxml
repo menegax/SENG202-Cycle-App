@@ -37,22 +37,22 @@
                     <ComboBox fx:id="typeCB" onAction="#filter" prefWidth="165.0" promptText="Select Type" GridPane.columnIndex="1" GridPane.rowIndex="2">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="All" />
                           <String fx:value="Free" />
                           <String fx:value="Limited Free" />
                           <String fx:value="Partner Site" />
-                          <String fx:value="None" />
                         </FXCollections>
                       </items>
                     </ComboBox>
                     <ComboBox fx:id="boroughCB" onAction="#filter" prefWidth="165.0" promptText="Select Borough" GridPane.columnIndex="1" GridPane.rowIndex="3">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
+                          <String fx:value="All" />
                           <String fx:value="QU" />
                           <String fx:value="MN" />
                           <String fx:value="BK" />
                           <String fx:value="BX" />
                           <String fx:value="SI" />
-                          <String fx:value="None" />
                         </FXCollections>
                       </items>
                     </ComboBox>

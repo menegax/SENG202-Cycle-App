@@ -35,9 +35,9 @@ public class JSHandler {
      */
     public List<Wifi> getWifiJSFiltered(String burough, String type, String provider)
     {
-        boolean buroughF = !(burough.equals("")|| burough.toLowerCase().equals("none")||burough==null);
-        boolean typeF = !(type.equals("")||type.toLowerCase().equals("none")||type==null);
-        boolean providerF = !(provider.equals("")||provider.toLowerCase().equals("none")||provider==null);
+        boolean buroughF = !(burough.equals("")|| burough.toLowerCase().equals("all")||burough==null);
+        boolean typeF = !(type.equals("")||type.toLowerCase().equals("all")||type==null);
+        boolean providerF = !(provider.equals("")||provider.toLowerCase().equals("all")||provider==null);
 
         if(!buroughF&&!typeF&&!providerF){
             //No fields selected
@@ -77,9 +77,9 @@ public class JSHandler {
      */
     public List<Retailer> getRetailerJSFiltered(String zip, String type, String street)
     {
-        boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("none")||zip==null);
-        boolean typeF = !(type.equals("")||type.toLowerCase().equals("none")||type==null);
-        boolean streetF = !(street.equals("")||street.toLowerCase().equals("none")||street==null);
+        boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("all")||zip==null);
+        boolean typeF = !(type.equals("")||type.toLowerCase().equals("all")||type==null);
+        boolean streetF = !(street.equals("")||street.toLowerCase().equals("all")||street==null);
 
         if(!zipF&&!typeF&&!streetF){
             //No fields selected
