@@ -190,6 +190,8 @@ public class DataEntryWindowController implements Initializable{
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
         String dataGroup = (String) dataGroupCombo.getValue();
 
+        System.out.println(dataTypeAdded);
+
         if (dataTypeAdded == null && dataGroup.isEmpty()) {
             status_text.setText("No data group or data type entered!");
         }
