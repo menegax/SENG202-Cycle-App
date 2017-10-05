@@ -77,10 +77,8 @@ public class DataEntryWindowController implements Initializable{
 
     @FXML public void setDataGroupComboItems() {
 
-        DatabaseRetriever retriever = new DatabaseRetriever();
-        //ObservableList<String> items = FXCollections.observableArrayList(DATA GROUP QUERY HERE);
-        //BELOW QUERY JUST AS PLACEHOLDER
-        ObservableList<String> items = FXCollections.observableArrayList(retriever.getStringListFromInt("retailer", 0, Retailer.columns[0], Retailer.columns[0]));
+        ObservableList<String> items = FXCollections.observableArrayList("test","test2","test3","test3","test4");
+        ObservableList<String> items2 = FXCollections.observableArrayList("DATA GROUP QUERY GO HERE");
 
         dataGroupCombo.setItems(items);
     }
@@ -190,15 +188,16 @@ public class DataEntryWindowController implements Initializable{
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
         String dataGroup = (String) dataGroupCombo.getValue();
 
-        System.out.println(dataTypeAdded);
+        //System.out.println(dataTypeAdded);
+        //System.out.println(dataGroup);
 
-        if (dataTypeAdded == null && dataGroup.isEmpty()) {
+        if (dataTypeAdded == null && dataGroup == null) {
             status_text.setText("No data group or data type entered!");
         }
-        else if (dataGroup.isEmpty() && !(dataTypeAdded == null)) {
+        else if (dataGroup  == null && !(dataTypeAdded == null)) {
             status_text.setText("No " + dataTypeAdded + " data group entered!");
         }
-        else if (dataTypeAdded == null && !(dataGroup.isEmpty())) {
+        else if (dataTypeAdded == null && !(dataGroup == null)) {
             status_text.setText("No data type entered!");
         }
 
@@ -277,7 +276,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseRetriever retriever = new DatabaseRetriever();
 
         String dataGroup = (String) dataGroupCombo.getValue();
-        if (!dataGroup.isEmpty()) {
+        if (dataGroup != null) {
 
             try {
                 String nameRetailer = nameTextfield.getText();
@@ -342,7 +341,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseRetriever retriever = new DatabaseRetriever();
 
         String dataGroup = (String) dataGroupCombo.getValue();
-        if (!dataGroup.isEmpty()) {
+        if (dataGroup != null) {
 
             try {
 
@@ -416,7 +415,7 @@ public class DataEntryWindowController implements Initializable{
         DatabaseRetriever retriever = new DatabaseRetriever();
 
         String dataGroup = (String) dataGroupCombo.getValue();
-        if (!dataGroup.isEmpty()) {
+        if (dataGroup != null) {
 
             try {
 
