@@ -12,6 +12,7 @@ import seng202.team7.JSHandler;
 import seng202.team7.StaticVariables;
 
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
@@ -46,6 +47,11 @@ public class MapAnalyticController implements Initializable {
     public void initialize(URL url, ResourceBundle rb)
     {
        webEngine = webViewMap.getEngine();
+       genderCombo.getItems().addAll("All","Male","Female", "Unknown");
+       userCombo.getItems().addAll("All", "Customer", "Subscriber");
+       ageCombo.getItems().addAll("All","0-15","15-25","25-35","35-45","45-55","55-55+");
+       densityCombo.getItems().addAll("Low","Medium","High");
+
 
         webEngine.setJavaScriptEnabled(true);
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
@@ -74,13 +80,43 @@ public class MapAnalyticController implements Initializable {
      */
     public void displayClicked()
     {
+        String userType;
+        String gender;
+        String age;
+        String density;
         String tripGroup = "";
         if(!tripDatagroup.getText().equals(""))
             tripGroup = tripDatagroup.getText();
+        if(genderCombo.getSelectionModel().getSelectedItem() == null){
+            gender = "All";
+        } else {
+            gender = (String) genderCombo.getSelectionModel().getSelectedItem();
+        }
+
+        if(userCombo.getSelectionModel().getSelectedItem() == null)
+        {
+            userType = "All";
+        } else {
+            userType = (String) userCombo.getSelectionModel().getSelectedItem();
+        }
+
+        if(ageCombo.getSelectionModel().getSelectedItem() == null) {
+            age = "All";
+        } else {
+            age = (String) ageCombo.getSelectionModel().getSelectedItem();
+        }
+
+
+        if(densityCombo.getSelectionModel().getSelectedItem() == null)
+        {
+            density = "medium";
+        } else {
+            density = (String) densityCombo.getSelectionModel().getSelectedItem();
+        }
 
         System.out.println("display");
         jsObject.setMember("Abridge", new JSHandler());
-        jsObject.call("loadHeat","test");
+        jsObject.call("loadHeat",tripGroup, gender, age, userType, density);
     }
 
 

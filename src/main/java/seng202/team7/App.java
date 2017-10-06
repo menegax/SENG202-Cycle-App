@@ -34,12 +34,24 @@ public class App
         System.out.println(retailers.getTypeID());
 
 
+//
+//        String[] ageList = {"0-15","15-25","25-35","35-45","45-55","55-55+"};
+//        for(String age: ageList) {
+//            String low = age.split("-")[0];
+//            String high = age.split("-")[1];
+//            high = high.replace("+","");
+//            int lowAge = Integer.parseInt(low);
+//            int highAge = Integer.parseInt(high);
+//
+//
+//            System.out.println(""+ lowAge + highAge);
+//        }
 
 //        ArrayList<Trip> tempT= new ArrayList<Trip>();
-//        for(Trip t: databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 1"))
-//        {
-//            tempT.add(t);
-//        }
+        for(Trip t: databaseRetriever.getTripList())
+        {
+            System.out.println(t.getDataGroup());
+        }
 //        ArrayList<PointM> points = new ArrayList<PointM>();
 //        for(Trip t: tempT)
 //        {
@@ -98,16 +110,16 @@ public class App
 
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
-
-        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], "test")))
-        {
-            r.print();
-        }
-
-        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], "test")))
-        {
-             System.out.println(w.getDataGroup());
-        }
+//
+//        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], "test")))
+//        {
+//            r.print();
+//        }
+//
+//        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], "test")))
+//        {
+//             System.out.println(w.getDataGroup());
+//        }
 ////        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
 //
 //        ArrayList<Retailer> retailers = databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName,Retailer.columns[13],"New York Plaza"));
