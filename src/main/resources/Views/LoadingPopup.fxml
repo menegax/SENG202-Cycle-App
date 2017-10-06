@@ -1,14 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.text.*?>
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<fx:root fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" type="javafx.scene.layout.AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.LoadingPopupController">
-   <children>
-      <ProgressBar layoutX="200.0" layoutY="187.0" prefWidth="200.0" />
-      <Text layoutX="129.0" layoutY="119.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Please wait while your data is being loaded" textAlignment="CENTER" />
-      <Button layoutX="266.0" layoutY="264.0" mnemonicParsing="false" onAction="#close" text="Close" />
-   </children>
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="seng202.team7.Controllers.LoadingPopupController">
+  <children>
+    <Button layoutX="263.0" layoutY="209.0" mnemonicParsing="false" onAction="#close" text="Close" />
+    <Text fill="#ffb800" layoutX="245.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caution!">
+      <font>
+        <Font name="System Bold" size="26.0" />
+      </font>
+    </Text>
+    <Text layoutX="195.0" layoutY="128.0" strokeType="OUTSIDE" strokeWidth="0.0" text="While your CSV is loading" />
+    <Text layoutX="195.0" layoutY="152.0" strokeType="OUTSIDE" strokeWidth="0.0" text="data viewing and analytics" />
+    <Text layoutX="195.0" layoutY="176.0" strokeType="OUTSIDE" strokeWidth="0.0" text="may be inaccurate." />
+  </children>
 </fx:root>

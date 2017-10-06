@@ -1,5 +1,7 @@
 package seng202.team7;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.util.List;
 
 /**
@@ -18,6 +20,30 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<Wifi> getWifiJSDatagroup(String datagroup)
+    {
+        for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
+            w.print();
+        }
+        return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup));
+    }
+
+    public List<Retailer> getRetailerJSDatagroup(String datagroup)
+    {
+        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup))){
+            r.print();
+        }
+        return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup));
+    }
+
+    public List<PointM> getPointsJS(String datagroup)
+    {
+
+        //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
+        System.out.println(Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10")));
+        return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT " + StaticVariables.limit));
+    }
+
     /**
      * Returns a list of Wifi objects for use in the MapViewer filtered by 3 parameters
      * @param burough borough to filter by
@@ -27,9 +53,9 @@ public class JSHandler {
      */
     public List<Wifi> getWifiJSFiltered(String burough, String type, String provider)
     {
-        boolean buroughF = !(burough.equals("")|| burough.toLowerCase().equals("none")||burough==null);
-        boolean typeF = !(type.equals("")||type.toLowerCase().equals("none")||type==null);
-        boolean providerF = !(provider.equals("")||provider.toLowerCase().equals("none")||provider==null);
+        boolean buroughF = !(burough.equals("")|| burough.toLowerCase().equals("all")||burough==null);
+        boolean typeF = !(type.equals("")||type.toLowerCase().equals("all")||type==null);
+        boolean providerF = !(provider.equals("")||provider.toLowerCase().equals("all")||provider==null);
 
         if(!buroughF&&!typeF&&!providerF){
             //No fields selected
@@ -62,16 +88,16 @@ public class JSHandler {
 
     /**
      * Returns a list of Retailer objects for use in Mapviewer filtered by 3 fields
-     * @param zip xipcode to filter by in string form
+     * @param zip zipcode to filter by in string form
      * @param type type to filter by. Whole string needed not letter
      * @param street Street to filter by
      * @return list of Retailer objects matching the filter
      */
     public List<Retailer> getRetailerJSFiltered(String zip, String type, String street)
     {
-        boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("none")||zip==null);
-        boolean typeF = !(type.equals("")||type.toLowerCase().equals("none")||type==null);
-        boolean streetF = !(street.equals("")||street.toLowerCase().equals("none")||street==null);
+        boolean zipF = !(zip.equals("")|| zip.toLowerCase().equals("all")||zip==null);
+        boolean typeF = !(type.equals("")||type.toLowerCase().equals("all")||type==null);
+        boolean streetF = !(street.equals("")||street.toLowerCase().equals("all")||street==null);
 
         if(!zipF&&!typeF&&!streetF){
             //No fields selected

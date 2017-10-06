@@ -24,11 +24,29 @@
 
 		
 		var retailerBlue = {
-		url: 'https://seng202team7.000webhostapp.com/img/retailerBlue.png',
+		url: 'img/retailerBlue.png',
 		anchor: new google.maps.Point(0,8),
 		size: new google.maps.Size(16,16)	
 		};
-		
+
+
+        var retailerRed = {
+            url: 'img/retailerBlue.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
+
+        var retailerGreen = {
+            url: 'img/retailerBlue.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
+
+        var retailerYellow = {
+            url: 'img/retailerBlue.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
 	
         
 		
@@ -38,11 +56,26 @@
 		
 		//Adds a Blue wifi image from webhost
 		var wifiBlue = {
-		url:'https://seng202team7.000webhostapp.com/img/wifiBlue.png',
+		    //free
+		url:'img/wifiBlue.png',
 		size: new google.maps.Size(16,16),
 		anchor: new google.maps.Point(0,8)
 		};
-		
+
+		var wifiRed = {
+		    //limited
+            url:'img/wifiRed.png',
+            size: new google.maps.Size(16,16),
+            anchor: new google.maps.Point(0,8)
+        };
+
+		var wifiGreen = {
+		    //partner site
+            url:'img/wifiGreen.png',
+            size: new google.maps.Size(16,16),
+            anchor: new google.maps.Point(0,8)
+        };
+
         function initialize() {
 
         //Sets options for the map to be made
@@ -104,7 +137,7 @@
         position: latlon,
         map: map,
         //icon: wifiBlue,
-        title: 'wifi'
+        title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
         });
 		wifiMarkers.push(marker);
         //logger to make sure everything is working as expected.
@@ -144,8 +177,7 @@
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
-        icon: retailerBlue,
-        title: 'retailer'
+        title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
         });
 		retailerMarkers.push(marker);
         

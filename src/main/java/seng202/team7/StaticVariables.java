@@ -9,14 +9,18 @@ import java.lang.Math;
  * @author Morgan English
  */
 public class StaticVariables {
+
+    public static int limit = 1000;
+
+    public static int pointMultiplier = 3000;
     /**
      * Step size used for lazyloading
      */
     public static int step = 50;
     /**
-     * default distance for searching for nearby locations
+     * default distance for searching for nearby locations (1.12 km)
      */
-    private static double defaultDist = 1;
+    public static double defaultDist = 0.01;
     /**
      * current year, for finding age of users
      */
@@ -218,6 +222,27 @@ public class StaticVariables {
     }
 
     /**
+     * Calculates the distance in metres between a point and a line defined by two locations
+     * @param start the start location of the line
+     * @param end the end location of the line
+     * @param lat the latitude of the point
+     * @param lon the longitude of the point
+     * @return the distance between the point and the line
+     */
+    public static double calculateDistance(Location start, Location end, double lat, double lon) {
+        double x0 = longitudeToKMs(lon);
+        double y0 = latitudeToKMs(lat);
+        double x1 = longitudeToKMs(start.getLongitude());
+        double y1 = latitudeToKMs(start.getLatitude());
+        double x2 = longitudeToKMs(end.getLongitude());
+        double y2 = latitudeToKMs(end.getLatitude());
+        double distance =
+                (Math.abs((y2-y1)*x0 - (x2-x1)*y0 + x2*y1 - y2*x1)) /
+                        (Math.sqrt(Math.pow((y2-y1), 2) + Math.pow((x2-x1), 2)));
+        return distance * 1000;
+    }
+
+    /**
      * returns the ascii value of a given string, or 1 if the result is 0
      * @param toConvert
      * @return convertedValue
@@ -245,4 +270,18 @@ public class StaticVariables {
     {
         return degree* (Math.PI/180);
     }
+
+    /**
+     * Converts from latitude to kilometres
+     * @param latitude latitude to convert
+     * @return kilometres as a double
+     */
+    public static double latitudeToKMs(double latitude) { return latitude * 111;}
+
+    /**
+     * Converts from longitude to kilometres at 40 degrees latitude (NYC)
+     * @param longitude longitude to convert
+     * @return kilometres as a double
+     */
+    public static double longitudeToKMs(double longitude) { return longitude * 85;}
 }

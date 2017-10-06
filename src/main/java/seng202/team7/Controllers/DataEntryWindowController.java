@@ -1,18 +1,20 @@
 package seng202.team7.Controllers;
 
 
+//import com.sun.deploy.util.ArrayUtil;
 import javafx.application.Application;
+import javafx.beans.InvalidationListener;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DatePicker;
+import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -23,8 +25,10 @@ import seng202.team7.Windows.LoadingPopupWindow;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.ResourceBundle;
+import java.util.*;
+
+import static seng202.team7.Datagroup.addDatagroup;
+import static seng202.team7.Datagroup.getDatagroups;
 
 /**
  * Controls manual data entry and data uploaded via csv
@@ -36,10 +40,17 @@ public class DataEntryWindowController implements Initializable{
     public Button add_r_button;
     public Button add_w_button;
     public Button add_t_button;
+    public Button clearTrip;
+    public Button clearWifi;
+    public Button clearRetailer;
+    public Button clearAllFields;
 
-    @FXML private TextField dataGroupTextfield;
+
+    @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
     @FXML private ComboBox dataEntryComboBox;
+    @FXML private ProgressBar loadingBar;
+    @FXML private Text loadingText;
 
     // Trip
     @FXML private TextField startTimeTextfield;
@@ -71,8 +82,13 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField cityRetailerTextfield;
     @FXML private TextField pAddressTextfield;
     @FXML private TextField sAddressTextfield;
-    //@FXML private TextField typeIDTextfield;
     @FXML private ComboBox typeRetailerComboBox;
+
+    @FXML public void setDataGroupComboItems() {
+
+        ObservableList<String> items = FXCollections.observableArrayList(getDatagroups());
+        dataGroupCombo.setItems(items);
+    }
 
     /**
      * Initializes the formatting listeners for the appropriate text fields
@@ -80,6 +96,7 @@ public class DataEntryWindowController implements Initializable{
      * @param rb Just a testing argument
      */
     public void initialize(URL url, ResourceBundle rb) {
+
         startStationIDTextfield.textProperty().addListener(
             (observable, oldValue, newValue) -> {
                 String formatted = "";
@@ -175,21 +192,39 @@ public class DataEntryWindowController implements Initializable{
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
+        String dataGroup = (String) dataGroupCombo.getValue();
 
-        String dataGroup = dataGroupTextfield.getText();
-        if (!dataGroup.isEmpty()) {
+        //System.out.println(dataTypeAdded);
+        //System.out.println(dataGroup);
+
+        if (dataTypeAdded == null && dataGroup == null) {
+            status_text.setText("No data group or data type entered!");
+        }
+        else if (dataGroup  == null && !(dataTypeAdded == null)) {
+            status_text.setText("No " + dataTypeAdded + " data group entered!");
+        }
+        else if (dataTypeAdded == null && !(dataGroup == null)) {
+            status_text.setText("No data type entered!");
+        }
+
+        else {
+
+            if (!getDatagroups().contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             Stage stage = new Stage();
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(stage);
 
-            Parent layout = new LoadingPopupWindow();
-            Scene scene = new Scene(layout);
-            Stage popupStage = new Stage();
-            popupStage.setTitle("Loading");
-            popupStage.initModality(Modality.WINDOW_MODAL);
-            popupStage.setScene(scene);
-            popupStage.show();
+            if (file != null) {
+                Parent layout = new LoadingPopupWindow();
+                Scene scene = new Scene(layout);
+                Stage popupStage = new Stage();
+                popupStage.setTitle("Caution");
+                popupStage.initModality(Modality.WINDOW_MODAL);
+                popupStage.setScene(scene);
+                popupStage.show();
 
             Task<Void> task = new Task<Void>() {
                 @Override
@@ -197,41 +232,47 @@ public class DataEntryWindowController implements Initializable{
                     try {
                         ArrayList<Data> toAdd;
                         String csvFile = file.toString();
+                        status_text.setText("Parsing " + dataTypeAdded + " csv");
                         toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+                        status_text.setText("Uploading " + dataTypeAdded + " objects");
                         toUpload.addData(toAdd);
                         if (toParse.getFail_counter() == 0) {
                             status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                     + dataTypeAdded + " objects added, " + toParse.getDuplicate_counter() + " duplicates (not added)");
 
-                        } else {
-                            status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                                    + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                    + " issues, likely empty fields or incorrect formats, or wrong type selected? "
-                                    + toParse.getDuplicate_counter() + " duplicates (not added)");
+                            } else {
+                                status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                        + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                                        + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                        + toParse.getDuplicate_counter() + " duplicates (not added)");
 
+                            }
+                            toParse.resetSuccessCounter();
+                            toParse.resetFailCounter();
+                            toParse.resetDuplicateCounter();
+
+                        } catch (IOException | NullPointerException e) {
+                            //e.printStackTrace();
+                            status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
                         }
-                        toParse.resetSuccessCounter();
-                        toParse.resetFailCounter();
-                        toParse.resetDuplicateCounter();
-
-                    } catch (IOException | NullPointerException e) {
-                        //e.printStackTrace();
-                        status_text.setText("Either no csv uploaded or there was an issue parsing or uploading csv ");
+                        return null;
                     }
-                    return null;
-                }
-            };
-            task.setOnSucceeded(e -> popupStage.close());
-            Thread thread = new Thread(task);
-            thread.start();
+                };
+                task.setOnSucceeded(e -> {
+                    uploadcsvButton.setVisible(true);
+                    loadingBar.setVisible(false);
+                    loadingText.setVisible(false);
+                    popupStage.close();
+                });
+                Thread thread = new Thread(task);
+                thread.start();
+                uploadcsvButton.setVisible(false);
+                loadingBar.setVisible(true);
+                loadingText.setVisible(true);
+            }
         }
-        else {
-            status_text.setText("No " + dataTypeAdded + " data group entered!");
-        }
-
-
-
     }
+
 
     /**
      * Loads manually inputted retailer data and adds to database
@@ -244,8 +285,12 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
-        if (!dataGroup.isEmpty()) {
+        String dataGroup = (String) dataGroupCombo.getValue();
+        if (dataGroup != null) {
+
+            if (!getDatagroups().contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             try {
                 String nameRetailer = nameTextfield.getText();
@@ -309,8 +354,13 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
-        if (!dataGroup.isEmpty()) {
+        String dataGroup = (String) dataGroupCombo.getValue();
+        if (dataGroup != null) {
+
+
+            if (!getDatagroups().contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             try {
 
@@ -383,8 +433,12 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
 
-        String dataGroup = dataGroupTextfield.getText();
-        if (!dataGroup.isEmpty()) {
+        String dataGroup = (String) dataGroupCombo.getValue();
+        if (dataGroup != null) {
+
+            if (!getDatagroups().contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             try {
 
@@ -543,6 +597,66 @@ public class DataEntryWindowController implements Initializable{
         } else {
             status_text.setText("No trip data group entered!");
         }
+
+    }
+
+
+    public void clearTrip() {
+
+        startTimeTextfield.clear();
+        endTimeTextfield.clear();
+        bikeIDTextfield.clear();
+        birthYearTextfield.clear();
+        startStationIDTextfield.clear();
+        endStationIDTextfield.clear();
+
+    }
+
+    public void clearWifi() {
+
+        providerTextfield.clear();
+        locationWifiTextfield.clear();
+        cityWifiTextfield.clear();
+        SSIDTextfield.clear();
+        remarksTextfield.clear();
+        longitudeTextfield.clear();
+        latitudeTextfield.clear();
+
+    }
+
+    public void clearRetailer() {
+
+        nameTextfield.clear();
+        ZIPTextfield.clear();
+        cityRetailerTextfield.clear();
+        pAddressTextfield.clear();
+        sAddressTextfield.clear();
+
+    }
+
+
+    public void clearAllFields() {
+
+        nameTextfield.clear();
+        ZIPTextfield.clear();
+        cityRetailerTextfield.clear();
+        pAddressTextfield.clear();
+        sAddressTextfield.clear();
+
+        startTimeTextfield.clear();
+        endTimeTextfield.clear();
+        bikeIDTextfield.clear();
+        birthYearTextfield.clear();
+        startStationIDTextfield.clear();
+        endStationIDTextfield.clear();
+
+        providerTextfield.clear();
+        locationWifiTextfield.clear();
+        cityWifiTextfield.clear();
+        SSIDTextfield.clear();
+        remarksTextfield.clear();
+        longitudeTextfield.clear();
+        latitudeTextfield.clear();
 
     }
 

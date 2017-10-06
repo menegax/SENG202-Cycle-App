@@ -138,7 +138,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.dataGroup = dataGroup;
         this.bikeID = bikeID;
-        this.distance = findDistance();
+        this.distance = (double)Math.round(findDistance() * 100d) / 100d;
         //System.out.println("trip created");
 
 
@@ -350,11 +350,20 @@ public class Trip extends Location implements Data, java.io.Serializable {
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = (((startStationID) + (endStationID) + (duration)
-                + converter.asciiConverter(dataGroup)+ converter.asciiConverter(userType)
+        result = (((startStationID/3) + (endStationID/2) + (duration * 2)
+                +  converter.asciiConverter(userType)
                 + bikeID + converter.asciiConverter(gender) ) * (37 + age)) / 11 ;
 
         return result;
+    }
+
+    public PointM getStartPoint()
+    {
+        return new PointM(startStation.getLatitude()*StaticVariables.pointMultiplier, startStation.getLongitude()*StaticVariables.pointMultiplier);
+    }
+    public PointM getEndPoint()
+    {
+        return new PointM(endStation.getLatitude()*StaticVariables.pointMultiplier, endStation.getLongitude()*StaticVariables.pointMultiplier);
     }
 
 

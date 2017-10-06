@@ -99,8 +99,8 @@ public class WifiDataViewerController implements Initializable {
                 providers.add(wifi.getProvider());
             }
         }
+        providerCB.getItems().add("All");
         providerCB.getItems().addAll(providers);
-        providerCB.getItems().add("None");
     }
 
     /**
@@ -144,9 +144,9 @@ public class WifiDataViewerController implements Initializable {
         String typeSelection = typeCB.getValue();
         String boroughSelection = boroughCB.getValue();
         for (Wifi wifi : wifiList) {
-            if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("None"))
-                    && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
-                    && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("None"))
+            if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("All"))
+                    && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
+                    && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("All"))
                     ) {
                 filteredWifiList.add(wifi);
             }
@@ -164,9 +164,9 @@ public class WifiDataViewerController implements Initializable {
             wifiList.addAll(wifiArrayList);
             loadedData += StaticVariables.step;
             for (Wifi wifi : wifiList) {
-                if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("None"))
-                        && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("None"))
-                        && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("None"))
+                if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("All"))
+                        && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
+                        && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("All"))
                         ) {
                     filteredWifiList.add(wifi);
                 }

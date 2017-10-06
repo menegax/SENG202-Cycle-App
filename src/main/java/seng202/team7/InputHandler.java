@@ -23,27 +23,6 @@ public class InputHandler {
     private int success_counter = 0;
     private int duplicate_counter;
 
-    /*
-    USED FOR TESTING ACTUAL FUNCTIONALITY, put print statements on each test object created,
-    e.g printThis(tripDataTest.getCity())
-
-    public static void main(String[] args) {
-
-
-        try {
-
-            InputHandler toTest = new InputHandler();
-
-            toTest.loadCSV("C:\\Users\\user\\Documents\\1 Uni\\1stpro\\sem2\\seng202\\retailer_data.csv", "retailer");
-            //toTest.loadCSV("trip_data.csv", "trip");
-            //toTest.loadCSV("wifi_data.csv", "wifi");
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-
-    }*/
-
-
 
     /**
      *     Method to parse a given csv file using the default IO package and buffered reader using split line () etc
@@ -364,7 +343,7 @@ public class InputHandler {
             validRetailer = "Invalid retailer type " + retailer.getType();
         }
 
-        else if (retailer.getTypeID().length() > 31) {
+        else if (retailer.getTypeID().length() > 31 || retailer.getTypeID().length() < 1) {
             validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
 

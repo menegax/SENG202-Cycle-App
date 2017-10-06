@@ -37,6 +37,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private TableColumn<Trip, String> durationColumn;
     @FXML private TableColumn<Trip, String> genderColumn;
     @FXML private TableColumn<Trip, String> userTypeColumn;
+    @FXML private TableColumn<Trip, String> distanceColumn;
     @FXML private ComboBox<String> startStationCB;
     @FXML private ComboBox<String> endStationCB;
     @FXML private ComboBox<String> genderCB;
@@ -51,6 +52,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private Label endNameLabel;
     @FXML private Label startIDLabel;
     @FXML private Label endIDLabel;
+    @FXML private Label distanceLabel;
     @FXML private Label durationLabel;
     @FXML private Label startDateLabel;
     @FXML private Label endDateLabel;
@@ -111,16 +113,17 @@ public class TripDataViewerController implements Initializable {
         for (Station station : stationArrayList) {
             stationAddresses.add(station.getAddress());
         }
+        startStationCB.getItems().add("All");
+        endStationCB.getItems().add("All");
         startStationCB.getItems().addAll(stationAddresses);
         endStationCB.getItems().addAll(stationAddresses);
-        startStationCB.getItems().add("None");
-        endStationCB.getItems().add("None");
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+        distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
-        tripDataTable.setItems(filteredTripList); //need a method to get Arraylist of retailer objects
+        tripDataTable.setItems(filteredTripList);
     }
 
     /**
@@ -134,12 +137,9 @@ public class TripDataViewerController implements Initializable {
             ScrollBar scrollBar = (ScrollBar) tripDataTable.lookup(".scroll-bar:vertical");
             scrollBar.valueProperty().addListener((obs, oldValue, newValue) -> {
                 if (newValue.doubleValue() >= scrollBar.getMax() - 0.2) {
-                    System.out.println("if1");
                     if (!loadedAll) {
-                        System.out.println("if2");
                         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
                         if (tripArrayList.size() == 0) {
-                            System.out.println("if3");
                             loadedAll = true;
                         }
                         tripList.addAll(tripArrayList);
@@ -163,10 +163,10 @@ public class TripDataViewerController implements Initializable {
         String genderSelection = genderCB.getValue();
         String userTypeSelection = userTypeCB.getValue();
         for (Trip trip : tripList) {
-            if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("None"))
-                    && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("None"))
-                    && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("None"))
-                    && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("None"))
+            if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("All"))
+                    && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
+                    && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
+                    && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
                     ) {
                 filteredTripList.add(trip);
             }
@@ -179,10 +179,10 @@ public class TripDataViewerController implements Initializable {
             tripList.addAll(tripArrayList);
             loadedData += StaticVariables.step;
             for (Trip trip : tripList) {
-                if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("None"))
-                        && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("None"))
-                        && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("None"))
-                        && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("None"))
+                if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("All"))
+                        && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
+                        && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
+                        && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
                         ) {
                     filteredTripList.add(trip);
                 }
@@ -201,6 +201,7 @@ public class TripDataViewerController implements Initializable {
         endNameLabel.setText(trip.getEndStation().getAddress());
         startIDLabel.setText(Integer.toString(trip.getStartStationID()));
         endIDLabel.setText(Integer.toString(trip.getEndStationID()));
+        distanceLabel.setText(Double.toString(trip.getDistance()));
         durationLabel.setText(Integer.toString(trip.getDuration()));
         String[] startDate = String.valueOf(trip.getStartDate()).split(" ");
         String[] endDate = String.valueOf(trip.getEndDate()).split(" ");

@@ -141,7 +141,8 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         typeMap.put("C", "Community Resources");
         this.typeID = typeMap.get(typeID);
         this.dataGroup = dataGroup;
-        String new_address = Integer.toString(zipCode) + ", " + city;
+        String new_address = pAddress +  ", " + city + ", " + state;
+        new_address = new_address.replaceAll(" ", "+");
         try {
             addressToLATLONG(new_address);
         } catch (java.lang.Exception e) {
@@ -158,7 +159,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     public void addressToLATLONG(String address) throws Exception, java.lang.Exception
     {
         int responseCode = 0;
-        String api = "http://maps.googleapis.com/maps/api/geocode/xml?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=true";
+        String api = "https://maps.googleapis.com/maps/api/geocode/xml?address=" + URLEncoder.encode(address, "UTF-8") + "&sensor=false&key=AIzaSyAXiol1RxaCNg_MPY7bU696vfv_8R42xQ0 ";
         System.out.println("URL : "+api);
         URL url = new URL(api);
         HttpURLConnection httpConnection = (HttpURLConnection)url.openConnection();
@@ -275,7 +276,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = ((converter.asciiConverter(name) + converter.asciiConverter(dataGroup) + zipCode
+        result = ((converter.asciiConverter(name) + zipCode
                 + converter.asciiConverter(type) + converter.asciiConverter(pAddress)
                 + converter.asciiConverter(sAddress) ) * 37) / 11;
 
