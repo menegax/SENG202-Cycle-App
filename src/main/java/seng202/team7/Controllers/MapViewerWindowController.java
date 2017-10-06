@@ -161,6 +161,12 @@ public class MapViewerWindowController implements Initializable {
                 "MN",
                 "SI"
         );
+        mapComboZipcode.getSelectionModel().selectFirst();
+        mapComboStreet.getSelectionModel().selectFirst();
+        mapComboRetailerType.getSelectionModel().selectFirst();
+        mapComboProvider.getSelectionModel().selectFirst();
+        mapComboWifiType.getSelectionModel().selectFirst();
+        mapComboBorough.getSelectionModel().selectFirst();
     }
 
 
