@@ -217,6 +217,7 @@ public class DataEntryWindowController implements Initializable{
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(stage);
 
+
             if (file != null) {
                 Parent layout = new LoadingPopupWindow();
                 Scene scene = new Scene(layout);
@@ -230,23 +231,40 @@ public class DataEntryWindowController implements Initializable{
                 @Override
                 public Void call() {
                     try {
-                        ArrayList<Data> toAdd;
+
                         String csvFile = file.toString();
+                        if (!Objects.equals(csvFile.substring(csvFile.length() - 4, csvFile.length()), ".csv")) {
+                            status_text.setText("Invalid type of file! Has to be of type .csv");
+                            return null;
+                        }
+
+                        ArrayList<Data> toAdd;
                         status_text.setText("Parsing " + dataTypeAdded + " csv");
                         toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
                         status_text.setText("Uploading " + dataTypeAdded + " objects");
                         toUpload.addData(toAdd);
                         if (toParse.getFail_counter() == 0) {
-                            status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                                    + dataTypeAdded + " objects added, " + toParse.getDuplicate_counter() + " duplicates (not added)");
-
-                            } else {
+                               if (toParse.getDuplicate_counter() == 0) {
                                 status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
-                                        + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                        + " issues, likely empty fields or incorrect formats, or wrong type selected? "
-                                        + toParse.getDuplicate_counter() + " duplicates (not added)");
+                                        + dataTypeAdded + " objects added.");
+                                } else {
+                                   status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                           + dataTypeAdded + " objects added, " + toParse.getDuplicate_counter() + " duplicates (not added)");
+                                }
 
-                            }
+                        } else {
+                                if (toParse.getDuplicate_counter() == 0) {
+                                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                            + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                                            + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+                                } else {
+                                    status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
+                                            + dataTypeAdded + " objects added. " + toParse.getFail_counter()
+                                            + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                            + toParse.getDuplicate_counter() + " duplicates (not added)");
+                                }
+
+                        }
                             toParse.resetSuccessCounter();
                             toParse.resetFailCounter();
                             toParse.resetDuplicateCounter();

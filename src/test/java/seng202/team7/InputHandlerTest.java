@@ -29,9 +29,16 @@ public class InputHandlerTest
     String file_wifi = "wifi_data_test.csv";
     String file_trip = "trip_data_test.csv";
 
+    //because of file chooser, they always have a valid path
+    @Test(expected = IOException.class)
+    public void testInvalidName() throws IOException {
 
+        InputHandler testInvalid = new InputHandler();
+        testInvalid.loadCSV("somecsv.csv", "wifi", "testInvalid");
 
-    @Test
+    }
+
+    /*@Test
     public void testRetailer() throws IOException {
         InputHandler testerRetailer = new InputHandler();
         //assertEquals(771, testerRetailer.loadCSV(file_retailer, "retailer", "default").size());
@@ -40,7 +47,8 @@ public class InputHandlerTest
         assertTrue(testerRetailer.loadCSV(file_retailer, "retailer", "default").size() >= 0);
         assertEquals(52, testerRetailer.getFail_counter());
         testerRetailer.resetFailCounter();
-    }
+    }*/
+
     @Test
     public void testWifi() throws IOException {
         InputHandler testerWifi = new InputHandler();
@@ -93,6 +101,7 @@ public class InputHandlerTest
         assertEquals("Success", tester.checkValidity(w3));
     }
 
+    /*
     @Test
     public void testRetailerValidityMethod() {
         Retailer r1 = new Retailer("McD's Lower MN", "New York", "5th ave", "23", "test", 2344, "F", "Phast Phood", "test" );
@@ -104,9 +113,8 @@ public class InputHandlerTest
         assertEquals("Invalid retailer ZIP 0", tester.checkValidity(r2));
         assertEquals("Invalid retailer city loooooooooooooooonnggg citttttyyyyyy", tester.checkValidity(r3));
         assertEquals("Success", tester.checkValidity(r4));
-
-
     }
+    */
 
     @Test
     public void testStationValidityMethod() {

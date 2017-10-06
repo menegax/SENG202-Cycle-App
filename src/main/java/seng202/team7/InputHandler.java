@@ -3,6 +3,7 @@ package seng202.team7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -50,7 +51,6 @@ public class InputHandler {
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         DatabaseUpdater uploader = new DatabaseUpdater();
-
 
 
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
