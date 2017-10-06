@@ -1,5 +1,7 @@
 package seng202.team7;
 
+import com.sun.org.apache.regexp.internal.RE;
+
 import java.util.List;
 
 /**
@@ -16,6 +18,22 @@ public class JSHandler {
     public List<Wifi> getWifiJS(){
 
         return databaseRetriever.getWifiList();
+    }
+
+    public List<Wifi> getWifiJSDatagroup(String datagroup)
+    {
+        for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
+            w.print();
+        }
+        return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup));
+    }
+
+    public List<Retailer> getRetailerJSDatagroup(String datagroup)
+    {
+        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup))){
+            r.print();
+        }
+        return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup));
     }
 
     public List<PointM> getPointsJS(String datagroup)
