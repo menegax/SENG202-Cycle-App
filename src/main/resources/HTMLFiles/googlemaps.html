@@ -103,7 +103,7 @@
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
-        icon: wifiBlue,
+        //icon: wifiBlue,
         title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
         });
 		wifiMarkers.push(marker);
@@ -144,7 +144,6 @@
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
-        icon: retailerBlue,
         title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
         });
 		retailerMarkers.push(marker);
