@@ -37,6 +37,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private TableColumn<Trip, String> durationColumn;
     @FXML private TableColumn<Trip, String> genderColumn;
     @FXML private TableColumn<Trip, String> userTypeColumn;
+    @FXML private TableColumn<Trip, String> distanceColumn;
     @FXML private ComboBox<String> startStationCB;
     @FXML private ComboBox<String> endStationCB;
     @FXML private ComboBox<String> genderCB;
@@ -51,6 +52,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private Label endNameLabel;
     @FXML private Label startIDLabel;
     @FXML private Label endIDLabel;
+    @FXML private Label distanceLabel;
     @FXML private Label durationLabel;
     @FXML private Label startDateLabel;
     @FXML private Label endDateLabel;
@@ -117,10 +119,11 @@ public class TripDataViewerController implements Initializable {
         endStationCB.getItems().addAll(stationAddresses);
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
+        distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
-        tripDataTable.setItems(filteredTripList); //need a method to get Arraylist of retailer objects
+        tripDataTable.setItems(filteredTripList);
     }
 
     /**
@@ -198,6 +201,7 @@ public class TripDataViewerController implements Initializable {
         endNameLabel.setText(trip.getEndStation().getAddress());
         startIDLabel.setText(Integer.toString(trip.getStartStationID()));
         endIDLabel.setText(Integer.toString(trip.getEndStationID()));
+        distanceLabel.setText(Double.toString(trip.getDistance()));
         durationLabel.setText(Integer.toString(trip.getDuration()));
         String[] startDate = String.valueOf(trip.getStartDate()).split(" ");
         String[] endDate = String.valueOf(trip.getEndDate()).split(" ");

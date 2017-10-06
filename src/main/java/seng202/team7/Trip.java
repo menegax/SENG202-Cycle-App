@@ -138,7 +138,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
         this.dataGroup = dataGroup;
         this.bikeID = bikeID;
-        this.distance = findDistance();
+        this.distance = (double)Math.round(findDistance() * 100d) / 100d;
         //System.out.println("trip created");
 
 
