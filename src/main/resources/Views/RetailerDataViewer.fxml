@@ -9,7 +9,7 @@
 
 <fx:root id="AnchorPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1000.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.RetailerDataViewerController">
   <children>
-    <AnchorPane fx:id="dataViewer" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1100.0" visible="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+    <AnchorPane fx:id="dataViewer" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
         <SplitPane dividerPositions="0.250501002004008" focusTraversable="true" minHeight="0.0" minWidth="0.0" prefHeight="400.0" prefWidth="1100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
           <items>
@@ -114,7 +114,7 @@
     </AnchorPane>
     <AnchorPane id="AnchorPane" fx:id="recordViewer" layoutY="0.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" visible="false" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
       <children>
-        <GridPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+        <GridPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="800.0">
           <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -136,8 +136,8 @@
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="187.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="113.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="313.0" minWidth="10.0" prefWidth="312.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="0.0" prefWidth="137.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
@@ -152,7 +152,7 @@
     </AnchorPane>
     <AnchorPane id="AnchorPane" fx:id="editor" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1150.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
       <children>
-        <GridPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="600.0">
+        <GridPane layoutX="0.0" layoutY="0.0" prefHeight="400.0" prefWidth="800.0">
           <children>
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Name:" GridPane.columnIndex="1" GridPane.rowIndex="0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Address:" GridPane.columnIndex="1" GridPane.rowIndex="1" />
@@ -183,8 +183,8 @@
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="187.0" minWidth="10.0" prefWidth="187.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="149.0" minWidth="10.0" prefWidth="113.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="321.0" minWidth="10.0" prefWidth="312.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="0.0" prefWidth="137.0" />
           </columnConstraints>
           <rowConstraints>
             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
