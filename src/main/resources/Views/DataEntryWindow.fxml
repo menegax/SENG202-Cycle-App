@@ -179,6 +179,7 @@
                                     <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
                                  </GridPane.margin>
                               </Text>
+                              <Button fx:id="clearTripButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#clearTrip" prefHeight="25.0" text="Clear Trip" GridPane.rowIndex="11" />
                            </children>
                         </GridPane>
                      </children>
@@ -325,6 +326,7 @@
                               </FXCollections>
                            </items>
                      </ComboBox>
+                        <Button fx:id="clearWifiButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#clearWifi" prefHeight="25.0" prefWidth="107.0" text="Clear Wifi" GridPane.rowIndex="11" />
                      </children>
                   </GridPane>
                </children>
@@ -448,6 +450,7 @@
                               <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                            </GridPane.margin>
                         </Text>
+                        <Button fx:id="clearRetailerButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#clearRetailer" prefHeight="25.0" prefWidth="116.0" text="Clear Retailer" GridPane.rowIndex="11" />
                      </children>
                   </GridPane>
                </children>
@@ -485,6 +488,7 @@
                   <Insets left="100.0" />
                </GridPane.margin>
             </Text>
+            <Button fx:id="clearAllFieldsButton" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#clearAllFields" prefHeight="25.0" text="Clear all fields" GridPane.rowIndex="1" />
          </children>
       </GridPane>
    </children>

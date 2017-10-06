@@ -40,6 +40,11 @@ public class DataEntryWindowController implements Initializable{
     public Button add_r_button;
     public Button add_w_button;
     public Button add_t_button;
+    public Button clearTrip;
+    public Button clearWifi;
+    public Button clearRetailer;
+    public Button clearAllFields;
+
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -594,5 +599,67 @@ public class DataEntryWindowController implements Initializable{
         }
 
     }
+
+    public void clearTrip() {
+
+        startTimeTextfield.clear();
+        endTimeTextfield.clear();
+        bikeIDTextfield.clear();
+        birthYearTextfield.clear();
+        startStationIDTextfield.clear();
+        endStationIDTextfield.clear();
+
+    }
+
+    public void clearWifi() {
+
+        providerTextfield.clear();
+        locationWifiTextfield.clear();
+        cityWifiTextfield.clear();
+        SSIDTextfield.clear();
+        remarksTextfield.clear();
+        longitudeTextfield.clear();
+        latitudeTextfield.clear();
+
+    }
+
+    public void clearRetailer() {
+
+        nameTextfield.clear();
+        ZIPTextfield.clear();
+        cityRetailerTextfield.clear();
+        pAddressTextfield.clear();
+        sAddressTextfield.clear();
+
+    }
+
+
+    public void clearAllFields() {
+
+        nameTextfield.clear();
+        ZIPTextfield.clear();
+        cityRetailerTextfield.clear();
+        pAddressTextfield.clear();
+        sAddressTextfield.clear();
+
+        startTimeTextfield.clear();
+        endTimeTextfield.clear();
+        bikeIDTextfield.clear();
+        birthYearTextfield.clear();
+        startStationIDTextfield.clear();
+        endStationIDTextfield.clear();
+
+        providerTextfield.clear();
+        locationWifiTextfield.clear();
+        cityWifiTextfield.clear();
+        SSIDTextfield.clear();
+        remarksTextfield.clear();
+        longitudeTextfield.clear();
+        latitudeTextfield.clear();
+
+
+
+    }
+
 
 }
