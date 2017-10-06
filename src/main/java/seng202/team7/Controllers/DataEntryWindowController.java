@@ -1,6 +1,7 @@
 package seng202.team7.Controllers;
 
 
+//import com.sun.deploy.util.ArrayUtil;
 import javafx.application.Application;
 import javafx.beans.InvalidationListener;
 import javafx.beans.property.StringProperty;
@@ -203,7 +204,7 @@ public class DataEntryWindowController implements Initializable{
 
         else {
 
-            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+            if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
 
@@ -282,7 +283,7 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
-            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+            if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
 
@@ -351,7 +352,8 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
-            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+
+            if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
 
@@ -429,7 +431,7 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
-            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+            if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
 
