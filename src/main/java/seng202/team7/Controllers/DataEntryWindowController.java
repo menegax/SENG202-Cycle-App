@@ -26,6 +26,9 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.*;
 
+import static seng202.team7.Datagroup.addDatagroup;
+import static seng202.team7.Datagroup.getDatagroups;
+
 /**
  * Controls manual data entry and data uploaded via csv
  * @author Lachlan Brewster
@@ -77,9 +80,7 @@ public class DataEntryWindowController implements Initializable{
 
     @FXML public void setDataGroupComboItems() {
 
-        ObservableList<String> items = FXCollections.observableArrayList("test","test2","test3","test3","test4");
-        ObservableList<String> items2 = FXCollections.observableArrayList("DATA GROUP QUERY GO HERE");
-
+        ObservableList<String> items = FXCollections.observableArrayList(getDatagroups());
         dataGroupCombo.setItems(items);
     }
 
@@ -203,6 +204,10 @@ public class DataEntryWindowController implements Initializable{
 
         else {
 
+            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
+
             Stage stage = new Stage();
             FileChooser chooser = new FileChooser();
             File file = chooser.showOpenDialog(stage);
@@ -278,6 +283,10 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
+            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
+
             try {
                 String nameRetailer = nameTextfield.getText();
                 String state = (String ) stateComboBox.getValue();
@@ -342,6 +351,10 @@ public class DataEntryWindowController implements Initializable{
 
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
+
+            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             try {
 
@@ -416,6 +429,10 @@ public class DataEntryWindowController implements Initializable{
 
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
+
+            if (!Arrays.asList(getDatagroups()).contains(dataGroup)) {
+                addDatagroup(dataGroup);
+            }
 
             try {
 
@@ -576,9 +593,5 @@ public class DataEntryWindowController implements Initializable{
         }
 
     }
-
-
-
-
 
 }
