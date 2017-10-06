@@ -84,7 +84,6 @@ public class DataEntryWindowController implements Initializable{
         dataGroupCombo.setItems(items);
     }
 
-
     /**
      * Initializes the formatting listeners for the appropriate text fields
      * @param url Just a testing argument
