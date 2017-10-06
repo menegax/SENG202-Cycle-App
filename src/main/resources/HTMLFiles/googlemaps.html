@@ -31,19 +31,26 @@
 
 
         var retailerRed = {
-            url: 'img/retailerBlue.png',
+            url: 'img/retailerRed.png',
             anchor: new google.maps.Point(0,8),
             size: new google.maps.Size(16,16)
         };
+
+        var retailerPurple = {
+            url: 'img/retailerPurple.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
+
 
         var retailerGreen = {
-            url: 'img/retailerBlue.png',
+            url: 'img/retailerGreen.png',
             anchor: new google.maps.Point(0,8),
             size: new google.maps.Size(16,16)
         };
 
-        var retailerYellow = {
-            url: 'img/retailerBlue.png',
+        var retailerOrange= {
+            url: 'img/retailerOrange.png',
             anchor: new google.maps.Point(0,8),
             size: new google.maps.Size(16,16)
         };
@@ -136,7 +143,7 @@
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
-        //icon: wifiBlue,
+        icon: wifiBlue,
         title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
         });
 		wifiMarkers.push(marker);
@@ -174,13 +181,47 @@
         var latlon = {lat: retailer.getLatitude(), lng: retailer.getLongitude()};
         //Creates a new marker for the wifi object at the specified lat and lon
         //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
-        var marker = new google.maps.Marker({
-        position: latlon,
-        map: map,
-        title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
-        });
-		retailerMarkers.push(marker);
-        
+        if (retailer.getTypeID() == 'Shopping' || retailer.getTypeID() == null) {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerBlue,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == 'Food') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerGreen,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == 'Nightlife') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerPurple,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == 'Personal/Professional Services') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerOrange,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == 'Visitor Services') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerRed,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        }
 		}catch(e){console.log("error processing retailer point");}
         }
 		retailers = null;

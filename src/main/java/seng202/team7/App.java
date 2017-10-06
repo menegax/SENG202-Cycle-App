@@ -29,9 +29,9 @@ public class App
         System.out.println(retailer.getLatitude());
         System.out.println(retailer.getLongitude());
 
-        Retailer retailers = new Retailer("bob's burgers", "New York", "57 Murray Street", "" ,"NY", 10007, "F-Coffeehouse", "Casual Eating & Takeout", "retailer");
-        System.out.println(retailers.getLatitude());
-        System.out.println(retailers.getLongitude());
+        Retailer retailers = new Retailer("bob's burgers", "New York", "57 Murray Street", "" ,"NY", 10007, "Shopping", "Casual Eating & Takeout", "retailer");
+        System.out.println(retailers.getType());
+        System.out.println(retailers.getTypeID());
 
 
 
