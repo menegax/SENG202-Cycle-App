@@ -600,6 +600,7 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
+
     public void clearTrip() {
 
         startTimeTextfield.clear();
@@ -657,9 +658,6 @@ public class DataEntryWindowController implements Initializable{
         longitudeTextfield.clear();
         latitudeTextfield.clear();
 
-
-
     }
-
 
 }
