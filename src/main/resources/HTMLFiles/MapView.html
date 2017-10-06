@@ -62,10 +62,10 @@
 
 
 		var heatMaps = [];
-        function loadHeat(datagroup)
+        function loadHeat(datagroup, gender, age, userType, density)
         {
             console.log("heatmap");
-            var points = Abridge.getPointsJS(datagroup.toString());
+            var points = Abridge.getPointsJS(datagroup.toString(), gender.toString(), age.toString(), userType.toString(), density.toString());
 			console.log("heatmap2");
             var heatMapPoints = [];
             for(var i = 0; i < points.size(); i++)

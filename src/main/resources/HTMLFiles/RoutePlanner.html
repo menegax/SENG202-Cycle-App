@@ -51,8 +51,8 @@
 </head>
 <body>
 <div id="floating-panel">
-    <input id="address" type="textbox" value="New York, NY">
-    <input id="address1" type="textbox" value="New York, NY">
+    <input id="address" type="textbox" value="">
+    <input id="address1" type="textbox" value="">
     <input id="submit" type="button" value="Show Route">
 </div>
 <div id="floating-panel1">
@@ -65,24 +65,28 @@
 <script>
     var map;
     var bridge;
-    var marker1;
     var mapList;
+    var placeLoc;
+    var count;
     /**
      * initialises the route planning map
      */
     function initMap() {
         var directionsService = new google.maps.DirectionsService;
-        var directionsDisplay = new google.maps.DirectionsRenderer;
-        console.log("test");
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+            draggable: true,
+            travelMode: 'BICYCLING'
+        });
         //creates map to the desired type
         map = new google.maps.Map(document.getElementById('map'), {
-            zoom: 4,
+            zoom: 14,
             center: {lat: 40.7128, lng: -74.0059}
         });
         //creates map and display it
         directionsDisplay.setMap(map);
 
         var service = new google.maps.DistanceMatrixService();
+        var geocoder = new google.maps.Geocoder;
 
         document.getElementById('submit').addEventListener('click', function() {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -94,9 +98,10 @@
                     unitSystem: google.maps.UnitSystem.METRIC,
                 }, callback);
         });
-
-        var count = 0;
+        count = 0;
         mapList = [];
+        var input;
+        placeLoc = [];
         google.maps.event.addListener(map, 'click', function(event) {
             marker = new google.maps.Marker({
                 position: event.latLng,
@@ -104,15 +109,50 @@
                 draggable: true
             });
             mapList.push(marker);
-/*            if (mapList.length = 2)
+            geocodeLatLng(geocoder, map, mapList.length - 1);
+            if (mapList.length == 2)
             {
-                calculateAndDisplay(directionsService, directionsDisplay);
-            } else */if (mapList.length > 2)
-            {
-                var deleteMarker = mapList[0];
+                deleteMarker = mapList[0];
+                deleteMarker.setMap(null);
+                deleteMarker = mapList[1];
                 deleteMarker.setMap(null);
                 mapList.shift();
-                /*calculateAndDisplay(directionsService, directionsDisplay);*/
+                placeLoc.shift();
+            }
+        });
+        directionsDisplay.addListener('directions_changed', function() {
+            computeTotalDistance(directionsDisplay.getDirections());
+        });
+
+    }
+
+    function geocodeLatLng(geocoder, map, index) {
+/*
+        console.log(JSON.stringify(mapList[0].getPosition(), null, 2));
+*/
+        console.log(index);
+        var latlngStr = mapList[index].getPosition().lat() + ',' + mapList[0].getPosition().lng();
+        var latlngStr = latlngStr.split(',', 2);
+        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+        geocoder.geocode({'location': latlng}, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    map.setZoom(11);
+                    if (index == 0 || count % 2 == 0)
+                    {
+                        document.getElementById('address').value = results[0].formatted_address;
+                        count++;
+                    }
+
+                    else {
+                        document.getElementById('address1').value = results[0].formatted_address;
+                        count++;
+                    }
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
             }
         });
     }
@@ -132,23 +172,25 @@
                     outputDiv.innerHTML += distance;
                 }
             }
-            console.log(response);
         }
     }
 
-/*    function calculateAndDisplay(directionsService, directionsDisplay) {
-        directionsService.route({
-            origin: document.getElementById(mapList[0]).value,
-            destination: document.getElementById(mapList[1]).value,
-            travelMode: 'BICYCLING'
-        }, function(response, status) {
-            if (status === 'OK') {
-                directionsDisplay.setDirections(response);
-            } else {
-                window.alert('Directions request failed due to ' + status);
-            }
-        });
-    }*/
+    function computeTotalDistance(result) {
+        var total = 0;
+        var myroute = result.routes[0];
+        for (var i = 0; i < myroute.legs.length; i++) {
+            total += myroute.legs[i].distance.value;
+        }
+        total = total / 1000;
+        if (total > 1)
+        {
+            document.getElementById('output').innerHTML = total + ' km';
+        }
+        else {
+            total = total * 1000;
+            document.getElementById('output').innerHTML = total + ' m';
+        }
+    }
 
 
     /**
