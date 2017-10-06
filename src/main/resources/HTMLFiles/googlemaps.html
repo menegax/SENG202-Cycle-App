@@ -140,15 +140,33 @@
         var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
         //Creates a new marker for the wifi object at the specified lat and lon
         //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
-        var marker = new google.maps.Marker({
-        position: latlon,
-        map: map,
-        icon: wifiBlue,
-        title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
-        });
-		wifiMarkers.push(marker);
-        //logger to make sure everything is working as expected.
-        //console.log("Index: " + i + ", Model: " + wifi.getType() + ", Total Size: " + sizeW);
+        if (wifi.getType() == 'Free' || wifi.getType() == null) {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: wifiBlue,
+                title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
+            });
+            wifiMarkers.push(marker);
+            //logger to make sure everything is working as expected.
+            //console.log("Index: " + i + ", Model: " + wifi.getType() + ", Total Size: " + sizeW);
+        } else if (wifi.getType() == 'Limited Free') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: wifiGreen,
+                title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
+            });
+            wifiMarkers.push(marker);
+        }  else if (wifi.getType() == 'Partner Site') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: wifiRed,
+                title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
+            });
+            wifiMarkers.push(marker);
+        }
 		}catch(e){console.log("error processing wifi point");}
         }
 		wifis = null;
