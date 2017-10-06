@@ -54,6 +54,12 @@
             anchor: new google.maps.Point(0,8),
             size: new google.maps.Size(16,16)
         };
+
+        var retailerCyan= {
+            url: 'img/retailerCyan.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
 	
         
 		
@@ -199,7 +205,7 @@
         var latlon = {lat: retailer.getLatitude(), lng: retailer.getLongitude()};
         //Creates a new marker for the wifi object at the specified lat and lon
         //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
-        if (retailer.getTypeID() == 'Shopping' || retailer.getTypeID() == null) {
+        if (retailer.getTypeID() == 'Shopping') {
             var marker = new google.maps.Marker({
                 position: latlon,
                 map: map,
@@ -237,6 +243,22 @@
                 map: map,
                 icon: retailerRed,
                 title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == 'Community Resources') {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerCyan,
+                title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+            });
+            retailerMarkers.push(marker);
+        } else if (retailer.getTypeID() == null) {
+            var marker = new google.maps.Marker({
+                position: latlon,
+                map: map,
+                icon: retailerBlue,
+                title: 'Name: ' + retailer.getName() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
             });
             retailerMarkers.push(marker);
         }
