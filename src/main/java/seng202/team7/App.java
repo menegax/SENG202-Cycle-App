@@ -99,14 +99,14 @@ public class App
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 
-        for(Retailer r : databaseRetriever.getOnlineRetailerList())
+        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], "test")))
         {
             r.print();
         }
 
-        for(Wifi w : databaseRetriever.getOnlineWifiList())
+        for(Wifi w : databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], "test")))
         {
-            w.print();
+             System.out.println(w.getDataGroup());
         }
 ////        DatabaseUpdater databaseUpdater = new DatabaseUpdater();
 //
