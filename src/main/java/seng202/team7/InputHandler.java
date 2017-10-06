@@ -364,7 +364,7 @@ public class InputHandler {
             validRetailer = "Invalid retailer type " + retailer.getType();
         }
 
-        else if (retailer.getTypeID().length() > 31) {
+        else if (retailer.getTypeID().length() > 31 || retailer.getTypeID().length() < 1) {
             validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
 
