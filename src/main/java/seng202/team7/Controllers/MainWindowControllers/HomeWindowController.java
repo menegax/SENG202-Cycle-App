@@ -28,15 +28,28 @@ public class HomeWindowController implements Initializable{
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Makes it so the image re-sizes
-        backgroundImage.fitWidthProperty().bind(mainHomeAnchorPane.widthProperty());
-        mainHomeAnchorPane.widthProperty().addListener((v, oldValue, newValue) -> setFontSize());
+        //backgroundImage.fitWidthProperty().bind(mainHomeAnchorPane.widthProperty());
+        mainHomeAnchorPane.widthProperty().addListener((v, oldValue, newValue) -> resize());
+        mainHomeAnchorPane.heightProperty().addListener((v, oldValue, newValue) -> resize());
+    }
+
+    private void resize() {
+        if (mainHomeAnchorPane.getWidth() < mainHomeAnchorPane.getHeight()) {
+            backgroundImage.setFitHeight(mainHomeAnchorPane.getHeight());
+        } else {
+            backgroundImage.setFitHeight((mainHomeAnchorPane.getWidth()));
+        }
+        setFontSize();
     }
 
     /**
      * Sets the title of the home window's font to an appropriate size scaling with the mainHomeAnchorPane
      */
     private void setFontSize(){
-        double size = mainHomeAnchorPane.getWidth() / 25;
+        double size = mainHomeAnchorPane.getWidth() / 22;
+        if (size < 20) {
+            size = 20;
+        }
         headingText.setFont(Font.font("Tahoma", size));
     }
 }
