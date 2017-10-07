@@ -18,4 +18,18 @@ public class RouteHandler {
 
         return databaseRetriever.getStationList();
     }
+
+    public List<Wifi> getWifiJSType(String type)
+    {
+        if(type.equals("All") || type.equals(""))
+            return databaseRetriever.getWifiList();
+        return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[2],type));
+    }
+
+    public List<Retailer> getRetailerJSType(String type)
+    {
+        if(type.equals("All") || type.equals(""))
+            return databaseRetriever.getRetailerList();
+        return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[7], type));
+    }
 }

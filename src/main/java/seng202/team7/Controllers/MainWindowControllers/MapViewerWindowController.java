@@ -178,7 +178,7 @@ public class MapViewerWindowController implements Initializable {
     public void displayWifi()
     {
 
-        jsObject.setMember("Mbridge", jshandler);
+        //jsObject.setMember("Mbridge", jshandler);
         String burough = mapComboBorough.getSelectionModel().selectedItemProperty().getValue();
         String type = mapComboWifiType.getSelectionModel().selectedItemProperty().getValue();
         String provider = mapComboProvider.getSelectionModel().selectedItemProperty().getValue();
@@ -193,6 +193,11 @@ public class MapViewerWindowController implements Initializable {
     }
 
 
+    public void clearWifi()
+    {
+        jsObject.call("deleteWifiMarkers");
+    }
+
     /**
      * Method used to display retailers on the map
      * is called when the view retailers button is clicked in the map view
@@ -200,7 +205,7 @@ public class MapViewerWindowController implements Initializable {
      */
     public void displayRetailer()
     {
-        jsObject.setMember("Mbridge", jshandler);
+        //jsObject.setMember("Mbridge", jshandler);
 
         String zip = mapComboZipcode.getSelectionModel().selectedItemProperty().getValue();
         String typeR = mapComboRetailerType.getSelectionModel().selectedItemProperty().getValue();
@@ -213,6 +218,11 @@ public class MapViewerWindowController implements Initializable {
         System.out.println(listo.size());
 
         jsObject.call("loadRetailers",zip,typeR,street);
+    }
+
+    public void clearRetailer()
+    {
+        jsObject.call("deleteRetailerMarkers");
     }
 }
 

@@ -38,6 +38,7 @@ public class MapAnalyticController implements Initializable {
     private boolean retailerToggled = false;
     private WebEngine webEngine;
     private JSObject jsObject;
+    private JSHandler jsHandler;
 
     /**
      * todo
@@ -57,7 +58,8 @@ public class MapAnalyticController implements Initializable {
         webEngine.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 jsObject = (JSObject) webEngine.executeScript("window");
-                jsObject.setMember("Abridge", new JSHandler());
+                jsHandler = new JSHandler();
+                jsObject.setMember("Abridge", jsHandler);
                 System.out.println("set bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
@@ -115,21 +117,18 @@ public class MapAnalyticController implements Initializable {
         }
 
         System.out.println("display");
-        jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("loadHeat",tripGroup, gender, age, userType, density);
     }
 
 
     public void clearClicked()
     {
-        jsObject.setMember("Abridge", new JSHandler());
         jsObject.call("clearHeat");
     }
 
 
     public void retailerClicked()
     {
-        jsObject.setMember("Abridge", new JSHandler());
         System.out.println("retailer clicked");
         if(!retailerToggled) {
             System.out.println("retailer on");
@@ -149,7 +148,6 @@ public class MapAnalyticController implements Initializable {
 
     public void wifiClicked()
     {
-        jsObject.setMember("Abridge", new JSHandler());
         System.out.println("wifi clicked");
         if(!wifiToggled) {
             System.out.println("wifi on");

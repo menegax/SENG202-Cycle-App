@@ -53,9 +53,9 @@ public class RoutePlannerViewerController implements Initializable{
         webEngine1.setJavaScriptEnabled(true);
         webEngine1.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
-                JSObject jsObject = (JSObject) webEngine1.executeScript("window");
-                jsObject.setMember("bridge", new RouteHandler());
-                jsBridge1 = (JSObject) webEngine1.executeScript("getJsConnector();");
+                jsBridge1 = (JSObject) webEngine1.executeScript("window");
+                jsBridge1.setMember("bridge", new RouteHandler());
+                //jsBridge1 = (JSObject) webEngine1.executeScript("getJsConnector();");
             }
         });
         webEngine1.load(getClass().getClassLoader().getResource("HTMLFiles/RoutePlanner.html").toExternalForm());
@@ -75,11 +75,13 @@ public class RoutePlannerViewerController implements Initializable{
 
 
     public void displayWifis() {
-        // TODO: 5/10/2017
+        jsBridge1.setMember("bridge", new RouteHandler());
+        jsBridge1.call("loadWifiType", wifiTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void displayRetailers() {
-        // TODO: 5/10/2017
+        jsBridge1.setMember("bridge", new RouteHandler());
+        jsBridge1.call("loadRetailerType", retailerTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void addWifi() {
