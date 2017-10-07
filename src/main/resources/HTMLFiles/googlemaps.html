@@ -18,6 +18,7 @@
     </script>
     <script type="text/javascript">
         var map;
+        var geocoder;
         var Mbridge;
         var wifiMarkers = [];
         var retailerMarkers = [];
@@ -57,6 +58,7 @@
         map = new google.maps.Map(document.getElementById("map_canvas"),
         mapOptions);
         console.log("javascript console");
+        geocoder = new google.maps.Geocoder;
         }
 
 
@@ -99,7 +101,6 @@
         //creates a location for the pointer using the wifi object
         var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
         //Creates a new marker for the wifi object at the specified lat and lon
-        //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
         var marker = new google.maps.Marker({
         position: latlon,
         map: map,
