@@ -1,6 +1,11 @@
 package seng202.team7;
 
+import com.sun.org.apache.regexp.internal.RE;
+
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * Acts as the handler between java and javascript to pass objects into google maps javascript API
@@ -18,13 +23,105 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<Station> getStationJS(){
+        return databaseRetriever.getStationList();
+    }
+
+    public List<Wifi> getWifiJSDatagroup(String datagroup)
+    {
+        for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
+            w.print();
+        }
+        return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup));
+    }
+
+    public List<Retailer> getRetailerJSDatagroup(String datagroup)
+    {
+        for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup))){
+            r.print();
+        }
+        return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup));
+    }
+
     public List<PointM> getPointsJS(String datagroup)
     {
 
         //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
         System.out.println(Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10")));
         return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT " + StaticVariables.limit));
+
     }
+
+    public List<PointM> getPointsJS(String datagroup, String gender, String age, String userType, String density)
+    {
+        ArrayList<String> genderList = new ArrayList<String>();
+        ArrayList<String> userTypeList = new ArrayList<String>();
+        int lowAge;
+        int highAge;
+//        String[] userTypeList = {};
+        if(gender.equals("All")){
+            genderList.add("Male");
+            genderList.add("Female");
+            genderList.add("Unkown");
+        } else {
+            genderList.add(gender);
+        }
+
+        if(userType.equals("All")){
+            userTypeList.add("Subscriber");
+            userTypeList.add("Customer");
+        } else {
+            userTypeList.add(userType);
+        }
+
+        if(age.equals("All")) {
+            lowAge = 0;
+            highAge = Integer.MAX_VALUE;
+        } else {
+            String low = age.split("-")[0];
+            String high = age.split("-")[1];
+            high = high.replace("+", "");
+            lowAge = Integer.parseInt(low);
+            highAge = Integer.parseInt(high);
+            if(highAge == 55){
+                highAge = Integer.MAX_VALUE;
+            }
+        }
+        switch (density) {
+            case ("Low"):
+                StaticVariables.pointMultiplier = 1000;
+                System.out.println("Low");
+                break;
+
+            case ("Medium"):
+                StaticVariables.pointMultiplier = 2500;
+                break;
+            case ("High"):
+                StaticVariables.pointMultiplier = 5000;
+                break;
+            default:
+                StaticVariables.pointMultiplier = 2500;
+                break;
+        }
+
+
+
+
+//
+//        String query = "SELECT id FROM " + Trip.tableName + " WHERE LOWER(" + Trip.columns[7] + ") in (" + genderList +") AND LOWER("+Trip.columns[9] +") in ("+ userTypeList;
+        ArrayList<Trip> trips = new ArrayList<Trip>();
+        for(Trip t : databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15], datagroup)))
+        {
+            if(StaticVariables.stringInArray(t.getUserType(), userTypeList) && StaticVariables.stringInArray(t.getGender(), genderList) && t.getAge() >= lowAge && t.getAge() <= highAge )
+                trips.add(t);
+        }
+        //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
+        //System.out.println(Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10")));
+        //return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT " + StaticVariables.limit));
+        return Analytics.checkRoutes(trips);
+
+    }
+
 
     /**
      * Returns a list of Wifi objects for use in the MapViewer filtered by 3 parameters
@@ -124,6 +221,17 @@ public class JSHandler {
 
 
 
+    class Age
+    {
+        public String ageString;
+        public int ageLow;
+        public int ageHigh;
+
+        public Age(String ageString)
+        {
+            this.ageString = ageString;
+        }
+    }
 
 
 }
