@@ -30,7 +30,7 @@ public class StaticVariables {
      * String for making a date object from the string supplied in the csv
      */
     public static SimpleDateFormat ft = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-    public static SimpleDateFormat ift = new SimpleDateFormat("yyyy/MM/dd hh:mm:ss");
+    public static SimpleDateFormat ift = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
 
     /**
      * Creates an SQL query String for search by an int

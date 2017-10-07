@@ -68,6 +68,15 @@
     var mapList;
     var placeLoc;
     var count;
+    var wifiMarkers = [];
+    var retailerMarkers = [];
+
+
+
+
+
+
+
     /**
      * initialises the route planning map
      */
@@ -87,6 +96,8 @@
 
         var service = new google.maps.DistanceMatrixService();
         var geocoder = new google.maps.Geocoder;
+
+        loadStation();
 
         document.getElementById('submit').addEventListener('click', function() {
             calculateAndDisplayRoute(directionsService, directionsDisplay);
@@ -130,20 +141,18 @@
 /*
         console.log(JSON.stringify(mapList[0].getPosition(), null, 2));
 */
-        console.log(index);
         var latlngStr = mapList[index].getPosition().lat() + ',' + mapList[0].getPosition().lng();
         var latlngStr = latlngStr.split(',', 2);
         var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === 'OK') {
                 if (results[0]) {
-                    map.setZoom(11);
+                    map.setZoom(14);
                     if (index == 0 || count % 2 == 0)
                     {
                         document.getElementById('address').value = results[0].formatted_address;
                         count++;
                     }
-
                     else {
                         document.getElementById('address1').value = results[0].formatted_address;
                         count++;
@@ -216,6 +225,12 @@
      * Loads the bike stations from the database onto the maps
      */
     function loadStation(){
+        var stationRed = {
+            url: 'img/stationRed.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
+
         console.log("in station function");
         //loads station objects from JShandler through bridge specified in controller
         var stations = bridge.getStationJS();
@@ -229,12 +244,155 @@
             var marker = new google.maps.Marker({
                 position: latlon,
                 map: map,
+                icon: stationRed,
                 title: 'station'
             });
             //logger to make sure everything is working as expected.
             console.log("Index: " + i + ", Model: " + station.getLatitude() + ", Total Size: " + stations.size());
         }
     }
+
+
+    function loadWifiType(type){
+        deleteWifiMarkers();
+        var wifiBlue = {
+            //free
+            url:'img/wifiBlue.png',
+            size: new google.maps.Size(16,16),
+            anchor: new google.maps.Point(0,8)
+        };
+        console.log("type = " + type);
+        console.log("in wifi function");
+        //loads wifi objects from JShandler through bridge specified in controller
+        try{
+
+            var wifis = bridge.getWifiJSType(type.toString());
+        } catch(e) {
+            console.log("wifis failed");
+        }
+        //var wifis = Mbridge.getWifiJS();
+        try{
+            var sizeW = wifis.size();
+            console.log("wifi size: " + sizeW);
+        } catch(e){
+            console.log("wifi size failed");
+            console.log(e.message);
+        }
+
+        //loops through all wifi objects
+        for(var i =0; i < sizeW; i++){
+            try{
+                var wifi = wifis.get(i);
+                //creates a location for the pointer using the wifi object
+                var latlon = {lat: wifi.getLatitude(), lng: wifi.getLongitude()};
+                //Creates a new marker for the wifi object at the specified lat and lon
+                //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
+                var marker = new google.maps.Marker({
+                    position: latlon,
+                    map: map,
+                    icon: wifiBlue,
+                    title: 'Name: ' + wifi.getSSID() + '\nProvider: ' + wifi.getProvider() + '\nType: ' + wifi.getType() + '\nLocation: ' + wifi.getLocation() + '\nBorough: ' + wifi.getBorough()
+                });
+                wifiMarkers.push(marker);
+                //logger to make sure everything is working as expected.
+                //console.log("Index: " + i + ", Model: " + wifi.getType() + ", Total Size: " + sizeW);
+            }catch(e){console.log("error processing wifi point");}
+        }
+        wifis = null;
+    }
+
+
+
+    function loadRetailerType(type) {
+
+        var retailerOrange= {
+            url: 'img/retailerOrange.png',
+            anchor: new google.maps.Point(0,8),
+            size: new google.maps.Size(16,16)
+        };
+
+        console.log("type = " + type.toString());
+        deleteRetailerMarkers();
+        //loads Retailer objects from JShandler through bridge specified in controller
+
+        try{
+
+            var retailers = bridge.getRetailerJSType(type.toString());
+        } catch(e) {
+            console.log("retailers failed");
+        }
+        try{
+            var sizeR = retailers.size();
+            console.log("retailer size: " + sizeR);
+        } catch(e){
+            console.log("retailer size failed");
+            console.log(e.message);
+        }
+
+        //loops through all retailer objects
+        for(var i =0; i < sizeR; i++){
+            console.log("retailer marker");
+            try{
+                var retailer = retailers.get(i);
+                //creates a location for the pointer using the wifi object
+                var latlon = {lat: retailer.getLatitude(), lng: retailer.getLongitude()};
+                //Creates a new marker for the wifi object at the specified lat and lon
+                //var image_1 = 'C:\Users\Mitch\Documents\Desktop\Uni\Third Year\SENG202\Team7_Seng202\icons\wifi.png';
+                var marker = new google.maps.Marker({
+                    position: latlon,
+                    map: map,
+                    icon: retailerOrange,
+                    title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
+                });
+                retailerMarkers.push(marker);
+
+            }catch(e){console.log("error processing retailer point");}
+        }
+        retailers = null;
+
+    }
+
+
+    // Sets the map on all markers in the array.
+    function setMapOnAllWifi(map) {
+        for (var i = 0; i < wifiMarkers.length; i++) {
+            wifiMarkers[i].setMap(map);
+        }
+    }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearWifiMarkers() {
+        setMapOnAllWifi(null);
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteWifiMarkers() {
+        clearWifiMarkers();
+        wifiMarkers = [];
+    }
+
+    // Sets the map on all markers in the array.
+    function setMapOnAllRetailer(map) {
+        for (var i = 0; i < retailerMarkers.length; i++) {
+            retailerMarkers[i].setMap(map);
+        }
+    }
+
+    // Removes the markers from the map, but keeps them in the array.
+    function clearRetailerMarkers() {
+        setMapOnAllRetailer(null);
+    }
+
+    // Deletes all markers in the array by removing references to them.
+    function deleteRetailerMarkers() {
+        clearRetailerMarkers();
+        retailerMarkers = [];
+    }
+
+
+
+
+
 
     var jsConnector = {
         showResult: function (result) {

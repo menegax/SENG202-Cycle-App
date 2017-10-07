@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<fx:root type="javafx.scene.layout.AnchorPane" fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="seng202.team7.Controllers.LoadingPopupController">
+<fx:root type="javafx.scene.layout.AnchorPane" fx:id="mainContainer" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="288.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/2.2" fx:controller="seng202.team7.Controllers.MainWindowControllers.LoadingPopupController">
   <children>
     <Button layoutX="263.0" layoutY="209.0" mnemonicParsing="false" onAction="#close" text="Close" />
     <Text fill="#ffb800" layoutX="245.0" layoutY="80.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Caution!">
