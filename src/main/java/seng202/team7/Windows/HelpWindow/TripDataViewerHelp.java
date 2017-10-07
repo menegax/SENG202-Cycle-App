@@ -4,10 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
-public class HelpWindow extends AnchorPane {
+public class TripDataViewerHelp extends AnchorPane {
 
-    public HelpWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/HelpWindow.fxml"));
+    public TripDataViewerHelp(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/TripDataViewerHelp.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();

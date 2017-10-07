@@ -4,10 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
-public class RoutePlannerHelpViewerWindow extends AnchorPane {
+public class RetailerDataViewerHelp extends AnchorPane {
 
-    public RoutePlannerHelpViewerWindow(){
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/RoutePlannerHelp.fxml"));
+    public RetailerDataViewerHelp(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/RetailerDataViewerHelp.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();

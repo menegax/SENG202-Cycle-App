@@ -4,10 +4,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
-public class HelpWindow extends AnchorPane {
+public class WifiDataViewerHelp extends AnchorPane {
 
-    public HelpWindow() {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/HelpWindow.fxml"));
+    public WifiDataViewerHelp(){
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/HelpWindow/WifiDataViewerHelp.fxml"));
         fxmlLoader.setRoot(this);
         try {
             fxmlLoader.load();

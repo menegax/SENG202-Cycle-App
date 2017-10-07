@@ -7,7 +7,7 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import seng202.team7.Windows.HelpWindow.RoutePlannerHelpViewerWindow;
+import seng202.team7.Windows.HelpWindow.*;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -17,34 +17,33 @@ public class HelpWindowController implements Initializable{
     @FXML private BorderPane helpBorderPane;
     @FXML private AnchorPane helpCenterAnchorPane;
 
-    //    private HomeHelpWindow homeHelpViewer;
-    private RoutePlannerHelpViewerWindow routePlannerHelp;
-    //    private MapViewerHelpWindow mapHelpViewer;
-//    private RetailerDataViewerHelpWindow retailerHelpViewer;
-//    private WifiDataViewerHelpWindow wifiHelpViewer;
-//    private TripDataViewerHelpWindow tripHelpViewer;
-//    private DataEntryHelpWindow dataEntryHelpViewer;
-//    private MapAnalyticHelpWindow mapAnalyticHelpViewer;
-//    private TripAnalyticHelpWindow graphHelpViewer;
+    private HomeHelp homeHelp;
+    private RoutePlannerHelp routePlannerHelp;
+    private MapViewerHelp mapViewerHelp;
+    private RetailerDataViewerHelp retailerHelp;
+    private WifiDataViewerHelp wifiHelp;
+    private TripDataViewerHelp tripHelp;
+    private DataEntryHelp dataEntryHelp;
+    private MapAnalyticHelp mapAnalyticHelp;
+    private TripAnalyticHelp graphHelp;
     private String currentWindow;
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set home window as initial window
-//        homeHelpViewer = new HomeWindow();
-//        helpCenterAnchorPane.getChildren().add(homeHelpViewer);
+        homeHelp = new HomeHelp();
+        helpCenterAnchorPane.getChildren().add(homeHelp);
         currentWindow = "Home";
 
         // Initialize different custom panels (Saves loading panel again every time panel is changed)
-        routePlannerHelp = new RoutePlannerHelpViewerWindow();
-        helpCenterAnchorPane.getChildren().add(routePlannerHelp);
-//        mapHelpViewer = new MapViewerWindow();
-//        retailerHelpViewer = new RetailerDataViewerWindow();
-//        wifiHelpViewer = new WifiDataViewerWindow();
-//        tripHelpViewer = new TripDataViewerWindow();
-//        dataEntryHelpViewer = new DataEntryWindow();
-//        mapAnalyticHelpViewer = new MapAnalyticWindow();
-//        graphHelpViewer = new TripAnalyticWindow();
+        routePlannerHelp = new RoutePlannerHelp();
+        mapViewerHelp = new MapViewerHelp();
+        retailerHelp = new RetailerDataViewerHelp();
+        wifiHelp = new WifiDataViewerHelp();
+        tripHelp = new TripDataViewerHelp();
+        dataEntryHelp = new DataEntryHelp();
+        mapAnalyticHelp = new MapAnalyticHelp();
+        graphHelp = new TripAnalyticHelp();
 
         populateNavigationBar();
     }
@@ -109,32 +108,32 @@ public class HelpWindowController implements Initializable{
     private void changeMainScreen(String newScreen) {
         // Removes the current window to make room for the new window
         switch (currentWindow) {
-//            case "Home": removeMainScreen(homeHelpViewer); break;
+            case "Home": removeMainScreen(homeHelp); break;
             case "Route Planning": removeMainScreen(routePlannerHelp); break;
-//            case "Map Viewer": removeMainScreen(mapHelpViewer); break;
-//            case "Analytics": break; // todo
-//            case "Map View": removeMainScreen(mapAnalyticHelpViewer); break;
-//            case "Graph View": removeMainScreen(graphHelpViewer); break;
-//            case "Data Viewer": break; // todo
-//            case "Retailer": removeMainScreen(retailerHelpViewer); break;
-//            case "Trip": removeMainScreen(tripHelpViewer); break;
-//            case "Wifi": removeMainScreen(wifiHelpViewer); break;
-//            case "Data Entry": removeMainScreen(dataEntryHelpViewer); break;
+            case "Map Viewer": removeMainScreen(mapViewerHelp); break;
+            case "Analytics": break; // todo
+            case "Map View": removeMainScreen(mapAnalyticHelp); break;
+            case "Graph View": removeMainScreen(graphHelp); break;
+            case "Data Viewer": break; // todo
+            case "Retailer": removeMainScreen(retailerHelp); break;
+            case "Trip": removeMainScreen(tripHelp); break;
+            case "Wifi": removeMainScreen(wifiHelp); break;
+            case "Data Entry": removeMainScreen(dataEntryHelp); break;
             default: System.out.println("ERROR: No such removal handle exists");
         }
         // Add the new window where the old one was
         switch (newScreen) {
-//            case "Home": setMainScreen(homeHelpViewer); break;
+            case "Home": setMainScreen(homeHelp); break;
             case "Route Planning": setMainScreen(routePlannerHelp); break;
-//            case "Map Viewer": setMainScreen(mapHelpViewer); break;
-//            case "Analytics": break; // todo
-//            case "Map View": setMainScreen(mapAnalyticHelpViewer); break;
-//            case "Graph View": setMainScreen(graphHelpViewer); break;
-//            case "Data Viewer": break; // todo
-//            case "Retailer": setMainScreen(retailerHelpViewer); break;
-//            case "Trip": setMainScreen(tripHelpViewer); break;
-//            case "Wifi": setMainScreen(wifiHelpViewer); break;
-//            case "Data Entry": setMainScreen(dataEntryHelpViewer); break;
+            case "Map Viewer": setMainScreen(mapViewerHelp); break;
+            case "Analytics": break; // todo
+            case "Map View": setMainScreen(mapAnalyticHelp); break;
+            case "Graph View": setMainScreen(graphHelp); break;
+            case "Data Viewer": break; // todo
+            case "Retailer": setMainScreen(retailerHelp); break;
+            case "Trip": setMainScreen(tripHelp); break;
+            case "Wifi": setMainScreen(wifiHelp); break;
+            case "Data Entry": setMainScreen(dataEntryHelp); break;
             default: System.out.println("ERROR: No such set handle exists");
         }
         // Update window tracker
