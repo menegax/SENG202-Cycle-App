@@ -23,6 +23,10 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    public List<Station> getStationJS(){
+        return databaseRetriever.getStationList();
+    }
+
     public List<Wifi> getWifiJSDatagroup(String datagroup)
     {
         for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
