@@ -65,6 +65,8 @@
         function loadHeat(datagroup, gender, age, userType, density)
         {
             console.log("heatmap");
+            //weird error introduced if this console log is not here
+            console.log(datagroup.toString(), gender.toString(), age.toString(), userType.toString(), density.toString());
             var points = Abridge.getPointsJS(datagroup.toString(), gender.toString(), age.toString(), userType.toString(), density.toString());
 			console.log("heatmap2");
             var heatMapPoints = [];
