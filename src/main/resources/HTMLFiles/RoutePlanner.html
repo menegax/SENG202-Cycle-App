@@ -130,20 +130,18 @@
 /*
         console.log(JSON.stringify(mapList[0].getPosition(), null, 2));
 */
-        console.log(index);
         var latlngStr = mapList[index].getPosition().lat() + ',' + mapList[0].getPosition().lng();
         var latlngStr = latlngStr.split(',', 2);
         var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
         geocoder.geocode({'location': latlng}, function (results, status) {
             if (status === 'OK') {
                 if (results[0]) {
-                    map.setZoom(11);
+                    map.setZoom(14);
                     if (index == 0 || count % 2 == 0)
                     {
                         document.getElementById('address').value = results[0].formatted_address;
                         count++;
                     }
-
                     else {
                         document.getElementById('address1').value = results[0].formatted_address;
                         count++;
