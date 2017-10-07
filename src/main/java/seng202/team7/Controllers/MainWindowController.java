@@ -1,15 +1,22 @@
 package seng202.team7.Controllers;
 
+import com.sun.xml.internal.bind.v2.TODO;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 import seng202.team7.Windows.*;
+import seng202.team7.Windows.HelpWindow.HelpWindow;
+
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -17,13 +24,14 @@ import java.util.ResourceBundle;
  * Controls all main window switching for main application
  * @author Connor McEwan-McDowall
  */
-public class MainWindowController implements Initializable{
+public class MainWindowController implements Initializable, EventHandler {
 
     @FXML public BorderPane mainBorderPane;
     @FXML public TreeView<String> navigationTree;
     @FXML public AnchorPane centerAnchorPane;
     @FXML public MenuItem mainMenuExitButton;
     @FXML public Menu mainMenuHelpButton;
+    @FXML public MenuItem currentPageHelpButton;
 
     private HomeWindow homeViewer;
     private RoutePlannerViewerWindow routePlannerViewer;
@@ -62,6 +70,9 @@ public class MainWindowController implements Initializable{
         graphViewer = new TripAnalyticWindow();
 
         populateNavigationBar();
+
+        // Set event handler for help menu button
+        currentPageHelpButton.setOnAction(this);
     }
 
     /**
@@ -175,5 +186,19 @@ public class MainWindowController implements Initializable{
      */
     private void setMainScreen(Node window) {
         centerAnchorPane.getChildren().add(window);
+    }
+
+    @Override
+    public void handle(Event event) {
+        if (event.getSource() == currentPageHelpButton) {
+            HelpWindow helpWindow = new HelpWindow();
+            Scene scene = new Scene(helpWindow);
+            scene.getStylesheets().add(getClass().getClassLoader().getResource("Stylesheets/HelpMenu.css").toExternalForm());
+            Stage HelpStage = new Stage();
+            HelpStage.setTitle("Help");
+            HelpStage.setScene(scene);
+            HelpStage.show();
+            // todo add display certain page here
+        }
     }
 }

@@ -16,7 +16,10 @@
                   <MenuItem fx:id="mainMenuExitButton" mnemonicParsing="false" text="Exit" />
               </items>
            </Menu>
-               <Menu fx:id="mainMenuHelpButton" mnemonicParsing="false" text="Help" />
+               <Menu fx:id="mainMenuHelpButton" mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem fx:id="currentPageHelpButton" mnemonicParsing="false" text="Current Page" />
+               </items></Menu>
        </menus>
     </MenuBar>
   </top>

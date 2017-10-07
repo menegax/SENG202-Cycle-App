@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+
+<fx:root type="AnchorPane" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.HelpWindowControllers.HelpWindowController">
+   <children>
+      <BorderPane fx:id="helpBorderPane" prefHeight="500.0" prefWidth="1100.0" stylesheets="@../../Stylesheets/HelpMenu.css">
+         <center>
+            <AnchorPane fx:id="helpCenterAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../../Stylesheets/MainStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" />
+         </center>
+         <left>
+            <TreeView fx:id="helpNavigationTree" prefHeight="450.0" prefWidth="175.0" stylesheets="@../../Stylesheets/MainStyle.css" BorderPane.alignment="CENTER" />
+         </left>
+      </BorderPane>
+   </children>
+</fx:root>
