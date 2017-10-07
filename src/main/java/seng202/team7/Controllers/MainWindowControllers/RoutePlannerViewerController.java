@@ -38,13 +38,11 @@ public class RoutePlannerViewerController implements Initializable{
      */
     public void initialize(URL url, ResourceBundle rb)
     {
-        String[] wifiTypes = {"Free", "Limited Free", "Partner Site"};
-        wifiTypeCB.getItems().add("All");
+        String[] wifiTypes = {"All", "Free", "Limited Free", "Partner Site"};
         wifiTypeCB.getItems().addAll(wifiTypes);
         wifiTypeCB.getSelectionModel().select(0);
 
-        String[] retailerTypes = {"Food", "Nightlife", "Shopping", "Personal/Professional Services", "Visitor Services", "Community Resources"};
-        retailerTypeCB.getItems().add("All");
+        String[] retailerTypes = {"All", "Food", "Nightlife", "Shopping", "Personal/Professional Services", "Visitor Services", "Community Resources"};
         retailerTypeCB.getItems().addAll(retailerTypes);
         retailerTypeCB.getSelectionModel().select(0);
 
@@ -73,6 +71,13 @@ public class RoutePlannerViewerController implements Initializable{
      */
     public void displayClicked1() { /*webEngine1.executeScript("loadStation();");*/ }
 
+    public void clearWifi() {
+        jsBridge1.call("loadWifiType", "Clear");
+    }
+
+    public void clearRetailer() {
+        jsBridge1.call("loadRetailerType", "Clear");
+    }
 
     public void displayWifis() {
         jsBridge1.setMember("bridge", new RouteHandler());
