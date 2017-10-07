@@ -7,7 +7,6 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import seng202.team7.Windows.*;
 import seng202.team7.Windows.HelpWindow.RoutePlannerHelpViewerWindow;
 
 import java.net.URL;
