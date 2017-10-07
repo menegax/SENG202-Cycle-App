@@ -241,6 +241,12 @@ public class DataEntryWindowController implements Initializable{
                         ArrayList<Data> toAdd;
                         status_text.setText("Parsing " + dataTypeAdded + " csv");
                         toAdd =  toParse.loadCSV(csvFile, dataTypeAdded, dataGroup);
+
+                        if (toAdd.size() == 0 && toParse.getDuplicate_counter() == 0 && toParse.getFail_counter() == 0) {
+                            status_text.setText("Detected wrong data type selected! try again!");
+                            return null;
+                        }
+
                         status_text.setText("Uploading " + dataTypeAdded + " objects");
                         toUpload.addData(toAdd);
                         if (toParse.getFail_counter() == 0) {
@@ -256,11 +262,11 @@ public class DataEntryWindowController implements Initializable{
                                 if (toParse.getDuplicate_counter() == 0) {
                                     status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                             + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                            + " issues, likely empty fields or incorrect formats, or wrong type selected?");
+                                            + " issues, likely empty fields or incorrect formats");
                                 } else {
                                     status_text.setText("Csv file parsed and uploaded, " + toParse.getSuccess_counter() + " "
                                             + dataTypeAdded + " objects added. " + toParse.getFail_counter()
-                                            + " issues, likely empty fields or incorrect formats, or wrong type selected? "
+                                            + " issues, likely empty fields or incorrect formats "
                                             + toParse.getDuplicate_counter() + " duplicates (not added)");
                                 }
 

@@ -45,21 +45,45 @@ public class InputHandler {
         Wifi wifiDataToAdd = null;
         Retailer retailerDataToAdd = null;
 
+        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+        DatabaseUpdater uploader = new DatabaseUpdater();
 
         BufferedReader reader = new BufferedReader(new FileReader(file));   //file in format "blahblahblah.csv"
         String line = reader.readLine(); // Reading header, Ignoring/getting rid of it if there is one
 
-        DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-        DatabaseUpdater uploader = new DatabaseUpdater();
+
+        //to detect if data given is in the correct type for what has been specified
+        if (line.substring(0,36).equals("OBJECTID,the_geom,BORO,TYPE,PROVIDER")) {
+
+            if (!dataType.equals("wifi")) {
+                return data;
+            }
+
+        } else if ((line.substring(0,36).equals("CnBio_Org_Name,CnAdrPrf_Addrline1,Cn"))) {
+
+                if (!dataType.equals("retailer")) {
+                    return data;
+                }
+
+        } else {
+            //must be trip data then
+
+            if (!dataType.equals("trip")) {
+                return data;
+            }
+
+        }
 
 
+        //loop for parsing csv
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
-            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
+            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);         //",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"
             try {
                 switch (dataType) {
 
                     case "wifi":
+
 
                         String borough = fields[2];   //or 18 for full name, not code
                         String type = fields[3];
@@ -132,11 +156,37 @@ public class InputHandler {
 
                     case "trip":
 
-                        int duration = Integer.parseInt(fields[0]);
+                        //some trip files have strangely formatted int values, this fixes most
+                        int birthYear;
+                        int gender;
+                        int startStationID;
+                        int endStationID;
+                        int bikeID;
+                        int duration;
+
+                        if (fields[0].isEmpty() || fields[3].isEmpty() || fields[7].isEmpty() || fields[11].isEmpty()
+                                || fields[13].isEmpty() || fields[14].isEmpty()) {
+                            System.out.println("At least one important number field is empty");
+                            break;
+                        }
+
+                        try {
+                            duration = Integer.parseInt(fields[0]);
+                            startStationID = Integer.parseInt(fields[3]);
+                            endStationID = Integer.parseInt(fields[7]);
+                            bikeID = Integer.parseInt(fields[11]);
+                            birthYear = Integer.parseInt(fields[13]);
+                            gender = Integer.parseInt(fields[14]);
+                        } catch (NumberFormatException e) {
+                            duration = removeQuotesInt(fields[0]);
+                            startStationID = removeQuotesInt(fields[3]);
+                            endStationID = removeQuotesInt(fields[7]);
+                            bikeID = removeQuotesInt(fields[11]);
+                            birthYear = removeQuotesInt(fields[13]);
+                            gender = removeQuotesInt(fields[14]);
+                        }
+
                         String userType = fields[12];
-                        int bikeID = Integer.parseInt(fields[11]);
-                        int gender = Integer.parseInt(fields[14]);
-                        int birthYear = Integer.parseInt(fields[13]);
                         String startDate = fields[1];
                         String endDate = fields[2];
 
@@ -145,20 +195,33 @@ public class InputHandler {
                             startDate = startDate.substring(1, startDate.length() - 1);
                             endDate = endDate.substring(1, endDate.length() - 1);
                         }
+
                         //System.out.println(startDate);
 
                         Station startStation;
                         Station endStation;
-                        //create stations for trip object, first check if they are in DB
 
-                        int startStationID = Integer.parseInt(fields[3]);
+                        //create stations for trip object, first check if they are in DB
                         if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).isEmpty()) {
                             //station isn't in database, so create it
 
+                            double startStationLong = 0;
+                            try {
+                                startStationLong = Double.parseDouble(fields[6]);
+                            } catch (NumberFormatException e) {
+                                startStationLong = removeQuotesDouble(fields[6]);
+                            }
+
+                            double startStationLat = 0;
+                            try {
+                                startStationLat = Double.parseDouble(fields[5]);
+                            } catch (NumberFormatException e) {
+                                startStationLat = removeQuotesDouble(fields[5]);
+                            }
+
                             String startStationAddress = fields[4];
                             String startStationDataGroup = "default";
-                            double startStationLat = Double.parseDouble(fields[5]);
-                            double startStationLong = Double.parseDouble(fields[6]);
+
 
                             //testing station validity, else ditch this piece of data
                             startStation = new Station(startStationID, startStationAddress, startStationDataGroup, startStationLat, startStationLong);
@@ -176,14 +239,27 @@ public class InputHandler {
                         }
 
 
-                        int endStationID = Integer.parseInt(fields[7]);
                         if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).isEmpty()) {
                             //station isn't in database, so create it
 
+                            double endStationLong = 0;
+                            try {
+                                endStationLong = Double.parseDouble(fields[10]);
+                            } catch (NumberFormatException e) {
+                                endStationLong = removeQuotesDouble(fields[10]);
+                            }
+
+                            double endStationLat = 0;
+                            try {
+                                endStationLat = Double.parseDouble(fields[9]);
+                            } catch (NumberFormatException e) {
+                                endStationLat = removeQuotesDouble(fields[9]);
+                            }
+
+
                             String endStationAddress = fields[8];
                             String endStationDataGroup = "default";
-                            double endStationLat = Double.parseDouble(fields[9]);
-                            double endStationLong = Double.parseDouble(fields[10]);
+
 
                             //testing station validity, else ditch this piece of data
                             endStation = new Station(endStationID, endStationAddress, endStationDataGroup, endStationLat, endStationLong);
@@ -204,12 +280,15 @@ public class InputHandler {
 
                         //check if its in the database already, if not then upload it, also checks 'validity'
                         tripDataToAdd = new Trip(startStationID, startStation, endStationID, endStation, duration, startDate, endDate, userType, birthYear, gender, dataGroup, bikeID); //temp test object
+
+
                         hashID = tripDataToAdd.hashCode();
                         if (checkValidity(tripDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0])).isEmpty()) {
                             System.out.println("Trip added to upload list");
                         }
                         else if (!databaseRetriever.getStringListFromInt(dataType, hashID, Trip.columns[0], Trip.columns[0]).isEmpty()) {
                             duplicate_counter++;
+                            System.out.println("duplicate");
                             tripDataToAdd = null;
                         }
                         else {
@@ -224,7 +303,7 @@ public class InputHandler {
 
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
-                //e.printStackTrace();
+                e.printStackTrace();
                 fail_counter++;
                 //System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
@@ -382,12 +461,12 @@ public class InputHandler {
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
             validTrip = "Invalid user type " + trip.getUserType();
         }
-        else if (trip.getStartDate() == null) {
+        /*else if (trip.getStartDate() == null) {
             validTrip = "Start date not set, maybe didn't parse properly";
         }
         else if (trip.getEndDate() == null) {
             validTrip = "End date not set, maybe didn't parse properly";
-        }
+        }*/
 
 
         return validTrip;
@@ -471,6 +550,28 @@ public class InputHandler {
 
 
         return validStation;
+    }
+
+    public int removeQuotesInt(String value) {
+
+        if (value.equals("\"\"")) {
+            return 0;
+        }
+        int result = Integer.parseInt(value.substring(1, value.length() - 1));
+        return result;
+    }
+
+    public double removeQuotesDouble(String value) {
+        if (value.equals("\"\"")) {
+            return 0;
+        }
+        double result = Double.parseDouble(value.substring(1, value.length() - 1));
+        return result;
+    }
+
+    public String removeQuotesStr(String value) {
+        String result = value.substring(1, value.length() - 1);
+        return result;
     }
 
 }
