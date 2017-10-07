@@ -75,15 +75,13 @@ public class RoutePlannerViewerController implements Initializable{
 
 
     public void displayWifis() {
-        String wifiType = "";
         jsBridge1.setMember("bridge", new RouteHandler());
-        jsBridge1.call("loadWifiType",wifiType);
+        jsBridge1.call("loadWifiType", wifiTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void displayRetailers() {
-        String retailerType = "";
         jsBridge1.setMember("bridge", new RouteHandler());
-        jsBridge1.call("loadRetailerType",retailerType);
+        jsBridge1.call("loadRetailerType", retailerTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void addWifi() {
