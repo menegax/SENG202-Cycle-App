@@ -30,6 +30,7 @@ public class RoutePlannerViewerController implements Initializable{
 
     private WebEngine webEngine1;
     private JSObject jsBridge1;
+    private RouteHandler routeHandler;
 
     /**
      * todo
@@ -52,7 +53,8 @@ public class RoutePlannerViewerController implements Initializable{
         webEngine1.getLoadWorker().stateProperty().addListener((observable, oldValue, newValue) -> {
             if (Worker.State.SUCCEEDED == newValue) {
                 jsBridge1 = (JSObject) webEngine1.executeScript("window");
-                jsBridge1.setMember("bridge", new RouteHandler());
+                routeHandler = new RouteHandler();
+                jsBridge1.setMember("bridge", routeHandler);
                 //jsBridge1 = (JSObject) webEngine1.executeScript("getJsConnector();");
             }
         });
@@ -80,23 +82,40 @@ public class RoutePlannerViewerController implements Initializable{
     }
 
     public void displayWifis() {
-        jsBridge1.setMember("bridge", new RouteHandler());
         jsBridge1.call("loadWifiType", wifiTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void displayRetailers() {
-        jsBridge1.setMember("bridge", new RouteHandler());
         jsBridge1.call("loadRetailerType", retailerTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void addWifi() {
-//         Wifi wifi;
-//         if (webview.getSelected == 0) {
-//              wifi = findNearestWifi(webview.getPoint());
-//         } else {
-//              wifi = findNearestWifi(webview.getStart, webView.getEnd);
-//         }
-//         webview.addToRoute(wifi);
+        Integer points = (Integer) jsBridge1.call("getPoints");
+        if (points == 0) {
+            System.out.println("Nothing selected");
+        } else if (points == 1) {
+            String start = (String) jsBridge1.call("getStart");
+            Location startLocation = new Location(Double.valueOf(start.split(",")[0]), Double.valueOf(start.split(",")[1]));
+            try {
+                Wifi nearestWifi = findNearestWifi(startLocation);
+                routeHandler.setLocationToAdd(nearestWifi);
+                jsBridge1.call("addToRoute");
+            } catch (DatabaseEmptyException e) {
+                System.out.println("No wifis!!!!!");
+            }
+        } else {
+            String start = (String) jsBridge1.call("getStart");
+            String end = (String) jsBridge1.call("getEnd");
+            Location startLocation = new Location(Double.valueOf(start.split(",")[0]), Double.valueOf(start.split(",")[1]));
+            Location endLocation = new Location(Double.valueOf(end.split(",")[0]), Double.valueOf(end.split(",")[1]));
+            try {
+                Wifi nearestWifi = findNearestWifi(startLocation, endLocation);
+                routeHandler.setLocationToAdd(nearestWifi);
+                jsBridge1.call("addToRoute");
+            } catch (DatabaseEmptyException e) {
+                System.out.println("No wifis!!!!!");
+            }
+        }
     }
 
     public void addRetailer() {
