@@ -33,7 +33,7 @@
             </PieChart>
             <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                   <TextField fx:id="datagroupField" layoutX="589.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="80.0" promptText="Datagroup" />
+                   <ComboBox fx:id="dataGroupCombo" layoutX="589.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onShowing="#setDataGroupComboItems" prefHeight="25.0" prefWidth="80.0" promptText="DataGroup" />
                        <Button fx:id="distButton" layoutX="591.0" layoutY="198.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#distanceGraph" prefHeight="25.0" prefWidth="80.0" text="Distance" />
                        <Button fx:id="durButton" layoutX="591.0" layoutY="233.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onMouseClicked="#durationGraph" prefHeight="25.0" prefWidth="80.0" text="Duration" />
                   <Button fx:id="ageButton" layoutX="591.0" layoutY="267.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" mnemonicParsing="false" onAction="#ageGraph" prefHeight="25.0" prefWidth="80.0" text="Age" />

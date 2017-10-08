@@ -224,6 +224,11 @@ public class MapViewerWindowController implements Initializable {
     {
         jsObject.call("deleteRetailerMarkers");
     }
+
+    public void clearWifiandRetailer() {
+        jsObject.call("deleteRetailerMarkers");
+        jsObject.call("deleteWifiMarkers");
+    }
 }
 
 

@@ -37,12 +37,12 @@
                   <ComboBox fx:id="userCombo" prefHeight="25.0" prefWidth="109.0" promptText="UserType" />
                   <ComboBox fx:id="ageCombo" prefHeight="25.0" prefWidth="77.0" promptText="Age" />
                   <ComboBox fx:id="densityCombo" prefHeight="25.0" prefWidth="105.0" promptText="Density" />
-                  <TextField fx:id="tripDatagroup" prefHeight="25.0" prefWidth="115.0" promptText="Trip Datagroup" />
+                   <ComboBox fx:id="dataGroupCombo" onShowing="#setDataGroupComboItems" prefHeight="31.0" prefWidth="104.0" promptText="DataGroup" />
                      <Button fx:id="displayButton" mnemonicParsing="false" onAction="#displayClicked" text="Display" />
-                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
-                  <ToggleButton fx:id="wifiButton" mnemonicParsing="false" onAction="#wifiClicked" text="Wifi" />
-                  <ToggleButton fx:id="retailerButton" mnemonicParsing="false" onAction="#retailerClicked" text="Retailer" />
-                  <TextField fx:id="poiDatagroup" prefHeight="25.0" prefWidth="113.0" promptText="POI Datagroup" />
+                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearClicked" prefHeight="31.0" prefWidth="59.0" text="Clear" />
+                  <ToggleButton fx:id="wifiButton" mnemonicParsing="false" onAction="#wifiClicked" text="Show Wifi" />
+                  <ToggleButton fx:id="retailerButton" mnemonicParsing="false" onAction="#retailerClicked" text="Show Retailer" />
+                   <ComboBox fx:id="poiDatagroupCombo" onShowing="#setPOIDataGroupComboItems" prefHeight="25.0" prefWidth="113.0" promptText="POI Datagroup" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

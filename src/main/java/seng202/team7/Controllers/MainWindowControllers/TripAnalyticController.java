@@ -6,12 +6,17 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seng202.team7.DatabaseRetriever;
 import seng202.team7.SQLAnalytics;
+
+import java.util.ArrayList;
+
+import static seng202.team7.Datagroup.getDatagroups;
 
 
 /**
@@ -30,7 +35,14 @@ public class TripAnalyticController{
     @FXML private CategoryAxis barX;
     @FXML private NumberAxis barY;
     @FXML private Text title;
-    @FXML private TextField datagroupField;
+    @FXML private ComboBox dataGroupCombo;
+
+    @FXML public void setDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        dataGroupCombo.setItems(items);
+    }
 
 
     ObservableList<PieChart.Data> pieChartData =
@@ -53,7 +65,14 @@ public class TripAnalyticController{
         Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
         caption.setStyle("-fx-font: 254 arial;");
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         System.out.println(dataGroupToSearch);
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("Male", SQLAnalytics.totalGenderTrips("Male",dataGroupToSearch)));
@@ -74,7 +93,14 @@ public class TripAnalyticController{
     public void userGraph()
     {
         bar.setVisible(false);
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("Customer",SQLAnalytics.totalUserTypeTrips("Customer",dataGroupToSearch)));
         pieChartData.add(new PieChart.Data("Subscriber", SQLAnalytics.totalUserTypeTrips("Subscriber",dataGroupToSearch)));
@@ -92,7 +118,14 @@ public class TripAnalyticController{
     public void ageGraph()
     {
         bar.setVisible(false);
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         pieChartData.clear();
         pieChartData.add(new PieChart.Data("0-15",SQLAnalytics.totalAgeTrips(0,15,dataGroupToSearch)));
         pieChartData.add(new PieChart.Data("15-25", SQLAnalytics.totalAgeTrips(15,25,dataGroupToSearch)));
@@ -114,7 +147,14 @@ public class TripAnalyticController{
     public void timeGraph()
     {
         pie.setVisible(false);
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);
@@ -146,7 +186,14 @@ public class TripAnalyticController{
     public void durationGraph()
     {
         pie.setVisible(false);
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);
@@ -177,7 +224,14 @@ public class TripAnalyticController{
     public void distanceGraph()
     {
         pie.setVisible(false);
-        String dataGroupToSearch = ((datagroupField.getText().trim().isEmpty() ? "":datagroupField.getText()));
+        String dataGroupToSearch = "";
+        try {
+            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+        } catch (NullPointerException e) { }
+        if (dataGroupToSearch.equals("All")) {
+            dataGroupToSearch = "";
+        }
+
         barChartData.clear();
         bar.getData().clear();
         bar.setAnimated(false);

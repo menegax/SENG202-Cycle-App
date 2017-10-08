@@ -122,16 +122,18 @@
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Zip Code:" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Primary Type:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Secondary Type:" GridPane.columnIndex="1" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#previous" text="&lt;--" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
-            <Button mnemonicParsing="false" onAction="#next" text="--&gt;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <Button mnemonicParsing="false" onAction="#previous" text="&lt;--" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
+            <Button mnemonicParsing="false" onAction="#next" text="--&gt;" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="3" />
             <Label id="providerLabel" fx:id="nameLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="0" />
             <Label id="typeLabel" fx:id="addressLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Label id="locationLabel" fx:id="extraAddressLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="2" />
             <Label id="boroughLabel" fx:id="zipLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label id="nameLabel" fx:id="pTypeLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label id="remarksLabel" fx:id="sTypeLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="5" />
-            <Button mnemonicParsing="false" onAction="#viewTable" text="View Table" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="2" />
-            <Button mnemonicParsing="false" onAction="#viewEdit" text="Edit Retailer" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.rowSpan="2" />
+            <Button mnemonicParsing="false" onAction="#viewTable" text="View Table" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+            <Button mnemonicParsing="false" onAction="#viewEdit" text="Edit Retailer" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Datagroup:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                  <Label id="remarksLabel" fx:id="dataGroupLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="6" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="150.0" minWidth="10.0" prefWidth="150.0" />
@@ -146,6 +148,7 @@
             <RowConstraints maxHeight="67.0" minHeight="10.0" prefHeight="67.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="66.0" minHeight="10.0" prefHeight="66.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
       </children>

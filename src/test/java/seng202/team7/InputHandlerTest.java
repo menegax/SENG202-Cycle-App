@@ -38,6 +38,7 @@ public class InputHandlerTest
 
     }
 
+
     /*@Test
     public void testRetailer() throws IOException {
         InputHandler testerRetailer = new InputHandler();
@@ -70,8 +71,6 @@ public class InputHandlerTest
         testerTrip.getFail_counter();
         testerTrip.resetFailCounter();
     }
-
-
 
 
 

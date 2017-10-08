@@ -32,6 +32,8 @@ public class JSHandler {
         for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
             w.print();
         }
+        if(datagroup.equals(""))
+            return databaseRetriever.getWifiList();
         return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup));
     }
 
@@ -40,6 +42,8 @@ public class JSHandler {
         for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup))){
             r.print();
         }
+        if(datagroup.equals(""))
+            return databaseRetriever.getRetailerList();
         return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup));
     }
 
@@ -62,7 +66,7 @@ public class JSHandler {
         if(gender.equals("All")){
             genderList.add("Male");
             genderList.add("Female");
-            genderList.add("Unkown");
+            genderList.add("Unknown");
         } else {
             genderList.add(gender);
         }
