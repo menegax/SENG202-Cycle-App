@@ -11,7 +11,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.JSHandler;
-import seng202.team7.StaticVariables;
 
 import java.net.URL;
 import java.util.ArrayList;

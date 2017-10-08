@@ -7,7 +7,7 @@ public class Analytics {
 
     public static ArrayList<PointM> checkRoutes(ArrayList<Trip> trips)
     {
-        ArrayList<PointM> points = new ArrayList<PointM>();
+        ArrayList<PointM> points = new ArrayList<>();
         for (Trip t: trips)
         {
             points.addAll(checkRoute(t.getStartPoint(), t.getEndPoint()));
@@ -16,7 +16,7 @@ public class Analytics {
     }
 
     public static ArrayList<PointM> checkRoute(PointM startpt, PointM endpt) {
-        ArrayList<PointM> squares = new ArrayList<PointM>();
+        ArrayList<PointM> squares = new ArrayList<>();
 
         int x1 = startpt.getX();
         int y1 = startpt.getY();

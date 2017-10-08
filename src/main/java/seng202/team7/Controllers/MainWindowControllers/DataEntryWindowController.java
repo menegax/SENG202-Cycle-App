@@ -306,7 +306,7 @@ public class DataEntryWindowController implements Initializable{
      */
     public void add_r_button(ActionEvent event) {
 
-        ArrayList<Data> toAdd = new ArrayList<Data>();
+        ArrayList<Data> toAdd = new ArrayList<>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
@@ -379,7 +379,7 @@ public class DataEntryWindowController implements Initializable{
      */
     public void add_w_button(ActionEvent event) {
 
-        ArrayList<Data> toAdd = new ArrayList<Data>();
+        ArrayList<Data> toAdd = new ArrayList<>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();
@@ -462,7 +462,7 @@ public class DataEntryWindowController implements Initializable{
      */
     public void add_t_button(ActionEvent event) {
 
-        ArrayList<Data> toAdd = new ArrayList<Data>();
+        ArrayList<Data> toAdd = new ArrayList<>();
         InputHandler toTest = new InputHandler();
         DatabaseUpdater dataUploader = new DatabaseUpdater();
         DatabaseRetriever retriever = new DatabaseRetriever();

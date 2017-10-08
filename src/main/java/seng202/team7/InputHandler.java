@@ -3,7 +3,6 @@ package seng202.team7;
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
-import java.io.InvalidObjectException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -37,7 +36,7 @@ public class InputHandler {
     public ArrayList<Data> loadCSV(String file, String dataType, String dataGroup) throws IOException, NumberFormatException
     {
 
-        ArrayList<Data> data = new ArrayList<Data>();  //will add multiple objects, so need an array
+        ArrayList<Data> data = new ArrayList<>();  //will add multiple objects, so need an array
         //Data dataToAdd = null;   //individual data packets to add to DB, each are one object
 
         Trip tripDataToAdd = null;

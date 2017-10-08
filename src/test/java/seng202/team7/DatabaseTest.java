@@ -1,6 +1,5 @@
 package seng202.team7;
 
-import org.junit.Assert;
 import org.junit.Test;
 
 import java.sql.Connection;

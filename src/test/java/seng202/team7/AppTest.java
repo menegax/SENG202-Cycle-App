@@ -1,7 +1,5 @@
 package seng202.team7;
 
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 import org.junit.Test;
 
 import static org.junit.Assert.assertTrue;

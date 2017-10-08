@@ -1,10 +1,6 @@
 package seng202.team7;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.io.File;
-import java.sql.Connection;
-import java.util.ArrayList;
 
 
 /**

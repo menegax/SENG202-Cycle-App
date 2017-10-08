@@ -94,7 +94,7 @@ public class WifiDataViewerController implements Initializable {
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         boroughColumn.setCellValueFactory(new PropertyValueFactory<>("borough"));
         wifiDataTable.setItems(filteredWifiList);
-        ArrayList<String> providers = new ArrayList<String>();
+        ArrayList<String> providers = new ArrayList<>();
         for (Wifi wifi : wifiList) {
             if (!providers.contains(wifi.getProvider())) {
                 providers.add(wifi.getProvider());

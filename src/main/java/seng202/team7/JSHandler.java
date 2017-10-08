@@ -1,12 +1,7 @@
 package seng202.team7;
 
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import static seng202.team7.Datagroup.getDatagroups;
 
 /**
  * Acts as the handler between java and javascript to pass objects into google maps javascript API
@@ -59,8 +54,8 @@ public class JSHandler {
 
     public List<PointM> getPointsJS(String datagroup, String gender, String age, String userType, String density)
     {
-        ArrayList<String> genderList = new ArrayList<String>();
-        ArrayList<String> userTypeList = new ArrayList<String>();
+        ArrayList<String> genderList = new ArrayList<>();
+        ArrayList<String> userTypeList = new ArrayList<>();
         //ArrayList<String> dataGroupList = new ArrayList<String>();
         int lowAge;
         int highAge;
@@ -118,7 +113,7 @@ public class JSHandler {
 
 //
 //        String query = "SELECT id FROM " + Trip.tableName + " WHERE LOWER(" + Trip.columns[7] + ") in (" + genderList +") AND LOWER("+Trip.columns[9] +") in ("+ userTypeList;
-        ArrayList<Trip> trips = new ArrayList<Trip>();
+        ArrayList<Trip> trips = new ArrayList<>();
         if(datagroup.equals("")) {
             for (Trip t : databaseRetriever.getTripList()) {
                 if (StaticVariables.stringInArray(t.getUserType(), userTypeList) && StaticVariables.stringInArray(t.getGender(), genderList) && t.getAge() >= lowAge && t.getAge() <= highAge)

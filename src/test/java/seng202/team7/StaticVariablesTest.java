@@ -2,8 +2,6 @@ package seng202.team7;
 
 
 import org.junit.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
 
 import static junit.framework.TestCase.assertEquals;
 

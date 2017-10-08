@@ -105,7 +105,7 @@ public class DatabaseTester {
      */
     public static void addData(DatabaseUpdater databaseUpdater)
     {
-        ArrayList<Data> data = new ArrayList<Data>();
+        ArrayList<Data> data = new ArrayList<>();
 
 //        Wifi w1 = new Wifi("BX", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
 //        Wifi w2 = new Wifi("SI", "Free","AlcatEl","5th Ave","NY","Alcatel Hotspot","","",234.354,324.484);

@@ -4,8 +4,6 @@ import javafx.fxml.FXML;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
-import java.awt.*;
-
 /**
  * Controller for the loading popup window
  * @author Aidan Smith asm142

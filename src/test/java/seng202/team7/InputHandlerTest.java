@@ -1,9 +1,6 @@
 package seng202.team7;
 
 import org.junit.Test;
-import junit.framework.TestCase;
-import junit.framework.TestSuite;
-
 
 
 import java.io.IOException;

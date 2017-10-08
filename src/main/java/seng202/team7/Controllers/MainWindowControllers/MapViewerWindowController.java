@@ -118,7 +118,7 @@ public class MapViewerWindowController implements Initializable {
             }
         }
 
-        ArrayList<String> providers = new ArrayList<String>();
+        ArrayList<String> providers = new ArrayList<>();
         for (Wifi wifi : wifiList) {
             if (!providers.contains(wifi.getProvider())) {
                 providers.add(wifi.getProvider());

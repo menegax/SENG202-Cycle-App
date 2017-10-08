@@ -18,7 +18,7 @@ public class DatabaseRetriever {
      * @return Arraylist of station objects
      */
     public ArrayList<Station> getStationList(){
-        ArrayList<Station> stationList = new ArrayList<Station>();
+        ArrayList<Station> stationList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Station.tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -56,7 +56,7 @@ public class DatabaseRetriever {
      * @return Arraylist of wifi objects
      */
     public ArrayList<Wifi> getWifiList(){
-        ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
+        ArrayList<Wifi> wifiList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Wifi.tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -94,7 +94,7 @@ public class DatabaseRetriever {
      * @return Arraylist of wifi objects
      */
     public ArrayList<Wifi> getWifiList(String url){
-        ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
+        ArrayList<Wifi> wifiList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Wifi.tableName;
         try (Connection conn = DatabaseHandler.connect(url);
              Statement stmt  = conn.createStatement();
@@ -133,7 +133,7 @@ public class DatabaseRetriever {
      */
     public ArrayList<Retailer> getRetailerList()
     {
-        ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
+        ArrayList<Retailer> retailerList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Retailer.tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -169,7 +169,7 @@ public class DatabaseRetriever {
 
     public ArrayList<Wifi> getOnlineWifiList()
     {
-        ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
+        ArrayList<Wifi> wifiList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Wifi.tableName;
         try (Connection conn = DatabaseHandler.connectOnline();
              Statement stmt  = conn.createStatement();
@@ -209,7 +209,7 @@ public class DatabaseRetriever {
      */
     public ArrayList<Retailer> getOnlineRetailerList()
     {
-        ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
+        ArrayList<Retailer> retailerList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Retailer.tableName;
         try (Connection conn = DatabaseHandler.connectOnline();
              Statement stmt  = conn.createStatement();
@@ -248,7 +248,7 @@ public class DatabaseRetriever {
      */
     public ArrayList<Trip> getTripList()
     {
-        ArrayList<Trip> tripList = new ArrayList<Trip>();
+        ArrayList<Trip> tripList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Trip.tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -290,7 +290,7 @@ public class DatabaseRetriever {
      */
     public ArrayList<Retailer> queryRetailer(String query)
     {
-        ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
+        ArrayList<Retailer> retailerList = new ArrayList<>();
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(query)){
@@ -329,7 +329,7 @@ public class DatabaseRetriever {
      * @return arraylist of Wifi objects that match the query
      */
     public ArrayList<Wifi> queryWifi(String query){
-        ArrayList<Wifi> wifiList = new ArrayList<Wifi>();
+        ArrayList<Wifi> wifiList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -371,7 +371,7 @@ public class DatabaseRetriever {
      * @return List of Stations from query
      */
     public ArrayList<Station> queryStation(String query){
-        ArrayList<Station> stationList = new ArrayList<Station>();
+        ArrayList<Station> stationList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -437,7 +437,7 @@ public class DatabaseRetriever {
      */
     public ArrayList<Trip> queryTrip(String query)
     {
-        ArrayList<Trip> tripList = new ArrayList<Trip>();
+        ArrayList<Trip> tripList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -476,7 +476,7 @@ public class DatabaseRetriever {
      */
     public void testQueryTrip()
     {
-        ArrayList<Trip> tripList = new ArrayList<Trip>();
+        ArrayList<Trip> tripList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -509,7 +509,7 @@ public class DatabaseRetriever {
      * @return String Array
      */
     public ArrayList<String> getStringListFromInt(String tableName, int value, String columnSearch, String columnReturn){
-        ArrayList<String> stringList = new ArrayList<String>();
+        ArrayList<String> stringList = new ArrayList<>();
         String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " = " + value;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -545,7 +545,7 @@ public class DatabaseRetriever {
      * @return String Array
      */
     public ArrayList<String> getStringListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
-        ArrayList<String> stringList = new ArrayList<String>();
+        ArrayList<String> stringList = new ArrayList<>();
         String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -581,7 +581,7 @@ public class DatabaseRetriever {
      * @return String Array
      */
     public ArrayList<Integer> getIntListFromLikeString(String tableName, String value, String columnSearch, String columnReturn){
-        ArrayList<Integer> stringList = new ArrayList<Integer>();
+        ArrayList<Integer> stringList = new ArrayList<>();
         String sql = "SELECT "+columnReturn+" FROM " + tableName +" WHERE " + columnSearch + " LIKE \"%" + value +"%\"";
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();

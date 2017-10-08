@@ -17,7 +17,7 @@ public class Datagroup {
 
     public static ArrayList<String> getDatagroups()
     {
-        ArrayList<String> groups = new ArrayList<String>();
+        ArrayList<String> groups = new ArrayList<>();
         String sql = "SELECT * FROM " + tableName;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
