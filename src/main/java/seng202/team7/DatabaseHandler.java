@@ -33,36 +33,14 @@ public class DatabaseHandler {
         }catch (Exception e) {
             e.printStackTrace();
         }
-//
-//        try {
-//            URL website = new URL(onlineDatabaseUrl);
-//            ReadableByteChannel rbc = Channels.newChannel(website.openStream());
-//            FileOutputStream fos = new FileOutputStream(onlineDatabaseLocal);
-//            fos.getChannel().transferFrom(rbc, 0, Long.MAX_VALUE);
-//        } catch (Exception e)
-//        {
-//            e.printStackTrace();
-//        }
 
-//
-//        try
-//        {
-//            dbUrl = new URL("https://seng202team7.000webhostapp.com/database.db");
-//            try (InputStream in = dbUrl.openStream()) {
-//                Files.copy(in,new Path("./src/Database/database.db") ,StandardCopyOption.REPLACE_EXISTING);
-//            } catch (IOException e) {
-//                e.printStackTrace();
-//            }
-//        } catch (MalformedURLException e) {
-//            e.printStackTrace();
-//        }
     }
 
     /**
      * Creates a database
      * Should not be used unless the database is removed
      */
-    public static void createDatabase()
+    public static void createDatabase(String url)
     {
 
         try (Connection conn = DriverManager.getConnection(url)) {
@@ -76,19 +54,39 @@ public class DatabaseHandler {
         }
     }
 
+
+    /**
+     * Creates a database
+     * Should not be used unless the database is removed
+     */
+    public static void createDatabase()
+    {
+        createDatabase(url);
+    }
+
+
+    /**
+     * Method for connecting to a database. Used as a helper method
+     * @return the connection to the database
+     */
+    public static Connection connect(String url)
+    {
+        Connection conn = null;
+        try {
+            conn = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return conn;
+    }
+
     /**
      * Method for connecting to a database. Used as a helper method
      * @return the connection to the database
      */
     public static Connection connect()
     {
-        Connection conn = null;
-        try {
-            conn = DriverManager.getConnection(DatabaseHandler.url);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return conn;
+        return connect(DatabaseHandler.url);
     }
 
 
@@ -108,23 +106,15 @@ public class DatabaseHandler {
     }
 
 
-    /**
-     * Caopies all the contents from an online table into the local database
-     * @param tableName
-     */
-    public static void copyOnline(String tableName)
-    {
-
-    }
-
 
 
     /**
      * Creates an SQL table with the name and sql script given
      * @param tableName name for the table
      * @param tableScript script for creating the table
+     * @param url Url for database to add table to
      */
-    public static void createTable(String tableName, String tableScript)
+    public static void createTable(String tableName, String tableScript, String url)
     {
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -136,11 +126,23 @@ public class DatabaseHandler {
 
     }
 
+
+    /**
+     * Creates an SQL table with the name and sql script given
+     * @param tableName name for the table
+     * @param tableScript script for creating the table
+     */
+    public static void createTable(String tableName, String tableScript)
+    {
+        createTable(tableName,tableScript, url);
+    }
+
     /**
      * Deletes the table from name given
      * @param tableName tablename to drop
+     * @param url database to delete table from
      */
-    public static void deleteTable(String tableName)
+    public static void deleteTable(String tableName, String url)
     {
         String sql = "DROP TABLE IF EXISTS "+tableName;
         try (Connection conn = DriverManager.getConnection(url);
@@ -150,6 +152,15 @@ public class DatabaseHandler {
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
+    }
+
+    /**
+     * Deletes the table from name given
+     * @param tableName tablename to drop
+     */
+    public static void deleteTable(String tableName)
+    {
+        deleteTable(tableName, url);
     }
 
 }

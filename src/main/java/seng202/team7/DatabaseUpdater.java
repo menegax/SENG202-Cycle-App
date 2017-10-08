@@ -38,6 +38,47 @@ public class DatabaseUpdater {
      * Method adds a single Wifi object to the wifi table
      * @param wifi Wifi to be added to the database
      */
+    public void insertWifi(Wifi wifi, String url)
+    {
+        String sql = "INSERT INTO "+Wifi.tableName+" ("+Wifi.columns[0]+", "+Wifi.columns[1]+", "+Wifi.columns[2]+", "+Wifi.columns[3]+", "+Wifi.columns[4]+", "+Wifi.columns[5]+", "+Wifi.columns[6]+", "+Wifi.columns[7]+", "+Wifi.columns[8]+", "+Wifi.columns[9]+", "+Wifi.columns[10]+", "+Wifi.columns[11]+") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
+
+        ByteArrayOutputStream bos = new ByteArrayOutputStream();
+        try {
+            //ByteArrayOutputStream bos = new ByteArrayOutputStream();
+            ObjectOutputStream oos = new ObjectOutputStream(bos);
+            oos.writeObject(wifi);
+            oos.flush();
+            oos.close();
+            bos.close();
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+
+        try (Connection conn = DatabaseHandler.connect(url);
+             PreparedStatement pstmt = conn.prepareStatement(sql)) {
+            pstmt.setInt(1,wifi.hashCode());
+            pstmt.setString(2, wifi.getBorough());
+            pstmt.setString(3, wifi.getType());
+            pstmt.setString(4, wifi.getProvider());
+            pstmt.setString(5, wifi.getLocation());
+            pstmt.setString(6, wifi.getCity());
+            pstmt.setString(7, wifi.getSSID());
+            pstmt.setString(8, wifi.getRemarks());
+            pstmt.setDouble(9, wifi.getLatitude());
+            pstmt.setDouble(10, wifi.getLongitude());
+            pstmt.setString(11, wifi.getDataGroup());
+            pstmt.setObject(12, bos.toByteArray());
+            pstmt.executeUpdate();
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        System.out.println("Wifi added");
+    }
+
+    /**
+     * Method adds a single Wifi object to the wifi table
+     * @param wifi Wifi to be added to the database
+     */
     public void insertWifi(Wifi wifi)
     {
         String sql = "INSERT INTO "+Wifi.tableName+" ("+Wifi.columns[0]+", "+Wifi.columns[1]+", "+Wifi.columns[2]+", "+Wifi.columns[3]+", "+Wifi.columns[4]+", "+Wifi.columns[5]+", "+Wifi.columns[6]+", "+Wifi.columns[7]+", "+Wifi.columns[8]+", "+Wifi.columns[9]+", "+Wifi.columns[10]+", "+Wifi.columns[11]+") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
