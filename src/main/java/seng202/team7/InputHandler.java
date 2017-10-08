@@ -165,7 +165,7 @@ public class InputHandler {
 
                         if (fields[0].isEmpty() || fields[3].isEmpty() || fields[7].isEmpty() || fields[11].isEmpty()
                                 || fields[13].isEmpty() || fields[14].isEmpty()) {
-                            System.out.println("At least one important number field is empty");
+                            System.out.println("At least one important number field is empty, would cause parser to freeze up");
                             break;
                         }
 
