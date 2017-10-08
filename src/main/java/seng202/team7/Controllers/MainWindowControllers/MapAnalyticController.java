@@ -1,6 +1,8 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
 import com.sun.javafx.webkit.WebConsoleListener;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -15,6 +17,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import static seng202.team7.Datagroup.getDatagroups;
+
 /**
  * todo
  * @author MorganEnglish
@@ -27,12 +31,30 @@ public class MapAnalyticController implements Initializable {
     @FXML private ComboBox ageCombo;
     @FXML private ComboBox densityCombo;
     @FXML private WebView webViewMap;
-    @FXML private TextField tripDatagroup;
     @FXML private Button displayButton;
     @FXML private Button clearButton;
     @FXML private ToggleButton wifiButton;
     @FXML private ToggleButton retailerButton;
+
     @FXML private TextField poiDatagroup;
+    @FXML private TextField tripDatagroup;
+
+    @FXML private ComboBox dataGroupCombo;
+    @FXML private ComboBox poiDatagroupCombo;
+
+    @FXML public void setDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        dataGroupCombo.setItems(items);
+    }
+
+    @FXML public void setPOIDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        poiDatagroupCombo.setItems(items);
+    }
 
     private boolean wifiToggled = false;
     private boolean retailerToggled = false;
@@ -87,8 +109,14 @@ public class MapAnalyticController implements Initializable {
         String age;
         String density;
         String tripGroup = "";
-        if(!tripDatagroup.getText().equals(""))
-            tripGroup = tripDatagroup.getText();
+        try {
+            if (!((String) dataGroupCombo.getValue()).equals(""))
+                tripGroup = (String) dataGroupCombo.getValue();
+        } catch (NullPointerException e) { }
+        if (tripGroup.equals("All")) {
+            tripGroup = "";
+        }
+
         if(genderCombo.getSelectionModel().getSelectedItem() == null){
             gender = "All";
         } else {
@@ -134,8 +162,14 @@ public class MapAnalyticController implements Initializable {
             System.out.println("retailer on");
             retailerToggled = true;
             String poiGroup = "";
-            if (!poiDatagroup.getText().equals(""))
-                poiGroup = poiDatagroup.getText();
+            try {
+                if (!((String) poiDatagroupCombo.getValue()).equals(""))
+                    poiGroup = (String) poiDatagroupCombo.getValue();
+            } catch (NullPointerException e) { }
+            if (poiGroup.equals("All")) {
+                poiGroup = "";
+            }
+
             System.out.println(poiGroup);
             jsObject.call("loadRetailerDatagroup", poiGroup);
         } else {
@@ -153,8 +187,14 @@ public class MapAnalyticController implements Initializable {
             System.out.println("wifi on");
             wifiToggled = true;
             String poiGroup = "";
-            if (!poiDatagroup.getText().equals(""))
-                poiGroup = poiDatagroup.getText();
+            try {
+                if (!((String) poiDatagroupCombo.getValue()).equals(""))
+                    poiGroup = (String) poiDatagroupCombo.getValue();
+            } catch (NullPointerException e) { }
+            if (poiGroup.equals("All")) {
+                poiGroup = "";
+            }
+
             System.out.println(poiGroup);
             jsObject.call("loadWifiDatagroup", poiGroup);
         } else {
