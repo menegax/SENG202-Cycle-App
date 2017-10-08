@@ -1,4 +1,5 @@
 package seng202.team7.Controllers.HelpWindowControllers;
 
-public class TripDataViewerHelpController {
+public class TripDataViewerHelpController{
+
 }

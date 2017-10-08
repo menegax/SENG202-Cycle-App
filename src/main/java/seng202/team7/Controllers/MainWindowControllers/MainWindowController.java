@@ -194,6 +194,7 @@ public class MainWindowController implements Initializable, EventHandler {
             Scene scene = new Scene(helpWindow);
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Stylesheets/HelpMenu.css").toExternalForm());
             Stage HelpStage = new Stage();
+            HelpStage.setResizable(false);
             HelpStage.setTitle("Help");
             HelpStage.setScene(scene);
             HelpStage.show();
