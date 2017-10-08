@@ -17,6 +17,9 @@ public class App
 
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
+        DatabaseHandler.initializeDatabase();
+
+
 //        DatabaseHandler.getOnlineDatabase();
 //        Retailer retailer = new Retailer("bob's burgers", "New York", "3 New York Plaza", "" ,"NY", 10004, "F-Coffeehouse", "Casual Eating & Takeout", "retailer");
 //        String new_address = retailer.getPAddress() +  ", " + retailer.getCity() + ", " + retailer.getState();
@@ -104,7 +107,6 @@ public class App
 //        DatabaseHandler.deleteTable(Wifi.tableName);
 //        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
 
-//        DatabaseHandler.initializeDatabase();
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 //
