@@ -68,3 +68,6 @@
     -fx-faint-focus-color: transparent;
 }
 
+#backgroundAnchorPane {
+    -fx-background-color: #383838;
+}

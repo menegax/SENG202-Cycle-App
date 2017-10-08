@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
@@ -26,7 +27,7 @@
       <AnchorPane fx:id="centerAnchorPane" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" stylesheets="@../../Stylesheets/MainStyle.css" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" BorderPane.alignment="CENTER" />
    </center>
    <bottom>
-      <AnchorPane id="statusBar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="20.0" prefWidth="0.0" stylesheets="@../../Stylesheets/MainStyle.css" BorderPane.alignment="CENTER" />
+      <AnchorPane id="statusBar" maxHeight="-Infinity" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="0.0" prefHeight="2.0" prefWidth="0.0" stylesheets="@../../Stylesheets/MainStyle.css" BorderPane.alignment="CENTER" />
    </bottom>
    <right>
       <AnchorPane id="sideBar" maxHeight="1.7976931348623157E308" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="2.0" BorderPane.alignment="CENTER" />
