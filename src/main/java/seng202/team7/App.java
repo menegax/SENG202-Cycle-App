@@ -48,10 +48,10 @@ public class App
 //        }
 
 //        ArrayList<Trip> tempT= new ArrayList<Trip>();
-        for(Trip t: databaseRetriever.getTripList())
-        {
-            System.out.println(t.getDataGroup());
-        }
+//        for(Trip t: databaseRetriever.getTripList())
+//        {
+//            System.out.println(t.getDataGroup());
+//        }
 //        ArrayList<PointM> points = new ArrayList<PointM>();
 //        for(Trip t: tempT)
 //        {
@@ -108,6 +108,7 @@ public class App
 //        DatabaseHandler.deleteTable(Wifi.tableName);
 //        DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
 
+//        DatabaseHandler.initializeDatabase();
 //        DatabaseHandler.deleteTable(Trip.tableName);
 //        DatabaseHandler.createTable(Trip.tableName, Trip.tableCreation);
 //

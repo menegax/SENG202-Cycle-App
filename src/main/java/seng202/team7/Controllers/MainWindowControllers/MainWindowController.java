@@ -156,10 +156,10 @@ public class MainWindowController implements Initializable, EventHandler {
         switch (newScreen) {
             case "Home": setMainScreen(homeViewer); break;
             case "Route Planning": setMainScreen(routePlannerViewer); break;
-            case "Map Viewer": setMainScreen(mapViewer); break;
+            case "Map Viewer": setMainScreen(mapViewer = new MapViewerWindow()); break;
             case "Analytics": break; // todo
-            case "Map View": setMainScreen(mapAnalyticViewer); break;
-            case "Graph View": setMainScreen(graphViewer); break;
+            case "Map View": setMainScreen(mapAnalyticViewer = new MapAnalyticWindow()); break;
+            case "Graph View": setMainScreen(graphViewer = new TripAnalyticWindow()); break;
             case "Data Viewer": break; // todo
             case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break; // Recreates viewer
             case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break; // Recreates viewer
