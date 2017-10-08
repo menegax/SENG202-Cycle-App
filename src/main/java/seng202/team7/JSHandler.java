@@ -116,9 +116,6 @@ public class JSHandler {
                 break;
         }
 
-
-
-
 //
 //        String query = "SELECT id FROM " + Trip.tableName + " WHERE LOWER(" + Trip.columns[7] + ") in (" + genderList +") AND LOWER("+Trip.columns[9] +") in ("+ userTypeList;
         ArrayList<Trip> trips = new ArrayList<Trip>();
