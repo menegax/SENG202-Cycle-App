@@ -1,6 +1,7 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
 import com.sun.javafx.webkit.WebConsoleListener;
+import com.sun.org.apache.bcel.internal.generic.RET;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
@@ -17,7 +18,8 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 /**
- * todo
+ * Controller for the route planner window that holds the buttons' functions
+ * and the javascript bridge
  * @author Joshua Meneghini
  */
 public class RoutePlannerViewerController implements Initializable{
@@ -34,7 +36,7 @@ public class RoutePlannerViewerController implements Initializable{
     private RouteHandler routeHandler;
 
     /**
-     * todo
+     * Initialises the widgets and bridge in the route planner
      * @param url
      * @param rb
      */
@@ -167,24 +169,47 @@ public class RoutePlannerViewerController implements Initializable{
         if (wifiInDatabase()) {
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(point.getLatitude(), point.getLongitude()));
+            ArrayList<Wifi> filteredWifiList = new ArrayList<>();
+            if (wifiTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                filteredWifiList = wifiList;
+            } else {
+                for (Wifi wifi : wifiList) {
+                    if (wifi.getType() != null) {
+                        if (wifi.getType().equals(wifiTypeCB.getSelectionModel().getSelectedItem())) {
+                            filteredWifiList.add(wifi);
+                        }
+                    }
+                }
+            }
             double defaultDist = StaticVariables.defaultDist;
-            while (wifiList.isEmpty()) {
+            while (filteredWifiList.isEmpty()) {
                 defaultDist *= 2;
                 wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(point.getLatitude(), defaultDist, point.getLongitude(), defaultDist));
+                if (wifiTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                    filteredWifiList = wifiList;
+                } else {
+                    for (Wifi wifi : wifiList) {
+                        if (wifi.getType() != null) {
+                            if (wifi.getType().equals(wifiTypeCB.getSelectionModel().getSelectedItem())) {
+                                filteredWifiList.add(wifi);
+                            }
+                        }
+                    }
+                }
             }
             double minDistance = -1;
             double currentDistance;
             int minIndex = 0;
-            for (Wifi wifi : wifiList) {
+            for (Wifi wifi : filteredWifiList) {
                 currentDistance = StaticVariables.calculateDistance(point.getLatitude(), point.getLongitude(), wifi.getLatitude(), wifi.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
                 } else if (minDistance > currentDistance) {
                     minDistance = currentDistance;
-                    minIndex = wifiList.indexOf(wifi);
+                    minIndex = filteredWifiList.indexOf(wifi);
                 }
             }
-            return wifiList.get(minIndex);
+            return filteredWifiList.get(minIndex);
         } else {
             throw new DatabaseEmptyException();
         }
@@ -204,24 +229,47 @@ public class RoutePlannerViewerController implements Initializable{
             double longOffset = Math.abs(centre.getLongitude() - start.getLongitude()) + StaticVariables.defaultDist;
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(centre.getLatitude(), latOffset, centre.getLongitude(), longOffset));
+            ArrayList<Wifi> filteredWifiList = new ArrayList<>();
             double defaultDist = StaticVariables.defaultDist;
-            while (wifiList.isEmpty()) {
+            if (wifiTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                filteredWifiList = wifiList;
+            } else {
+                for (Wifi wifi : wifiList) {
+                    if (wifi.getType() != null) {
+                        if (wifi.getType().equals(wifiTypeCB.getSelectionModel().getSelectedItem())) {
+                            filteredWifiList.add(wifi);
+                        }
+                    }
+                }
+            }
+            while (filteredWifiList.isEmpty()) {
                 wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(centre.getLatitude(), latOffset + defaultDist, centre.getLongitude(), longOffset + defaultDist));
                 defaultDist *= 2;
+                if (wifiTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                    filteredWifiList = wifiList;
+                } else {
+                    for (Wifi wifi : wifiList) {
+                        if (wifi.getType() != null) {
+                            if (wifi.getType().equals(wifiTypeCB.getSelectionModel().getSelectedItem())) {
+                                filteredWifiList.add(wifi);
+                            }
+                        }
+                    }
+                }
             }
             double minDistance = -1;
             double currentDistance;
             int minIndex = 0;
-            for (Wifi wifi : wifiList) {
+            for (Wifi wifi : filteredWifiList) {
                 currentDistance = StaticVariables.calculateDistance(start, end, wifi.getLatitude(), wifi.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
                 } else if (minDistance > currentDistance) {
                     minDistance = currentDistance;
-                    minIndex = wifiList.indexOf(wifi);
+                    minIndex = filteredWifiList.indexOf(wifi);
                 }
             }
-            return wifiList.get(minIndex);
+            return filteredWifiList.get(minIndex);
         } else {
             throw new DatabaseEmptyException();
         }
@@ -241,15 +289,38 @@ public class RoutePlannerViewerController implements Initializable{
             double longOffset = Math.abs(centre.getLongitude() - start.getLongitude()) + StaticVariables.defaultDist;
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(centre.getLatitude(), latOffset, centre.getLongitude(), longOffset));
+            ArrayList<Retailer> filteredRetailerList = new ArrayList<>();
             double defaultDist = StaticVariables.defaultDist;
-            while (retailerList.isEmpty()) {
+            if (retailerTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                filteredRetailerList = retailerList;
+            } else {
+                for (Retailer retailer : retailerList) {
+                    if (retailer.getTypeID() != null) {
+                        if (retailer.getTypeID().equals(retailerTypeCB.getSelectionModel().getSelectedItem())) {
+                            filteredRetailerList.add(retailer);
+                        }
+                    }
+                }
+            }
+            while (filteredRetailerList.isEmpty()) {
                 retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(centre.getLatitude(), latOffset + defaultDist, centre.getLongitude(), longOffset + defaultDist));
                 defaultDist *= 2;
+                if (retailerTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                    filteredRetailerList = retailerList;
+                } else {
+                    for (Retailer retailer : retailerList) {
+                        if (retailer.getTypeID() != null) {
+                            if (retailer.getTypeID().equals(retailerTypeCB.getSelectionModel().getSelectedItem())) {
+                                filteredRetailerList.add(retailer);
+                            }
+                        }
+                    }
+                }
             }
             double minDistance = -1;
             double currentDistance;
             int minIndex = 0;
-            for (Retailer retailer : retailerList) {
+            for (Retailer retailer : filteredRetailerList) {
                 currentDistance = StaticVariables.calculateDistance(start, end, retailer.getLatitude(), retailer.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
@@ -274,15 +345,38 @@ public class RoutePlannerViewerController implements Initializable{
         if (retailerInDatabase()) {
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(point.getLatitude(), point.getLongitude()));
+            ArrayList<Retailer> filteredRetailerList = new ArrayList<>();
             double defaultDist = StaticVariables.defaultDist;
-            while (retailerList.isEmpty()) {
+            if (retailerTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                filteredRetailerList = retailerList;
+            } else {
+                for (Retailer retailer : retailerList) {
+                    if (retailer.getTypeID() != null) {
+                        if (retailer.getTypeID().equals(retailerTypeCB.getSelectionModel().getSelectedItem())) {
+                            filteredRetailerList.add(retailer);
+                        }
+                    }
+                }
+            }
+            while (filteredRetailerList.isEmpty()) {
                 defaultDist *= 2;
                 retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(point.getLatitude(), defaultDist, point.getLongitude(), defaultDist));
+                if (retailerTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+                    filteredRetailerList = retailerList;
+                } else {
+                    for (Retailer retailer : retailerList) {
+                        if (retailer.getTypeID() != null) {
+                            if (retailer.getTypeID().equals(retailerTypeCB.getSelectionModel().getSelectedItem())) {
+                                filteredRetailerList.add(retailer);
+                            }
+                        }
+                    }
+                }
             }
             double minDistance = -1;
             double currentDistance;
             int minIndex = 0;
-            for (Retailer retailer : retailerList) {
+            for (Retailer retailer : filteredRetailerList) {
                 currentDistance = StaticVariables.calculateDistance(point.getLatitude(), point.getLongitude(), retailer.getLatitude(), retailer.getLongitude());
                 if (minDistance == -1) {
                     minDistance = currentDistance;
@@ -304,7 +398,14 @@ public class RoutePlannerViewerController implements Initializable{
     public boolean wifiInDatabase() {
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, 0));
-        return !wifiList.isEmpty();
+        if (wifiList.isEmpty()) {
+            return false;
+        } else if (wifiTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+            return true;
+        } else {
+            wifiList = dbRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, "type", wifiTypeCB.getSelectionModel().getSelectedItem()));
+            return !wifiList.isEmpty();
+        }
     }
 
     /**
@@ -314,6 +415,13 @@ public class RoutePlannerViewerController implements Initializable{
     public boolean retailerInDatabase() {
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, 0));
-        return !retailerList.isEmpty();
+        if (retailerList.isEmpty()) {
+            return false;
+        } else if (retailerTypeCB.getSelectionModel().getSelectedItem().equals("All")) {
+            return true;
+        } else {
+            retailerList = dbRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, "typeID", retailerTypeCB.getSelectionModel().getSelectedItem()));
+            return !retailerList.isEmpty();
+        }
     }
 }
