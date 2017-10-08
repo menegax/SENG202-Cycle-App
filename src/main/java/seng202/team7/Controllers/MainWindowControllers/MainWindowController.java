@@ -193,12 +193,11 @@ public class MainWindowController implements Initializable, EventHandler {
             HelpWindow helpWindow = new HelpWindow();
             Scene scene = new Scene(helpWindow);
             scene.getStylesheets().add(getClass().getClassLoader().getResource("Stylesheets/HelpMenu.css").toExternalForm());
-            Stage HelpStage = new Stage();
-            HelpStage.setResizable(false);
-            HelpStage.setTitle("Help");
-            HelpStage.setScene(scene);
-            HelpStage.show();
-            // todo add display certain page here
+            Stage helpStage = new Stage();
+            helpStage.setResizable(false);
+            helpStage.setTitle("Meraki Bikes - Help");
+            helpStage.setScene(scene);
+            helpStage.show();
         }
     }
 }

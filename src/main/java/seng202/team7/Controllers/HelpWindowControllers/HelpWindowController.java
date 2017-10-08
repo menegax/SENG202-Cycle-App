@@ -6,7 +6,6 @@ import javafx.scene.Node;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.BorderPane;
 import seng202.team7.Windows.HelpWindow.*;
 
 import java.net.URL;
@@ -14,7 +13,6 @@ import java.util.ResourceBundle;
 
 public class HelpWindowController implements Initializable{
     @FXML private TreeView<String> helpNavigationTree;
-    @FXML private BorderPane helpBorderPane;
     @FXML private AnchorPane helpCenterAnchorPane;
 
     private HomeHelp homeHelp;
@@ -156,8 +154,4 @@ public class HelpWindowController implements Initializable{
         helpCenterAnchorPane.getChildren().add(window);
     }
 
-
-    public void display(String newWindow) {
-
-    }
 }
