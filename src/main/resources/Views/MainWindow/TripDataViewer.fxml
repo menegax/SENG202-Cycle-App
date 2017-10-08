@@ -148,8 +148,8 @@
             <Label fx:id="userTypeLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="11" />
             <Label fx:id="ageLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="12" />
             <Label fx:id="genderLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="13" />
-            <Button mnemonicParsing="false" onAction="#viewTable" text="View Table" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
-            <Button mnemonicParsing="false" onAction="#viewEdit" text="Edit Trip" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" />
+            <Button mnemonicParsing="false" onAction="#viewTable" text="View Table" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
+            <Button mnemonicParsing="false" onAction="#viewEdit" text="Edit Trip" GridPane.columnIndex="3" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.rowSpan="2" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Start Date:" GridPane.columnIndex="1" GridPane.rowIndex="6" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="End Date:" GridPane.columnIndex="1" GridPane.rowIndex="7" />
             <Label id="nameLabel" fx:id="startDateLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="6" />
@@ -158,6 +158,8 @@
             <Button mnemonicParsing="false" onAction="#previous" text="&lt;--" GridPane.columnIndex="0" GridPane.halignment="CENTER" GridPane.rowIndex="7" GridPane.rowSpan="1" />
                   <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Distance:" GridPane.columnIndex="1" GridPane.rowIndex="4" />
                   <Label id="endTime" fx:id="distanceLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                  <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Datagroup:" GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                  <Label fx:id="dataGroupLabel" text="None" GridPane.columnIndex="2" GridPane.rowIndex="14" />
           </children>
           <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="148.0" minWidth="10.0" prefWidth="148.0" />
@@ -180,6 +182,7 @@
             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                  <RowConstraints maxHeight="30.0" minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
           </rowConstraints>
         </GridPane>
       </children>

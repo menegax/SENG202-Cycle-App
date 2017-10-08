@@ -48,6 +48,7 @@ public class WifiDataViewerController implements Initializable {
     @FXML private Label locationLabel;
     @FXML private Label boroughLabel;
     @FXML private Label remarksLabel;
+    @FXML private Label dataGroupLabel;
 
     // Editor widgets
     @FXML private TextField providerEntry;
@@ -186,6 +187,7 @@ public class WifiDataViewerController implements Initializable {
         locationLabel.setText(wifi.getLocation());
         boroughLabel.setText(wifi.getBorough());
         remarksLabel.setText(wifi.getRemarks());
+        dataGroupLabel.setText(wifi.getDataGroup());
     }
 
     /**

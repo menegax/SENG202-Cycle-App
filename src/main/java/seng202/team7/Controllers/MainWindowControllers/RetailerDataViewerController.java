@@ -47,6 +47,7 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private Label zipLabel;
     @FXML private Label pTypeLabel;
     @FXML private Label sTypeLabel;
+    @FXML private Label dataGroupLabel;
 
     // Editor widgets
     @FXML TextField nameEntry;
@@ -200,6 +201,7 @@ public class RetailerDataViewerController implements Initializable {
         zipLabel.setText(Integer.toString(retailer.getZipCode()));
         pTypeLabel.setText(retailer.getType());
         sTypeLabel.setText(retailer.getTypeID());
+        dataGroupLabel.setText(retailer.getDataGroup());
     }
 
     /**
