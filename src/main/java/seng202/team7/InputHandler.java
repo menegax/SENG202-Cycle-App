@@ -561,7 +561,7 @@ public class InputHandler {
             int result = Integer.parseInt(value.substring(1, value.length() - 1));
             return result;
 
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
             System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
         }
@@ -576,15 +576,21 @@ public class InputHandler {
             double result = Double.parseDouble(value.substring(1, value.length() - 1));
             return result;
 
-        } catch (NumberFormatException | NullPointerException e) {
+        } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
             System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
         }
     }
 
     public String removeQuotesStr(String value) {
-        String result = value.substring(1, value.length() - 1);
-        return result;
+
+        try {
+            String result = value.substring(1, value.length() - 1);
+            return result;
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
+        }
+
     }
 
 }
