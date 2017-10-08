@@ -38,6 +38,7 @@ public class InputHandlerTest
 
     }
 
+
     /*@Test
     public void testRetailer() throws IOException {
         InputHandler testerRetailer = new InputHandler();
