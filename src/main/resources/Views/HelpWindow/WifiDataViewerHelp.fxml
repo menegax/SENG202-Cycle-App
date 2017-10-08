@@ -1,29 +1,198 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.collections.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.layout.*?>
 
-<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" type="AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.HelpWindowControllers.WifiDataViewerHelpController">
+<fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" type="AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.HelpWindowControllers.WifiDataViewerHelpController">
    <children>
-      <ScrollPane fitToWidth="true" hbarPolicy="NEVER" layoutX="14.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="500.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefViewportHeight="346.0" prefViewportWidth="480.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
-            <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0">
+            <VBox layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Wifi Data Viewer" wrappingWidth="485.0">
+                           <font>
+                              <Font size="22.0" />
+                           </font>
+                        </Text>
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </VBox>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0">
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Button mnemonicParsing="false" text="Button" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The wifi data viewer screen let's you view all of the wifis in the database. The table shown gives a basic overview of all the wifis. Below is a breakdown of what each component of the wifi data viewer page allows you to do." wrappingWidth="480.0" />
                      </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
                   </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <children>
+                        <ComboBox prefWidth="165.0" promptText="Select Provider">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList" />
+                           </items>
+                        </ComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to specify what provider you would like to filter the raw wifis by." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ComboBox prefWidth="165.0" promptText="Select Type">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="All" />
+                                 <String fx:value="Male" />
+                                 <String fx:value="Female" />
+                                 <String fx:value="Unknown" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to specify what type you would like to filter the raw wifis by." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ComboBox prefWidth="165.0" promptText="Select Borough">
+                           <items>
+                              <FXCollections fx:factory="observableArrayList">
+                                 <String fx:value="All" />
+                                 <String fx:value="Customer" />
+                                 <String fx:value="Subscriber" />
+                              </FXCollections>
+                           </items>
+                        </ComboBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to specify what borough you would like to filter the raw wifis by." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <SplitPane dividerPositions="0.544973544973545" focusTraversable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="191.0">
+                           <items>
+                              <AnchorPane maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="32.0" prefWidth="100.0">
+                                 <children>
+                                    <TextField prefWidth="100.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <AnchorPane maxWidth="-1.0" minHeight="0.0" minWidth="-1.0" prefHeight="32.0" prefWidth="84.0">
+                                 <children>
+                                    <Button mnemonicParsing="false" text="Search" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                           </items>
+                        </SplitPane>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pressing the search button will filter the raw wifis by provider according to what is entered in the text field to the left of it." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Reset Search" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button resets any previous search and clears the search text field." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="View Selected Wifi" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button changes the screen to a view that shows a particular wifi in full detail. You need to select a wifi to view by clicking a wifi in the table before this button can operate." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="View Table" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button allows you to go back to the table view of the data when you are in the detailed view screen." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Edit Wifi" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This will make the detailed view screen go into edit mode so that you can alter any field of an existing wifi. Note that you must enter valid changes in order for updates of wifis to be allowed." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <HBox spacing="5.0">
+                           <children>
+                              <Button mnemonicParsing="false" text="&lt;--" />
+                              <Button mnemonicParsing="false" text="--&gt;" />
+                           </children>
+                        </HBox>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="These buttons allow you to navigate left and right between detailed views of other adjacent wifis in the table." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Cancel" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button allows you to cancel the changes you were in the process of making with a specific wifi." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button mnemonicParsing="false" text="Confirm" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Pressing this button confirms that you want to keep the edits you have made to a specific wifi. This will mean that the edited wifi is updated in the database to match your changes." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                </children>
             </VBox>
          </content>
