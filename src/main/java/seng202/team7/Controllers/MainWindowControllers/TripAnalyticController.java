@@ -171,7 +171,7 @@ public class TripAnalyticController implements Initializable{
         bar.setAnimated(false);
         barX.setLabel("Time of Day");
         barY.setLabel("Number of Trips");
-        bar.setTitle("Time of Day Trips Taken");
+        //bar.setTitle("Time of Day Trips Taken");
 
         barChartData.addAll(
                 new XYChart.Data<>("12AM to 3AM", SQLAnalytics.totalTimeTrips(0,3,"")),
@@ -239,7 +239,7 @@ public class TripAnalyticController implements Initializable{
         bar.setAnimated(false);
         barX.setLabel("Duration of Trips");
         barY.setLabel("Number of Trips");
-        bar.setTitle("Duration of Trips Taken");
+        //bar.setTitle("Duration of Trips Taken");
 
         barChartData.addAll(
                 new XYChart.Data<>("0-5 min", SQLAnalytics.totalDurTrips(0,5*60,dataGroupToSearch)),
@@ -278,7 +278,7 @@ public class TripAnalyticController implements Initializable{
         bar.setAnimated(false);
         barX.setLabel("Distance (km)");
         barY.setLabel("Number of Trips");
-        bar.setTitle("Distance of Trips Taken");
+        //bar.setTitle("Distance of Trips Taken");
 
         barChartData.addAll(
                 new XYChart.Data<>("0 to 0.5", SQLAnalytics.totalDistTrips(0,0.5,dataGroupToSearch)),

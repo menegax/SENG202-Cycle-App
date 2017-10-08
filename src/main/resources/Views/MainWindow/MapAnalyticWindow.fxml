@@ -33,16 +33,16 @@
             </AnchorPane>
             <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" prefHeight="0.0" prefWidth="0.0" spacing="10.0" GridPane.rowIndex="1">
                <children>
-                  <ComboBox fx:id="genderCombo" prefHeight="25.0" prefWidth="99.0" promptText="Gender" />
-                  <ComboBox fx:id="userCombo" prefHeight="25.0" prefWidth="109.0" promptText="UserType" />
-                  <ComboBox fx:id="ageCombo" prefHeight="25.0" prefWidth="77.0" promptText="Age" />
-                  <ComboBox fx:id="densityCombo" prefHeight="25.0" prefWidth="105.0" promptText="Density" />
-                   <ComboBox fx:id="dataGroupCombo" onShowing="#setDataGroupComboItems" prefHeight="31.0" prefWidth="104.0" promptText="DataGroup" />
+                  <ComboBox fx:id="genderCombo" promptText="Gender" />
+                  <ComboBox fx:id="userCombo" promptText="UserType" />
+                  <ComboBox fx:id="ageCombo" promptText="Age" />
+                  <ComboBox fx:id="densityCombo" promptText="Density" />
+                   <ComboBox fx:id="dataGroupCombo" onShowing="#setDataGroupComboItems" promptText="DataGroup" />
                      <Button fx:id="displayButton" mnemonicParsing="false" onAction="#displayClicked" text="Display" />
-                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearClicked" prefHeight="31.0" prefWidth="59.0" text="Clear" />
+                  <Button fx:id="clearButton" mnemonicParsing="false" onAction="#clearClicked" text="Clear" />
                   <ToggleButton fx:id="wifiButton" mnemonicParsing="false" onAction="#wifiClicked" text="Show Wifi" />
                   <ToggleButton fx:id="retailerButton" mnemonicParsing="false" onAction="#retailerClicked" text="Show Retailer" />
-                   <ComboBox fx:id="poiDatagroupCombo" onShowing="#setPOIDataGroupComboItems" prefHeight="25.0" prefWidth="113.0" promptText="POI Datagroup" />
+                   <ComboBox fx:id="poiDatagroupCombo" onShowing="#setPOIDataGroupComboItems" promptText="POI Datagroup" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
