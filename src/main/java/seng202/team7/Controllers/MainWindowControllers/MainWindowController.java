@@ -43,6 +43,10 @@ public class MainWindowController implements Initializable, EventHandler {
     private TripAnalyticWindow graphViewer;
     private String currentWindow; // Currently visible window
 
+    // Navigation bar related
+    private TreeItem<String> analyticsBranch;
+    private TreeItem<String> dataViewerBranch;
+
     /**
      * Runs as the program initially starts. Initialises each of the custom
      * JavaFX panels (loads them into memory) and calls for the navigation bar
@@ -83,7 +87,6 @@ public class MainWindowController implements Initializable, EventHandler {
         // Tree root
         TreeItem<String> root = new TreeItem<>();
         root.setExpanded(true);
-
         // Home branch
         makeBranch("Home", root);
 
@@ -94,12 +97,12 @@ public class MainWindowController implements Initializable, EventHandler {
         makeBranch("Map Viewer", root);
 
         // Analytics branch
-        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
+        analyticsBranch = makeBranch("Analytics", root);
         makeBranch("Map View", analyticsBranch);
         makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
-        TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
+        dataViewerBranch = makeBranch("Data Viewer", root);
         makeBranch("Retailer", dataViewerBranch);
         makeBranch("Trip", dataViewerBranch);
         makeBranch("Wifi", dataViewerBranch);
@@ -137,38 +140,40 @@ public class MainWindowController implements Initializable, EventHandler {
      * @param newScreen The new window that will replace the current window
      */
     private void changeMainScreen(String newScreen) {
-        // Removes the current window to make room for the new window
-        switch (currentWindow) {
-            case "Home": removeMainScreen(homeViewer); break;
-            case "Route Planning": removeMainScreen(routePlannerViewer); break;
-            case "Map Viewer": removeMainScreen(mapViewer); break;
-            case "Analytics": break; // todo
-            case "Map View": removeMainScreen(mapAnalyticViewer); break;
-            case "Graph View": removeMainScreen(graphViewer); break;
-            case "Data Viewer": break; // todo
-            case "Retailer": removeMainScreen(retailerViewer); break;
-            case "Trip": removeMainScreen(tripViewer); break;
-            case "Wifi": removeMainScreen(wifiViewer); break;
-            case "Data Entry": removeMainScreen(dataEntryViewer); break;
-            default: System.out.println("ERROR: No such removal handle exists");
+        if (!newScreen.equals("Analytics") && !newScreen.equals("Data Viewer")) {
+            // Removes the current window to make room for the new window
+            switch (currentWindow) {
+                case "Home": removeMainScreen(homeViewer); break;
+                case "Route Planning": removeMainScreen(routePlannerViewer); break;
+                case "Map Viewer": removeMainScreen(mapViewer); break;
+                case "Analytics": break; // todo
+                case "Map View": removeMainScreen(mapAnalyticViewer); break;
+                case "Graph View": removeMainScreen(graphViewer); break;
+                case "Data Viewer": break; // todo
+                case "Retailer": removeMainScreen(retailerViewer); break;
+                case "Trip": removeMainScreen(tripViewer); break;
+                case "Wifi": removeMainScreen(wifiViewer); break;
+                case "Data Entry": removeMainScreen(dataEntryViewer); break;
+                default: System.out.println("ERROR: No such removal handle exists");
+            }
+            // Add the new window where the old one was
+            switch (newScreen) {
+                case "Home": setMainScreen(homeViewer); break;
+                case "Route Planning": setMainScreen(routePlannerViewer); break;
+                case "Map Viewer": setMainScreen(mapViewer = new MapViewerWindow()); break;
+                case "Analytics": break; // todo
+                case "Map View": setMainScreen(mapAnalyticViewer = new MapAnalyticWindow()); break;
+                case "Graph View": setMainScreen(graphViewer = new TripAnalyticWindow()); break;
+                case "Data Viewer": break; // todo
+                case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break; // Recreates viewer
+                case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break; // Recreates viewer
+                case "Wifi": setMainScreen(wifiViewer = new WifiDataViewerWindow()); break; // Recreates viewer
+                case "Data Entry": setMainScreen(dataEntryViewer); break;
+                default: System.out.println("ERROR: No such set handle exists");
+            }
+            // Update window tracker
+            currentWindow = newScreen;
         }
-        // Add the new window where the old one was
-        switch (newScreen) {
-            case "Home": setMainScreen(homeViewer); break;
-            case "Route Planning": setMainScreen(routePlannerViewer); break;
-            case "Map Viewer": setMainScreen(mapViewer = new MapViewerWindow()); break;
-            case "Analytics": break; // todo
-            case "Map View": setMainScreen(mapAnalyticViewer = new MapAnalyticWindow()); break;
-            case "Graph View": setMainScreen(graphViewer = new TripAnalyticWindow()); break;
-            case "Data Viewer": break; // todo
-            case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break; // Recreates viewer
-            case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break; // Recreates viewer
-            case "Wifi": setMainScreen(wifiViewer = new WifiDataViewerWindow()); break; // Recreates viewer
-            case "Data Entry": setMainScreen(dataEntryViewer); break;
-            default: System.out.println("ERROR: No such set handle exists");
-        }
-        // Update window tracker
-        currentWindow = newScreen;
     }
 
     /**

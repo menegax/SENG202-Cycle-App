@@ -26,6 +26,11 @@ public class HelpWindowController implements Initializable{
     private TripAnalyticHelp graphHelp;
     private String currentWindow;
 
+    // Navigation bar related
+    private TreeItem<String> analyticsBranch;
+    private TreeItem<String> dataViewerBranch;
+
+
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set home window as initial window
@@ -61,12 +66,12 @@ public class HelpWindowController implements Initializable{
         makeBranch("Map Viewer", root);
 
         // Analytics branch
-        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
+        analyticsBranch = makeBranch("Analytics", root);
         makeBranch("Map View", analyticsBranch);
         makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
-        TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
+        dataViewerBranch = makeBranch("Data Viewer", root);
         makeBranch("Retailer", dataViewerBranch);
         makeBranch("Trip", dataViewerBranch);
         makeBranch("Wifi", dataViewerBranch);
@@ -104,38 +109,40 @@ public class HelpWindowController implements Initializable{
      * @param newScreen The new window that will replace the current window
      */
     private void changeMainScreen(String newScreen) {
-        // Removes the current window to make room for the new window
-        switch (currentWindow) {
-            case "Home": removeMainScreen(homeHelp); break;
-            case "Route Planning": removeMainScreen(routePlannerHelp); break;
-            case "Map Viewer": removeMainScreen(mapViewerHelp); break;
-            case "Analytics": break; // todo
-            case "Map View": removeMainScreen(mapAnalyticHelp); break;
-            case "Graph View": removeMainScreen(graphHelp); break;
-            case "Data Viewer": break; // todo
-            case "Retailer": removeMainScreen(retailerHelp); break;
-            case "Trip": removeMainScreen(tripHelp); break;
-            case "Wifi": removeMainScreen(wifiHelp); break;
-            case "Data Entry": removeMainScreen(dataEntryHelp); break;
-            default: System.out.println("ERROR: No such removal handle exists");
+        if (!newScreen.equals("Analytics") && !newScreen.equals("Data Viewer")) {
+            // Removes the current window to make room for the new window
+            switch (currentWindow) {
+                case "Home": removeMainScreen(homeHelp); break;
+                case "Route Planning": removeMainScreen(routePlannerHelp); break;
+                case "Map Viewer": removeMainScreen(mapViewerHelp); break;
+                case "Analytics": break; // todo
+                case "Map View": removeMainScreen(mapAnalyticHelp); break;
+                case "Graph View": removeMainScreen(graphHelp); break;
+                case "Data Viewer": break; // todo
+                case "Retailer": removeMainScreen(retailerHelp); break;
+                case "Trip": removeMainScreen(tripHelp); break;
+                case "Wifi": removeMainScreen(wifiHelp); break;
+                case "Data Entry": removeMainScreen(dataEntryHelp); break;
+                default: System.out.println("ERROR: No such removal handle exists");
+            }
+            // Add the new window where the old one was
+            switch (newScreen) {
+                case "Home": setMainScreen(homeHelp); break;
+                case "Route Planning": setMainScreen(routePlannerHelp); break;
+                case "Map Viewer": setMainScreen(mapViewerHelp); break;
+                case "Analytics": break; // todo
+                case "Map View": setMainScreen(mapAnalyticHelp); break;
+                case "Graph View": setMainScreen(graphHelp); break;
+                case "Data Viewer": break; // todo
+                case "Retailer": setMainScreen(retailerHelp); break;
+                case "Trip": setMainScreen(tripHelp); break;
+                case "Wifi": setMainScreen(wifiHelp); break;
+                case "Data Entry": setMainScreen(dataEntryHelp); break;
+                default: System.out.println("ERROR: No such set handle exists");
+            }
+            // Update window tracker
+            currentWindow = newScreen;
         }
-        // Add the new window where the old one was
-        switch (newScreen) {
-            case "Home": setMainScreen(homeHelp); break;
-            case "Route Planning": setMainScreen(routePlannerHelp); break;
-            case "Map Viewer": setMainScreen(mapViewerHelp); break;
-            case "Analytics": break; // todo
-            case "Map View": setMainScreen(mapAnalyticHelp); break;
-            case "Graph View": setMainScreen(graphHelp); break;
-            case "Data Viewer": break; // todo
-            case "Retailer": setMainScreen(retailerHelp); break;
-            case "Trip": setMainScreen(tripHelp); break;
-            case "Wifi": setMainScreen(wifiHelp); break;
-            case "Data Entry": setMainScreen(dataEntryHelp); break;
-            default: System.out.println("ERROR: No such set handle exists");
-        }
-        // Update window tracker
-        currentWindow = newScreen;
     }
 
     /**
