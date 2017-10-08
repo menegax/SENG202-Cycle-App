@@ -19,7 +19,7 @@
         #floating-panel {
             position: absolute;
             top: 10px;
-            left: 25%;
+            left: 15%;
             z-index: 5;
             background-color: #fff;
             padding: 5px;
@@ -55,6 +55,9 @@
             line-height: 30px;
             padding-left: 10px;
         }
+        #labels {
+
+        }
         #output {
             font-family: 'Roboto','sans-serif';
             font-size: 11px;
@@ -63,13 +66,14 @@
 </head>
 <body>
 <div id="floating-panel">
-    <input id="address" type="textbox" value="">
-    <input id="address1" type="textbox" value="">
+
+    <input id="address" type="textbox" value="Start Address">
+    <input id="address1" type="textbox" value="End Address">
     <input id="submit" type="button" value="Show Route">
     <input id="clear" type="button" value="Clear">
 </div>
 <div id="floating-panel2">
-    <input id="wayPt" type="textbox" value="" visible="false">
+    <input id="wayPt" type="textbox" value="">
     <input id="wayPt1" type="textbox" value="">
 </div>
 <div id="floating-panel1">
@@ -249,9 +253,23 @@
     function calculateAndDisplayRoute(directionsService, directionsDisplay) {
 
         var wayPts = [];
-        if (count1 > 0) {
+        if (count1 === 1) {
             wayPts.push({
                 location: document.getElementById('wayPt').value,
+                stopover: true
+            });
+        } else if (count1 === 2) {
+            wayPts.push({
+                location: document.getElementById('wayPt1').value,
+                stopover: true
+            });
+        } else if (count1 === 3) {
+            wayPts.push({
+                location: document.getElementById('wayPt').value,
+                stopover: true
+            });
+            wayPts.push({
+                location: document.getElementById('wayPt1').value,
                 stopover: true
             });
         }
@@ -354,8 +372,12 @@
         return latLngStr;
     }
 
-    function addToRoute() {
-        count1 = 1;
+    function addWifiToRoute() {
+        if (count1 === 0) {
+            count1 = 1;
+        } else if (count1 === 2) {
+            count1 = 3;
+        }
         var location = bridge.getLocationToAdd();
         var lat = location.getLatitude();
         var lng = location.getLongitude();
@@ -377,6 +399,48 @@
                 if (results[0]) {
                     map.setZoom(14);
                     document.getElementById('wayPt').value = results[0].formatted_address;
+                } else {
+                    window.alert('No results found');
+                }
+            } else {
+                window.alert('Geocoder failed due to: ' + status);
+            }
+        });
+        var directionsService = new google.maps.DirectionsService;
+        var directionsDisplay = new google.maps.DirectionsRenderer({
+            draggable: true,
+            travelMode: 'BICYCLING'
+        });
+        calculateAndDisplayRoute(directionsService, directionsDisplay);
+    }
+
+    function addRetailerToRoute() {
+        if (count1 === 0) {
+            count1 = 2;
+        } else if (count1 === 1) {
+            count1 = 3;
+        }
+        var location = bridge.getLocationToAdd();
+        var lat = location.getLatitude();
+        var lng = location.getLongitude();
+
+        var myLatlng = new google.maps.LatLng(lat,lng);
+        wifiMarker = new google.maps.Marker({
+            position: myLatlng,
+            title:"Nearest WiFi"
+        });
+        // To add the marker to the map, call setMap();
+        wifiMarker.setMap(map);
+
+        var latlngStr = lat + ',' + lng;
+        var geocoder1 = new google.maps.Geocoder;
+        var latlngStr = latlngStr.split(',', 2);
+        var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
+        geocoder1.geocode({'location': latlng}, function (results, status) {
+            if (status === 'OK') {
+                if (results[0]) {
+                    map.setZoom(14);
+                    document.getElementById('wayPt1').value = results[0].formatted_address;
                 } else {
                     window.alert('No results found');
                 }

@@ -6,6 +6,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.Label;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
@@ -22,11 +23,11 @@ import java.util.ResourceBundle;
 public class RoutePlannerViewerController implements Initializable{
 
     @FXML
-    private Button displayButton1;
-    @FXML
     private WebView webViewMap1;
     @FXML private ComboBox<String> wifiTypeCB;
     @FXML private ComboBox<String> retailerTypeCB;
+    @FXML private Label errorLabel;
+
 
     private WebEngine webEngine1;
     private JSObject jsBridge1;
@@ -68,40 +69,43 @@ public class RoutePlannerViewerController implements Initializable{
         });
     }
 
-    /**
-     * todo
-     */
-    public void displayClicked1() { /*webEngine1.executeScript("loadStation();");*/ }
 
     public void clearWifi() {
+        errorLabel.setVisible(false);
         jsBridge1.call("loadWifiType", "Clear");
     }
 
     public void clearRetailer() {
+        errorLabel.setVisible(false);
         jsBridge1.call("loadRetailerType", "Clear");
     }
 
     public void displayWifis() {
+        errorLabel.setVisible(false);
         jsBridge1.call("loadWifiType", wifiTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void displayRetailers() {
+        errorLabel.setVisible(false);
         jsBridge1.call("loadRetailerType", retailerTypeCB.getSelectionModel().getSelectedItem());
     }
 
     public void addWifi() {
+        errorLabel.setVisible(false);
         Integer points = (Integer) jsBridge1.call("getPoints");
         if (points == 0) {
-            System.out.println("Nothing selected");
+            errorLabel.setText("Please select a location on the map first.");
+            errorLabel.setVisible(true);
         } else if (points == 1) {
             String start = (String) jsBridge1.call("getStart");
             Location startLocation = new Location(Double.valueOf(start.split(",")[0]), Double.valueOf(start.split(",")[1]));
             try {
                 Wifi nearestWifi = findNearestWifi(startLocation);
                 routeHandler.setLocationToAdd(nearestWifi);
-                jsBridge1.call("addToRoute");
+                jsBridge1.call("addWifiToRoute");
             } catch (DatabaseEmptyException e) {
-                System.out.println("No wifis!!!!!");
+                errorLabel.setText("Please load some Wi-Fi locations to the database.");
+                errorLabel.setVisible(true);
             }
         } else {
             String start = (String) jsBridge1.call("getStart");
@@ -111,21 +115,45 @@ public class RoutePlannerViewerController implements Initializable{
             try {
                 Wifi nearestWifi = findNearestWifi(startLocation, endLocation);
                 routeHandler.setLocationToAdd(nearestWifi);
-                jsBridge1.call("addToRoute");
+                jsBridge1.call("addWifiToRoute");
             } catch (DatabaseEmptyException e) {
-                System.out.println("No wifis!!!!!");
+                errorLabel.setText("Please load some Wi-Fi locations to the database.");
+                errorLabel.setVisible(true);
             }
         }
     }
 
     public void addRetailer() {
-//         Retailer retailer;
-//         if (webview.getSelected == 0) {
-//             retailer = findNearestRetailer(webview.getPoint());
-//         } else {
-//              retailer = findNearestRetailer(webview.getStart, webView.getEnd);
-//         }
-//         webview.addToRoute(retailer);
+        errorLabel.setVisible(false);
+        Integer points = (Integer) jsBridge1.call("getPoints");
+        if (points == 0) {
+            errorLabel.setText("Please select a location on the map first.");
+            errorLabel.setVisible(true);
+        } else if (points == 1) {
+            String start = (String) jsBridge1.call("getStart");
+            Location startLocation = new Location(Double.valueOf(start.split(",")[0]), Double.valueOf(start.split(",")[1]));
+            try {
+                Retailer nearestRetailer = findNearestRetailer(startLocation);
+                routeHandler.setLocationToAdd(nearestRetailer);
+                jsBridge1.call("addRetailerToRoute");
+            } catch (DatabaseEmptyException e) {
+                errorLabel.setText("Please load some Retailer locations to the database.");
+                errorLabel.setVisible(true);
+            }
+        } else {
+            String start = (String) jsBridge1.call("getStart");
+            String end = (String) jsBridge1.call("getEnd");
+            Location startLocation = new Location(Double.valueOf(start.split(",")[0]), Double.valueOf(start.split(",")[1]));
+            Location endLocation = new Location(Double.valueOf(end.split(",")[0]), Double.valueOf(end.split(",")[1]));
+            try {
+                Retailer nearestRetailer = findNearestRetailer(startLocation, endLocation);
+                routeHandler.setLocationToAdd(nearestRetailer);
+                jsBridge1.call("addRetailerToRoute");
+            } catch (DatabaseEmptyException e) {
+                errorLabel.setText("Please load some Retailer locations to the database.");
+                errorLabel.setVisible(true);
+            }
+        }
     }
 
 
