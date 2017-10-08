@@ -725,7 +725,6 @@ public class DataEntryWindowController implements Initializable{
         }
 
 
-
     }
 
 }
