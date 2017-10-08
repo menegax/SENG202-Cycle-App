@@ -27,6 +27,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Select Provider" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -36,6 +37,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Select Type" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -48,6 +50,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Borough" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -60,6 +63,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="View Selected Wifi" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -72,6 +76,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Select Type" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -81,6 +86,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Select Street" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -90,6 +96,27 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="Select Zip Code" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="View Selected Retailer" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="60.0" text="Clear All" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>

@@ -26,17 +26,9 @@
                      </padding>
                   </VBox>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
-                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
-                     </children>
-                     <padding>
-                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-                     </padding>
-                  </VBox>
-                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="85.0" promptText="Gender" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -49,6 +41,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" promptText="Userpass" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -61,6 +54,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" promptText="Age" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -73,6 +67,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="85.0" promptText="Density" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -82,6 +77,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" promptText="DataGroup" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -91,6 +87,47 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Display" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Clear" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ToggleButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Show Wifi" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ToggleButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Show Retailer" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="POI Datagroup" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
                      </children>
                      <padding>
