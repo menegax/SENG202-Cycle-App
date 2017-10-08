@@ -4,6 +4,7 @@ import javafx.beans.binding.Bindings;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -14,6 +15,9 @@ import javafx.scene.text.Text;
 import seng202.team7.DatabaseRetriever;
 import seng202.team7.SQLAnalytics;
 
+import java.net.URL;
+import java.util.ResourceBundle;
+
 import java.util.ArrayList;
 
 import static seng202.team7.Datagroup.getDatagroups;
@@ -23,18 +27,15 @@ import static seng202.team7.Datagroup.getDatagroups;
  * Controller for Graph viewing of analytics
  * @author Morgan English
  */
-public class TripAnalyticController{
-    @FXML private Button userButton;
-    @FXML private Button timeButton;
-    @FXML private Button genderButton;
-    @FXML private Button durButton;
-    @FXML private Button distButton;
-    @FXML private Button ageButton;
+public class TripAnalyticController implements Initializable{
+
     @FXML private PieChart pie;
     @FXML private BarChart<?,?> bar;
     @FXML private CategoryAxis barX;
     @FXML private NumberAxis barY;
     @FXML private Text title;
+    @FXML private TextField datagroupField;
+    @FXML private ComboBox<String> typeCombo;
     @FXML private ComboBox dataGroupCombo;
 
     @FXML public void setDataGroupComboItems() {
@@ -56,11 +57,18 @@ public class TripAnalyticController{
 
     DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
+
+    public void initialize(URL url, ResourceBundle rb)
+    {
+        typeCombo.getItems().addAll("User","Age","Time","Duration","Distance");
+        userGraph();
+    }
     /**
      * Creates a PIE graph showing Gender of selected Bike trips
      */
     public void genderGraph()
     {
+        title.setText("Gender");
         bar.setVisible(false);
         Label caption = new Label("");
         caption.setTextFill(Color.BLACK);
@@ -92,6 +100,7 @@ public class TripAnalyticController{
      */
     public void userGraph()
     {
+        title.setText("User");
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
@@ -117,6 +126,7 @@ public class TripAnalyticController{
      */
     public void ageGraph()
     {
+        title.setText("Age");
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
@@ -146,6 +156,7 @@ public class TripAnalyticController{
      */
     public void timeGraph()
     {
+        title.setText("Time of Day");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
@@ -180,11 +191,40 @@ public class TripAnalyticController{
         bar.setVisible(true);
     }
 
+
+    public void showGraph()
+    {
+        String graph = "";
+        if(typeCombo.getSelectionModel().getSelectedItem() == null)
+            return;
+        else
+            graph = typeCombo.getSelectionModel().getSelectedItem();
+        //("User","Age","Time","Duration","Distance")
+        switch (graph){
+            case("User"):
+                userGraph();
+                break;
+            case("Age"):
+                ageGraph();
+                break;
+            case("Time"):
+                timeGraph();
+                break;
+            case("Duration"):
+                durationGraph();
+                break;
+            case("Distance"):
+                distanceGraph();
+                break;
+
+        }
+    }
     /**
      * Creates bar graph by duration
      */
     public void durationGraph()
     {
+        title.setText("Duration");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
@@ -223,6 +263,7 @@ public class TripAnalyticController{
      */
     public void distanceGraph()
     {
+        title.setText("Distance");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
