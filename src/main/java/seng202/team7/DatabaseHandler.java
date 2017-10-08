@@ -2,6 +2,7 @@ package seng202.team7;
 
 import org.apache.commons.io.FileUtils;
 
+import javax.swing.*;
 import java.io.File;
 import java.net.URL;
 import java.sql.*;
@@ -12,24 +13,44 @@ import java.sql.*;
  * @author MorganEnglish
  */
 public class DatabaseHandler {
-    public static String url = "jdbc:sqlite:./src/Database/database.db";
+    public static String url;
     public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
-    public static String onlineDatabaseLocal = "./src/Database/databaseOnline.db";
+    public static String databaseLocal;
     public static String onlineDatabaseUrl = "http://seng202team7.000webhostapp.com/database.db";
     public static URL dbUrl = null;
 
-    public static void createURL(){
 
+    public static void initializeDatabase()
+    {
+        System.out.println("initdatabase");
+        File jarDir = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath());
+        System.out.println(jarDir.getAbsolutePath());
+        url = "jdbc:sqlite:"+jarDir.getAbsolutePath()+"/database.db";
+        databaseLocal = jarDir.getAbsolutePath()+"/database.db";
+        File f = new File(databaseLocal);
+        if(f.exists())
+            return;
+        else {
+            getOnlineDatabase();
+            JOptionPane.showMessageDialog(null,
+                    "Initialixing Database\n Please Wait...",
+                    "Meraki Bike",
+                    JOptionPane.WARNING_MESSAGE);
+
+
+        }
     }
 
     //public static String onlineURL = "jdbc:sqlite:https//seng202team7.000webhostapp.com/database.db";
 
     public static void getOnlineDatabase()
     {
+        System.out.println("getting databse");
         try {
-            File dbFile = new File(onlineDatabaseLocal);
+            File dbFile = new File(databaseLocal);
             URL website = new URL(onlineDatabaseUrl);
             FileUtils.copyURLToFile(website, dbFile);
+            System.out.println("finished");
         }catch (Exception e) {
             e.printStackTrace();
         }

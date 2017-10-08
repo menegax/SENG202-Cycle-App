@@ -5,6 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import seng202.team7.DatabaseHandler;
 
 /**
  * Main window model for running the main program
@@ -18,6 +19,7 @@ public class MainWindow extends Application {
      * @param args Unused parameter
      */
     public static void main(String[] args) {
+        DatabaseHandler.initializeDatabase();
         launch(args);
     }
 
