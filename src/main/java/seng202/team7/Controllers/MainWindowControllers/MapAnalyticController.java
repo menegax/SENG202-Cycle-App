@@ -99,7 +99,7 @@ public class MapAnalyticController implements Initializable {
 
 
     /**
-     * todo
+     * On click oisplay button will take the parameters entered and pass them into js to create a heat map overlay
      */
     public void displayClicked()
     {
@@ -148,12 +148,18 @@ public class MapAnalyticController implements Initializable {
     }
 
 
+    /**
+     * removes all heatmaps
+     */
     public void clearClicked()
     {
         jsObject.call("clearHeat");
     }
 
 
+    /**
+     * Turns on the retailer icon
+     */
     public void retailerClicked()
     {
         System.out.println("retailer clicked");
@@ -179,6 +185,10 @@ public class MapAnalyticController implements Initializable {
         }
     }
 
+
+    /**
+     * turns on the Wifi icons
+     */
     public void wifiClicked()
     {
         System.out.println("wifi clicked");

@@ -194,7 +194,6 @@ public class SQLAnalytics {
 
 
     /**
-     * BROKEN QUERY!!!!!
      * SQL query on Time object not behaving as it is expected. Null is returned when there is a value in the hour slot
      * @param startTime startTime for time segment to search
      * @param endTime endTime for time segment
@@ -213,7 +212,6 @@ public class SQLAnalytics {
         } else {
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
                     + " WHERE cast(STRFTIME('%H', datetime(startTime/1000,'unixepoch')) AS INTEGER) BETWEEN " +startTime+" AND " + endTime + ";";
-            System.out.println("in right sql");
         }
 
         try (Connection conn = DatabaseHandler.connect();
