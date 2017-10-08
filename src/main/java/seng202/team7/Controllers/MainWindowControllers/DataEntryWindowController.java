@@ -206,6 +206,11 @@ public class DataEntryWindowController implements Initializable{
 
         else {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
+
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
@@ -309,6 +314,11 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
+
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
@@ -377,6 +387,10 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
 
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
@@ -455,6 +469,11 @@ public class DataEntryWindowController implements Initializable{
 
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
+
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
 
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
@@ -630,6 +649,17 @@ public class DataEntryWindowController implements Initializable{
         startStationIDTextfield.clear();
         endStationIDTextfield.clear();
 
+        startDatePicked.setValue(null);
+        endDatePicked.setValue(null);
+
+        if (userTypeComboBox.getValue() != null) {
+            userTypeComboBox.getSelectionModel().clearSelection();
+        }
+
+        if (genderComboBox.getValue() != null) {
+            genderComboBox.getSelectionModel().clearSelection();
+        }
+
     }
 
     public void clearWifi() {
@@ -642,6 +672,13 @@ public class DataEntryWindowController implements Initializable{
         longitudeTextfield.clear();
         latitudeTextfield.clear();
 
+        if (boroughComboBox.getValue() != null) {
+            boroughComboBox.getSelectionModel().clearSelection();
+        }
+        if (typeWifiComboBox.getValue() != null) {
+            typeWifiComboBox.getSelectionModel().clearSelection();
+        }
+
     }
 
     public void clearRetailer() {
@@ -651,6 +688,13 @@ public class DataEntryWindowController implements Initializable{
         cityRetailerTextfield.clear();
         pAddressTextfield.clear();
         sAddressTextfield.clear();
+
+        if (typeRetailerComboBox.getValue() != null) {
+            typeRetailerComboBox.getSelectionModel().clearSelection();
+        }
+        if (stateComboBox.getValue() != null) {
+            stateComboBox.getSelectionModel().clearSelection();
+        }
 
     }
 
@@ -662,6 +706,12 @@ public class DataEntryWindowController implements Initializable{
         cityRetailerTextfield.clear();
         pAddressTextfield.clear();
         sAddressTextfield.clear();
+        if (typeRetailerComboBox.getValue() != null) {
+            typeRetailerComboBox.getSelectionModel().clearSelection();
+        }
+        if (stateComboBox.getValue() != null) {
+            stateComboBox.getSelectionModel().clearSelection();
+        }
 
         startTimeTextfield.clear();
         endTimeTextfield.clear();
@@ -669,6 +719,15 @@ public class DataEntryWindowController implements Initializable{
         birthYearTextfield.clear();
         startStationIDTextfield.clear();
         endStationIDTextfield.clear();
+        startDatePicked.setValue(null);
+        endDatePicked.setValue(null);
+        if (userTypeComboBox.getValue() != null) {
+            userTypeComboBox.getSelectionModel().clearSelection();
+        }
+
+        if (genderComboBox.getValue() != null) {
+            genderComboBox.getSelectionModel().clearSelection();
+        }
 
         providerTextfield.clear();
         locationWifiTextfield.clear();
@@ -677,6 +736,13 @@ public class DataEntryWindowController implements Initializable{
         remarksTextfield.clear();
         longitudeTextfield.clear();
         latitudeTextfield.clear();
+        if (boroughComboBox.getValue() != null) {
+            boroughComboBox.getSelectionModel().clearSelection();
+        }
+        if (typeWifiComboBox.getValue() != null) {
+            typeWifiComboBox.getSelectionModel().clearSelection();
+        }
+
 
     }
 

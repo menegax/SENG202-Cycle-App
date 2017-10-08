@@ -8,15 +8,26 @@ import java.util.List;
  */
 public class RouteHandler {
 
+    private Location locationToAdd;
+
     private DatabaseRetriever databaseRetriever = new DatabaseRetriever();
 
     /**
      * Wrapper method for interacting with Javascript inside WebEngine
+     *
      * @return list of Station objects
      */
-    public List<Station> getStationJS(){
+    public List<Station> getStationJS() {
 
         return databaseRetriever.getStationList();
+    }
+
+    public Location getLocationToAdd() {
+        return locationToAdd;
+    }
+
+    public void setLocationToAdd(Location locationToAdd) {
+        this.locationToAdd = locationToAdd;
     }
 
     public List<Wifi> getWifiJSType(String type)

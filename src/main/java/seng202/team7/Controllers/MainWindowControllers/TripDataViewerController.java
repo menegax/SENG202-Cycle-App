@@ -62,6 +62,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private Label userTypeLabel;
     @FXML private Label ageLabel;
     @FXML private Label genderLabel;
+    @FXML private Label dataGroupLabel;
 
     // Editor widgets
     @FXML private TextField startNameEntry;
@@ -213,6 +214,7 @@ public class TripDataViewerController implements Initializable {
         userTypeLabel.setText(trip.getUserType());
         ageLabel.setText(Integer.toString(trip.getAge()));
         genderLabel.setText(trip.getGender());
+        dataGroupLabel.setText(trip.getDataGroup());
     }
 
     /**

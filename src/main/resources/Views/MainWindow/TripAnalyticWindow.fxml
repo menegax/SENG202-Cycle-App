@@ -34,8 +34,8 @@
             </PieChart>
             <VBox alignment="CENTER_LEFT" spacing="5.0" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <children>
-                   <TextField fx:id="datagroupField" layoutX="589.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="25.0" prefWidth="97.0" promptText="Datagroup" />
-                  <Label text="Analysis Type:" />
+                   <ComboBox fx:id="dataGroupCombo" layoutX="589.0" layoutY="162.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="0.0" minWidth="0.0" onShowing="#setDataGroupComboItems" prefHeight="25.0" prefWidth="80.0" promptText="DataGroup" />
+                   <Label text="Analysis Type:" />
                   <ComboBox fx:id="typeCombo" prefWidth="150.0" promptText="Type" />
                   <Button mnemonicParsing="false" onAction="#showGraph" text="Show Graph" />
                </children>

@@ -163,11 +163,12 @@ public class InputHandler {
                         int bikeID;
                         int duration;
 
+                        /*
                         if (fields[0].isEmpty() || fields[3].isEmpty() || fields[7].isEmpty() || fields[11].isEmpty()
                                 || fields[13].isEmpty() || fields[14].isEmpty()) {
-                            System.out.println("At least one important number field is empty");
+                            System.out.println("At least one important number field is empty, would cause parser to freeze up");
                             break;
-                        }
+                        }*/
 
                         try {
                             duration = Integer.parseInt(fields[0]);
@@ -553,24 +554,43 @@ public class InputHandler {
 
     public int removeQuotesInt(String value) {
 
-        if (value.equals("\"\"")) {
+        try {
+            if (value.equals("\"\"")) {
+                return 0;
+            }
+            int result = Integer.parseInt(value.substring(1, value.length() - 1));
+            return result;
+
+        } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
+            System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
         }
-        int result = Integer.parseInt(value.substring(1, value.length() - 1));
-        return result;
     }
 
     public double removeQuotesDouble(String value) {
-        if (value.equals("\"\"")) {
+
+        try {
+            if (value.equals("\"\"")) {
+                return 0;
+            }
+            double result = Double.parseDouble(value.substring(1, value.length() - 1));
+            return result;
+
+        } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
+            System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
         }
-        double result = Double.parseDouble(value.substring(1, value.length() - 1));
-        return result;
     }
 
     public String removeQuotesStr(String value) {
-        String result = value.substring(1, value.length() - 1);
-        return result;
+
+        try {
+            String result = value.substring(1, value.length() - 1);
+            return result;
+        } catch (StringIndexOutOfBoundsException e) {
+            return "";
+        }
+
     }
 
 }
