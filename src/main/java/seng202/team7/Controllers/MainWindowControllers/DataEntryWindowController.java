@@ -206,6 +206,11 @@ public class DataEntryWindowController implements Initializable{
 
         else {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
+
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
@@ -309,6 +314,11 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
+
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
             }
@@ -377,6 +387,10 @@ public class DataEntryWindowController implements Initializable{
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
 
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
 
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
@@ -455,6 +469,11 @@ public class DataEntryWindowController implements Initializable{
 
         String dataGroup = (String) dataGroupCombo.getValue();
         if (dataGroup != null) {
+
+            if (dataGroup.length() > 20) {
+                status_text.setText("Datagroup too long! Enter another");
+                return;
+            }
 
             if (!getDatagroups().contains(dataGroup)) {
                 addDatagroup(dataGroup);
