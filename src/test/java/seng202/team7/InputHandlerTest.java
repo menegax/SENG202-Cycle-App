@@ -12,15 +12,8 @@ public class InputHandlerTest
 {
 
 
-
-    /*
-    String file_retailer = "Team7_Seng202\\src\\test\\test_resources\\retailer_data_test.csv";
-    String file_wifi = "Team7_Seng202\\src\\test\\test_resources\\wifi_data_test.csv";
-    String file_trip = "Team7_Seng202\\src\\test\\test_resources\\trip_data_test.csv";
-    not sure how to do this, below works fine for now
-    */
-
     InputHandler tester = new InputHandler();
+    //DatabaseHandler.url = DatabaseHandler.testurl;
 
     String file_retailer = "retailer_data_test.csv";
     String file_wifi = "wifi_data_test.csv";
