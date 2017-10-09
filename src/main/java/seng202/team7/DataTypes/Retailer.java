@@ -24,7 +24,9 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      * SQL tablename
      */
     public static String tableName = "retailer";
-
+    /**
+     * SQL table columns
+     */
     public static String[] columns = {"id","name","city","pAddress","sAddress","state","zipCode","typeID","type","latitude","longitude","datagroup","obj","street"};
     /**
      * SQL table creation script
@@ -189,90 +191,202 @@ public class Retailer extends Location implements Data, java.io.Serializable{
         }
     }
 
+    /**
+     * Simple getter for retailer object's name
+     * @return retailers object's name
+     */
     public String getName() {
         return name;
     }
+
+    /**
+     * Simple setter for retailer object's name
+     * @param name new retailer object's name
+     */
     public void setName(String name) {
         this.name = name;
     }
 
+    /**
+     * Simple getter for the retailer object's city
+     * @return retailer objects city
+     */
     public String getCity() {
         return city;
     }
+
+    /**
+     * Simple setter for retailer object's city
+     * @param city new retailer object's city
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * Simple getter for retailer object's primary address
+     * @return retailers object's primary address
+     */
     public String getPAddress() {
         return pAddress;
     }
+
+    /**
+     * Simple setter for retailer object's primary address
+     * @param pAddress new retailer object's primary address
+     */
     public void setPAddress(String pAddress) {
         this.pAddress = pAddress;
     }
 
+    /**
+     * Simple getter for retailer object's secondary address
+     * @return retailers object's secondary address
+     */
     public String getSAddress() {
         return sAddress;
     }
+
+    /**
+     * Simple setter for retailer object's secondary address
+     * @param sAddress new retailer object's secondary address
+     */
     public void setSAddress(String sAddress) {
         this.sAddress = sAddress;
     }
 
+    /**
+     * Simple getter for retailer object's state
+     * @return retailers object's state
+     */
     public String getState() {
         return state;
     }
+
+    /**
+     * Simple setter for retailer object's state
+     * @param state new retailer object's state
+     */
     public void setState(String state) {
         this.state = state;
     }
 
+    /**
+     * Simple getter for retailer object's zip code
+     * @return retailers object's zip code
+     */
     public int getZipCode() {
         return zipCode;
     }
+
+    /**
+     * Simple setter for retailer object's zip code
+     * @param zipCode new retailer object's zip code
+     */
     public void setZipCode(int zipCode) {
         this.zipCode = zipCode;
     }
 
+    /**
+     * Simple getter for retailer object's type id
+     * @return retailers object's type id
+     */
     public String getTypeID() {
         return typeID;
     }
+
+    /**
+     * Simple setter for retailer object's type id
+     * @param typeID new retailer object's type id
+     */
     public void setTypeID(String typeID) {
         this.typeID = typeID;
     }
 
+    /**
+     * Simple getter for retailer object's type
+     * @return retailers object's type
+     */
     public String getType() {
         return type;
     }
+
+    /**
+     * Simple setter for retailer object's type
+     * @param type new retailer object's type
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * Simple getter for retailer object's data group
+     * @return retailers object's data group
+     */
     public String getDataGroup() {
         return dataGroup;
     }
+
+    /**
+     * Simple setter for retailer object's data group
+     * @param dataGroup new retailer object's data group
+     */
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
 
+    /**
+     * Simple getter for retailer object's latitude
+     * @return retailers object's latitude
+     */
     public double getLatitude() {
         return latitude;
     }
+
+    /**
+     * Simple setter for retailer object's latitude
+     * @param latitude new retailer object's latitude
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
+    /**
+     * Simple getter for retailer object's longitude
+     * @return retailers object's longitude
+     */
     public double getLongitude() {
         return longitude;
     }
+
+    /**
+     * Simple setter for retailer object's longitude
+     * @param longitude new retailer object's longitude
+     */
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
+    /**
+     * Simple getter for retailer object's street
+     * @return retailers object's street
+     */
     public String getStreet() { return street; }
+
+    /**
+     * Simple setter for retailer object's street
+     * @param street new retailer object's street
+     */
     public void setStreet(String street) { this.street = street; }
 
     public void print(){
         System.out.println("Name: " + name +" Lat: "+latitude + " Lon: "+ longitude);
     }
 
+    /**
+     * Converts the retailer object into a hash code
+     * @return result fo conversion
+     */
     @Override
     public int hashCode() {
         StaticVariables converter = new StaticVariables();

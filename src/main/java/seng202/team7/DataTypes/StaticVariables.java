@@ -137,6 +137,12 @@ public class StaticVariables {
         return "SELECT * FROM " + Station.tableName + " WHERE stationid = " + stationID;
     }
 
+    /**
+     * SQl query for wifi by ID
+     *
+     * @param wifiID ID to search for
+     * @return sql queary finding wifi by id
+     */
     public static String wifiIDQuery(int wifiID) {
         return "SELECT * FROM " + Wifi.tableName + " WHERE id = " + wifiID;
     }
@@ -148,6 +154,7 @@ public class StaticVariables {
      * @param lon lon of center
      * @return SQL Query String
      */
+
     public static String retailerByLocation(double lat, double lon) {
         return retailerByLocation(lat, defaultDist, lon, defaultDist);
     }
