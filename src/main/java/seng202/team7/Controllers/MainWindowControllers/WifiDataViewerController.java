@@ -11,7 +11,6 @@ import javafx.scene.text.Text;
 import seng202.team7.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -21,7 +20,6 @@ import java.util.ResourceBundle;
  * @author Aidan Smith asm142
  * Last updated 09/10/17
  */
-
 public class WifiDataViewerController implements Initializable {
 
     // Main Containers
@@ -30,9 +28,7 @@ public class WifiDataViewerController implements Initializable {
     @FXML private AnchorPane editor;
 
     // Multiple records viewer widgets
-    @FXML
-    private TableView<Wifi> wifiDataTable;
-
+    @FXML private TableView<Wifi> wifiDataTable;
     @FXML private TableColumn<Wifi, String> providerColumn;
     @FXML private TableColumn<Wifi, String> typeColumn;
     @FXML private TableColumn<Wifi, String> locationColumn;
@@ -44,7 +40,6 @@ public class WifiDataViewerController implements Initializable {
     @FXML private ComboBox<String> dataGroupCB;
     @FXML private TextField searchEntry;
     @FXML private Text error;
-
 
     // Single record viewer widgets
     @FXML private Label providerLabel;
@@ -138,7 +133,7 @@ public class WifiDataViewerController implements Initializable {
     }
 
     /**
-     * Called whenever a filter combobox is changed to filter all the loaded data again
+     * Called whenever a filter combo box is changed to filter all the loaded data again
      */
     public void filter() {
         error.setVisible(false);

@@ -1,6 +1,5 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
-
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -13,7 +12,6 @@ import javafx.scene.text.Text;
 import seng202.team7.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
-
 import java.net.URL;
 import java.time.ZoneId;
 import java.util.ArrayList;
@@ -24,7 +22,6 @@ import java.util.ResourceBundle;
  * @author Aidan Smith asm142
  * Last updated 09/10/17
  */
-
 public class TripDataViewerController implements Initializable {
 
     // Main Containers
@@ -50,9 +47,7 @@ public class TripDataViewerController implements Initializable {
     @FXML private TextField searchEntry;
     @FXML private Text error;
 
-
     // Single record viewer widgets
-
     @FXML private Label startNameLabel;
     @FXML private Label endNameLabel;
     @FXML private Label startIDLabel;
@@ -160,7 +155,7 @@ public class TripDataViewerController implements Initializable {
     }
 
     /**
-     * Called whenever a filter combobox is changed to filter all the loaded data again
+     * Called whenever a filter combo box is changed to filter all the loaded data again
      */
     public void filter() {
         error.setVisible(false);

@@ -1,11 +1,5 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
-/**
- * Retailer data controller to control raw data viewing of retailer data
- * @author Aidan Smith asm142
- * Last updated 09/10/17
- */
-
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -18,11 +12,15 @@ import javafx.scene.text.Text;
 import seng202.team7.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+/**
+ * Retailer data controller to control raw data viewing of retailer data
+ * @author Aidan Smith asm142
+ * Last updated 09/10/17
+ */
 public class RetailerDataViewerController implements Initializable {
 
     // Main containers
@@ -146,7 +144,7 @@ public class RetailerDataViewerController implements Initializable {
     }
 
     /**
-     * Called whenever a filter combobox is changed to filter all the loaded data again
+     * Called whenever a filter combo box is changed to filter all the loaded data again
      */
     public void filter() {
         error.setVisible(false);

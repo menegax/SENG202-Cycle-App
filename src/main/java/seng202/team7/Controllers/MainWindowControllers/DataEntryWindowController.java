@@ -477,7 +477,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
-
     /**
      * Loads manually inputted trip data and adds to database
      * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
@@ -687,7 +686,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
         }
 
     }
-
 
     /**
      * Clears wifi data entry fields completely, as well as combobox selection

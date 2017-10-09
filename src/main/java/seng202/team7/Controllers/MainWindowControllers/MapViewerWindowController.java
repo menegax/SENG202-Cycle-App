@@ -14,7 +14,6 @@ import seng202.team7.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
 import seng202.team7.JSHandling.JSHandler;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,26 +23,18 @@ import java.util.ResourceBundle;
  * Map viewer window to view data points on a map controller class
  * @author Mitchell Fenwick
  */
-
 public class MapViewerWindowController implements Initializable {
 
     // Widgets used in map viewer
-    @FXML
-    private ComboBox<String> mapComboBorough;
-    @FXML
-    private ComboBox<String> mapComboRetailerType;
-    @FXML
-    private ComboBox<String> mapComboProvider;
-    @FXML
-    private ComboBox<String> mapComboWifiType;
-    @FXML
-    private ComboBox<String> mapComboStreet;
-    @FXML
-    private ComboBox<String> mapComboZipcode;
-    @FXML
-    private WebView mapView;
+    @FXML private ComboBox<String> mapComboBorough;
+    @FXML private ComboBox<String> mapComboRetailerType;
+    @FXML private ComboBox<String> mapComboProvider;
+    @FXML private ComboBox<String> mapComboWifiType;
+    @FXML private ComboBox<String> mapComboStreet;
+    @FXML private ComboBox<String> mapComboZipcode;
+    @FXML private WebView mapView;
 
-    //Local variables needed
+    // Local variables needed
     private int currentRetailerIndex = -1;
     private int loadedData = 0;
     private DatabaseRetriever dbRetriever;

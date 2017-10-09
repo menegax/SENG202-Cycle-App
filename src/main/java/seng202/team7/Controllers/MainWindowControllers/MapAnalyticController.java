@@ -11,7 +11,6 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.JSHandling.JSHandler;
-
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -19,42 +18,18 @@ import java.util.ResourceBundle;
 import static seng202.team7.Datagroup.getDatagroups;
 
 /**
- * todo
+ * This class is the controller for the Map Analytic screen.
  * @author MorganEnglish
  */
 public class MapAnalyticController implements Initializable {
-
 
     @FXML private ComboBox genderCombo;
     @FXML private ComboBox userCombo;
     @FXML private ComboBox ageCombo;
     @FXML private ComboBox densityCombo;
     @FXML private WebView webViewMap;
-    @FXML private Button displayButton;
-    @FXML private Button clearButton;
-    @FXML private ToggleButton stationButton;
-    @FXML private ToggleButton wifiButton;
-    @FXML private ToggleButton retailerButton;
-
-    @FXML private TextField poiDatagroup;
-    @FXML private TextField tripDatagroup;
-
     @FXML private ComboBox dataGroupCombo;
     @FXML private ComboBox poiDatagroupCombo;
-
-    @FXML public void setDataGroupComboItems() {
-        ArrayList<String> list = getDatagroups();
-        list.add("All");
-        ObservableList<String> items = FXCollections.observableArrayList(list);
-        dataGroupCombo.setItems(items);
-    }
-
-    @FXML public void setPOIDataGroupComboItems() {
-        ArrayList<String> list = getDatagroups();
-        list.add("All");
-        ObservableList<String> items = FXCollections.observableArrayList(list);
-        poiDatagroupCombo.setItems(items);
-    }
 
     private boolean stationToggled = false;
     private boolean wifiToggled = false;
@@ -64,12 +39,31 @@ public class MapAnalyticController implements Initializable {
     private JSHandler jsHandler;
 
     /**
+     * Sets the dataGroup combo box items.
+     */
+    @FXML public void setDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        dataGroupCombo.setItems(items);
+    }
+
+    /**
+     * Sets the POI dataGroup combo box items.
+     */
+    @FXML public void setPOIDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        poiDatagroupCombo.setItems(items);
+    }
+
+    /**
      * todo
      * @param url For testing
      * @param rb For testing
      */
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
        webEngine = webViewMap.getEngine();
        genderCombo.getItems().addAll("All","Male","Female", "Unknown");
        userCombo.getItems().addAll("All", "Customer", "Subscriber");
@@ -99,12 +93,10 @@ public class MapAnalyticController implements Initializable {
 
     }
 
-
     /**
      * On click oisplay button will take the parameters entered and pass them into js to create a heat map overlay
      */
-    public void displayClicked()
-    {
+    public void displayClicked() {
         String userType;
         String gender;
         String age;
@@ -149,7 +141,6 @@ public class MapAnalyticController implements Initializable {
         jsObject.call("loadHeat",tripGroup, gender, age, userType, density);
     }
 
-
     /**
      * Removes all heatmaps
      */
@@ -158,12 +149,10 @@ public class MapAnalyticController implements Initializable {
         jsObject.call("clearHeat");
     }
 
-
     /**
      * Turns on the retailer icon
      */
-    public void retailerClicked()
-    {
+    public void retailerClicked() {
         //System.out.println("retailer clicked");
         if(!retailerToggled) {
             //System.out.println("retailer on");
@@ -187,12 +176,10 @@ public class MapAnalyticController implements Initializable {
         }
     }
 
-
     /**
      * turns on the Wifi icons
      */
-    public void wifiClicked()
-    {
+    public void wifiClicked() {
         //System.out.println("wifi clicked");
         if(!wifiToggled) {
             //System.out.println("wifi on");
@@ -216,12 +203,10 @@ public class MapAnalyticController implements Initializable {
         }
     }
 
-
     /**
      * turns on the Wifi icons
      */
-    public void stationClicked()
-    {
+    public void stationClicked() {
 
         if(!stationToggled) {
             stationToggled = true;

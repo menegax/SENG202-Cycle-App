@@ -25,12 +25,10 @@ import java.util.ResourceBundle;
  */
 public class RoutePlannerViewerController implements Initializable{
 
-    @FXML
-    private WebView webViewMap1;
+    @FXML private WebView webViewMap1;
     @FXML private ComboBox<String> wifiTypeCB;
     @FXML private ComboBox<String> retailerTypeCB;
     @FXML private Text errorLabel;
-
 
     private WebEngine webEngine1;
     private JSObject jsBridge1;
@@ -41,8 +39,7 @@ public class RoutePlannerViewerController implements Initializable{
      * @param url Required parameter that is not used
      * @param rb Required parameter that is not used
      */
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         String[] wifiTypes = {"All", "Free", "Limited Free", "Partner Site"};
         wifiTypeCB.getItems().addAll(wifiTypes);
         wifiTypeCB.getSelectionModel().select(0);
@@ -71,7 +68,6 @@ public class RoutePlannerViewerController implements Initializable{
             }
         });
     }
-
 
     /**
      * Clears the wifi markers from the map
@@ -177,14 +173,13 @@ public class RoutePlannerViewerController implements Initializable{
         }
     }
 
-
     /**
      * Finds the nearest wifi location to a retailer object
      * @param point The point to search around
      * @return The nearest wifi object
      * @throws DatabaseEmptyException thrown when there are no wifi objects in the database
      */
-    public Wifi findNearestWifi(Location point) throws DatabaseEmptyException{
+    private Wifi findNearestWifi(Location point) throws DatabaseEmptyException{
         if (wifiInDatabase()) {
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.wifiByLocation(point.getLatitude(), point.getLongitude()));
@@ -241,7 +236,7 @@ public class RoutePlannerViewerController implements Initializable{
      * @return The nearest wifi object to the route
      * @throws DatabaseEmptyException thrown when there are no wifi objects in the database
      */
-    public Wifi findNearestWifi(Location start, Location end) throws DatabaseEmptyException{
+    private Wifi findNearestWifi(Location start, Location end) throws DatabaseEmptyException{
         if (wifiInDatabase()) {
             Location centre = new Location(((start.getLatitude() + end.getLatitude())/2), ((start.getLongitude() + end.getLongitude())/2));
             double latOffset = Math.abs(centre.getLatitude() - start.getLatitude()) + StaticVariables.defaultDist;
@@ -301,7 +296,7 @@ public class RoutePlannerViewerController implements Initializable{
      * @return The nearest retailer object to the route
      * @throws DatabaseEmptyException thrown when there are no retailer objects in the database
      */
-    public Retailer findNearestRetailer(Location start, Location end) throws DatabaseEmptyException{
+    private Retailer findNearestRetailer(Location start, Location end) throws DatabaseEmptyException{
         if (retailerInDatabase()) {
             Location centre = new Location(((start.getLatitude() + end.getLatitude())/2), ((start.getLongitude() + end.getLongitude())/2));
             double latOffset = Math.abs(centre.getLatitude() - start.getLatitude()) + StaticVariables.defaultDist;
@@ -360,7 +355,7 @@ public class RoutePlannerViewerController implements Initializable{
      * @return The nearest retailer object
      * @throws DatabaseEmptyException thrown when there are no retailer objects in the database
      */
-    public Retailer findNearestRetailer(Location point) throws DatabaseEmptyException{
+    private Retailer findNearestRetailer(Location point) throws DatabaseEmptyException{
         if (retailerInDatabase()) {
             DatabaseRetriever dbRetriever = new DatabaseRetriever();
             ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.retailerByLocation(point.getLatitude(), point.getLongitude()));
@@ -414,7 +409,7 @@ public class RoutePlannerViewerController implements Initializable{
      * Checks whether there are any wifi records in the database
      * @return true if there are wifi records in the database
      */
-    public boolean wifiInDatabase() {
+    private boolean wifiInDatabase() {
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, 0));
         if (wifiList.isEmpty()) {
@@ -431,7 +426,7 @@ public class RoutePlannerViewerController implements Initializable{
      * Checks whether there are any retailer records in the database
      * @return true if there are retailer records in the database
      */
-    public boolean retailerInDatabase() {
+    private boolean retailerInDatabase() {
         DatabaseRetriever dbRetriever = new DatabaseRetriever();
         ArrayList<Retailer> retailerList = dbRetriever.queryRetailer(StaticVariables.steppedQuery(Retailer.tableName, 0));
         if (retailerList.isEmpty()) {
