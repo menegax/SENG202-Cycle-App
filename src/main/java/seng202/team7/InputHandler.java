@@ -8,7 +8,7 @@ import java.util.Arrays;
 
 
 /**
- * Handles the parsing of csv files then creates the relevant objects
+ * Handles the parsing of csv files then creates the relevant objects and returns them as an ArrayList
  * @author Lachlan Brewster
  */
 public class InputHandler {
@@ -37,7 +37,6 @@ public class InputHandler {
     {
 
         ArrayList<Data> data = new ArrayList<>();  //will add multiple objects, so need an array
-        //Data dataToAdd = null;   //individual data packets to add to DB, each are one object
 
         Trip tripDataToAdd = null;
         Wifi wifiDataToAdd = null;
@@ -76,12 +75,11 @@ public class InputHandler {
         //loop for parsing csv
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
-            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);         //",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)"
+            String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
             try {
                 switch (dataType) {
 
                     case "wifi":
-
 
                         String borough = fields[2];   //or 18 for full name, not code
                         String type = fields[3];
@@ -125,7 +123,7 @@ public class InputHandler {
                         String typeID;
 
                         if (fields[8].isEmpty()) {
-                            //System.out.println("No retailer type given");
+                            System.out.println("No retailer type given");
                             break;
                         }
                         else {
@@ -163,6 +161,7 @@ public class InputHandler {
                         int duration;
 
                         /*
+                        //for trips with empty fields to avoid parser breaking exceptions, uncomment if the try catch's don't properly stop them
                         if (fields[0].isEmpty() || fields[3].isEmpty() || fields[7].isEmpty() || fields[11].isEmpty()
                                 || fields[13].isEmpty() || fields[14].isEmpty()) {
                             System.out.println("At least one important number field is empty, would cause parser to freeze up");
@@ -195,7 +194,6 @@ public class InputHandler {
                             endDate = endDate.substring(1, endDate.length() - 1);
                         }
 
-                        //System.out.println(startDate);
 
                         Station startStation;
                         Station endStation;
@@ -379,9 +377,6 @@ public class InputHandler {
     }
 
 
-
-
-
     /**
      * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
      * @param dataToTest The data object that is to be tested for validity
@@ -399,7 +394,6 @@ public class InputHandler {
     {
 
         String validRetailer = "Success";
-
 
         if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
             validRetailer = "Invalid retailer city " + retailer.getCity();
@@ -460,12 +454,13 @@ public class InputHandler {
         else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
             validTrip = "Invalid user type " + trip.getUserType();
         }
-        /*else if (trip.getStartDate() == null) {
+
+        else if (trip.getStartDate() == null) {
             validTrip = "Start date not set, maybe didn't parse properly";
         }
         else if (trip.getEndDate() == null) {
             validTrip = "End date not set, maybe didn't parse properly";
-        }*/
+        }
 
 
         return validTrip;
@@ -551,6 +546,11 @@ public class InputHandler {
         return validStation;
     }
 
+    /**
+     * removes quotes from around values for when parsing couldn't remove them so it can be parsed to an int
+     * @param value
+     * @return result
+     */
     public int removeQuotesInt(String value) {
 
         try {
@@ -566,6 +566,11 @@ public class InputHandler {
         }
     }
 
+    /**
+     * removes quotes from around values for when parsing couldn't remove them so it can be parsed to a double
+     * @param value
+     * @return result
+     */
     public double removeQuotesDouble(String value) {
 
         try {
@@ -581,6 +586,11 @@ public class InputHandler {
         }
     }
 
+    /**
+     * removes quotes from around values for when parsing couldn't remove them
+     * @param value
+     * @return result
+     */
     public String removeQuotesStr(String value) {
 
         try {

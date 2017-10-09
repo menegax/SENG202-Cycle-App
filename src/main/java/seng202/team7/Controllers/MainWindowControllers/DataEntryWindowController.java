@@ -12,7 +12,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -42,6 +41,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public Button clearTrip;
     public Button clearWifi;
     public Button clearRetailer;
+    public Button clearAllFields;
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -82,12 +82,15 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private ComboBox typeRetailerComboBox;
 
     // Screen display related
-    @FXML private GridPane addRetailerNode;
-    @FXML private GridPane addTripNode;
-    @FXML private GridPane addWifiNode;
+    @FXML private HBox addRetailerNode;
+    @FXML private HBox addTripNode;
+    @FXML private HBox addWifiNode;
 
     private String currentScreen = "None"; // Tracks which entry screen is currently shown
 
+    /**
+     * sets the drop down combo box for datagroup selection
+     */
     @FXML public void setDataGroupComboItems() {
 
         ObservableList<String> items = FXCollections.observableArrayList(getDatagroups());
@@ -191,6 +194,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     /**
      * Loads a file of data from a csv file name provided
+     * Contains many layers of checks for; if fields are missing, wrong data type or file type is detected, error handling
      * @param event Event when button is clicked
      */
     public void uploadcsvButton(ActionEvent event) {
@@ -309,6 +313,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     /**
      * Loads manually inputted retailer data and adds to database
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
      * @param event Event when add retailer button is clicked
      */
     public void add_r_button(ActionEvent event) {
@@ -381,7 +386,8 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     /**
      * Loads manually inputted wifi data and adds to database
-     * @param event even when add wifi button is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * @param event Event when add wifi button is clicked
      */
     public void add_w_button(ActionEvent event) {
 
@@ -461,9 +467,12 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
+
     /**
      * Loads manually inputted trip data and adds to database
-     * @param event when add trip data is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * Also adds station objects to the database, alot of derived values via queries
+     * @param event Event when add trip data is clicked
      */
     public void add_t_button(ActionEvent event) {
 
@@ -644,6 +653,9 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
+    /**
+     * Clears trip data entry fields completely, as well as combobox selection and date picked
+     */
     public void clearTrip() {
 
         startTimeTextfield.clear();
@@ -666,6 +678,10 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
+
+    /**
+     * Clears wifi data entry fields completely, as well as combobox selection
+     */
     public void clearWifi() {
 
         providerTextfield.clear();
@@ -685,6 +701,9 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
+    /**
+     * Clears retailer data entry fields completely, as well as combobox selection
+     */
     public void clearRetailer() {
 
         nameTextfield.clear();

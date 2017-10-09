@@ -1,5 +1,9 @@
 package seng202.team7;
 
+/**
+ * @author Morgan English
+ * location class used as parent for all objects that can be placed on a map
+ */
 public class Location implements Mappable{
     double latitude;
     double longitude;
