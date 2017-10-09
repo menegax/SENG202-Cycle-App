@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -41,7 +42,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public Button clearTrip;
     public Button clearWifi;
     public Button clearRetailer;
-    public Button clearAllFields;
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -82,9 +82,9 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private ComboBox typeRetailerComboBox;
 
     // Screen display related
-    @FXML private HBox addRetailerNode;
-    @FXML private HBox addTripNode;
-    @FXML private HBox addWifiNode;
+    @FXML private GridPane addRetailerNode;
+    @FXML private GridPane addTripNode;
+    @FXML private GridPane addWifiNode;
 
     private String currentScreen = "None"; // Tracks which entry screen is currently shown
 
@@ -699,53 +699,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
         if (stateComboBox.getValue() != null) {
             stateComboBox.getSelectionModel().clearSelection();
         }
-
-    }
-
-    public void clearAllFields() {
-
-        nameTextfield.clear();
-        ZIPTextfield.clear();
-        cityRetailerTextfield.clear();
-        pAddressTextfield.clear();
-        sAddressTextfield.clear();
-        if (typeRetailerComboBox.getValue() != null) {
-            typeRetailerComboBox.getSelectionModel().clearSelection();
-        }
-        if (stateComboBox.getValue() != null) {
-            stateComboBox.getSelectionModel().clearSelection();
-        }
-
-        startTimeTextfield.clear();
-        endTimeTextfield.clear();
-        bikeIDTextfield.clear();
-        birthYearTextfield.clear();
-        startStationIDTextfield.clear();
-        endStationIDTextfield.clear();
-        startDatePicked.setValue(null);
-        endDatePicked.setValue(null);
-        if (userTypeComboBox.getValue() != null) {
-            userTypeComboBox.getSelectionModel().clearSelection();
-        }
-
-        if (genderComboBox.getValue() != null) {
-            genderComboBox.getSelectionModel().clearSelection();
-        }
-
-        providerTextfield.clear();
-        locationWifiTextfield.clear();
-        cityWifiTextfield.clear();
-        SSIDTextfield.clear();
-        remarksTextfield.clear();
-        longitudeTextfield.clear();
-        latitudeTextfield.clear();
-        if (boroughComboBox.getValue() != null) {
-            boroughComboBox.getSelectionModel().clearSelection();
-        }
-        if (typeWifiComboBox.getValue() != null) {
-            typeWifiComboBox.getSelectionModel().clearSelection();
-        }
-
 
     }
 
