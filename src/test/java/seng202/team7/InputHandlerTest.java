@@ -65,7 +65,7 @@ public class InputHandlerTest
         deleteTables();
         createTables();
         InputHandler testerTrip = new InputHandler();
-        assertEquals(11837, testerTrip.loadCSV(file_trip, "trip", "default").size());
+        assertEquals(1498, testerTrip.loadCSV(file_trip, "trip", "default").size());
         //amount added always changes because of duplicate check in database, not so much in test DB created
         //just check that the parser works basically
         //assertTrue(testerTrip.loadCSV(file_trip, "trip", "default").size() >= 0);
