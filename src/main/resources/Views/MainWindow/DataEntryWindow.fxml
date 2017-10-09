@@ -468,7 +468,6 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <ProgressBar fx:id="loadingBar" prefWidth="200.0" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
             <ProgressBar fx:id="loadingBar" prefHeight="27.0" prefWidth="164.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
             <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading CSV file" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
                <GridPane.margin>
