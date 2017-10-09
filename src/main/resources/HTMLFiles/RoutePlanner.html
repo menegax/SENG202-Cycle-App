@@ -163,6 +163,7 @@
         mapList = [];
         mapCopy = [];
         placeLoc = [];
+        //adds markers to the map when the map is clicked on
         google.maps.event.addListener(map, 'click', function(event) {
             marker = new google.maps.Marker({
                 position: event.latLng,
@@ -189,10 +190,13 @@
 
     }
 
+    /**
+     * GeoCodes a marker object's latlng to a formatted address
+     * @param geocoder geocoder object
+     * @param map map object
+     * @param index index of the mapList which holds the markers
+     */
     function geocodeLatLng(geocoder, map, index) {
-/*
-        console.log(JSON.stringify(mapList[0].getPosition(), null, 2));
-*/
         var latlngStr = mapList[index].getPosition().lat() + ',' + mapList[index].getPosition().lng();
         var latlngStr = latlngStr.split(',', 2);
         var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
@@ -218,6 +222,12 @@
         });
     }
 
+    /**
+     * The callback response calculates the distance between the start and end of the route and prints it in the right
+     * panel under 'Distance'
+     * @param response the returned variable
+     * @param status the status of the response
+     */
     function callback(response, status) {
         if (status == 'OK') {
             var outputDiv = document.getElementById('output');
@@ -235,6 +245,11 @@
         }
     }
 
+    /**
+     * The computeTotalDistance function calculates the distance between an already displayed route when it has
+     * been changed
+     * @param result the route of the currently displayed directions
+     */
     function computeTotalDistance(result) {
         var total = 0;
         var myRoute = result.routes[0];
@@ -296,6 +311,12 @@
         });
     }
 
+    /**
+     * the geocodeAddress reverse geocodes the marker object's latlng value into a formatted address
+     * @param index the index of the marker from the mapList
+     * @param geocoder the geocoder object
+     * @param resultsMap the map the geocoded address should be displayed on
+     */
     function geocodeAddress(index, geocoder, resultsMap) {
         if (index == 0) {
             var address = document.getElementById('address').value;
@@ -316,16 +337,18 @@
                 });
                 marker.setMap(null);
                 mapCopy.push(marker);
-                if (mapCopy.length > 2) {
-                    console.log("If this doesn't print, please delete loop");
-                    mapCopy.shift();
-                }
             } else {
                 alert('Geocode was not successful for the following reason: ' + status);
             }
         });
     }
 
+    /**
+     *
+     * @param latlngStr
+     * @param geocoder1
+     * @param map
+     */
     function geocodeLatLngAdd(latlngStr, geocoder1, map) {
         var latlngStr = latlngStr.split(',', 2);
         var latlng = {lat: parseFloat(latlngStr[0]), lng: parseFloat(latlngStr[1])};
