@@ -51,7 +51,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Display Wi-Fi's" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="115.0" text="Display Wi-Fi's" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button displays on the map all wifi points meeting the criteria of the wifi type drop down box to the left of this button. By default all wifi points are shown." wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -64,7 +64,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Add nearest Wi-Fi" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="135.0" text="Add nearest Wi-Fi" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button displays the closest wifi point to your currently selected trip. A trip can be selected by placing markers on the map corresponding to the start and end locations of your trip. At least one point marker for the trip must be placed on the map for this button to function." wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -95,7 +95,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Display Retailers" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="130.0" text="Display Retailers" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button displays on the map all retailers meeting the criteria of the retailer type drop down box to the left of this button. By default all retailers are shown." wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -105,7 +105,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="125.0" text="Add nearest Retailer" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="155.0" text="Add nearest Retailer" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button displays the closest retailer point to your currently selected trip. A trip can be selected by placing markers on the map corresponding to the start and end locations of your trip. At least one point marker for the trip must be placed on the map for this button to function." wrappingWidth="480.0" />
                      </children>
                      <padding>
@@ -115,7 +115,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Clear" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Clear" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The clear buttons are used to clear the current retailer or wifi points shown on the map. There is one clear button for clearing wifi points to the left of the Display Wi-Fi's button and one for clearing retailers found to the left of the Display Retailers button." wrappingWidth="480.0" />
                      </children>
                      <padding>
