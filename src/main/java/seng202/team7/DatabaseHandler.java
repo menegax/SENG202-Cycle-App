@@ -1,14 +1,12 @@
 package seng202.team7;
 
 import org.apache.commons.io.FileUtils;
+import seng202.team7.Windows.MainWindow.MainWindow;
 
-import javax.swing.*;
 import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
+import java.net.URLDecoder;
 import java.sql.*;
 
 /**
@@ -31,11 +29,24 @@ public class DatabaseHandler {
      */
     public static void initializeDatabase()
     {
+        String path =
+                MainWindow.class.getProtectionDomain().
+                        getCodeSource().getLocation().getPath();
+        try {
 
-        File jarDir = new File(ClassLoader.getSystemClassLoader().getResource(".").getPath());
-        System.out.println(jarDir.getAbsolutePath());
-        url = "jdbc:sqlite:"+jarDir.getAbsolutePath()+"/database.db";
-        databaseLocal = jarDir.getAbsolutePath()+"/database.db";
+            path =
+                    URLDecoder.decode(
+                            path,
+                            "UTF-8");
+
+        }catch (IOException e)
+        {
+            e.printStackTrace();
+        }
+        File jarDir = new File(path);
+        System.out.println(jarDir.getParentFile());
+        url = "jdbc:sqlite:"+jarDir.getParentFile()+"/database.db";
+        databaseLocal = jarDir.getParentFile()+"/database.db";
         File f = new File(databaseLocal);
         if(f.exists())
             return;
