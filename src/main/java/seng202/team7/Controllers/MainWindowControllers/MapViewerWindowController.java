@@ -169,7 +169,7 @@ public class MapViewerWindowController implements Initializable {
     /**
      * Method used to display wifi on the map
      * is called when the view wifi button is clicked in the map view
-     * connects to HTML file
+     * connects to google maps HTML file
      */
     public void displayWifi()
     {
@@ -189,15 +189,10 @@ public class MapViewerWindowController implements Initializable {
     }
 
 
-    public void clearWifi()
-    {
-        jsObject.call("deleteWifiMarkers");
-    }
-
     /**
      * Method used to display retailers on the map
      * is called when the view retailers button is clicked in the map view
-     * connects to HTML file
+     * connects to googlemaps HTML file
      */
     public void displayRetailer()
     {
@@ -216,11 +211,11 @@ public class MapViewerWindowController implements Initializable {
         jsObject.call("loadRetailers",zip,typeR,street);
     }
 
-    public void clearRetailer()
-    {
-        jsObject.call("deleteRetailerMarkers");
-    }
-
+    /**
+     * Method used to clear wifi and retailer markers form map viewer
+     * Is called whn the Clear All button is clicked in the map viewer
+     * connects to googlemaps html file
+     */
     public void clearWifiandRetailer() {
         jsObject.call("deleteRetailerMarkers");
         jsObject.call("deleteWifiMarkers");
