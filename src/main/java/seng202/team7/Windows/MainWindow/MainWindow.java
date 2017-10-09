@@ -35,6 +35,8 @@ public class MainWindow extends Application {
         Scene scene = new Scene(root);
         scene.getStylesheets().add(getClass().getClassLoader().getResource("Stylesheets/MainStyle.css").toExternalForm());
         primaryStage.setTitle("Meraki Bikes");
+        primaryStage.setMinWidth(1100);
+        primaryStage.setMinHeight(500);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
