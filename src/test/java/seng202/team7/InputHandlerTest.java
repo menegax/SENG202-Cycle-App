@@ -58,7 +58,7 @@ public class InputHandlerTest
         testerWifi.resetFailCounter();
     }
 
-    @Test
+    /*@Test
     public void testTrip() throws IOException {
         InputHandler testerTrip = new InputHandler();
         //assertEquals(21832, testerTrip.loadCSV(file_trip, "trip", "default").size());
@@ -67,7 +67,7 @@ public class InputHandlerTest
         assertTrue(testerTrip.loadCSV(file_trip, "trip", "default").size() >= 0);
         testerTrip.getFail_counter();
         testerTrip.resetFailCounter();
-    }
+    }*/
 
 
 
