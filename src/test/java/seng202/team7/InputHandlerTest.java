@@ -46,6 +46,7 @@ public class InputHandlerTest
         url = null;
     }
 
+
     @Test
     public void testWifi() throws IOException {
         url = testUrl;
