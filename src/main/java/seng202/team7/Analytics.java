@@ -2,9 +2,18 @@ package seng202.team7;
 
 import java.util.ArrayList;
 
+/**
+ * @author MorganEnglish
+ * For map analytics of trips
+ */
 public class Analytics {
 
 
+    /**
+     * finds a list of all the points the passed in trips go through
+     * @param trips Arraylist of all the trips to check
+     * @return Arraylist of all the points that are passed through for each trip
+     */
     public static ArrayList<PointM> checkRoutes(ArrayList<Trip> trips)
     {
         ArrayList<PointM> points = new ArrayList<>();
@@ -15,6 +24,13 @@ public class Analytics {
         return points;
     }
 
+
+    /**
+     * An implementation of Bresenham's line algorithm to  fins intermedite points of a trip
+     * @param startpt Start point of the trip
+     * @param endpt EEnd point of the trip
+     * @return Arraylist of point objects along the specific route passed in
+     */
     public static ArrayList<PointM> checkRoute(PointM startpt, PointM endpt) {
         ArrayList<PointM> squares = new ArrayList<>();
 

@@ -1,16 +1,18 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
-
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -30,7 +32,7 @@ import static seng202.team7.Datagroup.getDatagroups;
  * Controls manual data entry and data uploaded via csv
  * @author Lachlan Brewster
  */
-public class DataEntryWindowController implements Initializable{
+public class DataEntryWindowController implements Initializable, EventHandler{
 
     public Button uploadcsvButton;
     public Button add_r_button;
@@ -40,7 +42,6 @@ public class DataEntryWindowController implements Initializable{
     public Button clearWifi;
     public Button clearRetailer;
     public Button clearAllFields;
-
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -79,6 +80,14 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField pAddressTextfield;
     @FXML private TextField sAddressTextfield;
     @FXML private ComboBox typeRetailerComboBox;
+
+
+    // Screen display related
+    @FXML private HBox addRetailerNode;
+    @FXML private HBox addTripNode;
+    @FXML private HBox addWifiNode;
+
+    private String currentScreen = "None"; // Tracks which entry screen is currently shown
 
     /**
      * sets the drop down combo box for datagroup selection
@@ -181,6 +190,7 @@ public class DataEntryWindowController implements Initializable{
                     ((StringProperty)observable).setValue(formatted);
                 }
         );
+        dataEntryComboBox.setOnAction(this);
     }
 
     /**
@@ -299,7 +309,6 @@ public class DataEntryWindowController implements Initializable{
         }
     }
 
-
     /**
      * Loads manually inputted retailer data and adds to database
      * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
@@ -372,7 +381,6 @@ public class DataEntryWindowController implements Initializable{
         }
 
     }
-
 
     /**
      * Loads manually inputted wifi data and adds to database
@@ -585,6 +593,7 @@ public class DataEntryWindowController implements Initializable{
 
                 } catch (IndexOutOfBoundsException e) {
                     status_text.setText("Station isn't in database yet to derive values, default values assigned");
+                    //should we even let this data in?
 
                     startStationLat = 0;
                     startStationLong = 0;
@@ -757,6 +766,40 @@ public class DataEntryWindowController implements Initializable{
             typeWifiComboBox.getSelectionModel().clearSelection();
         }
 
+
     }
 
+    /**
+     * Handles events that occur during runtime.
+     * @param event The event to be handled
+     */
+    @Override
+    public void handle(Event event) {
+        if (event.getSource().equals(dataEntryComboBox)) {
+            String newEntryScreen = dataEntryComboBox.getSelectionModel().getSelectedItem().toString();
+            changeCurrentEntryScreen(newEntryScreen);
+        }
+    }
+
+    /**
+     * Changes the currently shown data entry screen. First hides the currentWindow and then
+     * sets newScreen to be visible.
+     * @param newScreen The new data entry screen to be shown
+     */
+    private void changeCurrentEntryScreen(String newScreen) {
+        switch (currentScreen) {
+            case "None": break; // If no screen had been previously selected
+            case "retailer": addRetailerNode.setVisible(false); break;
+            case "trip": addTripNode.setVisible(false); break;
+            case "wifi": addWifiNode.setVisible(false); break;
+            default: System.out.println("ERROR!"); break;
+        }
+        switch (newScreen) {
+            case "retailer": addRetailerNode.setVisible(true); break;
+            case "trip": addTripNode.setVisible(true); break;
+            case "wifi": addWifiNode.setVisible(true); break;
+            default: System.out.println("ERROR!"); break;
+        }
+        currentScreen = newScreen;
+    }
 }

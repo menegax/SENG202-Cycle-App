@@ -51,7 +51,7 @@ public class DatabaseTester {
 
 
 
-        databaseRetriever.testQueryTrip();
+        //databaseRetriever.testQueryTrip();
 
         System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(0,2,""));
         System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(2,6,""));

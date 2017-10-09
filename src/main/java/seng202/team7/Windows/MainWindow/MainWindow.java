@@ -29,7 +29,7 @@ public class MainWindow extends Application {
      * @throws Exception The exception that can be thrown.
      */
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         //primaryStage.initStyle(StageStyle.UNDECORATED);
         Parent root = FXMLLoader.load(getClass().getClassLoader().getResource("Views/MainWindow/MainWindow.fxml"));
         Scene scene = new Scene(root);

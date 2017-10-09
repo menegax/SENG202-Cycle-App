@@ -173,14 +173,15 @@ public class TripAnalyticController implements Initializable{
         //bar.setTitle("Time of Day Trips Taken");
 
         barChartData.addAll(
-                new XYChart.Data<>("12AM to 3AM", SQLAnalytics.totalTimeTrips(0,3,"")),
-                new XYChart.Data<>("3AM to 6AM", SQLAnalytics.totalTimeTrips(3,6,"")),
-                new XYChart.Data<>("6AM to 9AM", SQLAnalytics.totalTimeTrips(6,9,"")),
-                new XYChart.Data<>("9AM to 12PM", SQLAnalytics.totalTimeTrips(9,12,"")),
-                new XYChart.Data<>("12PM to 3PM", SQLAnalytics.totalTimeTrips(12,15,"")),
-                new XYChart.Data<>("3PM to 6PM", SQLAnalytics.totalTimeTrips(15,18,"")),
-                new XYChart.Data<>("6PM to 9PM", SQLAnalytics.totalTimeTrips(18,21,"")),
-                new XYChart.Data<>("9PM to 12AM", SQLAnalytics.totalTimeTrips(21,24,""))
+                //Times have been adjusted to match timezones
+                new XYChart.Data<>("12AM to 3AM", SQLAnalytics.totalTimeTrips(12,15,"")),
+                new XYChart.Data<>("3AM to 6AM", SQLAnalytics.totalTimeTrips(15,18,"")),
+                new XYChart.Data<>("6AM to 9AM", SQLAnalytics.totalTimeTrips(18,21,"")),
+                new XYChart.Data<>("9AM to 12PM", SQLAnalytics.totalTimeTrips(21,24,"")),
+                new XYChart.Data<>("12PM to 3PM", SQLAnalytics.totalTimeTrips(0,3,"")),
+                new XYChart.Data<>("3PM to 6PM", SQLAnalytics.totalTimeTrips(3,6,"")),
+                new XYChart.Data<>("6PM to 9PM", SQLAnalytics.totalTimeTrips(6,9,"")),
+                new XYChart.Data<>("9PM to 12AM", SQLAnalytics.totalTimeTrips(9,12,""))
         );
 
         XYChart.Series timeSeries = new XYChart.Series(barChartData);
@@ -191,6 +192,9 @@ public class TripAnalyticController implements Initializable{
     }
 
 
+    /**
+     * Shows the graph that is currentyl selected in the drop down
+     */
     public void showGraph()
     {
         String graph = "";

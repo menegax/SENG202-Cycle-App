@@ -19,10 +19,22 @@ public class JSHandler {
         return databaseRetriever.getWifiList();
     }
 
+    /**
+     * javascript-runnable method to get the all the stations
+     * used to display them on the map
+     * @return List of stations
+     */
     public List<Station> getStationJS(){
         return databaseRetriever.getStationList();
     }
 
+
+    /**
+     * javascript-runnable method to get Wifis by datagroup
+     * used to display wifi points on the map
+     * @param datagroup string to match datagroup on
+     * @return List of wifis in the given datagroup
+     */
     public List<Wifi> getWifiJSDatagroup(String datagroup)
     {
         for(Wifi w :databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup))){
@@ -33,6 +45,12 @@ public class JSHandler {
         return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[10], datagroup));
     }
 
+    /**
+     * javascript-runnable method to get Retailer by datagroup
+     * used to display retailer points on the map
+     * @param datagroup string to match datagroup on
+     * @return List of retailers in the given datagroup
+     */
     public List<Retailer> getRetailerJSDatagroup(String datagroup)
     {
         for(Retailer r : databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup))){
@@ -43,15 +61,18 @@ public class JSHandler {
         return databaseRetriever.queryRetailer(StaticVariables.singleStringQuery(Retailer.tableName, Retailer.columns[11], datagroup));
     }
 
-    public List<PointM> getPointsJS(String datagroup)
-    {
 
-        //return Analytics.checkRoutes(databaseRetriever.queryTrip(StaticVariables.singleStringQuery(Trip.tableName, Trip.columns[15],datagroup)));
-        System.out.println(Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT 10")));
-        return Analytics.checkRoutes(databaseRetriever.queryTrip("SELECT obj FROM trip LIMIT " + StaticVariables.limit));
 
-    }
 
+    /**
+     * gets the points to be displayed on the heat map for mapanalytics
+     * @param datagroup datagroup to match trips on
+     * @param gender gender of cyclist to filter by
+     * @param age age of cyclist to filter by
+     * @param userType userType of cyclist to filter by
+     * @param density density of the points to use
+     * @return List of pointM objects
+     */
     public List<PointM> getPointsJS(String datagroup, String gender, String age, String userType, String density)
     {
         ArrayList<String> genderList = new ArrayList<>();

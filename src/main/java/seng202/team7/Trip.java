@@ -212,6 +212,11 @@ public class Trip extends Location implements Data, java.io.Serializable {
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
+
+    /**
+     * Sets the start date by parsing it through the expected parsing format
+     * @param startDate start date string form "yyyy-MM-dd hh:mm:ss"
+     */
     public void setStartDate(String startDate) {
         try {
             this.startDate = StaticVariables.ft.parse(startDate);
@@ -230,6 +235,10 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.endDate = endDate;
     }
 
+    /**
+     * Sets the end date by parsing it through the expected parsing format
+     * @param endDate start date string form "yyyy-MM-dd hh:mm:ss"
+     */
     public void setEndDate(String endDate) {
         try {
             this.endDate = StaticVariables.ft.parse(endDate);
@@ -337,10 +346,19 @@ public class Trip extends Location implements Data, java.io.Serializable {
         return result;
     }
 
+    /**
+     * Gets the starting point for the trip as a PointM object with scaling for density
+     * @return startpoint
+     */
     public PointM getStartPoint()
     {
         return new PointM(startStation.getLatitude()*StaticVariables.pointMultiplier, startStation.getLongitude()*StaticVariables.pointMultiplier);
     }
+
+    /**
+     * gets end point for the trip as a pointM object with scaling for density
+     * @return endpoint
+     */
     public PointM getEndPoint()
     {
         return new PointM(endStation.getLatitude()*StaticVariables.pointMultiplier, endStation.getLongitude()*StaticVariables.pointMultiplier);
