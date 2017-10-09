@@ -22,7 +22,7 @@ import java.util.ResourceBundle;
 /**
  * Trip data controller to control raw data viewing of trip data
  * @author Aidan Smith asm142
- * Last updated 22/09/17
+ * Last updated 09/10/17
  */
 
 public class TripDataViewerController implements Initializable {
@@ -102,10 +102,6 @@ public class TripDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-         // Used for testing only
-        //DatabaseTester.deleteTables();
-        //DatabaseTester.createTables();
-
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Trip> tripArrayList = dbRetriever.queryTrip(StaticVariables.steppedQuery(Trip.tableName, loadedData));
@@ -206,7 +202,7 @@ public class TripDataViewerController implements Initializable {
 
     /**
      * Updates the attributes of the single record viewer with the attributes of the trip
-     * provided through the retailerIndex
+     * provided through the tripIndex
      * @param tripIndex The index of the trip to be displayed
      */
     public void view(int tripIndex) {
@@ -283,7 +279,7 @@ public class TripDataViewerController implements Initializable {
     }
 
     /**
-     * Brings up the edit page on the currently selected wifi
+     * Brings up the edit page on the currently selected trip
      */
     public void viewEdit() {
         recordViewer.setVisible(false);

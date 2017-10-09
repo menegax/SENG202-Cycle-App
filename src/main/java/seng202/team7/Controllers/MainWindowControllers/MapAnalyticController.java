@@ -32,6 +32,7 @@ public class MapAnalyticController implements Initializable {
     @FXML private WebView webViewMap;
     @FXML private Button displayButton;
     @FXML private Button clearButton;
+    @FXML private ToggleButton stationButton;
     @FXML private ToggleButton wifiButton;
     @FXML private ToggleButton retailerButton;
 
@@ -55,6 +56,7 @@ public class MapAnalyticController implements Initializable {
         poiDatagroupCombo.setItems(items);
     }
 
+    private boolean stationToggled = false;
     private boolean wifiToggled = false;
     private boolean retailerToggled = false;
     private WebEngine webEngine;
@@ -81,7 +83,7 @@ public class MapAnalyticController implements Initializable {
                 jsObject = (JSObject) webEngine.executeScript("window");
                 jsHandler = new JSHandler();
                 jsObject.setMember("Abridge", jsHandler);
-                System.out.println("set bridge");
+                //System.out.println("set bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
@@ -143,7 +145,7 @@ public class MapAnalyticController implements Initializable {
             density = (String) densityCombo.getSelectionModel().getSelectedItem();
         }
 
-        System.out.println("display");
+        //System.out.println("display");
         jsObject.call("loadHeat",tripGroup, gender, age, userType, density);
     }
 
@@ -162,9 +164,9 @@ public class MapAnalyticController implements Initializable {
      */
     public void retailerClicked()
     {
-        System.out.println("retailer clicked");
+        //System.out.println("retailer clicked");
         if(!retailerToggled) {
-            System.out.println("retailer on");
+            //System.out.println("retailer on");
             retailerToggled = true;
             String poiGroup = "";
             try {
@@ -175,10 +177,10 @@ public class MapAnalyticController implements Initializable {
                 poiGroup = "";
             }
 
-            System.out.println(poiGroup);
+            //System.out.println(poiGroup);
             jsObject.call("loadRetailerDatagroup", poiGroup);
         } else {
-            System.out.println("retailer off");
+            //System.out.println("retailer off");
 
             jsObject.call("deleteRetailerMarkers");
             retailerToggled = false;
@@ -191,9 +193,9 @@ public class MapAnalyticController implements Initializable {
      */
     public void wifiClicked()
     {
-        System.out.println("wifi clicked");
+        //System.out.println("wifi clicked");
         if(!wifiToggled) {
-            System.out.println("wifi on");
+            //System.out.println("wifi on");
             wifiToggled = true;
             String poiGroup = "";
             try {
@@ -204,13 +206,30 @@ public class MapAnalyticController implements Initializable {
                 poiGroup = "";
             }
 
-            System.out.println(poiGroup);
+            //System.out.println(poiGroup);
             jsObject.call("loadWifiDatagroup", poiGroup);
         } else {
-            System.out.println("wifi off");
+            //System.out.println("wifi off");
 
             jsObject.call("deleteWifiMarkers");
             wifiToggled = false;
+        }
+    }
+
+
+    /**
+     * turns on the Wifi icons
+     */
+    public void stationClicked()
+    {
+
+        if(!stationToggled) {
+            stationToggled = true;
+            jsObject.call("loadStation");
+        } else {
+
+            jsObject.call("deleteStationMarkers");
+            stationToggled = false;
         }
     }
 }

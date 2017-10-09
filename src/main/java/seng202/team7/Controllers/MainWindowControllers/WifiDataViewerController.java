@@ -19,7 +19,7 @@ import java.util.ResourceBundle;
 /**
  * Wifi data controller to control raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 22/09/17
+ * Last updated 09/10/17
  */
 
 public class WifiDataViewerController implements Initializable {
@@ -78,12 +78,6 @@ public class WifiDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-        /**
-         * Used for testing only
-         * DatabaseTester.deleteTables();
-         * DatabaseTester.createTables();
-         */
-
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
