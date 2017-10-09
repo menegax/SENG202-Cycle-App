@@ -300,7 +300,7 @@ public class InputHandler {
 
             } catch (NumberFormatException | ArrayIndexOutOfBoundsException | NullPointerException e ){
 
-                e.printStackTrace();
+                //e.printStackTrace();
                 fail_counter++;
                 //System.out.println("Invalid data in csv while parsing or creating " + dataType + " object, could be a blank field?");
             }
