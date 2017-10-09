@@ -10,6 +10,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
+ * Model class for the basic trip object
+ * which represents a trip taken by a cyclist between two stations
  * @author Morgan English
  */
 public class Trip extends Location implements Data, java.io.Serializable {
@@ -151,46 +153,84 @@ public class Trip extends Location implements Data, java.io.Serializable {
         return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
     }
 
+    /**
+     * Gets the start station of the trip
+     * @return The station object that is the start of the trip
+     */
     public Station getStartStation() {
-        //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-        //return databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
         return startStation;
     }
 
+    /**
+     * Gets the ID of the start station
+     * @return The ID of the start station as an integer
+     */
     public int getStartStationID() {
         return startStationID;
     }
 
+    /**
+     * Sets the start station ID to the ID provided
+     * @param startStationID The ID of the new start station
+     */
     public void setStartStationID(int startStationID) {
         this.startStationID = startStationID;
     }
 
+    /**
+     * Gets the end station of the trip
+     * @return The station object that is the end of the trip
+     */
     public Station getEndStation() {
         //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         //return databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
         return endStation;
     }
 
+    /**
+     * Gets the ID of the end station
+     * @return The ID of the end station as an integer
+     */
     public int getEndStationID() {
         return endStationID;
     }
 
+    /**
+     * Sets the end station ID to the ID provided
+     * @param endStationID The ID of the new end station
+     */
     public void setEndStationID(int endStationID) {
         this.endStationID = endStationID;
     }
 
+    /**
+     * Gets the duration of the trip
+     * @return The duration of the trip in seconds
+     */
     public int getDuration() {
         return duration;
     }
 
+    /**
+     * Sets the duration of the trip to the provided duration
+     * @param duration The new duration of the trip
+     */
     public void setDuration(int duration) {
         this.duration = duration;
     }
 
+    /**
+     * Gets the start date of the trip as a date object
+     * @return The start date of the trip
+     */
     public Date getStartDate() {
         return startDate;
     }
 
+    /**
+     * Sets the start date of the trip to the provided start date
+     * @param startDate The new start date of the trip
+     */
     public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
@@ -209,10 +249,18 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
     }
 
+    /**
+     * Gets the end date of the trip as a date object
+     * @return The end date of the trip
+     */
     public Date getEndDate() {
         return endDate;
     }
 
+    /**
+     * Sets the end date of the trip to the provided end date
+     * @param endDate The new end date of the trip
+     */
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
@@ -231,34 +279,66 @@ public class Trip extends Location implements Data, java.io.Serializable {
         }
     }
 
+    /**
+     * Gets the type of user pass used for the trip
+     * @return The type of user pass of the trip
+     */
     public String getUserType() {
         return userType;
     }
 
+    /**
+     * Sets the user pass type to the type provided
+     * @param userType The new user pass type of the trip
+     */
     public void setUserType(String userType) {
         this.userType = userType;
     }
 
+    /**
+     * Gets the ID of the bike that was used in the trip
+     * @return The bike ID of the trip as an integer
+     */
     public int getBikeID() {
         return bikeID;
     }
 
+    /**
+     * Sets the ID of the bike used in the trip to the provided ID
+     * @param bikeID The new ID of the bike used in the trip
+     */
     public void setBikeID(int bikeID) {
         this.bikeID = bikeID;
     }
 
+    /**
+     * Gets the gender of the user who performed the trip
+     * @return The gender of the trip taker as a string
+     */
     public String getGender() {
         return gender;
     }
 
+    /**
+     * Sets the gender of the trip taker to be the new gender provided
+     * @param gender The new gender of the trip taker
+     */
     public void setGender(String gender) {
         this.gender = gender;
     }
 
+    /**
+     * Gets the age of the user who performed the trip
+     * @return The age of the trip taker as an integer
+     */
     public int getAge() {
         return age;
     }
 
+    /**
+     * Sets the age of the trip taker to be the new age provided
+     * @param age The new age of the trip taker
+     */
     public void setAge(int age) {
         this.age = age;
     }
@@ -271,18 +351,34 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.age = StaticVariables.currentYear - birthYear;
     }
 
+    /**
+     * Gets the datagroup that the trip belongs to
+     * @return The datagroup that the trip belongs to as a string
+     */
     public String getDataGroup() {
         return dataGroup;
     }
 
+    /**
+     * Sets the datagroup that the trip belongs to as the datagroup provided
+     * @param dataGroup The new datagroup of the trip
+     */
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
 
+    /**
+     * Sets the distance of the trip to a new distance provided
+     * @param distance The new distance of the trip as a double
+     */
     public void setDistance(double distance) {
         this.distance = distance;
     }
 
+    /**
+     * Gets the distance of the trip as a double
+     * @return The distance of the trip
+     */
     public double getDistance() {
         return distance;
     }
@@ -316,6 +412,10 @@ public class Trip extends Location implements Data, java.io.Serializable {
                 "Distance: " + this.getDistance());
     }
 
+    /**
+     * Overwrites the hashcode of the trip object to get a primary key for the database
+     * @return The new hascode of the trip object
+     */
     @Override
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
