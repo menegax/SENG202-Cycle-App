@@ -22,12 +22,10 @@ import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
 import seng202.team7.Input.InputHandler;
 import seng202.team7.Windows.MainWindow.LoadingPopupWindow;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
 import static seng202.team7.Datagroup.addDatagroup;
 import static seng202.team7.Datagroup.getDatagroups;
 
@@ -41,10 +39,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public Button add_r_button;
     public Button add_w_button;
     public Button add_t_button;
-    public Button clearTrip;
-    public Button clearWifi;
-    public Button clearRetailer;
-    public Button clearAllFields;
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -670,7 +664,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     }
 
     /**
-     * Clears trip data entry fields completely, as well as combobox selection and date picked
+     * Clears trip data entry fields completely, as well as combo box selection and date picked
      */
     public void clearTrip() {
 

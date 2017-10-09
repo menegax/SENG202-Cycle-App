@@ -192,6 +192,11 @@ public class MainWindowController implements Initializable, EventHandler {
         centerAnchorPane.getChildren().add(window);
     }
 
+    /**
+     * This function handles the event passed to it when called. Currently it only handles
+     * the opening of the Help Window.
+     * @param event The Event to be handed.
+     */
     @Override
     public void handle(Event event) {
         if (event.getSource() == currentPageHelpButton) {

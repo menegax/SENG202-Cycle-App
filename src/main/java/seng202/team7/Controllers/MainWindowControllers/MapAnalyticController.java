@@ -151,7 +151,7 @@ public class MapAnalyticController implements Initializable {
 
 
     /**
-     * removes all heatmaps
+     * Removes all heatmaps
      */
     public void clearClicked()
     {

@@ -3,13 +3,11 @@ package seng202.team7.Input;
 import seng202.team7.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
-
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
-
 
 /**
  * Handles the parsing of csv files then creates the relevant objects and returns them as an ArrayList
@@ -22,10 +20,9 @@ public class InputHandler {
     private String validGenders[] = {"Unknown", "Male", "Female"};
     private String validUserType[] = {"customer", "subscriber", "Customer", "Subscriber", "\"customer\"", "\"subscriber\"", "\"Customer\"", "\"Subscriber\"",};
     private String validState[] = {"NY"};
-    private int fail_counter = 0;                          //for testing how many objects were created etc
+    private int fail_counter = 0; // For testing how many objects were created etc
     private int success_counter = 0;
     private int duplicate_counter;
-
 
     /**
      *     Method to parse a given csv file using the default IO package and buffered reader using split line () etc
@@ -33,14 +30,12 @@ public class InputHandler {
      * @param file csv file to be read
      * @param dataType Type of data to be processed from Retailer, Wifi or Trips
      * @param dataGroup name of the group that the data belongs to
-     * @return data returns an arraylist of the processed data from the input file
+     * @return data returns an ArrayList of the processed data from the input file
      * @throws IOException Exception thrown when there is an Input/Output error
      * @throws NumberFormatException Exception thrown when there is a number format error
      */
-    public ArrayList<Data> loadCSV(String file, String dataType, String dataGroup) throws IOException, NumberFormatException
-    {
-
-        ArrayList<Data> data = new ArrayList<>();  //will add multiple objects, so need an array
+    public ArrayList<Data> loadCSV(String file, String dataType, String dataGroup) throws IOException, NumberFormatException {
+        ArrayList<Data> data = new ArrayList<>();  // Will add multiple objects, so need an array
 
         Trip tripDataToAdd = null;
         Wifi wifiDataToAdd = null;
@@ -49,42 +44,32 @@ public class InputHandler {
         DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         DatabaseUpdater uploader = new DatabaseUpdater();
 
-        BufferedReader reader = new BufferedReader(new FileReader(file));   //file in format "blahblahblah.csv"
+        BufferedReader reader = new BufferedReader(new FileReader(file));   // File in format "abc.csv"
         String line = reader.readLine(); // Reading header, Ignoring/getting rid of it if there is one
 
-
-        //to detect if data given is in the correct type for what has been specified
+        // To detect if data given is in the correct type for what has been specified
         if (line.substring(0,36).equals("OBJECTID,the_geom,BORO,TYPE,PROVIDER")) {
-
             if (!dataType.equals("wifi")) {
                 return data;
             }
-
         } else if ((line.substring(0,36).equals("CnBio_Org_Name,CnAdrPrf_Addrline1,Cn"))) {
-
                 if (!dataType.equals("retailer")) {
                     return data;
                 }
-
         } else {
-            //must be trip data then
-
+            // Must be trip data then
             if (!dataType.equals("trip")) {
                 return data;
             }
-
         }
 
-
-        //loop for parsing csv
+        // Loop for parsing csv
         while ((line = reader.readLine()) != null && !line.isEmpty()) {
             //split on the comma only if that comma has zero, or an even number of quotes ahead of it
             String[] fields = line.split(",(?=(?:[^\"]*\"[^\"]*\")*[^\"]*$)", -1);
             try {
                 switch (dataType) {
-
                     case "wifi":
-
                         String borough = fields[2];   //or 18 for full name, not code
                         String type = fields[3];
                         String provider = fields[4];
@@ -102,21 +87,17 @@ public class InputHandler {
                         int hashID = wifiDataToAdd.hashCode();
                         if (checkValidity(wifiDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
                             System.out.println("Wifi added to upload list");
-                        }
-                        else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
+                        } else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Wifi.columns[0], Wifi.columns[0])).isEmpty()) {
                             duplicate_counter++;
                             wifiDataToAdd = null;
-                        }
-                        else {
+                        } else {
                             System.out.println(checkValidity(wifiDataToAdd));
                             wifiDataToAdd = null;
                         }
-
                         break;
 
 
                     case "retailer":
-
                         String name = fields[0];
                         city = fields[3];
                         String pAddress = fields[1];
@@ -129,8 +110,7 @@ public class InputHandler {
                         if (fields[8].isEmpty()) {
                             System.out.println("No retailer type given");
                             break;
-                        }
-                        else {
+                        } else {
                             typeID = fields[8].substring(0,1);
                             type = fields[8].substring(2);
                         }
@@ -141,21 +121,17 @@ public class InputHandler {
                         if (checkValidity(retailerDataToAdd).equals("Success") && (databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                             retailerDataToAdd = new Retailer(name, city, pAddress, sAddress, state, zipCode, typeID, type, dataGroup);   //create actual 'Data' object
                             System.out.println("Retailer added to upload list");
-                        }
-                        else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
+                        } else if (!(databaseRetriever.getStringListFromInt(dataType, hashID, Retailer.columns[0], Retailer.columns[0])).isEmpty()) {
                             duplicate_counter++;
                             retailerDataToAdd = null;
 
-                        }
-                        else {
+                        } else {
                             System.out.println(checkValidity(retailerDataToAdd));
                             retailerDataToAdd = null;
                         }
-
                         break;
 
                     case "trip":
-
                         //some trip files have strangely formatted int values, this fixes most
                         int birthYear;
                         int gender;
@@ -206,14 +182,14 @@ public class InputHandler {
                         if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).isEmpty()) {
                             //station isn't in database, so create it
 
-                            double startStationLong = 0;
+                            double startStationLong;
                             try {
                                 startStationLong = Double.parseDouble(fields[6]);
                             } catch (NumberFormatException e) {
                                 startStationLong = removeQuotesDouble(fields[6]);
                             }
 
-                            double startStationLat = 0;
+                            double startStationLat;
                             try {
                                 startStationLat = Double.parseDouble(fields[5]);
                             } catch (NumberFormatException e) {
@@ -243,14 +219,14 @@ public class InputHandler {
                         if (databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).isEmpty()) {
                             //station isn't in database, so create it
 
-                            double endStationLong = 0;
+                            double endStationLong;
                             try {
                                 endStationLong = Double.parseDouble(fields[10]);
                             } catch (NumberFormatException e) {
                                 endStationLong = removeQuotesDouble(fields[10]);
                             }
 
-                            double endStationLat = 0;
+                            double endStationLat;
                             try {
                                 endStationLat = Double.parseDouble(fields[9]);
                             } catch (NumberFormatException e) {
@@ -331,11 +307,9 @@ public class InputHandler {
             }
 
         }
-
         System.out.println("List created to be added into DB");
         reader.close();    //don't need it anymore
         return data;       //return array of objects for use
-
     }
 
     /**
@@ -368,6 +342,9 @@ public class InputHandler {
         return success_counter;
     }
 
+    /**
+     * Resets the duplicate counter.
+     */
     public void resetDuplicateCounter() {
         duplicate_counter = 0;
     }
@@ -380,23 +357,13 @@ public class InputHandler {
         return duplicate_counter;
     }
 
-
-    /**
-     * Tests an inputted Data objects data individually to see if it is valid, returns true if its valid
-     * @param dataToTest The data object that is to be tested for validity
-     * @return True if dataToTest is valid
-     */
-    public boolean checkValidity(Data dataToTest) { return true; }
-
     /**
      * Tests an inputted retailer objects data individually to see if it is valid, returns success if valid
      * or an error message if not
      * @param retailer retailer object to be tested for validity
      * @return validRetailer String success if valid
      */
-    public String checkValidity(Retailer retailer)
-    {
-
+    public String checkValidity(Retailer retailer) {
         String validRetailer = "Success";
 
         if (retailer.getCity().length() > 30 || retailer.getCity().length() < 2) {
@@ -423,8 +390,6 @@ public class InputHandler {
             validRetailer = "Invalid retailer typeID " + retailer.getTypeID();
         }
 
-
-
         return validRetailer;
     }
 
@@ -434,88 +399,57 @@ public class InputHandler {
      * @param trip Trip object to be tested for validity
      * @return validTrip String success if valid
      */
-    public String checkValidity(Trip trip)
-    {
+    public String checkValidity(Trip trip) {
         String validTrip = "Success";
-
 
         if (0 > trip.getDuration() || trip.getDuration() > 100000 ) {
             validTrip = "Invalid trip duration " + trip.getDuration() + "seconds";
-        }
-
-        else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
+        } else if (!Arrays.asList(validGenders).contains(trip.getGender())) {
             validTrip = "Invalid gender " + trip.getGender();
-        }
-
-        else if (0 > trip.getAge() || trip.getAge() > 120) {
+        } else if (0 > trip.getAge() || trip.getAge() > 120) {
             validTrip = "Invalid age " + trip.getAge();
-        }
-
-        else if (0 >= trip.getBikeID()) {
+        } else if (0 >= trip.getBikeID()) {
             validTrip = "Invalid bike ID " + trip.getBikeID();
-        }
-
-        else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
+        } else if (!Arrays.asList(validUserType).contains(trip.getUserType())) {
             validTrip = "Invalid user type " + trip.getUserType();
-        }
-
-        else if (trip.getStartDate() == null) {
+        } else if (trip.getStartDate() == null) {
             validTrip = "Start date not set, maybe didn't parse properly";
-        }
-        else if (trip.getEndDate() == null) {
+        } else if (trip.getEndDate() == null) {
             validTrip = "End date not set, maybe didn't parse properly";
         }
-
-
         return validTrip;
-
     }
 
     /**
      * Tests an inputted wifi objects data individually to see if it is valid, returns success if valid
      * or an error message if not
-     * @param wifi
+     * @param wifi Wifi of which validity will be checked.
      * @return validWifi String success if valid
      */
-    public String checkValidity(Wifi wifi)
-    {
-
+    public String checkValidity(Wifi wifi) {
         String validWifi = "Success";
-
 
         if (!Arrays.asList(validBorough).contains(wifi.getBorough())) {
             validWifi = "Invalid wifi borough " + wifi.getBorough();
-        }
-        else if (!Arrays.asList(validType).contains(wifi.getType())) {
+        } else if (!Arrays.asList(validType).contains(wifi.getType())) {
             validWifi = "Invalid wifi type " + wifi.getType();
-        }
-        else if (wifi.getProvider().length() > 100 || wifi.getProvider().length() < 2) {
+        } else if (wifi.getProvider().length() > 100 || wifi.getProvider().length() < 2) {
             validWifi = "Invalid provider " + wifi.getProvider();
-        }
-        else if (wifi.getLocation().length() > 100) {
+        } else if (wifi.getLocation().length() > 100) {
             validWifi = "Invalid wifi location " + wifi.getLocation();
-        }
-
-        else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
+        } else if (90.0 < wifi.getLatitude() || wifi.getLatitude() < -90.0 ) {         //double
             validWifi = "Invalid wifi latitude " + wifi.getLatitude();
-        }
-        else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
+        } else if (180.0 < wifi.getLongitude() || wifi.getLongitude() < -180.0) {        //double
             validWifi = "Invalid wifi longitude " + wifi.getLongitude();
-        }
-        else if (wifi.getRemarks().length() > 100) {
+        } else if (wifi.getRemarks().length() > 100) {
             validWifi = "Invalid remark " + wifi.getRemarks();
-        }
-        else if (wifi.getCity().length() > 30 || wifi.getCity().length() < 2) {
+        } else if (wifi.getCity().length() > 30 || wifi.getCity().length() < 2) {
             validWifi = "Invalid wifi city " + wifi.getCity();
-        }
-        else if (wifi.getSSID().length() > 50) {
+        } else if (wifi.getSSID().length() > 50) {
             validWifi = "Invalid SSID " + wifi.getSSID();
         }
 
-
-
         return validWifi;
-
     }
 
     /**
@@ -523,47 +457,37 @@ public class InputHandler {
      * @param station Station to be tested for validity
      * @return validStation True if station is valid
      */
-    public Boolean checkValidity(Station station)
-    {
-
+    public Boolean checkValidity(Station station) {
         boolean validStation = true;
 
         if (station.getId() <= 0) {
             validStation = false;
             //System.out.println("Invalid station ID " + station.getId());
-        }
-        else if (station.getAddress().length() > 50 || station.getAddress().length() == 0) {
+        } else if (station.getAddress().length() > 50 || station.getAddress().length() == 0) {
             validStation = false;
             //System.out.println("Invalid station address " + station.getAddress());
-        }
-
-        else if (90 < station.getLatitude() || station.getLatitude() < -90) {
+        } else if (90 < station.getLatitude() || station.getLatitude() < -90) {
             validStation = false;
             //System.out.println("Invalid station latitude " + station.getLatitude());
-        }
-        else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
+        } else if (180 < station.getLongitude() || station.getLongitude() < -180 ) {
             validStation = false;
             //System.out.println("Invalid station longitude " + station.getLongitude());
         }
-
 
         return validStation;
     }
 
     /**
      * removes quotes from around values for when parsing couldn't remove them so it can be parsed to an int
-     * @param value
-     * @return result
+     * @param value The value to have quotes removed from.
+     * @return result The result of the quote removal.
      */
-    public int removeQuotesInt(String value) {
-
+    private int removeQuotesInt(String value) {
         try {
             if (value.equals("\"\"")) {
                 return 0;
             }
-            int result = Integer.parseInt(value.substring(1, value.length() - 1));
-            return result;
-
+            return Integer.parseInt(value.substring(1, value.length() - 1));
         } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
             System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
@@ -571,39 +495,20 @@ public class InputHandler {
     }
 
     /**
-     * removes quotes from around values for when parsing couldn't remove them so it can be parsed to a double
-     * @param value
-     * @return result
+     * Removes quotes from around values for when parsing couldn't remove them so it can be parsed to a double
+     * @param value String value of which quotes will be removed from.
+     * @return result The result of the removal.
      */
-    public double removeQuotesDouble(String value) {
+    private double removeQuotesDouble(String value) {
 
         try {
             if (value.equals("\"\"")) {
                 return 0;
             }
-            double result = Double.parseDouble(value.substring(1, value.length() - 1));
-            return result;
-
+            return Double.parseDouble(value.substring(1, value.length() - 1));
         } catch (NumberFormatException | NullPointerException | StringIndexOutOfBoundsException e) {
             System.out.println("Empty number field, would cause parser to freeze up");
             return 0;
         }
     }
-
-    /**
-     * removes quotes from around values for when parsing couldn't remove them
-     * @param value
-     * @return result
-     */
-    public String removeQuotesStr(String value) {
-
-        try {
-            String result = value.substring(1, value.length() - 1);
-            return result;
-        } catch (StringIndexOutOfBoundsException e) {
-            return "";
-        }
-
-    }
-
 }
