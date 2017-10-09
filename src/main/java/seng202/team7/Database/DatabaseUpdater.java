@@ -1,7 +1,6 @@
 package seng202.team7.Database;
 
 import seng202.team7.*;
-
 import java.io.*;
 import java.sql.*;
 import java.util.ArrayList;
@@ -18,8 +17,7 @@ public class DatabaseUpdater {
      * public class that allows for the addition of an arraylist of Data
      * @param data data in an arraylist
      */
-    public void addData(ArrayList<Data> data)
-    {
+    public void addData(ArrayList<Data> data) {
         DatabaseUpdater insertData = new DatabaseUpdater();
 
         for(Data d:data)
@@ -40,8 +38,7 @@ public class DatabaseUpdater {
      * Method adds a single Wifi object to the wifi table
      * @param wifi Wifi to be added to the database
      */
-    public void insertWifi(Wifi wifi, String url)
-    {
+    public void insertWifi(Wifi wifi, String url) {
         String sql = "INSERT INTO "+Wifi.tableName+" ("+Wifi.columns[0]+", "+Wifi.columns[1]+", "+Wifi.columns[2]+", "+Wifi.columns[3]+", "+Wifi.columns[4]+", "+Wifi.columns[5]+", "+Wifi.columns[6]+", "+Wifi.columns[7]+", "+Wifi.columns[8]+", "+Wifi.columns[9]+", "+Wifi.columns[10]+", "+Wifi.columns[11]+") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -81,8 +78,7 @@ public class DatabaseUpdater {
      * Method adds a single Wifi object to the wifi table
      * @param wifi Wifi to be added to the database
      */
-    public void insertWifi(Wifi wifi)
-    {
+    private void insertWifi(Wifi wifi) {
         String sql = "INSERT INTO "+Wifi.tableName+" ("+Wifi.columns[0]+", "+Wifi.columns[1]+", "+Wifi.columns[2]+", "+Wifi.columns[3]+", "+Wifi.columns[4]+", "+Wifi.columns[5]+", "+Wifi.columns[6]+", "+Wifi.columns[7]+", "+Wifi.columns[8]+", "+Wifi.columns[9]+", "+Wifi.columns[10]+", "+Wifi.columns[11]+") VALUES(?,?,?,?,?,?,?,?,?,?,?,?)";
 
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
@@ -122,8 +118,7 @@ public class DatabaseUpdater {
      * Adds a single station to the station to the database
      * @param station station object to be added
      */
-    public void insertStation(Station station)
-    {
+    public void insertStation(Station station) {
         String sql = "INSERT INTO "+ Station.tableName+" (stationID, address,latitude, longitude, datagroup, obj) VALUES(?,?,?,?,?,?)";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
@@ -156,8 +151,7 @@ public class DatabaseUpdater {
      * Adds a retailer to the database
      * @param retailer retailer object to be added
      */
-    public void insertRetailer(Retailer retailer)
-    {
+    private void insertRetailer(Retailer retailer) {
         String sql = "INSERT INTO "+ retailer.tableName+" (id, name, city, pAddress, sAddress, state, zipCode, typeID, type,latitude, longitude, datagroup, obj, street) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         ByteArrayOutputStream bos = new ByteArrayOutputStream();
         try {
@@ -198,8 +192,7 @@ public class DatabaseUpdater {
      * Inserts a trip into the database
      * @param trip trip to be stored in the database
      */
-    public void insertTrip(Trip trip)
-    {
+    private void insertTrip(Trip trip) {
         String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, endStationID, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
         //ByteArrayOutputStream initialization
@@ -256,15 +249,11 @@ public class DatabaseUpdater {
         System.out.println("Trip added");
     }
 
-
-
-
     /**
      * Deletes Wifi object based off its hashcode as id
      * @param id Wifi id to be deleted from database
      */
-    public void deleteWifi(int id)
-    {
+    private void deleteWifi(int id) {
         String sql = "DELETE FROM "+ Wifi.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -279,8 +268,7 @@ public class DatabaseUpdater {
      * Updates a wifi object by deleting it then reading it
      * @param wifi wifi object to 'update'
      */
-    public void updateWifi(Wifi wifi, int oldId)
-    {
+    public void updateWifi(Wifi wifi, int oldId) {
         deleteWifi(oldId);
         insertWifi(wifi);
     }
@@ -289,8 +277,7 @@ public class DatabaseUpdater {
      * Deletes Retailer object based off its hashcode as id
      * @param oldId Retailer id to be deleted from database
      */
-    public void deleteRetailer(int oldId)
-    {
+    private void deleteRetailer(int oldId) {
         String sql = "DELETE FROM "+ Retailer.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -305,8 +292,7 @@ public class DatabaseUpdater {
      * Updates a Retailer object by deleting it then readding it
      * @param retailer Retailer object to 'update'
      */
-    public void updateRetailer(Retailer retailer, int oldId)
-    {
+    public void updateRetailer(Retailer retailer, int oldId) {
         deleteRetailer(oldId);
         insertRetailer(retailer);
     }
@@ -315,8 +301,7 @@ public class DatabaseUpdater {
      * Deletes Station object based off its id
      * @param oldId Station id to be deleted from database
      */
-    public void deleteStation(int oldId)
-    {
+    private void deleteStation(int oldId) {
         String sql = "DELETE FROM "+ Station.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -331,8 +316,7 @@ public class DatabaseUpdater {
      * Updates a Station object by deleting it then readding it
      * @param station Station object to 'update'
      */
-    public void updateStation(Station station, int oldId)
-    {
+    public void updateStation(Station station, int oldId) {
         deleteStation(oldId);
         insertStation(station);
     }
@@ -341,8 +325,7 @@ public class DatabaseUpdater {
      * Deletes Trip object based off its hashcode as id
      * @param oldId Trip id to be deleted from database
      */
-    public void deleteTrip(int oldId)
-    {
+    private void deleteTrip(int oldId) {
         String sql = "DELETE FROM "+ Trip.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
@@ -357,11 +340,8 @@ public class DatabaseUpdater {
      * Updates a Trip object by deleting it then readding it
      * @param trip Trip object to 'update'
      */
-    public void updateTrip(Trip trip, int oldId)
-    {
+    public void updateTrip(Trip trip, int oldId) {
         deleteTrip(oldId);
         insertTrip(trip);
     }
-
-
 }

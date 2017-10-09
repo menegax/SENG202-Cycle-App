@@ -2,7 +2,6 @@ package seng202.team7.Database;
 
 import org.apache.commons.io.FileUtils;
 import seng202.team7.Windows.MainWindow.MainWindow;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -18,17 +17,15 @@ public class DatabaseHandler {
     public static String url;
     public static String testUrl = "jdbc:sqlite:./src/test/java/seng202/team7/testDatabase.db";
     public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
-    public static String databaseLocal;
+    private static String databaseLocal;
     public static String onlineDatabaseUrl = "http://seng202team7.000webhostapp.com/database.txt";
     public static URL dbUrl = null;
-
 
     /**
      * Runs on start-up to make sure there is a database in the directory of the jar
      * Also sets the default url to that of the new database
      */
-    public static void initializeDatabase()
-    {
+    public static void initializeDatabase() {
         String path =
                 MainWindow.class.getProtectionDomain().
                         getCodeSource().getLocation().getPath();
@@ -55,15 +52,10 @@ public class DatabaseHandler {
         }
     }
 
-
-
-
-
     /**
      * Creates a local copy of the database from a file within the executable. As a db inside the executable would be unmodifyable
      */
-    public static void getDatabase()
-    {
+    private static void getDatabase() {
         DatabaseRetriever temp  = new DatabaseRetriever();
         File dbFile = new File(databaseLocal);
         //System.out.println();
@@ -73,7 +65,6 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         System.out.println("finished");
-
     }
 
     /**
@@ -81,8 +72,7 @@ public class DatabaseHandler {
      * Should not be used unless the database is removed
      * @param url Location for the database
      */
-    public static void createDatabase(String url)
-    {
+    public static void createDatabase(String url) {
 
         try (Connection conn = DriverManager.getConnection(url)) {
             if (conn != null) {
@@ -95,7 +85,6 @@ public class DatabaseHandler {
         }
     }
 
-
     /**
      * Creates a database in the default location
      * Should not be used unless the database is removed
@@ -105,14 +94,12 @@ public class DatabaseHandler {
         createDatabase(url);
     }
 
-
     /**
      * Method for connecting to a database. Used as a helper method
      * @param url the url of databse to connect to
      * @return the connection to the database
      */
-    public static Connection connect(String url)
-    {
+    public static Connection connect(String url) {
         Connection conn = null;
         try {
             conn = DriverManager.getConnection(url);
@@ -131,18 +118,13 @@ public class DatabaseHandler {
         return connect(DatabaseHandler.url);
     }
 
-
-
-
-
     /**
      * Creates an SQL table with the name and sql script given
      * @param tableName name for the table
      * @param tableScript script for creating the table
      * @param url Url for database to add table to
      */
-    public static void createTable(String tableName, String tableScript, String url)
-    {
+    public static void createTable(String tableName, String tableScript, String url) {
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
             stmt.execute(tableScript);
@@ -152,7 +134,6 @@ public class DatabaseHandler {
         }
 
     }
-
 
     /**
      * Creates an SQL table with the name and sql script given
@@ -169,8 +150,7 @@ public class DatabaseHandler {
      * @param tableName tablename to drop
      * @param url database to delete table from
      */
-    public static void deleteTable(String tableName, String url)
-    {
+    public static void deleteTable(String tableName, String url) {
         String sql = "DROP TABLE IF EXISTS "+tableName;
         try (Connection conn = DriverManager.getConnection(url);
              Statement stmt = conn.createStatement()) {
@@ -189,5 +169,4 @@ public class DatabaseHandler {
     {
         deleteTable(tableName, url);
     }
-
 }

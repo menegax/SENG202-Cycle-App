@@ -1,7 +1,6 @@
 package seng202.team7.Database;
 
 import seng202.team7.*;
-
 import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;
@@ -17,7 +16,7 @@ public class DatabaseRetriever {
 
     /**
      * gets all stations in database
-     * @return Arraylist of station objects
+     * @return ArrayList of station objects
      */
     public ArrayList<Station> getStationList(){
         ArrayList<Station> stationList = new ArrayList<>();
@@ -55,7 +54,7 @@ public class DatabaseRetriever {
 
     /**
      * Gets all wifis in database
-     * @return Arraylist of wifi objects
+     * @return ArrayList of wifi objects
      */
     public ArrayList<Wifi> getWifiList(){
         ArrayList<Wifi> wifiList = new ArrayList<>();
@@ -94,7 +93,7 @@ public class DatabaseRetriever {
     /**
      * Gets all wifis in database
      * @param url Url of the database to be changed
-     * @return Arraylist of wifi objects
+     * @return ArrayList of wifi objects
      */
     public ArrayList<Wifi> getWifiList(String url){
         ArrayList<Wifi> wifiList = new ArrayList<>();
@@ -132,10 +131,9 @@ public class DatabaseRetriever {
 
     /**
      * Gets the ArrayList of all retailers in database
-     * @return Arraylist of all retailers
+     * @return ArrayList of all retailers
      */
-    public ArrayList<Retailer> getRetailerList()
-    {
+    public ArrayList<Retailer> getRetailerList() {
         ArrayList<Retailer> retailerList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Retailer.tableName;
         try (Connection conn = DatabaseHandler.connect();
@@ -169,14 +167,12 @@ public class DatabaseRetriever {
         return retailerList;
     }
 
-
     /**
      * Used to get all retailers from a specific database
-     * @param url databse url
+     * @param url database url
      * @return Array list of retailers
      */
-    public ArrayList<Retailer> getRetailerList(String url)
-    {
+    public ArrayList<Retailer> getRetailerList(String url) {
         ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
         String sql = "SELECT obj FROM " + Retailer.tableName;
         try (Connection conn = DatabaseHandler.connect(url);
@@ -210,16 +206,11 @@ public class DatabaseRetriever {
         return retailerList;
     }
 
-
-
-
-
     /**
      * Gets an ArrayList of all trips
      * @return ArrayList of all trip objects
      */
-    public ArrayList<Trip> getTripList()
-    {
+    public ArrayList<Trip> getTripList() {
         ArrayList<Trip> tripList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Trip.tableName;
         try (Connection conn = DatabaseHandler.connect();
@@ -252,14 +243,12 @@ public class DatabaseRetriever {
         return tripList;
     }
 
-
     /**
      * Gets the trip of a specific database
      * @param url url of the database to search
-     * @return arraylist of trips
+     * @return ArrayList of trips
      */
-    public ArrayList<Trip> getTripList(String url)
-    {
+    public ArrayList<Trip> getTripList(String url) {
         ArrayList<Trip> tripList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Trip.tableName;
         try (Connection conn = DatabaseHandler.connect();
@@ -297,10 +286,9 @@ public class DatabaseRetriever {
      * Completes an sql query on Retailers from the given query string
      * Only returns retailer object
      * @param query sql query to run
-     * @return Arraylist of retailers
+     * @return ArrayList of retailers
      */
-    public ArrayList<Retailer> queryRetailer(String query)
-    {
+    public ArrayList<Retailer> queryRetailer(String query) {
         ArrayList<Retailer> retailerList = new ArrayList<>();
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -332,12 +320,11 @@ public class DatabaseRetriever {
 
     }
 
-
     /**
      * Completes an sql query on the wifi table
      * only returns Wifi objects
      * @param query full sql query to be run
-     * @return arraylist of Wifi objects that match the query
+     * @return ArrayList of Wifi objects that match the query
      */
     public ArrayList<Wifi> queryWifi(String query){
         ArrayList<Wifi> wifiList = new ArrayList<>();
@@ -373,7 +360,6 @@ public class DatabaseRetriever {
         }
         return wifiList;
     }
-
 
     /**
      * Completes a query on the station database given the sql query
@@ -415,8 +401,12 @@ public class DatabaseRetriever {
         return stationList;
     }
 
-    public ByteArrayInputStream getStationObj(String query)
-    {
+    /**
+     * todo Add javadoc here
+     * @param query
+     * @return
+     */
+    public ByteArrayInputStream getStationObj(String query) {
         ByteArrayInputStream bais = null;
         try (Connection conn = DatabaseHandler.connect();
              Statement stmt  = conn.createStatement();
@@ -439,15 +429,13 @@ public class DatabaseRetriever {
         return bais;
     }
 
-
     /**
      * Completes sql query on trip table must have obj in query
      * only returns trip objects
      * @param query full sql query to be run
      * @return ArrayList of trips matching query
      */
-    public ArrayList<Trip> queryTrip(String query)
-    {
+    public ArrayList<Trip> queryTrip(String query) {
         ArrayList<Trip> tripList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
@@ -481,12 +469,10 @@ public class DatabaseRetriever {
         return tripList;
     }
 
-
     /**
-     * Testing the queryability of time objects within SQL. Currently not working as expected
+     * Testing the query-ability of time objects within SQL. Currently not working as expected
      */
-    public void testQueryTrip()
-    {
+    public void testQueryTrip() {
         ArrayList<Trip> tripList = new ArrayList<>();
 
         try (Connection conn = DatabaseHandler.connect();
@@ -612,7 +598,4 @@ public class DatabaseRetriever {
         }
         return stringList;
     }
-
-
-
 }

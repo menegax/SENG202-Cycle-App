@@ -10,11 +10,11 @@ import java.util.ArrayList;
  * @author MorganEnglish
  */
 public class DatabaseTester {
+
     /**
      * Static method to test the database
      */
-    public static void init()
-    {
+    public static void init() {
         //Create database
         //DatabaseHandler.createDatabase();
 
@@ -52,8 +52,6 @@ public class DatabaseTester {
 //        System.out.println(genderTripsM);
 //        //System.out.println(userTrips);
 
-
-
         //databaseRetriever.testQueryTrip();
 
         System.out.println("BY TIME: "+ SQLAnalytics.totalTimeTrips(0,2,""));
@@ -64,8 +62,6 @@ public class DatabaseTester {
 //        System.out.println("BY Dist: "+SQLAnalytics.totalDistTrips(0,10000,""));
 //        System.out.println("BY Dur: "+SQLAnalytics.totalDurTrips(0,10000,""));
 
-
-
         /*
         for(Retailer r : databaseRetriever.QueryRetailer("SELECT obj FROM retailer WHERE datagroup = \"test\""))
         {
@@ -75,16 +71,12 @@ public class DatabaseTester {
 
         //printWifi(databaseRetriever);
         //printRetailer(databaseRetriever);
-
-
-
     }
 
     /**
      * Deletes all the tables
      */
-    public static void deleteTables()
-    {
+    public static void deleteTables() {
         DatabaseHandler.deleteTable(Wifi.tableName);
         DatabaseHandler.deleteTable(Station.tableName);
         DatabaseHandler.deleteTable(Retailer.tableName);
@@ -94,8 +86,7 @@ public class DatabaseTester {
     /**
      * Creates all the tables
      */
-    public static void createTables()
-    {
+    public static void createTables() {
         DatabaseHandler.createTable(Wifi.tableName, Wifi.tableCreation);
         DatabaseHandler.createTable(Station.tableName, Station.tableCreation);
         DatabaseHandler.createTable(Retailer.tableName, Retailer.tableCreation);
@@ -106,8 +97,7 @@ public class DatabaseTester {
      * Adds an arraylist of datatypes
      * @param databaseUpdater databaseupdater object with connection to the current database
      */
-    public static void addData(DatabaseUpdater databaseUpdater)
-    {
+    private static void addData(DatabaseUpdater databaseUpdater) {
         ArrayList<Data> data = new ArrayList<>();
 
 //        Wifi w1 = new Wifi("BX", "Limited free","Alcatel","5th Ave","NY","Alcatel Hotspot","","",234.324,324.554);
@@ -148,39 +138,35 @@ public class DatabaseTester {
         data.add(t3);
 
         databaseUpdater.addData(data);
-
-
-
     }
 
     /**
-     * prints wifis
+     * Prints wifis
      * @param databaseRetriever object to retrieve items from database
      */
-    private static void printWifi(DatabaseRetriever databaseRetriever)
-    {
+    private static void printWifi(DatabaseRetriever databaseRetriever) {
         for(Wifi w :databaseRetriever.getWifiList()){
             w.print();
         }
     }
 
     /**
-     * prints retailer
+     * Prints retailer
      * @param databaseRetriever object to retrieve items from database
      */
-    private static void printRetailer(DatabaseRetriever databaseRetriever)
-    {
+    private static void printRetailer(DatabaseRetriever databaseRetriever) {
         for(Retailer r : databaseRetriever.getRetailerList()){
             r.print();
         }
     }
 
-    private static void printTrip(DatabaseRetriever databaseRetriever)
-    {
+    /**
+     * Prints trip.
+     * @param databaseRetriever object to retrieve items from database
+     */
+    private static void printTrip(DatabaseRetriever databaseRetriever) {
         for(Trip t : databaseRetriever.getTripList()){
             t.testPrint();
         }
     }
-
-
 }
