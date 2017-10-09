@@ -1,6 +1,8 @@
 package seng202.team7;
 
 import org.junit.Test;
+import seng202.team7.Input.InputHandler;
+
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
