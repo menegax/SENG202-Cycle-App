@@ -8,8 +8,11 @@ import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
-import seng202.team7.*;
-
+import seng202.team7.DataTypes.Datagroup;
+import seng202.team7.DataTypes.StaticVariables;
+import seng202.team7.DataTypes.Wifi;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -17,9 +20,8 @@ import java.util.ResourceBundle;
 /**
  * Wifi data controller to control raw data viewing of wifi data
  * @author Aidan Smith asm142
- * Last updated 22/09/17
+ * Last updated 09/10/17
  */
-
 public class WifiDataViewerController implements Initializable {
 
     // Main Containers
@@ -28,19 +30,18 @@ public class WifiDataViewerController implements Initializable {
     @FXML private AnchorPane editor;
 
     // Multiple records viewer widgets
-    @FXML
-    private TableView<Wifi> wifiDataTable;
-
+    @FXML private TableView<Wifi> wifiDataTable;
     @FXML private TableColumn<Wifi, String> providerColumn;
     @FXML private TableColumn<Wifi, String> typeColumn;
     @FXML private TableColumn<Wifi, String> locationColumn;
     @FXML private TableColumn<Wifi, String> boroughColumn;
+    @FXML private TableColumn<Wifi, String> dataGroupColumn;
     @FXML private ComboBox<String> providerCB;
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> boroughCB;
+    @FXML private ComboBox<String> dataGroupCB;
     @FXML private TextField searchEntry;
     @FXML private Text error;
-
 
     // Single record viewer widgets
     @FXML private Label providerLabel;
@@ -74,12 +75,6 @@ public class WifiDataViewerController implements Initializable {
      * @param rb Required parameter that is not used in the function
      */
     public void initialize(URL url, ResourceBundle rb) {
-        /**
-         * Used for testing only
-         * DatabaseTester.deleteTables();
-         * DatabaseTester.createTables();
-         */
-
         dbUpdater = new DatabaseUpdater();
         dbRetriever = new DatabaseRetriever();
         ArrayList<Wifi> wifiArrayList = dbRetriever.queryWifi(StaticVariables.steppedQuery(Wifi.tableName, loadedData));
@@ -93,6 +88,7 @@ public class WifiDataViewerController implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("type"));
         locationColumn.setCellValueFactory(new PropertyValueFactory<>("location"));
         boroughColumn.setCellValueFactory(new PropertyValueFactory<>("borough"));
+        dataGroupColumn.setCellValueFactory(new PropertyValueFactory<>("dataGroup"));
         wifiDataTable.setItems(filteredWifiList);
         ArrayList<String> providers = new ArrayList<>();
         for (Wifi wifi : wifiList) {
@@ -100,8 +96,11 @@ public class WifiDataViewerController implements Initializable {
                 providers.add(wifi.getProvider());
             }
         }
+        ArrayList<String> datagroups = Datagroup.getDatagroups();
         providerCB.getItems().add("All");
+        dataGroupCB.getItems().add("All");
         providerCB.getItems().addAll(providers);
+        dataGroupCB.getItems().addAll(datagroups);
     }
 
     /**
@@ -136,7 +135,7 @@ public class WifiDataViewerController implements Initializable {
     }
 
     /**
-     * Called whenever a filter combobox is changed to filter all the loaded data again
+     * Called whenever a filter combo box is changed to filter all the loaded data again
      */
     public void filter() {
         error.setVisible(false);
@@ -144,10 +143,12 @@ public class WifiDataViewerController implements Initializable {
         String providerSelection = providerCB.getValue();
         String typeSelection = typeCB.getValue();
         String boroughSelection = boroughCB.getValue();
+        String dataGroupSelection = dataGroupCB.getValue();
         for (Wifi wifi : wifiList) {
             if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("All"))
                     && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
                     && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("All"))
+                    && (wifi.getDataGroup().equals(dataGroupSelection) || dataGroupSelection == null || dataGroupSelection.equals("All"))
                     ) {
                 filteredWifiList.add(wifi);
             }
@@ -168,6 +169,7 @@ public class WifiDataViewerController implements Initializable {
                 if ((wifi.getProvider().equals(providerSelection) || providerSelection == null || providerSelection.equals("All"))
                         && (wifi.getType().equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
                         && (wifi.getBorough().equals(boroughSelection) || boroughSelection == null || boroughSelection.equals("All"))
+                        && (wifi.getDataGroup().equals(dataGroupSelection) || dataGroupSelection == null || dataGroupSelection.equals("All"))
                         ) {
                     filteredWifiList.add(wifi);
                 }
@@ -259,12 +261,13 @@ public class WifiDataViewerController implements Initializable {
      */
     public void confirmEdit(){
         Wifi wifi = filteredWifiList.get(currentWifiIndex);
+        int id = wifi.hashCode();
         wifi.setProvider(providerEntry.getText());
         wifi.setType(typeEntry.getValue());
         wifi.setLocation(locationEntry.getText());
         wifi.setBorough(boroughEntry.getValue());
         wifi.setRemarks(remarksEntry.getText());
-        dbUpdater.updateWifi(wifi);
+        dbUpdater.updateWifi(wifi, id);
         viewRecord();
     }
 

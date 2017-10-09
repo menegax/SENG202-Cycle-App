@@ -2,6 +2,9 @@
     -fx-font: 10px Tahoma;
 }
 
+/*
+
+ */
 .border-pane {
     -fx-text-fill: #FFFFFF;
     -fx-font: 10px Tahoma;
@@ -42,7 +45,7 @@
     -fx-text-fill: #FFFFFF;
 }
 
-.tree-cell:expanded, .tree-cell:sub-tree-item {
+.tree-cell:expanded {
     -fx-background-color: #404040;
 }
 

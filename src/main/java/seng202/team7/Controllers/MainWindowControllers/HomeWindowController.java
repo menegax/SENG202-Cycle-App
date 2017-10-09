@@ -33,6 +33,10 @@ public class HomeWindowController implements Initializable{
         mainHomeAnchorPane.heightProperty().addListener((v, oldValue, newValue) -> resize());
     }
 
+    /**
+     * This function makes sure that the image always resize's so that the full mainHomeAnchorPane
+     * is covered.
+     */
     private void resize() {
         if (mainHomeAnchorPane.getWidth() < mainHomeAnchorPane.getHeight()) {
             backgroundImage.setFitHeight(mainHomeAnchorPane.getHeight());

@@ -2,6 +2,10 @@ package seng202.team7;
 
 
 import org.junit.Test;
+import seng202.team7.DataTypes.Retailer;
+import seng202.team7.DataTypes.StaticVariables;
+import seng202.team7.DataTypes.Station;
+import seng202.team7.DataTypes.Wifi;
 
 import static junit.framework.TestCase.assertEquals;
 

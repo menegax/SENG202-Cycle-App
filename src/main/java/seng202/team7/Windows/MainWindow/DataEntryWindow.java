@@ -4,12 +4,16 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
 import java.io.IOException;
 
-/** Data entry window where users can manually enter their own data
+/**
+ * Data entry window where users can manually enter their own data
  * @author Mitchell Fenwick
  */
 
 public class DataEntryWindow extends AnchorPane {
 
+    /**
+     * Attempts to create a new data entry screen. Throws a RuntimeException if this fails.
+     */
     public DataEntryWindow() {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/MainWindow/DataEntryWindow.fxml"));
         fxmlLoader.setRoot(this);
@@ -19,5 +23,4 @@ public class DataEntryWindow extends AnchorPane {
             throw new RuntimeException(exception);
         }
     }
-
 }

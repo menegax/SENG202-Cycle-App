@@ -13,21 +13,21 @@ import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.team7.*;
+import seng202.team7.DataTypes.*;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
+import seng202.team7.Input.InputHandler;
 import seng202.team7.Windows.MainWindow.LoadingPopupWindow;
-
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-
-import static seng202.team7.Datagroup.addDatagroup;
-import static seng202.team7.Datagroup.getDatagroups;
+import static seng202.team7.DataTypes.Datagroup.addDatagroup;
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
  * Controls manual data entry and data uploaded via csv
@@ -39,10 +39,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public Button add_r_button;
     public Button add_w_button;
     public Button add_t_button;
-    public Button clearTrip;
-    public Button clearWifi;
-    public Button clearRetailer;
-    public Button clearAllFields;
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -87,7 +83,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private GridPane addTripNode;
     @FXML private GridPane addWifiNode;
 
-    private String currentScreen = "None"; // Tracks which entry screen is currently shown
+    private String currentScreen = "Trip"; // Tracks which entry screen is currently shown
 
     /**
      * sets the drop down combo box for datagroup selection
@@ -104,6 +100,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
      * @param rb Just a testing argument
      */
     public void initialize(URL url, ResourceBundle rb) {
+        dataEntryComboBox.getSelectionModel().selectFirst();
 
         startStationIDTextfield.textProperty().addListener(
             (observable, oldValue, newValue) -> {
@@ -201,11 +198,23 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public void uploadcsvButton(ActionEvent event) {
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
-        String dataTypeAdded = (String) dataEntryComboBox.getValue();
-        String dataGroup = (String) dataGroupCombo.getValue();
+        String dataTypeAddedInitial = (String) dataEntryComboBox.getValue();
+        String dataTypeAdded;
+        switch (dataTypeAddedInitial) {
+            case "Wifi":
+                dataTypeAdded = "wifi";
+                break;
+            case "Trip":
+                dataTypeAdded = "trip";
+                break;
+            case "Retailer":
+                dataTypeAdded = "retailer";
+                break;
+            default:
+                dataTypeAdded = "trip";
+        }
 
-        //System.out.println(dataTypeAdded);
-        //System.out.println(dataGroup);
+        String dataGroup = (String) dataGroupCombo.getValue();
 
         if (dataTypeAdded == null && dataGroup == null) {
             status_text.setText("No data group or data type entered!");
@@ -468,7 +477,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
 
     }
 
-
     /**
      * Loads manually inputted trip data and adds to database
      * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
@@ -655,7 +663,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     }
 
     /**
-     * Clears trip data entry fields completely, as well as combobox selection and date picked
+     * Clears trip data entry fields completely, as well as combo box selection and date picked
      */
     public void clearTrip() {
 
@@ -678,7 +686,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
         }
 
     }
-
 
     /**
      * Clears wifi data entry fields completely, as well as combobox selection
@@ -742,15 +749,15 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     private void changeCurrentEntryScreen(String newScreen) {
         switch (currentScreen) {
             case "None": break; // If no screen had been previously selected
-            case "retailer": addRetailerNode.setVisible(false); break;
-            case "trip": addTripNode.setVisible(false); break;
-            case "wifi": addWifiNode.setVisible(false); break;
+            case "Retailer": addRetailerNode.setVisible(false); break;
+            case "Trip": addTripNode.setVisible(false); break;
+            case "Wifi": addWifiNode.setVisible(false); break;
             default: System.out.println("ERROR!"); break;
         }
         switch (newScreen) {
-            case "retailer": addRetailerNode.setVisible(true); break;
-            case "trip": addTripNode.setVisible(true); break;
-            case "wifi": addWifiNode.setVisible(true); break;
+            case "Retailer": addRetailerNode.setVisible(true); break;
+            case "Trip": addTripNode.setVisible(true); break;
+            case "Wifi": addWifiNode.setVisible(true); break;
             default: System.out.println("ERROR!"); break;
         }
         currentScreen = newScreen;

@@ -2,6 +2,8 @@ package seng202.team7;
 
 import junit.framework.TestCase;
 import org.junit.Test;
+import seng202.team7.DataTypes.Station;
+import seng202.team7.DataTypes.Trip;
 
 import java.util.Date;
 

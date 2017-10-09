@@ -43,10 +43,6 @@ public class MainWindowController implements Initializable, EventHandler {
     private TripAnalyticWindow graphViewer;
     private String currentWindow; // Currently visible window
 
-    // Navigation bar related
-    private TreeItem<String> analyticsBranch;
-    private TreeItem<String> dataViewerBranch;
-
     /**
      * Runs as the program initially starts. Initialises each of the custom
      * JavaFX panels (loads them into memory) and calls for the navigation bar
@@ -97,12 +93,12 @@ public class MainWindowController implements Initializable, EventHandler {
         makeBranch("Map Viewer", root);
 
         // Analytics branch
-        analyticsBranch = makeBranch("Analytics", root);
+        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
         makeBranch("Map View", analyticsBranch);
         makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
-        dataViewerBranch = makeBranch("Data Viewer", root);
+        TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
         makeBranch("Retailer", dataViewerBranch);
         makeBranch("Trip", dataViewerBranch);
         makeBranch("Wifi", dataViewerBranch);
@@ -136,8 +132,8 @@ public class MainWindowController implements Initializable, EventHandler {
     }
 
     /**
-     * Changes the window currently shown in the centerAnchorPane to be newScreen
-     * @param newScreen The new window that will replace the current window
+     * Changes the window currently shown in the centerAnchorPane to be newScreen.
+     * @param newScreen The new window that will replace the current window.
      */
     private void changeMainScreen(String newScreen) {
         if (!newScreen.equals("Analytics") && !newScreen.equals("Data Viewer")) {
@@ -146,10 +142,10 @@ public class MainWindowController implements Initializable, EventHandler {
                 case "Home": removeMainScreen(homeViewer); break;
                 case "Route Planning": removeMainScreen(routePlannerViewer); break;
                 case "Map Viewer": removeMainScreen(mapViewer); break;
-                case "Analytics": break; // todo
+                case "Analytics": break; // No screen change
                 case "Map View": removeMainScreen(mapAnalyticViewer); break;
                 case "Graph View": removeMainScreen(graphViewer); break;
-                case "Data Viewer": break; // todo
+                case "Data Viewer": break; // No screen change
                 case "Retailer": removeMainScreen(retailerViewer); break;
                 case "Trip": removeMainScreen(tripViewer); break;
                 case "Wifi": removeMainScreen(wifiViewer); break;
@@ -161,10 +157,10 @@ public class MainWindowController implements Initializable, EventHandler {
                 case "Home": setMainScreen(homeViewer); break;
                 case "Route Planning": setMainScreen(routePlannerViewer); break;
                 case "Map Viewer": setMainScreen(mapViewer = new MapViewerWindow()); break;
-                case "Analytics": break; // todo
+                case "Analytics": break; // No screen change
                 case "Map View": setMainScreen(mapAnalyticViewer = new MapAnalyticWindow()); break;
                 case "Graph View": setMainScreen(graphViewer = new TripAnalyticWindow()); break;
-                case "Data Viewer": break; // todo
+                case "Data Viewer": break; // No screen change
                 case "Retailer": setMainScreen(retailerViewer = new RetailerDataViewerWindow()); break; // Recreates viewer
                 case "Trip": setMainScreen(tripViewer = new TripDataViewerWindow()); break; // Recreates viewer
                 case "Wifi": setMainScreen(wifiViewer = new WifiDataViewerWindow()); break; // Recreates viewer
@@ -192,6 +188,11 @@ public class MainWindowController implements Initializable, EventHandler {
         centerAnchorPane.getChildren().add(window);
     }
 
+    /**
+     * This function handles the event passed to it when called. Currently it only handles
+     * the opening of the Help Window.
+     * @param event The Event to be handed.
+     */
     @Override
     public void handle(Event event) {
         if (event.getSource() == currentPageHelpButton) {

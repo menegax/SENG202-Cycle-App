@@ -10,51 +10,28 @@ import javafx.scene.control.*;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
-import seng202.team7.JSHandler;
-
+import seng202.team7.JSHandling.JSHandler;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static seng202.team7.Datagroup.getDatagroups;
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
- * todo
+ * This class is the controller for the Map Analytic screen.
  * @author MorganEnglish
  */
 public class MapAnalyticController implements Initializable {
-
 
     @FXML private ComboBox genderCombo;
     @FXML private ComboBox userCombo;
     @FXML private ComboBox ageCombo;
     @FXML private ComboBox densityCombo;
     @FXML private WebView webViewMap;
-    @FXML private Button displayButton;
-    @FXML private Button clearButton;
-    @FXML private ToggleButton wifiButton;
-    @FXML private ToggleButton retailerButton;
-
-    @FXML private TextField poiDatagroup;
-    @FXML private TextField tripDatagroup;
-
     @FXML private ComboBox dataGroupCombo;
     @FXML private ComboBox poiDatagroupCombo;
 
-    @FXML public void setDataGroupComboItems() {
-        ArrayList<String> list = getDatagroups();
-        list.add("All");
-        ObservableList<String> items = FXCollections.observableArrayList(list);
-        dataGroupCombo.setItems(items);
-    }
-
-    @FXML public void setPOIDataGroupComboItems() {
-        ArrayList<String> list = getDatagroups();
-        list.add("All");
-        ObservableList<String> items = FXCollections.observableArrayList(list);
-        poiDatagroupCombo.setItems(items);
-    }
-
+    private boolean stationToggled = false;
     private boolean wifiToggled = false;
     private boolean retailerToggled = false;
     private WebEngine webEngine;
@@ -62,12 +39,31 @@ public class MapAnalyticController implements Initializable {
     private JSHandler jsHandler;
 
     /**
+     * Sets the dataGroup combo box items.
+     */
+    @FXML public void setDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        dataGroupCombo.setItems(items);
+    }
+
+    /**
+     * Sets the POI dataGroup combo box items.
+     */
+    @FXML public void setPOIDataGroupComboItems() {
+        ArrayList<String> list = getDatagroups();
+        list.add("All");
+        ObservableList<String> items = FXCollections.observableArrayList(list);
+        poiDatagroupCombo.setItems(items);
+    }
+
+    /**
      * todo
      * @param url For testing
      * @param rb For testing
      */
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
        webEngine = webViewMap.getEngine();
        genderCombo.getItems().addAll("All","Male","Female", "Unknown");
        userCombo.getItems().addAll("All", "Customer", "Subscriber");
@@ -81,7 +77,7 @@ public class MapAnalyticController implements Initializable {
                 jsObject = (JSObject) webEngine.executeScript("window");
                 jsHandler = new JSHandler();
                 jsObject.setMember("Abridge", jsHandler);
-                System.out.println("set bridge");
+                //System.out.println("set bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
@@ -97,12 +93,10 @@ public class MapAnalyticController implements Initializable {
 
     }
 
-
     /**
      * On click oisplay button will take the parameters entered and pass them into js to create a heat map overlay
      */
-    public void displayClicked()
-    {
+    public void displayClicked() {
         String userType;
         String gender;
         String age;
@@ -143,28 +137,25 @@ public class MapAnalyticController implements Initializable {
             density = (String) densityCombo.getSelectionModel().getSelectedItem();
         }
 
-        System.out.println("display");
+        //System.out.println("display");
         jsObject.call("loadHeat",tripGroup, gender, age, userType, density);
     }
 
-
     /**
-     * removes all heatmaps
+     * Removes all heatmaps
      */
     public void clearClicked()
     {
         jsObject.call("clearHeat");
     }
 
-
     /**
      * Turns on the retailer icon
      */
-    public void retailerClicked()
-    {
-        System.out.println("retailer clicked");
+    public void retailerClicked() {
+        //System.out.println("retailer clicked");
         if(!retailerToggled) {
-            System.out.println("retailer on");
+            //System.out.println("retailer on");
             retailerToggled = true;
             String poiGroup = "";
             try {
@@ -175,25 +166,23 @@ public class MapAnalyticController implements Initializable {
                 poiGroup = "";
             }
 
-            System.out.println(poiGroup);
+            //System.out.println(poiGroup);
             jsObject.call("loadRetailerDatagroup", poiGroup);
         } else {
-            System.out.println("retailer off");
+            //System.out.println("retailer off");
 
             jsObject.call("deleteRetailerMarkers");
             retailerToggled = false;
         }
     }
 
-
     /**
      * turns on the Wifi icons
      */
-    public void wifiClicked()
-    {
-        System.out.println("wifi clicked");
+    public void wifiClicked() {
+        //System.out.println("wifi clicked");
         if(!wifiToggled) {
-            System.out.println("wifi on");
+            //System.out.println("wifi on");
             wifiToggled = true;
             String poiGroup = "";
             try {
@@ -204,13 +193,28 @@ public class MapAnalyticController implements Initializable {
                 poiGroup = "";
             }
 
-            System.out.println(poiGroup);
+            //System.out.println(poiGroup);
             jsObject.call("loadWifiDatagroup", poiGroup);
         } else {
-            System.out.println("wifi off");
+            //System.out.println("wifi off");
 
             jsObject.call("deleteWifiMarkers");
             wifiToggled = false;
+        }
+    }
+
+    /**
+     * turns on the Wifi icons
+     */
+    public void stationClicked() {
+
+        if(!stationToggled) {
+            stationToggled = true;
+            jsObject.call("loadStation");
+        } else {
+
+            jsObject.call("deleteStationMarkers");
+            stationToggled = false;
         }
     }
 }

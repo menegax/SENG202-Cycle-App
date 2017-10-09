@@ -5,7 +5,8 @@ import javafx.scene.layout.AnchorPane;
 
 import java.io.IOException;
 
-/** Loading popup for when the user starts to load a CSV
+/**
+ * Loading popup for when the user starts to load a CSV
  * @author Aidan Smith asm142
  * Last updated 01/10/17
  */

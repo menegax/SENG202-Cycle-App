@@ -8,19 +8,17 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import seng202.team7.DatabaseRetriever;
-import seng202.team7.SQLAnalytics;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Analysis.SQLAnalytics;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 import java.util.ArrayList;
 
-import static seng202.team7.Datagroup.getDatagroups;
-
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
  * Controller for Graph viewing of analytics
@@ -33,10 +31,18 @@ public class TripAnalyticController implements Initializable{
     @FXML private CategoryAxis barX;
     @FXML private NumberAxis barY;
     @FXML private Text title;
-    @FXML private TextField datagroupField;
     @FXML private ComboBox<String> typeCombo;
     @FXML private ComboBox dataGroupCombo;
 
+    private ObservableList<PieChart.Data> pieChartData = FXCollections.observableArrayList();
+    private ObservableList<XYChart.Data<String, Number>> barChartData = FXCollections.observableArrayList();
+    private CategoryAxis categoryAxisX = new CategoryAxis();
+    private NumberAxis numberAxisY = new NumberAxis();
+    private DatabaseRetriever databaseRetriever = new DatabaseRetriever();
+
+    /**
+     * Sets the dataGroup combo box items.
+     */
     @FXML public void setDataGroupComboItems() {
         ArrayList<String> list = getDatagroups();
         list.add("All");
@@ -44,29 +50,20 @@ public class TripAnalyticController implements Initializable{
         dataGroupCombo.setItems(items);
     }
 
-
-    ObservableList<PieChart.Data> pieChartData =
-            FXCollections.observableArrayList();
-
-    ObservableList<XYChart.Data<String, Number>> barChartData =
-            FXCollections.observableArrayList();
-
-    CategoryAxis categoryAxisX = new CategoryAxis();
-    NumberAxis numberAxisY = new NumberAxis();
-
-    DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-
-
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    /**
+     * Runs as the program initially starts.
+     * @param url Unused parameter (There to fit signature)
+     * @param rb Unused parameter (There to fit signature)
+     */
+    public void initialize(URL url, ResourceBundle rb) {
         typeCombo.getItems().addAll("User","Age","Time","Duration","Distance");
         userGraph();
     }
+
     /**
      * Creates a PIE graph showing Gender of selected Bike trips
      */
-    public void genderGraph()
-    {
+    private void genderGraph() {
         title.setText("Gender");
         bar.setVisible(false);
         Label caption = new Label("");
@@ -74,7 +71,7 @@ public class TripAnalyticController implements Initializable{
         caption.setStyle("-fx-font: 254 arial;");
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -93,17 +90,16 @@ public class TripAnalyticController implements Initializable{
 
     }
 
-
     /**
      * Creates a PIE graph showing Usertype of selected BikeTrips
      */
-    public void userGraph()
-    {
+    private void userGraph() {
         title.setText("User");
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            System.out.println(dataGroupToSearch);
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -119,17 +115,15 @@ public class TripAnalyticController implements Initializable{
         pie.setVisible(true);
     }
 
-
     /**
      * creates Bar graph of Age
      */
-    public void ageGraph()
-    {
+    private void ageGraph() {
         title.setText("Age");
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -149,17 +143,15 @@ public class TripAnalyticController implements Initializable{
         pie.setVisible(true);
     }
 
-
     /**
-     * creates Bar graph of times by time of day
+     * Creates Bar graph of times by time of day
      */
-    public void timeGraph()
-    {
+    private void timeGraph() {
         title.setText("Time of Day");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -191,12 +183,10 @@ public class TripAnalyticController implements Initializable{
         bar.setVisible(true);
     }
 
-
     /**
-     * Shows the graph that is currentyl selected in the drop down
+     * Shows the graph that is currently selected in the drop down
      */
-    public void showGraph()
-    {
+    public void showGraph() {
         String graph = "";
         if(typeCombo.getSelectionModel().getSelectedItem() == null)
             return;
@@ -219,19 +209,18 @@ public class TripAnalyticController implements Initializable{
             case("Distance"):
                 distanceGraph();
                 break;
-
         }
     }
+
     /**
      * Creates bar graph by duration
      */
-    public void durationGraph()
-    {
+    private void durationGraph() {
         title.setText("Duration");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem())).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue());
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -260,17 +249,15 @@ public class TripAnalyticController implements Initializable{
         bar.setVisible(true);
     }
 
-
     /**
      * Creates bar graph by distance
      */
-    public void distanceGraph()
-    {
+    private void distanceGraph() {
         title.setText("Distance");
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";

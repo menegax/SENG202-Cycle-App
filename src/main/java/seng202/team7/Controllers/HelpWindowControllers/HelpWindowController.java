@@ -7,10 +7,13 @@ import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeView;
 import javafx.scene.layout.AnchorPane;
 import seng202.team7.Windows.HelpWindow.*;
-
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * This class is the controller for the Help Window.
+ * @author Connor McEwan-McDowall
+ */
 public class HelpWindowController implements Initializable{
     @FXML private TreeView<String> helpNavigationTree;
     @FXML private AnchorPane helpCenterAnchorPane;
@@ -26,11 +29,13 @@ public class HelpWindowController implements Initializable{
     private TripAnalyticHelp graphHelp;
     private String currentWindow;
 
-    // Navigation bar related
-    private TreeItem<String> analyticsBranch;
-    private TreeItem<String> dataViewerBranch;
-
-
+    /**
+     * Runs as the program initially starts. Initialises each of the custom
+     * JavaFX panels (loads them into memory) and calls for the help navigation bar
+     * to be populated. The help home screen is shown initially as default.
+     * @param location Unused parameter (There to fit signature)
+     * @param resources Unused parameter (There to fit signature)
+     */
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         // Set home window as initial window
@@ -51,6 +56,11 @@ public class HelpWindowController implements Initializable{
         populateNavigationBar();
     }
 
+    /**
+     * Populates the navigation bar with all necessary tree items. Also creates
+     * an event listener for whenever a tree item in the navigation bar is clicked.
+     * This listener calls the changeMainScreen function when tree selection changes.
+     */
     private void populateNavigationBar() {
         // Tree root
         TreeItem<String> root = new TreeItem<>();
@@ -66,12 +76,12 @@ public class HelpWindowController implements Initializable{
         makeBranch("Map Viewer", root);
 
         // Analytics branch
-        analyticsBranch = makeBranch("Analytics", root);
+        TreeItem<String> analyticsBranch = makeBranch("Analytics", root);
         makeBranch("Map View", analyticsBranch);
         makeBranch("Graph View", analyticsBranch);
 
         // Raw Data Viewer branch
-        dataViewerBranch = makeBranch("Data Viewer", root);
+        TreeItem<String> dataViewerBranch = makeBranch("Data Viewer", root);
         makeBranch("Retailer", dataViewerBranch);
         makeBranch("Trip", dataViewerBranch);
         makeBranch("Wifi", dataViewerBranch);
@@ -85,7 +95,7 @@ public class HelpWindowController implements Initializable{
         helpNavigationTree.getSelectionModel().selectedItemProperty()
                 .addListener((v, oldValue, newValue) -> {
                     String currentSelection = newValue.getValue();
-                    if (!(helpNavigationTree.equals(currentSelection))) {
+                    if (!(helpNavigationTree.toString().equals(currentSelection))) {
                         changeMainScreen(currentSelection);
                     }
                 });
@@ -105,8 +115,8 @@ public class HelpWindowController implements Initializable{
     }
 
     /**
-     * Changes the window currently shown in the centerAnchorPane to be newScreen
-     * @param newScreen The new window that will replace the current window
+     * Changes the window currently shown in the helpCenterAnchorPane to be newScreen
+     * @param newScreen The new window that will replace the current window.
      */
     private void changeMainScreen(String newScreen) {
         if (!newScreen.equals("Analytics") && !newScreen.equals("Data Viewer")) {
@@ -115,10 +125,10 @@ public class HelpWindowController implements Initializable{
                 case "Home": removeMainScreen(homeHelp); break;
                 case "Route Planning": removeMainScreen(routePlannerHelp); break;
                 case "Map Viewer": removeMainScreen(mapViewerHelp); break;
-                case "Analytics": break; // todo
+                case "Analytics": break; // No screen change
                 case "Map View": removeMainScreen(mapAnalyticHelp); break;
                 case "Graph View": removeMainScreen(graphHelp); break;
-                case "Data Viewer": break; // todo
+                case "Data Viewer": break; // No screen change
                 case "Retailer": removeMainScreen(retailerHelp); break;
                 case "Trip": removeMainScreen(tripHelp); break;
                 case "Wifi": removeMainScreen(wifiHelp); break;
@@ -130,10 +140,10 @@ public class HelpWindowController implements Initializable{
                 case "Home": setMainScreen(homeHelp); break;
                 case "Route Planning": setMainScreen(routePlannerHelp); break;
                 case "Map Viewer": setMainScreen(mapViewerHelp); break;
-                case "Analytics": break; // todo
+                case "Analytics": break; // No screen change
                 case "Map View": setMainScreen(mapAnalyticHelp); break;
                 case "Graph View": setMainScreen(graphHelp); break;
-                case "Data Viewer": break; // todo
+                case "Data Viewer": break; // No screen change
                 case "Retailer": setMainScreen(retailerHelp); break;
                 case "Trip": setMainScreen(tripHelp); break;
                 case "Wifi": setMainScreen(wifiHelp); break;
@@ -146,7 +156,7 @@ public class HelpWindowController implements Initializable{
     }
 
     /**
-     * Removes the current window inside centerAnchorPane
+     * Removes the current window inside helpCenterAnchorPane
      * @param window The window to be removed
      */
     private void removeMainScreen(Node window) {
@@ -154,11 +164,10 @@ public class HelpWindowController implements Initializable{
     }
 
     /**
-     * Adds the current window inside centerAnchorPane
+     * Adds the current window inside helpCenterAnchorPane
      * @param window The window to be added
      */
     private void setMainScreen(Node window) {
         helpCenterAnchorPane.getChildren().add(window);
     }
-
 }
