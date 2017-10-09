@@ -1,19 +1,17 @@
 package seng202.team7;
 
 import org.junit.Test;
-
-
 import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
+import static seng202.team7.DatabaseHandler.*;
+import static seng202.team7.DatabaseTester.*;
 
 public class InputHandlerTest
 {
 
-
     InputHandler tester = new InputHandler();
-    //DatabaseHandler.url = DatabaseHandler.testurl;
 
     String file_retailer = "retailer_data_test.csv";
     String file_wifi = "wifi_data_test.csv";
@@ -29,38 +27,44 @@ public class InputHandlerTest
     }
 
 
-    /*@Test
+    @Test
     public void testRetailer() throws IOException {
+        url = testUrl;
+        deleteTables();
+        createTables();
         InputHandler testerRetailer = new InputHandler();
-        //assertEquals(771, testerRetailer.loadCSV(file_retailer, "retailer", "default").size());
-        //amount added always changes because of duplicate check in database
+        assertEquals(771, testerRetailer.loadCSV(file_retailer, "retailer", "default").size());
+        //amount added always changes because of duplicate check in database, not so much in test DB created
         //just check that the parser works basically
-        assertTrue(testerRetailer.loadCSV(file_retailer, "retailer", "default").size() >= 0);
-        testerRetailer.getFail_counter();
-        testerRetailer.resetFailCounter();
-    }*/
+        //assertTrue(testerRetailer.loadCSV(file_retailer, "retailer", "default").size() >= 0);
+        url = null;
+    }
 
     @Test
     public void testWifi() throws IOException {
+        url = testUrl;
+        deleteTables();
+        createTables();
         InputHandler testerWifi = new InputHandler();
-        //assertEquals(2565, testerWifi.loadCSV(file_wifi, "wifi", "default").size());
-        //amount added always changes because of duplicate check in database
+        assertEquals(2566, testerWifi.loadCSV(file_wifi, "wifi", "default").size());
+        //amount added always changes because of duplicate check in database, not so much in test DB created
         //just check that the parser works basically
-        assertTrue(testerWifi.loadCSV(file_wifi, "wifi", "default").size() >= 0);
-        testerWifi.getFail_counter();
-        testerWifi.resetFailCounter();
+        //assertTrue(testerWifi.loadCSV(file_wifi, "wifi", "default").size() >= 0);
+        url = null;
     }
 
-    /*@Test
+    @Test
     public void testTrip() throws IOException {
+        url = testUrl;
+        deleteTables();
+        createTables();
         InputHandler testerTrip = new InputHandler();
-        //assertEquals(21832, testerTrip.loadCSV(file_trip, "trip", "default").size());
-        //amount added always changes because of duplicate check in database
+        assertEquals(11837, testerTrip.loadCSV(file_trip, "trip", "default").size());
+        //amount added always changes because of duplicate check in database, not so much in test DB created
         //just check that the parser works basically
-        assertTrue(testerTrip.loadCSV(file_trip, "trip", "default").size() >= 0);
-        testerTrip.getFail_counter();
-        testerTrip.resetFailCounter();
-    }*/
+        //assertTrue(testerTrip.loadCSV(file_trip, "trip", "default").size() >= 0);
+        url = null;
+    }
 
 
 

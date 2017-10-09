@@ -87,7 +87,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private GridPane addTripNode;
     @FXML private GridPane addWifiNode;
 
-    private String currentScreen = "None"; // Tracks which entry screen is currently shown
+    private String currentScreen = "Trip"; // Tracks which entry screen is currently shown
 
     /**
      * sets the drop down combo box for datagroup selection
@@ -104,6 +104,7 @@ public class DataEntryWindowController implements Initializable, EventHandler{
      * @param rb Just a testing argument
      */
     public void initialize(URL url, ResourceBundle rb) {
+        dataEntryComboBox.getSelectionModel().selectFirst();
 
         startStationIDTextfield.textProperty().addListener(
             (observable, oldValue, newValue) -> {
@@ -201,11 +202,23 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     public void uploadcsvButton(ActionEvent event) {
         InputHandler toParse = new InputHandler();
         DatabaseUpdater toUpload = new DatabaseUpdater();
-        String dataTypeAdded = (String) dataEntryComboBox.getValue();
-        String dataGroup = (String) dataGroupCombo.getValue();
+        String dataTypeAddedInitial = (String) dataEntryComboBox.getValue();
+        String dataTypeAdded;
+        switch (dataTypeAddedInitial) {
+            case "Wifi":
+                dataTypeAdded = "wifi";
+                break;
+            case "Trip":
+                dataTypeAdded = "trip";
+                break;
+            case "Retailer":
+                dataTypeAdded = "retailer";
+                break;
+            default:
+                dataTypeAdded = "trip";
+        }
 
-        //System.out.println(dataTypeAdded);
-        //System.out.println(dataGroup);
+        String dataGroup = (String) dataGroupCombo.getValue();
 
         if (dataTypeAdded == null && dataGroup == null) {
             status_text.setText("No data group or data type entered!");
@@ -742,15 +755,15 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     private void changeCurrentEntryScreen(String newScreen) {
         switch (currentScreen) {
             case "None": break; // If no screen had been previously selected
-            case "retailer": addRetailerNode.setVisible(false); break;
-            case "trip": addTripNode.setVisible(false); break;
-            case "wifi": addWifiNode.setVisible(false); break;
+            case "Retailer": addRetailerNode.setVisible(false); break;
+            case "Trip": addTripNode.setVisible(false); break;
+            case "Wifi": addWifiNode.setVisible(false); break;
             default: System.out.println("ERROR!"); break;
         }
         switch (newScreen) {
-            case "retailer": addRetailerNode.setVisible(true); break;
-            case "trip": addTripNode.setVisible(true); break;
-            case "wifi": addWifiNode.setVisible(true); break;
+            case "Retailer": addRetailerNode.setVisible(true); break;
+            case "Trip": addTripNode.setVisible(true); break;
+            case "Wifi": addWifiNode.setVisible(true); break;
             default: System.out.println("ERROR!"); break;
         }
         currentScreen = newScreen;
