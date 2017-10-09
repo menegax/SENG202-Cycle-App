@@ -18,7 +18,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
      */
     public static String columns[] = {"id","duration","startStationID", "startStation","endStationID","endStation","bikeID","gender","age","userType","startDate","startTime","endDate","endTime","distance","datagroup","obj" };
 
-
     /**
      * SQL string to create table
      */
@@ -51,11 +50,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
      */
     private Station endStation;
     private int endStationID;
-
-    /**
-     * Start and end to reference the names of the stations for easy access from the raw data viewer
-     */
-
     /**
      * Duration in seconds
      */
@@ -68,7 +62,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * End time as java datetime object
      */
     private Date endDate;
-
     /**
      * String for the Usertype
      */
@@ -89,12 +82,10 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * String for sorting within a table
      */
     private String dataGroup;
-
     /**
      * Distance of biketrip currently worked out using
      */
     private double distance;
-
 
     /**
      * Trip Constructor
@@ -107,8 +98,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * @param dataGroup datagroup string for sorting within tables
      * @param bikeID ID of bike that was used for the trip
      */
-    public Trip(int startStationID, Station startStation, int endStationID, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID)
-    {
+    public Trip(int startStationID, Station startStation, int endStationID, Station endStation, int duration, String startDate, String endDate, String userType, int birthYear, int gender, String dataGroup, int bikeID) {
         //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         //this.startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
         //this.endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(endStationID)).get(0);
@@ -145,30 +135,21 @@ public class Trip extends Location implements Data, java.io.Serializable {
         this.bikeID = bikeID;
         this.distance = (double)Math.round(findDistance() * 100d) / 100d;
         //System.out.println("trip created");
-
-
     }
-
 
     /**
      * Works out and returns the distance of the trip in kilometers using the algorithm in StaticVariables class
      * @return the length of the trip between the start and end station
      */
-    private double findDistance()
-    {
+    private double findDistance() {
         return StaticVariables.calculateDistance(startStation.getLatitude(), startStation.getLongitude(), endStation.getLatitude(), endStation.getLongitude());
     }
-
 
     public Station getStartStation() {
         //DatabaseRetriever databaseRetriever = new DatabaseRetriever();
         //return databaseRetriever.queryStation(StaticVariables.stationIDQuery(startStationID)).get(0);
         return startStation;
     }
-
-    /*public void setStartStation(Station startStation) {
-        this.startStation = startStation;
-    }*/
 
     public int getStartStationID() {
         return startStationID;
@@ -184,10 +165,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
         return endStation;
     }
 
-    /*public void setEndStation(Station endStation) {
-        this.endStation = endStation;
-    }*/
-
     public int getEndStationID() {
         return endStationID;
     }
@@ -199,7 +176,6 @@ public class Trip extends Location implements Data, java.io.Serializable {
     public int getDuration() {
         return duration;
     }
-
 
     public void setDuration(int duration) {
         this.duration = duration;
@@ -328,8 +304,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
     /**
      * Prints object for manual testing
      */
-    public void testPrint()
-    {
+    public void testPrint() {
         System.out.println("Trip object:\n " +
                 "Duration:" + this.getDuration() + "\n" +
                 "Distance: " + this.getDistance());
@@ -350,8 +325,7 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * Gets the starting point for the trip as a PointM object with scaling for density
      * @return startpoint
      */
-    public PointM getStartPoint()
-    {
+    public PointM getStartPoint() {
         return new PointM(startStation.getLatitude()*StaticVariables.pointMultiplier, startStation.getLongitude()*StaticVariables.pointMultiplier);
     }
 
@@ -359,11 +333,8 @@ public class Trip extends Location implements Data, java.io.Serializable {
      * gets end point for the trip as a pointM object with scaling for density
      * @return endpoint
      */
-    public PointM getEndPoint()
-    {
+    public PointM getEndPoint() {
         return new PointM(endStation.getLatitude()*StaticVariables.pointMultiplier, endStation.getLongitude()*StaticVariables.pointMultiplier);
     }
-
-
 }
 

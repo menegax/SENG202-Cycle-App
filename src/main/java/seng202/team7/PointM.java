@@ -13,8 +13,7 @@ public class PointM {
      * @param x int x position
      * @param y int y position
      */
-    public PointM(int x, int y)
-    {
+    public PointM(int x, int y) {
         this.x = x;
         this.y = y;
     }
@@ -24,8 +23,7 @@ public class PointM {
      * @param x double x position
      * @param y double y position
      */
-    public PointM(double x, double y)
-    {
+    public PointM(double x, double y) {
         this.x = (int) Math.round(x);
         this.y = (int) Math.round(y);
     }

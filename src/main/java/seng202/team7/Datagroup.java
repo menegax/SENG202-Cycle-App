@@ -1,7 +1,6 @@
 package seng202.team7;
 
 import seng202.team7.Database.DatabaseHandler;
-
 import java.sql.*;
 import java.util.ArrayList;
 
@@ -11,9 +10,8 @@ import java.util.ArrayList;
  */
 public class Datagroup {
 
-
     /**
-     * table name for datagroup table
+     * Table name for datagroup table
      */
     public static String tableName = "datagroup";
 
@@ -31,13 +29,11 @@ public class Datagroup {
             columns[1] + " text UNIQUE" +
             ");";
 
-
     /**
      * Gets all the datagroups in the databases as Strings
      * @return ArrayList of strings of datagroups used
      */
-    public static ArrayList<String> getDatagroups()
-    {
+    public static ArrayList<String> getDatagroups() {
         ArrayList<String> groups = new ArrayList<>();
         String sql = "SELECT * FROM " + tableName;
         try (Connection conn = DatabaseHandler.connect();
@@ -53,13 +49,11 @@ public class Datagroup {
         return groups;
     }
 
-
     /**
      * Adds a datagroup to the datagroup table
      * @param datagroup datagroup to add
      */
-    public static void addDatagroup(String datagroup)
-    {
+    public static void addDatagroup(String datagroup) {
         String sql = "INSERT INTO "+tableName +" ("+ columns[1]+") VALUES (?)";
         try (Connection conn = DatabaseHandler.connect();
              PreparedStatement pstmt = conn.prepareStatement(sql)) {
@@ -69,5 +63,4 @@ public class Datagroup {
             System.out.println(e.getMessage());
         }
     }
-
 }

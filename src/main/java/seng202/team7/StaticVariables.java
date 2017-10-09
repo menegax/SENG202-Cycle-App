@@ -11,7 +11,6 @@ import java.util.ArrayList;
  */
 public class StaticVariables {
 
-
     /**
      * point multiplier for point density on heat map
      */
@@ -35,8 +34,7 @@ public class StaticVariables {
     public static SimpleDateFormat ift = new SimpleDateFormat("MM/dd/yyyy hh:mm:ss");
 
     /**
-     * Creates an SQL query String for search by an int
-     *
+     * Creates an SQL query String for search by an int.
      * @param tableName table to search
      * @param col       column to search
      * @param toMatch   int to match
@@ -47,8 +45,7 @@ public class StaticVariables {
     }
 
     /**
-     * creates an SQL query string for searching by containing the string using LIKE(%string%) syntax
-     *
+     * Creates an SQL query string for searching by containing the string using LIKE(%string%) syntax
      * @param tableName table to search
      * @param col       column to search
      * @param toMatch   String to match
@@ -60,7 +57,6 @@ public class StaticVariables {
 
     /**
      * Creates an SQL query to matching strings. Case in-sensitive
-     *
      * @param tableName table to search
      * @param col       column to search
      * @param toMatch   string to match(case in-sensitiive)
@@ -72,7 +68,6 @@ public class StaticVariables {
 
     /**
      * Creates an SQL query to match two strings. Case in-sensitive
-     *
      * @param tableName table to search
      * @param col1      col to find first string
      * @param match1    first string to match
@@ -86,7 +81,6 @@ public class StaticVariables {
 
     /**
      * Creates and SQL query to match a String and an Int
-     *
      * @param tableName table to search
      * @param col1      string column to search
      * @param match1    string to match(case in-sensitive)
@@ -120,7 +114,6 @@ public class StaticVariables {
         return "SELECT obj FROM " + Retailer.tableName + " WHERE LOWER(" + Retailer.columns[13] + ") = '" + street.toLowerCase()
                 + "' AND LOWER(" + Retailer.columns[7] + ") = '" + type.toLowerCase() + "' AND " + Retailer.columns[3] + " = " + zip;
     }
-
 
     /**
      * SQL query used to implement lazy loading. relies on StaticVariable.step
@@ -198,7 +191,6 @@ public class StaticVariables {
         return "SELECT obj FROM " + Wifi.tableName + " WHERE (latitude BETWEEN (" + (lat - latOffset) + ") AND (" + (lat + latOffset) + ")) AND (longitude BETWEEN (" + (lon - lonOffset) + ") AND (" + (lon + lonOffset) + "));";
 
     }
-
 
     /**
      * Calculates distance in meters between two lat lon points

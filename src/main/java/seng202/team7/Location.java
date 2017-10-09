@@ -5,15 +5,14 @@ package seng202.team7;
  * location class used as parent for all objects that can be placed on a map
  */
 public class Location implements Mappable{
-    double latitude;
-    double longitude;
+    private double latitude;
+    private double longitude;
 
     @Override
     public void placeOnMap(double latitude, double longitude) {
     }
 
     public Location(){
-
     }
 
     public Location(double latitude, double longitude){

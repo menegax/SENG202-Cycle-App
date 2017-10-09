@@ -53,6 +53,7 @@ public class Station extends Location implements Data, java.io.Serializable {
     public int getId() {
         return id;
     }
+
     public void setId(int id) {
         this.id = id;
     }
@@ -60,6 +61,7 @@ public class Station extends Location implements Data, java.io.Serializable {
     public String getAddress() {
         return address;
     }
+
     public void setAddress(String address) {
         this.address = address;
     }
@@ -67,6 +69,7 @@ public class Station extends Location implements Data, java.io.Serializable {
     public String getDataGroup() {
         return dataGroup;
     }
+
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
@@ -74,6 +77,7 @@ public class Station extends Location implements Data, java.io.Serializable {
     public double getLatitude() {
         return latitude;
     }
+
     public void setLatitude(double latitude) {
         //this.latitude = latitude;
     }
@@ -81,6 +85,7 @@ public class Station extends Location implements Data, java.io.Serializable {
     public double getLongitude() {
         return longitude;
     }
+
     public void setLongitude(double longitude) {
         //this.longitude = longitude;
     }

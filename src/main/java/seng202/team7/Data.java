@@ -1,8 +1,8 @@
 package seng202.team7;
 
 /**
- * @author Morgan English
  * Used to group data objects
+ * @author Morgan English
  */
 public interface Data {
 }

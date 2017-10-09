@@ -112,6 +112,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getBorough() {
         return borough;
     }
+
     public void setBorough(String borough) {
         this.borough = borough;
     }
@@ -119,6 +120,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getType() {
         return type;
     }
+
     public void setType(String type) {
         this.type = type;
     }
@@ -126,6 +128,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getProvider() {
         return provider;
     }
+
     public void setProvider(String provider) {
         this.provider = provider;
     }
@@ -133,6 +136,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getLocation() {
         return location;
     }
+
     public void setLocation(String location) {
         this.location = location;
     }
@@ -140,6 +144,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getCity() {
         return city;
     }
+
     public void setCity(String city) {
         this.city = city;
     }
@@ -147,6 +152,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getSSID() {
         return SSID;
     }
+
     public void setSSID(String SSID) {
         this.SSID = SSID;
     }
@@ -154,6 +160,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getRemarks() {
         return remarks;
     }
+
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
@@ -161,6 +168,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public String getDataGroup() {
         return dataGroup;
     }
+
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
@@ -168,6 +176,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public double getLongitude() {
         return longitude;
     }
+
     public void setLongitude(double longitude) {
         //Check value on change??
         this.longitude = longitude;
@@ -176,6 +185,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public double getLatitude() {
         return latitude;
     }
+
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
@@ -201,6 +211,4 @@ public class Wifi extends Location implements Data, java.io.Serializable{
 
         return result;
     }
-
-
 }
