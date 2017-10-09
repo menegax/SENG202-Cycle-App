@@ -1,5 +1,6 @@
-package seng202.team7;
+package seng202.team7.JSHandling;
 
+import seng202.team7.*;
 import seng202.team7.Analysis.Analytics;
 import seng202.team7.Database.DatabaseRetriever;
 

@@ -12,6 +12,7 @@ import netscape.javascript.JSObject;
 import seng202.team7.*;
 import seng202.team7.Database.DatabaseEmptyException;
 import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.JSHandling.RouteHandler;
 
 import java.net.URL;
 import java.util.ArrayList;
