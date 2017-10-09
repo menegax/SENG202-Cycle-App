@@ -67,7 +67,6 @@ public class InputHandlerTest
     }
 
 
-
     @Test
     public void testTripValidityMethod() {
         Station s1 = new Station(231,"5th ave", "CitiBike", 2367.987, 394.98);
