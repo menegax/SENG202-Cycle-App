@@ -1,7 +1,6 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
 
-//import com.sun.deploy.util.ArrayUtil;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -81,6 +80,9 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField sAddressTextfield;
     @FXML private ComboBox typeRetailerComboBox;
 
+    /**
+     * sets the drop down combo box for datagroup selection
+     */
     @FXML public void setDataGroupComboItems() {
 
         ObservableList<String> items = FXCollections.observableArrayList(getDatagroups());
@@ -183,6 +185,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads a file of data from a csv file name provided
+     * Contains many layers of checks for; if fields are missing, wrong data type or file type is detected, error handling
      * @param event Event when button is clicked
      */
     public void uploadcsvButton(ActionEvent event) {
@@ -190,9 +193,6 @@ public class DataEntryWindowController implements Initializable{
         DatabaseUpdater toUpload = new DatabaseUpdater();
         String dataTypeAdded = (String) dataEntryComboBox.getValue();
         String dataGroup = (String) dataGroupCombo.getValue();
-
-        //System.out.println(dataTypeAdded);
-        //System.out.println(dataGroup);
 
         if (dataTypeAdded == null && dataGroup == null) {
             status_text.setText("No data group or data type entered!");
@@ -302,6 +302,7 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted retailer data and adds to database
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
      * @param event Event when add retailer button is clicked
      */
     public void add_r_button(ActionEvent event) {
@@ -375,7 +376,8 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted wifi data and adds to database
-     * @param event even when add wifi button is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * @param event Event when add wifi button is clicked
      */
     public void add_w_button(ActionEvent event) {
 
@@ -458,7 +460,9 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted trip data and adds to database
-     * @param event when add trip data is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * Also adds station objects to the database, alot of derived values via queries
+     * @param event Event when add trip data is clicked
      */
     public void add_t_button(ActionEvent event) {
 
@@ -581,7 +585,6 @@ public class DataEntryWindowController implements Initializable{
 
                 } catch (IndexOutOfBoundsException e) {
                     status_text.setText("Station isn't in database yet to derive values, default values assigned");
-                    //should we even let this data in?
 
                     startStationLat = 0;
                     startStationLong = 0;
@@ -639,7 +642,9 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
-
+    /**
+     * Clears trip data entry fields completely, as well as combobox selection and date picked
+     */
     public void clearTrip() {
 
         startTimeTextfield.clear();
@@ -662,6 +667,10 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
+
+    /**
+     * Clears wifi data entry fields completely, as well as combobox selection
+     */
     public void clearWifi() {
 
         providerTextfield.clear();
@@ -681,6 +690,9 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
+    /**
+     * Clears retailer data entry fields completely, as well as combobox selection
+     */
     public void clearRetailer() {
 
         nameTextfield.clear();
@@ -698,7 +710,9 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
-
+    /**
+     * Clears all fields on data entry screen, including non textfields
+     */
     public void clearAllFields() {
 
         nameTextfield.clear();
@@ -742,7 +756,6 @@ public class DataEntryWindowController implements Initializable{
         if (typeWifiComboBox.getValue() != null) {
             typeWifiComboBox.getSelectionModel().clearSelection();
         }
-
 
     }
 

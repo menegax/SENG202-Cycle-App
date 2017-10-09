@@ -97,7 +97,7 @@ public class InputHandlerTest
         assertEquals("Success", tester.checkValidity(w3));
     }
 
-    /*
+
     @Test
     public void testRetailerValidityMethod() {
         Retailer r1 = new Retailer("McD's Lower MN", "New York", "5th ave", "23", "test", 2344, "F", "Phast Phood", "test" );
@@ -110,7 +110,7 @@ public class InputHandlerTest
         assertEquals("Invalid retailer city loooooooooooooooonnggg citttttyyyyyy", tester.checkValidity(r3));
         assertEquals("Success", tester.checkValidity(r4));
     }
-    */
+
 
     @Test
     public void testStationValidityMethod() {
