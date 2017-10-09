@@ -1,17 +1,19 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
-
-//import com.sun.deploy.util.ArrayUtil;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.concurrent.Task;
+import javafx.event.Event;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
@@ -31,7 +33,7 @@ import static seng202.team7.Datagroup.getDatagroups;
  * Controls manual data entry and data uploaded via csv
  * @author Lachlan Brewster
  */
-public class DataEntryWindowController implements Initializable{
+public class DataEntryWindowController implements Initializable, EventHandler{
 
     public Button uploadcsvButton;
     public Button add_r_button;
@@ -41,7 +43,6 @@ public class DataEntryWindowController implements Initializable{
     public Button clearWifi;
     public Button clearRetailer;
     public Button clearAllFields;
-
 
     @FXML private ComboBox dataGroupCombo;
     @FXML private Text status_text;
@@ -81,6 +82,16 @@ public class DataEntryWindowController implements Initializable{
     @FXML private TextField sAddressTextfield;
     @FXML private ComboBox typeRetailerComboBox;
 
+    // Screen display related
+    @FXML private GridPane addRetailerNode;
+    @FXML private GridPane addTripNode;
+    @FXML private GridPane addWifiNode;
+
+    private String currentScreen = "None"; // Tracks which entry screen is currently shown
+
+    /**
+     * sets the drop down combo box for datagroup selection
+     */
     @FXML public void setDataGroupComboItems() {
 
         ObservableList<String> items = FXCollections.observableArrayList(getDatagroups());
@@ -179,10 +190,12 @@ public class DataEntryWindowController implements Initializable{
                     ((StringProperty)observable).setValue(formatted);
                 }
         );
+        dataEntryComboBox.setOnAction(this);
     }
 
     /**
      * Loads a file of data from a csv file name provided
+     * Contains many layers of checks for; if fields are missing, wrong data type or file type is detected, error handling
      * @param event Event when button is clicked
      */
     public void uploadcsvButton(ActionEvent event) {
@@ -299,9 +312,9 @@ public class DataEntryWindowController implements Initializable{
         }
     }
 
-
     /**
      * Loads manually inputted retailer data and adds to database
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
      * @param event Event when add retailer button is clicked
      */
     public void add_r_button(ActionEvent event) {
@@ -372,10 +385,10 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
-
     /**
      * Loads manually inputted wifi data and adds to database
-     * @param event even when add wifi button is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * @param event Event when add wifi button is clicked
      */
     public void add_w_button(ActionEvent event) {
 
@@ -458,7 +471,9 @@ public class DataEntryWindowController implements Initializable{
 
     /**
      * Loads manually inputted trip data and adds to database
-     * @param event when add trip data is clicked
+     * Contains several layers of checks for empty or invalid data, with error messages, as well as detects duplicate data
+     * Also adds station objects to the database, alot of derived values via queries
+     * @param event Event when add trip data is clicked
      */
     public void add_t_button(ActionEvent event) {
 
@@ -639,7 +654,9 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
-
+    /**
+     * Clears trip data entry fields completely, as well as combobox selection and date picked
+     */
     public void clearTrip() {
 
         startTimeTextfield.clear();
@@ -662,6 +679,10 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
+
+    /**
+     * Clears wifi data entry fields completely, as well as combobox selection
+     */
     public void clearWifi() {
 
         providerTextfield.clear();
@@ -681,6 +702,9 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
+    /**
+     * Clears retailer data entry fields completely, as well as combobox selection
+     */
     public void clearRetailer() {
 
         nameTextfield.clear();
@@ -698,52 +722,37 @@ public class DataEntryWindowController implements Initializable{
 
     }
 
-
-    public void clearAllFields() {
-
-        nameTextfield.clear();
-        ZIPTextfield.clear();
-        cityRetailerTextfield.clear();
-        pAddressTextfield.clear();
-        sAddressTextfield.clear();
-        if (typeRetailerComboBox.getValue() != null) {
-            typeRetailerComboBox.getSelectionModel().clearSelection();
+    /**
+     * Handles events that occur during runtime.
+     * @param event The event to be handled
+     */
+    @Override
+    public void handle(Event event) {
+        if (event.getSource().equals(dataEntryComboBox)) {
+            String newEntryScreen = dataEntryComboBox.getSelectionModel().getSelectedItem().toString();
+            changeCurrentEntryScreen(newEntryScreen);
         }
-        if (stateComboBox.getValue() != null) {
-            stateComboBox.getSelectionModel().clearSelection();
-        }
-
-        startTimeTextfield.clear();
-        endTimeTextfield.clear();
-        bikeIDTextfield.clear();
-        birthYearTextfield.clear();
-        startStationIDTextfield.clear();
-        endStationIDTextfield.clear();
-        startDatePicked.setValue(null);
-        endDatePicked.setValue(null);
-        if (userTypeComboBox.getValue() != null) {
-            userTypeComboBox.getSelectionModel().clearSelection();
-        }
-
-        if (genderComboBox.getValue() != null) {
-            genderComboBox.getSelectionModel().clearSelection();
-        }
-
-        providerTextfield.clear();
-        locationWifiTextfield.clear();
-        cityWifiTextfield.clear();
-        SSIDTextfield.clear();
-        remarksTextfield.clear();
-        longitudeTextfield.clear();
-        latitudeTextfield.clear();
-        if (boroughComboBox.getValue() != null) {
-            boroughComboBox.getSelectionModel().clearSelection();
-        }
-        if (typeWifiComboBox.getValue() != null) {
-            typeWifiComboBox.getSelectionModel().clearSelection();
-        }
-
-
     }
 
+    /**
+     * Changes the currently shown data entry screen. First hides the currentWindow and then
+     * sets newScreen to be visible.
+     * @param newScreen The new data entry screen to be shown
+     */
+    private void changeCurrentEntryScreen(String newScreen) {
+        switch (currentScreen) {
+            case "None": break; // If no screen had been previously selected
+            case "retailer": addRetailerNode.setVisible(false); break;
+            case "trip": addTripNode.setVisible(false); break;
+            case "wifi": addWifiNode.setVisible(false); break;
+            default: System.out.println("ERROR!"); break;
+        }
+        switch (newScreen) {
+            case "retailer": addRetailerNode.setVisible(true); break;
+            case "trip": addTripNode.setVisible(true); break;
+            case "wifi": addWifiNode.setVisible(true); break;
+            default: System.out.println("ERROR!"); break;
+        }
+        currentScreen = newScreen;
+    }
 }

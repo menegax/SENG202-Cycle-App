@@ -9,7 +9,7 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" type="AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.HelpWindowControllers.MapAnalyticHelpController">
    <children>
-      <ScrollPane hbarPolicy="NEVER" layoutX="10.0" layoutY="10.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefViewportHeight="346.0" prefViewportWidth="480.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <ScrollPane hbarPolicy="NEVER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefViewportHeight="346.0" prefViewportWidth="480.0" prefWidth="500.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <content>
             <VBox layoutX="5.0" layoutY="5.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -27,17 +27,18 @@
                   </VBox>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
-                     <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
-                     </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                      </padding>
+                     <children>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The Map View screen allows you to create heatmaps of previous bike trips to analyse what areas are most frequently cycled through and where popular areas are for these cyclists." wrappingWidth="480.0" />
+                     </children>
                   </VBox>
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="85.0" promptText="Gender" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This drop bown box allows you to filter the trips to be shown when the Display button is clicked by gender." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -49,7 +50,8 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="90.0" promptText="Userpass" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This drop bown box allows you to filter the trips to be shown when the Display button is clicked by userpass." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -61,7 +63,8 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="65.0" promptText="Age" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This drop bown box allows you to filter the trips to be shown when the Display button is clicked by age." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -73,7 +76,32 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="85.0" promptText="Density" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This decides the density that you want the trips to be calculated at." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High Density:" wrappingWidth="480.0">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A large amount points will be generated per trip leading to a more accurate heatmap of trips." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Using high density makes the map more accurate for closer zoom levels for the map." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- It takes a longer time to calculate these points compared to lower densities." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium Density:" wrappingWidth="480.0">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A medium amount of points will be generated per trip leading to a medium accuracy heatmap of trips." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- Using medium density makes the map more accurate for average zoom levels on the map." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- This option takes a medium amount of time to calculate." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low Density:" wrappingWidth="480.0">
+                           <font>
+                              <Font name="System Bold Italic" size="12.0" />
+                           </font>
+                        </Text>
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A small amount of points will be generated per trip leading to a lower level of accuracy of the heatmap of trips." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- This option is typically only useful for higher zoom levels to get a large scale overview of the trip heatmap." wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- This option takes the shortest time to calculate compared to other densities." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -82,7 +110,8 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" promptText="DataGroup" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This drop down box allows you to specify what datagroup you would like to use for fisplaying on the map. This is useful to help minimise the number of trips you want to be calculated calculate leading to smaller calculation times." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -91,7 +120,48 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="55.0" text="Display" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button displays all of the calculated points from the DataGroup chosen by the gender, userpass, and age filters selected, at the density that is selected. Note that this action may time a while to compute, but you are still be able to use all other features of the application while the points are being calculated." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="45.0" text="Clear" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button clears all of currently displayed heatmaps of trips on the map." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ToggleButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="70.0" text="Show Wifi" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button toggles whether wifi points from the POI Datagroup selection are shown on the map." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ToggleButton maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Show Retailer" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button toggles whether retailers from the POI Datagroup selection are shown on the map." wrappingWidth="480.0" />
+                     </children>
+                     <padding>
+                        <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+                     </padding>
+                  </VBox>
+                  <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
+                  <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
+                     <children>
+                        <ComboBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="125.0" promptText="POI Datagroup" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="The point of interest datagroup drop down box lets you select what datagroup that you would like to use for the show retailer and show wifi buttons." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />

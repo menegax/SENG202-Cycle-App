@@ -42,7 +42,10 @@
     };
 
 
-
+		/**
+		* Runs on startup
+		* initalizes the map
+		*/
         function initialize() {
             console.log("map analytic js");
 	  
@@ -62,6 +65,14 @@
 
 
 		var heatMaps = [];
+		/**
+		*	Loads a heatmap onto the map, following the passed in paramters
+		*	@param datagroup datagroup to search for trips
+		*	@param gender gender to check for trips
+		*	@param age age String to check for trips format "15-25"
+		*	@param userType usertype to check for trips
+		*	@param density density of the points for the heat map
+		*/
         function loadHeat(datagroup, gender, age, userType, density)
         {
             console.log("heatmap");
@@ -85,7 +96,11 @@
 			heatMaps.push(heatmap);
         }
 
-
+		
+		/**
+		*	Gets the gradient for the heatmap
+		*
+		*/
         function getGradient()
         {
             return  [
@@ -107,6 +122,10 @@
 
         }
 		
+		/**
+		*	Clears the heatmaps currently on the map
+		*
+		*/
 		function clearHeat()
 		{
 		for(var i = 0; i < heatMaps.length; i++)
@@ -117,6 +136,10 @@
 		}
 
 
+	/**		
+	* Adds wifi markers to the map that belong to the datagroup specificed
+	* @param datagroup datagroup to match wifi by
+	*/
     function loadWifiDatagroup(datagroup){
         console.log("datagroup = " + datagroup.toString())
         deleteWifiMarkers();
@@ -159,6 +182,11 @@
         wifis = null;
     }
 
+	
+	/**		
+	* Adds retailer markers to the map that belong to the datagroup specificed
+	* @param datagroup datagroup to match retailers by
+	*/
     function loadRetailerDatagroup(datagroup) {
         console.log("datagroup = " + datagroup.toString())
         deleteRetailerMarkers();

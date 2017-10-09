@@ -91,6 +91,7 @@ public class DatabaseRetriever {
 
     /**
      * Gets all wifis in database
+     * @param url Url of the database to be changed
      * @return Arraylist of wifi objects
      */
     public ArrayList<Wifi> getWifiList(String url){
@@ -167,51 +168,16 @@ public class DatabaseRetriever {
     }
 
 
-    public ArrayList<Wifi> getOnlineWifiList()
-    {
-        ArrayList<Wifi> wifiList = new ArrayList<>();
-        String sql = "SELECT obj FROM " + Wifi.tableName;
-        try (Connection conn = DatabaseHandler.connectOnline();
-             Statement stmt  = conn.createStatement();
-             ResultSet rs    = stmt.executeQuery(sql)){
-
-            // loop through the result set
-            while (rs.next()) {
-                Wifi wifi = null;
-                try {
-                    ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
-                    ObjectInputStream ois = new ObjectInputStream(bais);
-                    wifi = (Wifi) ois.readObject();
-                }catch (IOException io){
-                    io.printStackTrace();
-                }catch (ClassNotFoundException cnf){
-                    cnf.printStackTrace();
-                }
-                if(wifi != null)
-                {
-                    wifiList.add(wifi);
-                    //wifi.print();
-                } else {
-                    System.out.println("No wifi");
-                }
-
-            }
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        return wifiList;
-    }
-
-
     /**
-     * Gets the ArrayList of all retailers in database
-     * @return Arraylist of all retailers
+     * Used to get all retailers from a specific database
+     * @param url databse url
+     * @return Array list of retailers
      */
-    public ArrayList<Retailer> getOnlineRetailerList()
+    public ArrayList<Retailer> getRetailerList(String url)
     {
-        ArrayList<Retailer> retailerList = new ArrayList<>();
+        ArrayList<Retailer> retailerList = new ArrayList<Retailer>();
         String sql = "SELECT obj FROM " + Retailer.tableName;
-        try (Connection conn = DatabaseHandler.connectOnline();
+        try (Connection conn = DatabaseHandler.connect(url);
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)){
 
@@ -242,11 +208,55 @@ public class DatabaseRetriever {
         return retailerList;
     }
 
+
+
+
+
     /**
      * Gets an ArrayList of all trips
      * @return ArrayList of all trip objects
      */
     public ArrayList<Trip> getTripList()
+    {
+        ArrayList<Trip> tripList = new ArrayList<>();
+        String sql = "SELECT obj FROM " + Trip.tableName;
+        try (Connection conn = DatabaseHandler.connect();
+             Statement stmt  = conn.createStatement();
+             ResultSet rs    = stmt.executeQuery(sql)){
+
+            // loop through the result set
+            while (rs.next()) {
+                Trip trip = null;
+                try {
+                    ByteArrayInputStream bais = new ByteArrayInputStream(rs.getBytes("obj"));
+                    ObjectInputStream ois = new ObjectInputStream(bais);
+                    trip = (Trip) ois.readObject();
+                }catch (IOException io){
+                    io.printStackTrace();
+                }catch (ClassNotFoundException cnf){
+                    cnf.printStackTrace();
+                }
+                if(trip != null)
+                {
+                    tripList.add(trip);
+                    //wifi.print();
+                } else {
+                    System.out.println("No trip");
+                }
+            }
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return tripList;
+    }
+
+
+    /**
+     * Gets the trip of a specific database
+     * @param url url of the database to search
+     * @return arraylist of trips
+     */
+    public ArrayList<Trip> getTripList(String url)
     {
         ArrayList<Trip> tripList = new ArrayList<>();
         String sql = "SELECT obj FROM " + Trip.tableName;
@@ -280,7 +290,6 @@ public class DatabaseRetriever {
         }
         return tripList;
     }
-
 
     /**
      * Completes an sql query on Retailers from the given query string

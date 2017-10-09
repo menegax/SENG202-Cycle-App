@@ -11,8 +11,10 @@ import java.util.ArrayList;
  */
 public class StaticVariables {
 
-    public static int limit = 1000;
 
+    /**
+     * point multiplier for point density on heat map
+     */
     public static int pointMultiplier = 3000;
     /**
      * Step size used for lazyloading
@@ -293,6 +295,12 @@ public class StaticVariables {
         return longitude * 85;
     }
 
+    /**
+     * Checks if a string is in an Array of strings.
+     * @param toFind string to find
+     * @param array Array of strings to look in
+     * @return boolean. true = found, false = not found
+     */
     public static boolean stringInArray(String toFind, ArrayList<String> array)
     {
     for(String s: array){
