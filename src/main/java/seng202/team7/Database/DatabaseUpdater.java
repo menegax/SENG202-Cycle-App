@@ -214,42 +214,19 @@ public class DatabaseUpdater {
             //ObjectOutputStream initialization
             ObjectOutputStream oosTrip, oosStartStation, oosEndStation, oosStartDate, oosEndDate;
             oosTrip = new ObjectOutputStream(bosTrip);
-            //oosStartStation = new ObjectOutputStream(bosStartStation);
-            //oosEndStation = new ObjectOutputStream(bosEndStation);
-            //oosStartDate = new ObjectOutputStream(bosStartDate);
-            //oosEndDate = new ObjectOutputStream(bosEndDate);
 
             //Writing Objects
             oosTrip.writeObject(trip);
             DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-            //Station startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getStartStationID())).get(0);
-            //Station endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getEndStationID())).get(0);
-
-            //oosStartStation.writeObject(startStation);
-            //oosEndStation.writeObject(endStation);
-            //oosStartDate.writeObject(trip.getStartDate());
-            //oosEndDate.writeObject(trip.getEndDate());
 
             //Tiding up -- Flushing oos's
             oosTrip.flush();
-            //oosStartStation.flush();
-            //oosEndStation.flush();
-            //oosStartDate.flush();
-            //oosEndDate.flush();
 
             //Tiding up -- Closing oos's
             oosTrip.close();
-            //oosStartStation.close();
-            //oosEndStation.close();
-            //oosStartDate.close();
-            //oosEndDate.close();
 
             //Tiding up -- Closing bos's
             bosTrip.close();
-            //bosStartStation.close();
-            //bosEndStation.close();
-            //bosStartDate.close();
-            //bosEndDate.close();
 
         } catch(Exception e){
             e.printStackTrace();
@@ -260,9 +237,7 @@ public class DatabaseUpdater {
             pstmt.setInt(1,trip.hashCode());
             pstmt.setInt(2,trip.getDuration());
             pstmt.setInt(3,trip.getStartStationID());
-            //pstmt.setObject(4, bosStartStation.toByteArray());
             pstmt.setInt(4, trip.getEndStationID());
-            //pstmt.setObject(6, bosEndStation);
             pstmt.setInt(5,trip.getBikeID());
             pstmt.setString(6,trip.getGender());
             pstmt.setInt(7,trip.getAge());
@@ -283,102 +258,18 @@ public class DatabaseUpdater {
 
 
 
-    /**
-     * Inserts a trip into the database
-     * @param trip trip to be stored in the database
-     */
-    public void insertTripWithStationObj(Trip trip, ByteArrayInputStream startStationBos, ByteArrayInputStream endStationBos)
-    {
-        String sql = "INSERT INTO "+ trip.tableName+" (id, duration, startStationID, startStation, endStationID, endStation, bikeID, gender, age, userType, startDate, startTime, endDate, endTime, distance, datagroup, obj) VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
 
-        //ByteArrayOutputStream initialization
-        ByteArrayOutputStream bosTrip;//, bosStartStation, bosEndStation, bosStartDate, bosEndDate;
-        bosTrip = new ByteArrayOutputStream();
-        //bosStartStation = new ByteArrayOutputStream();
-        //bosEndStation = new ByteArrayOutputStream();
-        //bosStartDate = new ByteArrayOutputStream();
-        //bosEndDate = new ByteArrayOutputStream();
-
-        try {
-            //ObjectOutputStream initialization
-            ObjectOutputStream oosTrip, oosStartStation, oosEndStation, oosStartDate, oosEndDate;
-            oosTrip = new ObjectOutputStream(bosTrip);
-            //oosStartStation = new ObjectOutputStream(bosStartStation);
-            //oosEndStation = new ObjectOutputStream(bosEndStation);
-            //oosStartDate = new ObjectOutputStream(bosStartDate);
-            //oosEndDate = new ObjectOutputStream(bosEndDate);
-
-            //Writing Objects
-            oosTrip.writeObject(trip);
-            DatabaseRetriever databaseRetriever = new DatabaseRetriever();
-            Station startStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getStartStationID())).get(0);
-            Station endStation = databaseRetriever.queryStation(StaticVariables.stationIDQuery(trip.getEndStationID())).get(0);
-
-            //oosStartStation.writeObject(startStation);
-            //oosEndStation.writeObject(endStation);
-            //oosStartDate.writeObject(trip.getStartDate());
-            //oosEndDate.writeObject(trip.getEndDate());
-
-            //Tiding up -- Flushing oos's
-            oosTrip.flush();
-            //oosStartStation.flush();
-            //oosEndStation.flush();
-            //oosStartDate.flush();
-            //oosEndDate.flush();
-
-            //Tiding up -- Closing oos's
-            oosTrip.close();
-            //oosStartStation.close();
-            //oosEndStation.close();
-            //oosStartDate.close();
-            //oosEndDate.close();
-
-            //Tiding up -- Closing bos's
-            bosTrip.close();
-            //bosStartStation.close();
-            //bosEndStation.close();
-            //bosStartDate.close();
-            //bosEndDate.close();
-
-        } catch(Exception e){
-            e.printStackTrace();
-        }
-
-        try (Connection conn = DatabaseHandler.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-            pstmt.setInt(1,trip.hashCode());
-            pstmt.setInt(2,trip.getDuration());
-            pstmt.setInt(3,trip.getStartStationID());
-            pstmt.setObject(4, startStationBos);
-            pstmt.setInt(5, trip.getEndStationID());
-            pstmt.setObject(6, endStationBos);
-            pstmt.setInt(7,trip.getBikeID());
-            pstmt.setString(8,trip.getGender());
-            pstmt.setInt(9,trip.getAge());
-            pstmt.setString(10,trip.getUserType());
-            pstmt.setDate(11,new java.sql.Date(trip.getStartDate().getDate()));
-            pstmt.setTime(12,new java.sql.Time(trip.getStartDate().getTime()));
-            pstmt.setDate(13,new java.sql.Date(trip.getEndDate().getDate()));
-            pstmt.setTime(14, new java.sql.Time(trip.getEndDate().getTime()));
-            pstmt.setDouble(15, trip.getDistance());
-            pstmt.setString(16, trip.getDataGroup());
-            pstmt.setObject(17, bosTrip.toByteArray());
-            pstmt.executeUpdate();
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("Trip added");
-    }
     /**
      * Deletes Wifi object based off its hashcode as id
-     * @param wifi Wifi object to be deleted from database
+     * @param id Wifi id to be deleted from database
      */
-    public void deleteWifi(Wifi wifi)
+    public void deleteWifi(int id)
     {
-        String sql = "DELETE FROM "+ wifi.tableName + " WHERE id = ?";
+        String sql = "DELETE FROM "+ Wifi.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
-        pstmt.setInt(1, wifi.hashCode());
+        pstmt.setInt(1, id);
+        pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -388,22 +279,23 @@ public class DatabaseUpdater {
      * Updates a wifi object by deleting it then reading it
      * @param wifi wifi object to 'update'
      */
-    public void updateWifi(Wifi wifi)
+    public void updateWifi(Wifi wifi, int oldId)
     {
-        deleteWifi(wifi);
+        deleteWifi(oldId);
         insertWifi(wifi);
     }
 
     /**
      * Deletes Retailer object based off its hashcode as id
-     * @param retailer Retailer object to be deleted from database
+     * @param oldId Retailer id to be deleted from database
      */
-    public void deleteRetailer(Retailer retailer)
+    public void deleteRetailer(int oldId)
     {
-        String sql = "DELETE FROM "+ retailer.tableName + " WHERE id = ?";
+        String sql = "DELETE FROM "+ Retailer.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, retailer.hashCode());
+            pstmt.setInt(1, oldId);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -413,22 +305,23 @@ public class DatabaseUpdater {
      * Updates a Retailer object by deleting it then readding it
      * @param retailer Retailer object to 'update'
      */
-    public void updateRetailer(Retailer retailer)
+    public void updateRetailer(Retailer retailer, int oldId)
     {
-        deleteRetailer(retailer);
+        deleteRetailer(oldId);
         insertRetailer(retailer);
     }
 
     /**
      * Deletes Station object based off its id
-     * @param station Station object to be deleted from database
+     * @param oldId Station id to be deleted from database
      */
-    public void deleteStation(Station station)
+    public void deleteStation(int oldId)
     {
-        String sql = "DELETE FROM "+ station.tableName + " WHERE id = ?";
+        String sql = "DELETE FROM "+ Station.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, station.getId());
+            pstmt.setInt(1, oldId);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -438,22 +331,23 @@ public class DatabaseUpdater {
      * Updates a Station object by deleting it then readding it
      * @param station Station object to 'update'
      */
-    public void updateStation(Station station)
+    public void updateStation(Station station, int oldId)
     {
-        deleteStation(station);
+        deleteStation(oldId);
         insertStation(station);
     }
 
     /**
      * Deletes Trip object based off its hashcode as id
-     * @param trip Trip object to be deleted from database
+     * @param oldId Trip id to be deleted from database
      */
-    public void deleteTrip(Trip trip)
+    public void deleteTrip(int oldId)
     {
-        String sql = "DELETE FROM "+ trip.tableName + " WHERE id = ?";
+        String sql = "DELETE FROM "+ Trip.tableName + " WHERE id = ?";
         try(Connection conn = DatabaseHandler.connect();
             PreparedStatement pstmt = conn.prepareStatement(sql)){
-            pstmt.setInt(1, trip.hashCode());
+            pstmt.setInt(1, oldId);
+            pstmt.executeUpdate();
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
@@ -463,68 +357,11 @@ public class DatabaseUpdater {
      * Updates a Trip object by deleting it then readding it
      * @param trip Trip object to 'update'
      */
-    public void updateTrip(Trip trip)
+    public void updateTrip(Trip trip, int oldId)
     {
-        deleteTrip(trip);
+        deleteTrip(oldId);
         insertTrip(trip);
     }
 
-    /**
-     * Attempt to use update however is not working at the stage
-     * @param wifi wifiobject to update
-     * @param id id of wifi object (hashcode)
-     */
-    public void updateWifiFailed(Wifi wifi , int id)
-    {
-        System.out.println("in update city = " +wifi.getCity()+" hash = " + wifi.hashCode());
-        String sql = "UPDATE " + Wifi.tableName +
-                " SET " +
-                " burough = ? , "
-                + "type = ? , "
-                + "provider = ? , "
-                + "location = ? , "
-                + "city = ? , "
-                + "SSID = ? , "
-                + "remarks = ? , "
-                + "latitude = ? , "
-                + "longitude = ? , "
-                + "datagroup = ? , "
-                + "obj = ? "
-                + "WHERE id = ?";
 
-        ByteArrayOutputStream bos = new ByteArrayOutputStream();
-        try {
-            //ByteArrayOutputStream bos = new ByteArrayOutputStream();
-            ObjectOutputStream oos = new ObjectOutputStream(bos);
-            oos.writeObject(wifi);
-            oos.flush();
-            oos.close();
-            bos.close();
-            System.out.println("tick 1");
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-
-        try (Connection conn = DatabaseHandler.connect();
-             PreparedStatement pstmt = conn.prepareStatement(sql)) {
-
-            pstmt.setString(1, wifi.getBorough());
-            pstmt.setString(2, wifi.getType());
-            pstmt.setString(3, wifi.getProvider());
-            pstmt.setString(4, wifi.getLocation());
-            pstmt.setString(5, wifi.getCity());
-            pstmt.setString(6, wifi.getSSID());
-            pstmt.setString(7, wifi.getRemarks());
-            pstmt.setDouble(8, wifi.getLatitude());
-            pstmt.setDouble(9, wifi.getLongitude());
-            pstmt.setString(10, wifi.getDataGroup());
-            pstmt.setObject(11, bos.toByteArray());
-            pstmt.setInt(12 , wifi.hashCode());
-            pstmt.executeUpdate();
-            System.out.println("tick 2");
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-        System.out.println("Wifi updated");
-    }
 }

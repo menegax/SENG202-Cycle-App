@@ -297,13 +297,14 @@ public class RetailerDataViewerController implements Initializable {
      */
     public void confirmEdit(){
         Retailer retailer = filteredRetailerList.get(currentRetailerIndex);
+        int id = retailer.hashCode();
         retailer.setName(nameEntry.getText());
         retailer.setPAddress(addressEntry.getText());
         retailer.setSAddress(extraAddressEntry.getText());
         retailer.setZipCode(Integer.parseInt(zipEntry.getText()));
         retailer.setType(pTypeEntry.getText());
         retailer.setTypeID(sTypeEntry.getValue());
-        dbUpdater.updateRetailer(retailer);
+        dbUpdater.updateRetailer(retailer, id);
         viewRecord();
     }
 

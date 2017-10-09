@@ -413,6 +413,7 @@ public class TripDataViewerController implements Initializable {
                     formatTimes.setVisible(true);
                 } else {
                     Trip trip = filteredTripList.get(currentTripIndex);
+                    int id = trip.hashCode();
                     trip.getStartStation().setAddress(startNameEntry.getText());
                     trip.getEndStation().setAddress(endNameEntry.getText());
                     trip.getStartStation().setId(Integer.valueOf(startIDEntry.getText()));
@@ -425,7 +426,7 @@ public class TripDataViewerController implements Initializable {
                     trip.setUserType(userTypeEntry.getSelectionModel().getSelectedItem());
                     trip.setAge(Integer.valueOf(ageEntry.getText()));
                     trip.setGender(genderEntry.getSelectionModel().getSelectedItem());
-                    dbUpdater.updateTrip(trip);
+                    dbUpdater.updateTrip(trip, id);
                     viewRecord();
                 }
             }
