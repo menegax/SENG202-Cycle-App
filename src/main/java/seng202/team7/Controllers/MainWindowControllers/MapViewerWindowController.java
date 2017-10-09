@@ -11,6 +11,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.*;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
 
 import java.net.URL;
 import java.util.ArrayList;

@@ -1,4 +1,4 @@
-package seng202.team7;
+package seng202.team7.Database;
 
 import org.apache.commons.io.FileUtils;
 import seng202.team7.Windows.MainWindow.MainWindow;

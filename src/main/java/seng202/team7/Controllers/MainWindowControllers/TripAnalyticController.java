@@ -11,7 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
-import seng202.team7.DatabaseRetriever;
+import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.SQLAnalytics;
 
 import java.net.URL;

@@ -18,6 +18,8 @@ import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import seng202.team7.*;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
 import seng202.team7.Windows.MainWindow.LoadingPopupWindow;
 
 import java.io.File;

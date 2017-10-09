@@ -1,4 +1,6 @@
-package seng202.team7;
+package seng202.team7.Database;
+
+import seng202.team7.*;
 
 import java.io.*;
 import java.sql.Connection;

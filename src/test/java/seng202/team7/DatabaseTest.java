@@ -1,6 +1,9 @@
 package seng202.team7;
 
 import org.junit.Test;
+import seng202.team7.Database.DatabaseHandler;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
 
 import java.sql.Connection;
 

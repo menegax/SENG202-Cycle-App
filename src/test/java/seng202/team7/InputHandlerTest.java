@@ -5,8 +5,8 @@ import java.io.IOException;
 
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
-import static seng202.team7.DatabaseHandler.*;
-import static seng202.team7.DatabaseTester.*;
+import static seng202.team7.Database.DatabaseHandler.*;
+import static seng202.team7.Database.DatabaseTester.*;
 
 public class InputHandlerTest
 {

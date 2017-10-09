@@ -10,6 +10,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.*;
+import seng202.team7.Database.DatabaseEmptyException;
+import seng202.team7.Database.DatabaseRetriever;
 
 import java.net.URL;
 import java.util.ArrayList;

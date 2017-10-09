@@ -1,5 +1,7 @@
 package seng202.team7;
 
+import seng202.team7.Database.DatabaseHandler;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;

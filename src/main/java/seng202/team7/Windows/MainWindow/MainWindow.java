@@ -5,7 +5,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import seng202.team7.DatabaseHandler;
+import seng202.team7.Database.DatabaseHandler;
 
 /**
  * Main window model for running the main program

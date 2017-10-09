@@ -1,4 +1,6 @@
-package seng202.team7;
+package seng202.team7.Database;
+
+import seng202.team7.*;
 
 import java.util.ArrayList;
 
@@ -53,7 +55,7 @@ public class DatabaseTester {
 
         //databaseRetriever.testQueryTrip();
 
-        System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(0,2,""));
+        System.out.println("BY TIME: "+ SQLAnalytics.totalTimeTrips(0,2,""));
         System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(2,6,""));
         System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(8,12,""));
         System.out.println("BY TIME: "+SQLAnalytics.totalTimeTrips(12,18,""));

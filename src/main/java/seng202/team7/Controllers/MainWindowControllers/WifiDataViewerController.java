@@ -9,6 +9,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.text.Text;
 import seng202.team7.*;
+import seng202.team7.Database.DatabaseRetriever;
+import seng202.team7.Database.DatabaseUpdater;
 
 import java.net.URL;
 import java.util.ArrayList;
