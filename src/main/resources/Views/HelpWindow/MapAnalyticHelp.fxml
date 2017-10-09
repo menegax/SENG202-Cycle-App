@@ -80,7 +80,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This decides the density that you want the trips to be calculated at." wrappingWidth="480.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="High Density:" wrappingWidth="480.0">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A large amount points will be generated per trip leading to a more accurate heatmap of trips." wrappingWidth="480.0" />
@@ -88,7 +88,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- It takes a longer time to calculate these points compared to lower densities." wrappingWidth="480.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Medium Density:" wrappingWidth="480.0">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A medium amount of points will be generated per trip leading to a medium accuracy heatmap of trips." wrappingWidth="480.0" />
@@ -96,7 +96,7 @@
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- This option takes a medium amount of time to calculate." wrappingWidth="480.0" />
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Low Density:" wrappingWidth="480.0">
                            <font>
-                              <Font name="System Bold Italic" size="12.0" />
+                              <Font name="System Bold" size="12.0" />
                            </font>
                         </Text>
                         <Text strokeType="OUTSIDE" strokeWidth="0.0" text="- A small amount of points will be generated per trip leading to a lower level of accuracy of the heatmap of trips." wrappingWidth="480.0" />

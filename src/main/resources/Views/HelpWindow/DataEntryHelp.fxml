@@ -40,7 +40,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <ComboBox editable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="115.0" promptText="DataGroup" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This drop down menu allows you to chose what dataGroup you would like to add the new retailer/trip/wifi to." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -58,7 +58,7 @@
                               </FXCollections>
                            </items>
                         </ComboBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This allows you to select what type of data you are uploading for the Upload CSV button and also allows navigation between the corresponding manual entry screen." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -68,7 +68,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Upload csv" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button opens up a directory navigator that you can use to upload a CSV file of the correct format." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -78,7 +78,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <ProgressBar maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This loading bar indicates that new data is currently being uploaded from an external CSV file." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -88,7 +88,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="95.0" text="Clear Fields" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This clears all of the fields of the current manual data entry screen shown." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -120,7 +120,7 @@
                               </DatePicker>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the start date of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -142,7 +142,7 @@
                               </TextField>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the start time of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -161,7 +161,7 @@
                               </DatePicker>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the end date of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -176,7 +176,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="85.0" promptText="HH:MM:SS" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the end date of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -191,7 +191,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the start station ID of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -206,7 +206,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the end station ID of the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -221,7 +221,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="100.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the bike ID of the bike used in the new trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -243,7 +243,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the user type of the cyclist that made the trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -258,7 +258,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="50.0" promptText="YYYY" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the year of birth of the cyclist that made the trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -281,7 +281,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the gender of the cyclist that made the trip." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -291,7 +291,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Add Trip" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button adds the new trip to the dataGroup that you have selected provided that all data fields have valid values inside of them. Otherwise an error message will print indicating what field is incorrect." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -300,7 +300,7 @@
                   <Separator maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="500.0" />
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Trip - Help" wrappingWidth="480.0">
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Add Retailer - Help" wrappingWidth="480.0">
                            <font>
                               <Font name="System Bold" size="17.0" />
                            </font>
@@ -319,7 +319,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the name of the new retailer." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -334,7 +334,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the ZIP code of the new retailer." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -355,7 +355,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the state the new retailer is in." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -370,7 +370,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the city the new retailer is in." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -385,7 +385,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the primary address of the new retailer." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -400,7 +400,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the secondary address of the new retailer." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -426,7 +426,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the type of the new retailer." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -436,7 +436,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0" text="Add Retailer" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button adds the new retailer to the dataGroup that you have selected provided that all data fields have valid values inside of them. Otherwise an error message will print indicating what field is incorrect." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -464,7 +464,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the provider of the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -479,7 +479,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the city the new wifi is in." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -494,7 +494,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the loaction the new wifi is in." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -519,7 +519,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the borough the new wifi is in." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -534,7 +534,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the SSID of the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -559,7 +559,7 @@
                               </ComboBox>
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the type of the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -574,7 +574,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires any remarks about the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -589,7 +589,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the longitude of the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -604,7 +604,7 @@
                               <TextField maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="200.0" />
                            </children>
                         </HBox>
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This field requires the latitude of the new wifi." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
@@ -614,7 +614,7 @@
                   <VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="485.0" spacing="5.0">
                      <children>
                         <Button maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" prefHeight="25.0" prefWidth="90.0" text="Add Wifi" />
-                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="TODO" wrappingWidth="480.0" />
+                        <Text strokeType="OUTSIDE" strokeWidth="0.0" text="This button adds the new wifi to the dataGroup that you have selected provided that all data fields have valid values inside of them. Otherwise an error message will print indicating what field is incorrect." wrappingWidth="480.0" />
                      </children>
                      <padding>
                         <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
