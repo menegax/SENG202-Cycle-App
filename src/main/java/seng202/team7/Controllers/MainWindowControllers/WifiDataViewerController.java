@@ -270,12 +270,13 @@ public class WifiDataViewerController implements Initializable {
      */
     public void confirmEdit(){
         Wifi wifi = filteredWifiList.get(currentWifiIndex);
+        int id = wifi.hashCode();
         wifi.setProvider(providerEntry.getText());
         wifi.setType(typeEntry.getValue());
         wifi.setLocation(locationEntry.getText());
         wifi.setBorough(boroughEntry.getValue());
         wifi.setRemarks(remarksEntry.getText());
-        dbUpdater.updateWifi(wifi);
+        dbUpdater.updateWifi(wifi, id);
         viewRecord();
     }
 
