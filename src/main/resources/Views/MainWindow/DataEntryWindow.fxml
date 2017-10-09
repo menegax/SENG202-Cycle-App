@@ -9,18 +9,17 @@
 
 <fx:root maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="1100.0" type="javafx.scene.layout.AnchorPane" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="seng202.team7.Controllers.MainWindowControllers.DataEntryWindowController">
    <children>
-      <GridPane layoutX="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
+      <GridPane alignment="CENTER" layoutX="6.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-0.0" AnchorPane.topAnchor="0.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="10.0" percentWidth="33.333333" prefWidth="220.0" />
-            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" percentWidth="33.333333" prefWidth="330.0" />
             <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="0.0" percentWidth="33.333333" prefWidth="330.0" />
         </columnConstraints>
         <rowConstraints>
-          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+          <RowConstraints maxHeight="-Infinity" prefHeight="385.0" vgrow="SOMETIMES" />
             <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="60.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="35.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <GridPane fx:id="addTripNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" GridPane.columnIndex="1">
+            <GridPane fx:id="addTripNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
               <columnConstraints>
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="80.0" prefWidth="120.0" />
                 <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="50.0" prefWidth="200.0" />
@@ -182,7 +181,7 @@
                   </Text>
                </children>
             </GridPane>
-            <GridPane fx:id="addWifiNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" visible="false" GridPane.columnIndex="1">
+            <GridPane fx:id="addWifiNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" visible="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="80.0" prefWidth="120.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="50.0" prefWidth="200.0" />
@@ -324,7 +323,7 @@
                </ComboBox>
                </children>
             </GridPane>
-            <GridPane fx:id="addRetailerNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" visible="false" GridPane.columnIndex="1">
+            <GridPane fx:id="addRetailerNode" alignment="TOP_CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" visible="false">
                <columnConstraints>
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="80.0" prefWidth="120.0" />
                   <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="50.0" prefWidth="200.0" />
@@ -445,7 +444,7 @@
                   </Text>
                </children>
             </GridPane>
-            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="290.0" spacing="5.0" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
+            <VBox alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="60.0" prefWidth="290.0" spacing="5.0" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <children>
                   <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="290.0" spacing="5.0">
                      <children>
@@ -468,12 +467,12 @@
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                </padding>
             </VBox>
-            <ProgressBar fx:id="loadingBar" prefHeight="27.0" prefWidth="164.0" visible="false" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-            <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading CSV file" visible="false" GridPane.columnIndex="2" GridPane.halignment="CENTER" GridPane.rowIndex="1">
-               <GridPane.margin>
-                  <Insets left="100.0" />
-               </GridPane.margin>
-            </Text>
+            <HBox alignment="CENTER" GridPane.rowIndex="2">
+               <children>
+                  <ProgressBar fx:id="loadingBar" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="25.0" prefWidth="165.0" visible="false" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="CENTER" />
+                  <Text fx:id="loadingText" strokeType="OUTSIDE" strokeWidth="0.0" text="Loading CSV file" visible="false" />
+               </children>
+            </HBox>
          </children>
       </GridPane>
    </children>

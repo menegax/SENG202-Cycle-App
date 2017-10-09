@@ -2,7 +2,6 @@ package seng202.team7.Analysis;
 
 import seng202.team7.Database.DatabaseHandler;
 import seng202.team7.Trip;
-
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +22,7 @@ public class SQLAnalytics {
     {
         long totalTime = 0;
         String sql;
-        if(datagroup != ""){
+        if(!datagroup.equals("")){
             sql = "SELECT SUM(duration) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\";";
         } else {
@@ -42,10 +41,8 @@ public class SQLAnalytics {
             System.out.println("Get Station error");
             System.out.println(e.getMessage());
         }
-
         return totalTime;
     }
-
 
     /**
      * Finds the total duration of a datagroup of trips
@@ -56,7 +53,7 @@ public class SQLAnalytics {
     {
         long totalTime = 0;
         String sql;
-        if(datagroup != "") {
+        if(!datagroup.equals("")) {
             sql = "SELECT SUM(distance) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \"" + datagroup + "\";";
         } else {
@@ -76,10 +73,8 @@ public class SQLAnalytics {
             System.out.println("SQLAnalytic Error");
             System.out.println(e.getMessage());
         }
-
         return totalTime;
     }
-
 
     /**
      * Finds the sum of all trips within and age range for a datagroup of trips
@@ -93,7 +88,7 @@ public class SQLAnalytics {
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n" +
                     " AND age BETWEEN " + lowAge +" AND "+ highAge+";";
@@ -114,7 +109,6 @@ public class SQLAnalytics {
             System.out.println("SQLAnalytic Error totalUserTrips");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
 
@@ -126,15 +120,15 @@ public class SQLAnalytics {
      */
     public static int totalGenderTrips(String gender, String datagroup)
     {
-        if (gender.toLowerCase() == "m") {
+        if (gender.toLowerCase().equals("m")) {
             gender = "male";
-        } else if (gender.toLowerCase() == "f" || gender.toLowerCase() == "w") {
+        } else if (gender.toLowerCase().equals("f") || gender.toLowerCase().equals("w")) {
             gender = "female";
         }
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n" +
                     " AND gender = \"" +gender+"\";";
@@ -147,15 +141,14 @@ public class SQLAnalytics {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)) {
 
-            while (rs.next()){
+            while (rs.next()) {
                 trips = rs.getInt("sum");
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQLAnalytic Error");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
 
@@ -170,7 +163,7 @@ public class SQLAnalytics {
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(gender) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n" +
                     " AND LOWER(userType) = \"" +userType.toLowerCase()+"\";";
@@ -183,18 +176,15 @@ public class SQLAnalytics {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)) {
 
-            while (rs.next()){
+            while (rs.next()) {
                 trips = rs.getInt("sum");
             }
-
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQLAnalytic Error totalUserTrips");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
-
 
     /**
      * SQL query on Time object not behaving as it is expected. Null is returned when there is a value in the hour slot
@@ -208,7 +198,7 @@ public class SQLAnalytics {
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n"
                     + " AND cast(STRFTIME('%H', datetime(startTime/1000,'unixepoch')) AS INTEGER) BETWEEN " +startTime+" AND " + endTime + ";";
@@ -221,18 +211,16 @@ public class SQLAnalytics {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)) {
 
-            while (rs.next()){
+            while (rs.next()) {
                 trips = rs.getInt("sum");
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQLAnalytic Error totalTimeTrips");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
-
 
     /**
      * sums the number of trips taken within a specific distance
@@ -246,7 +234,7 @@ public class SQLAnalytics {
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n" +
                     " AND distance < " +highDist+" \n"
@@ -261,15 +249,14 @@ public class SQLAnalytics {
              Statement stmt  = conn.createStatement();
              ResultSet rs    = stmt.executeQuery(sql)) {
 
-            while (rs.next()){
+            while (rs.next()) {
                 trips = rs.getInt("sum");
             }
 
-        } catch (SQLException e){
+        } catch (SQLException e) {
             System.out.println("SQLAnalytic Error totalDistTrips");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
 
@@ -285,7 +272,7 @@ public class SQLAnalytics {
         int trips = 0;
         String sql;
 
-        if(datagroup != ""){
+        if(!datagroup.equals("")) {
             sql = "SELECT COUNT(*) AS sum FROM " + Trip.tableName
                     + " WHERE datagroup = \""+datagroup+"\" \n" +
                     " AND duration < " +highDur+" \n"
@@ -308,7 +295,6 @@ public class SQLAnalytics {
             System.out.println("SQLAnalytic Error totalDurTrips");
             System.out.println(e.getMessage());
         }
-
         return trips;
     }
 }
