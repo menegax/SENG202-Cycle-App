@@ -74,7 +74,7 @@ public class TripAnalyticController implements Initializable{
         caption.setStyle("-fx-font: 254 arial;");
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -103,7 +103,8 @@ public class TripAnalyticController implements Initializable{
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            System.out.println(dataGroupToSearch);
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -129,7 +130,7 @@ public class TripAnalyticController implements Initializable{
         bar.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -159,7 +160,7 @@ public class TripAnalyticController implements Initializable{
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -231,7 +232,7 @@ public class TripAnalyticController implements Initializable{
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem())).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue());
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
@@ -270,7 +271,7 @@ public class TripAnalyticController implements Initializable{
         pie.setVisible(false);
         String dataGroupToSearch = "";
         try {
-            dataGroupToSearch = ((((String) dataGroupCombo.getValue()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
+            dataGroupToSearch = ((((String) dataGroupCombo.getSelectionModel().getSelectedItem()).trim().isEmpty() ? "" : (String) dataGroupCombo.getValue()));
         } catch (NullPointerException e) { }
         if (dataGroupToSearch.equals("All")) {
             dataGroupToSearch = "";
