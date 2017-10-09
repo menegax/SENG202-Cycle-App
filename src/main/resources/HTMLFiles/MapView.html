@@ -28,8 +28,8 @@
     var wifiMarkers = [];
     var retailerMarkers = [];
 
-    var retailerBlue = {
-        url: 'img/retailerBlue.png',
+    var retailerRed = {
+        url: 'img/retailerRed.png',
         anchor: new google.maps.Point(0,8),
         size: new google.maps.Size(16,16)
     };
@@ -103,21 +103,21 @@
 		*/
         function getGradient()
         {
-            return  [
-            'rgba(255, 255, 0, 0)',
-            'rgba(255, 255, 0, 1)',
-            'rgba(255, 230, 0, 1)',
-            'rgba(255, 198, 0, 1)',
-            'rgba(255, 131, 0, 1)',
-            'rgba(255, 112, 0, 1)',
-            'rgba(255, 97, 0, 1)',
-            'rgba(255, 63, 0, 1)',
-            'rgba(255, 31, 0, 1)',
-            'rgba(255, 0, 0, 1)',
-            'rgba(235, 0, 0, 1)',
-            'rgba(213, 0, 0, 1)',
-            'rgba(197, 0, 0, 1)',
-            'rgba(168, 0, 0, 1)'
+            return [
+          'rgba(0, 255, 255, 0)',
+          'rgba(0, 255, 255, 1)',
+          'rgba(0, 191, 255, 1)',
+          'rgba(0, 127, 255, 1)',
+          'rgba(0, 63, 255, 1)',
+          'rgba(0, 0, 255, 1)',
+          'rgba(0, 0, 223, 1)',
+          'rgba(0, 0, 191, 1)',
+          'rgba(0, 0, 159, 1)',
+          'rgba(0, 0, 127, 1)',
+          'rgba(63, 0, 91, 1)',
+          'rgba(127, 0, 63, 1)',
+          'rgba(191, 0, 31, 1)',
+          'rgba(255, 0, 0, 1)'
         ]
 
         }
@@ -218,7 +218,7 @@
                 var marker = new google.maps.Marker({
                     position: latlon,
                     map: map,
-                    icon: retailerBlue,
+                    icon: retailerRed,
                     title: 'Name: ' + retailer.getName() + '\nType: ' + retailer.getTypeID() + ', ' + retailer.getType() + '\nAddress: ' + retailer.getPAddress() + '\nZip Code: ' + retailer.getZipCode()
                 });
                 retailerMarkers.push(marker);
