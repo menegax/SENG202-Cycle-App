@@ -14,7 +14,7 @@ import java.sql.*;
  * @author MorganEnglish
  */
 public class DatabaseHandler {
-    public static String url = "jdbc:sqlite:./src/Database/database.db";
+    public static String url; // = "jdbc:sqlite:./src/Database/database.db";
     public static String testUrl = "jdbc:sqlite:./src/test/java/seng202/team7/testDatabase.db";
     public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
     public static String tempUrl = "jdbc:sqlite:./src/Database/database.db";
