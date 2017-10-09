@@ -12,6 +12,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
@@ -82,9 +83,9 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private ComboBox typeRetailerComboBox;
 
     // Screen display related
-    @FXML private HBox addRetailerNode;
-    @FXML private HBox addTripNode;
-    @FXML private HBox addWifiNode;
+    @FXML private GridPane addRetailerNode;
+    @FXML private GridPane addTripNode;
+    @FXML private GridPane addWifiNode;
 
     private String currentScreen = "None"; // Tracks which entry screen is currently shown
 
