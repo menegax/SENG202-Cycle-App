@@ -52,7 +52,7 @@ public class InputHandlerTest
         deleteTables();
         createTables();
         InputHandler testerWifi = new InputHandler();
-        assertEquals(2566, testerWifi.loadCSV(file_wifi, "wifi", "default").size());
+        assertEquals(29, testerWifi.loadCSV(file_wifi, "wifi", "default").size());
         //amount added always changes because of duplicate check in database, not so much in test DB created
         //just check that the parser works basically
         //assertTrue(testerWifi.loadCSV(file_wifi, "wifi", "default").size() >= 0);
