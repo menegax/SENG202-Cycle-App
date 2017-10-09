@@ -6,7 +6,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 /**
- * Class used to complete analytics through sql queries where applicable
+ * Class used to complete analytics mainly for graph analytics through sql queries where applicable
  * @author Morgan English
  */
 public class SQLAnalytics {
