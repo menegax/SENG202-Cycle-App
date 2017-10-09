@@ -30,14 +30,25 @@ public class PointM {
         this.y = (int) Math.round(y);
     }
 
+    /**
+     * x co-ordinate of point relates to latitude of trip point
+     * @return x co-ordinate
+     */
     public int getX() {
         return x;
     }
 
+    /**
+     * y co-ordinate of point relates to longitude
+     * @return
+     */
     public int getY() {
         return y;
     }
 
+    /**
+     * print method for point
+     */
     public void print()
     {
         System.out.println("X: " + x + " | Y: " + y);

@@ -29,6 +29,7 @@ public class Station extends Location implements Data, java.io.Serializable {
             + columns[5]+" blob"
             + ");";
 
+
     private int id;
     private String address;
     private String dataGroup;
@@ -53,48 +54,88 @@ public class Station extends Location implements Data, java.io.Serializable {
         this.longitude = longitude;
     }
 
+    /**
+     * Retturns the id of the bike station
+     * @return id
+     */
     public int getId() {
         return id;
     }
 
+    /**
+     * sets id of the bike station
+     * @param id to set
+     */
     public void setId(int id) {
         this.id = id;
     }
 
+    /**
+     * gets the address of the Station
+     * @return address
+     */
     public String getAddress() {
         return address;
     }
 
+    /**
+     * Sets the adrress of the station
+     * @param address to set
+     */
     public void setAddress(String address) {
         this.address = address;
     }
 
+    /**
+     * gets the datagroup string the station is stored by
+     * @return datagroup
+     */
     public String getDataGroup() {
         return dataGroup;
     }
 
+    /**
+     * Sets the datagroup string
+     * @param dataGroup to set
+     */
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
 
+    /**
+     * Gets latitude of station
+     * @return latitude of station
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * Sets latitude of station
+     * @param latitude to set
+     */
     public void setLatitude(double latitude) {
-        //this.latitude = latitude;
+        this.latitude = latitude;
     }
 
+    /**
+     * Gets longitude of station
+     * @return longitude
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * sets longitude
+     * @param longitude to set
+     */
     public void setLongitude(double longitude) {
-        //this.longitude = longitude;
+        this.longitude = longitude;
     }
 
     /**
-     * Print method for checking the object is correct only prints lat and long at this stage
+     * Print method for checking the object is correct only prints lat and long
      */
     public void print()
     {

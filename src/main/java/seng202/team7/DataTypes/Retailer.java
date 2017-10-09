@@ -97,7 +97,7 @@ public class Retailer extends Location implements Data, java.io.Serializable{
     private double longitude;
 
     /**
-     * todo
+     * Retailer object
      * @param name Name of retailer
      * @param city City where retailer is located
      * @param pAddress Primary address of retailer
@@ -379,15 +379,17 @@ public class Retailer extends Location implements Data, java.io.Serializable{
      */
     public void setStreet(String street) { this.street = street; }
 
+    /**
+     * prints basic info of retailer
+     */
     public void print(){
         System.out.println("Name: " + name +" Lat: "+latitude + " Lon: "+ longitude);
     }
 
-    /**
-     * Converts the retailer object into a hash code
-     * @return result fo conversion
-     */
     @Override
+    /**
+     * Overriding the hashcode to get primary keys for database
+     */
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;

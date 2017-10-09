@@ -110,102 +110,187 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     }
 
     /**
-     * todo
+     *
      * @return borough of retailer object
      */
     public String getBorough() {
         return borough;
     }
 
+    /**
+     * set burough
+     * @param borough to set
+     */
     public void setBorough(String borough) {
         this.borough = borough;
     }
 
+    /**
+     * gets type
+     * @return type of wifi
+     */
     public String getType() {
         return type;
     }
 
+    /**
+     * sets type of wifi
+     * @param type of wifi to set
+     */
     public void setType(String type) {
         this.type = type;
     }
 
+    /**
+     * gets provider of wifi
+     * @return provider of wifi
+     */
     public String getProvider() {
         return provider;
     }
 
+    /**
+     * sets provider of wifi
+     * @param provider to set
+     */
     public void setProvider(String provider) {
         this.provider = provider;
     }
 
+    /**
+     * gets location string of wifi
+     * @return location string
+     */
     public String getLocation() {
         return location;
     }
 
+    /**
+     * sets location string
+     * @param location string to set
+     */
     public void setLocation(String location) {
         this.location = location;
     }
 
+    /**
+     * Gets city the wifi is in
+     * @return city wifi is in
+     */
     public String getCity() {
         return city;
     }
 
+    /**
+     * sets city the wifi is in
+     * @param city wifi is located in
+     */
     public void setCity(String city) {
         this.city = city;
     }
 
+    /**
+     * Gets SSID of Wifi
+     * @return SSID of wifi
+     */
     public String getSSID() {
         return SSID;
     }
 
+    /**
+     * sets the ssid
+     * @param SSID to set
+     */
     public void setSSID(String SSID) {
         this.SSID = SSID;
     }
 
+    /**
+     * gets the remarks for the wifi(String), vague comments about wifi
+     * @return remarks for the wifi
+     */
     public String getRemarks() {
         return remarks;
     }
 
+    /**
+     * sets the remarks for wifi, vague comments about wifi
+     * @param remarks remarks of wifi
+     */
     public void setRemarks(String remarks) {
         this.remarks = remarks;
     }
 
+    /**
+     * gets datagroup the wifi belongs to
+     * @return datagroup string
+     */
     public String getDataGroup() {
         return dataGroup;
     }
 
+    /**
+     * Sets Datagroup String
+     * @param dataGroup string to sort by
+     */
     public void setDataGroup(String dataGroup) {
         this.dataGroup = dataGroup;
     }
 
+    /**
+     * gets Longitude of wifi
+     * @return longitude
+     */
     public double getLongitude() {
         return longitude;
     }
 
+    /**
+     * Sets longitude of wifi
+     * @param longitude to set
+     */
     public void setLongitude(double longitude) {
         //Check value on change??
         this.longitude = longitude;
     }
 
+    /**
+     * gets latitude of wifi
+     * @return latitude
+     */
     public double getLatitude() {
         return latitude;
     }
 
+    /**
+     * sets latitude of wifi
+     * @param latitude to set
+     */
     public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
     @Override
+    /**
+     * Change the tostring method to show usefull information about the wifi object
+     */
     public String toString()
     {
         return "Wifi object @ Lat: "+(double)latitude + " Lon:" + longitude + " Type: " + type;
     }
 
+    /**
+     * Prints basic information about the wifi object
+     */
     public void print()
     {
         System.out.println(this.toString());
     }
 
     @Override
+    /**
+     * Ovverides the hashcode to get a primary key from hashcode for the database
+     */
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;

@@ -21,7 +21,7 @@ public class InputHandlerTest
 
     String file_retailer = "retailer_data_test.csv";
     String file_wifi = "wifi_data_test.csv";
-    String file_trip = "trip_data_test.csv";
+    String file_trip = "trip_data_test_small.csv";
 
     //because of file chooser, they always have a valid path
     @Test(expected = IOException.class)

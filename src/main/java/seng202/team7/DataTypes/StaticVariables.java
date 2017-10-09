@@ -92,6 +92,17 @@ public class StaticVariables {
         return "SELECT obj FROM " + tableName + " WHERE LOWER(" + col1 + ") = \"" + match1.toLowerCase() + "\" AND " + col2 + " = " + match2;
     }
 
+    /**
+     * Create an SQL query string to match two String and an int
+     * @param tableName table to search
+     * @param col1 column to look for first string
+     * @param match1 first string to match
+     * @param col2 column to look for second string
+     * @param match2 second string to match
+     * @param col3 column to look for integer
+     * @param match3 int to matchh
+     * @return sql query string
+     */
     public static String doubleStringIntQuery(String tableName, String col1, String match1, String col2, String match2, String col3, int match3) {
         return "SELECT obj FROM " + tableName + " WHERE LOWER(" + col1 + ") = \"" + match1.toLowerCase() + "\" AND LOWER(" + col2 + ") = \"" + match2.toLowerCase() + "\" AND " + col3 + " = " + match3;
 
@@ -138,10 +149,9 @@ public class StaticVariables {
     }
 
     /**
-     * SQl query for wifi by ID
-     *
-     * @param wifiID ID to search for
-     * @return sql queary finding wifi by id
+     * SQL query for wifi id
+     * @param wifiID id of wifi to find
+     * @return SQL string to get object from databse by wifi id
      */
     public static String wifiIDQuery(int wifiID) {
         return "SELECT * FROM " + Wifi.tableName + " WHERE id = " + wifiID;
@@ -154,7 +164,6 @@ public class StaticVariables {
      * @param lon lon of center
      * @return SQL Query String
      */
-
     public static String retailerByLocation(double lat, double lon) {
         return retailerByLocation(lat, defaultDist, lon, defaultDist);
     }
