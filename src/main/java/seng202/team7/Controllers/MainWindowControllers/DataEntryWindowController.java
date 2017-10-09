@@ -81,7 +81,6 @@ public class DataEntryWindowController implements Initializable, EventHandler{
     @FXML private TextField sAddressTextfield;
     @FXML private ComboBox typeRetailerComboBox;
 
-
     // Screen display related
     @FXML private HBox addRetailerNode;
     @FXML private HBox addTripNode;
