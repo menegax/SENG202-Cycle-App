@@ -8,7 +8,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.*;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seng202.team7.Database.DatabaseRetriever;
@@ -19,7 +18,7 @@ import java.util.ResourceBundle;
 
 import java.util.ArrayList;
 
-import static seng202.team7.Datagroup.getDatagroups;
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
  * Controller for Graph viewing of analytics

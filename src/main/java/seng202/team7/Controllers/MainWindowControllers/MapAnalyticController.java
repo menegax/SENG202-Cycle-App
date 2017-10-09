@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
-import static seng202.team7.Datagroup.getDatagroups;
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
  * This class is the controller for the Map Analytic screen.

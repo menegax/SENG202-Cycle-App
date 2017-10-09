@@ -1,6 +1,10 @@
 package seng202.team7.Database;
 
-import seng202.team7.*;
+import seng202.team7.DataTypes.Retailer;
+import seng202.team7.DataTypes.Station;
+import seng202.team7.DataTypes.Trip;
+import seng202.team7.DataTypes.Wifi;
+
 import java.io.*;
 import java.sql.Connection;
 import java.sql.ResultSet;

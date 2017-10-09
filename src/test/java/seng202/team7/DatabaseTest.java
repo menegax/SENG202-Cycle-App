@@ -1,6 +1,7 @@
 package seng202.team7;
 
 import org.junit.Test;
+import seng202.team7.DataTypes.Wifi;
 import seng202.team7.Database.DatabaseHandler;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;

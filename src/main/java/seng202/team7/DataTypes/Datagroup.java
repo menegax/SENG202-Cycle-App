@@ -1,4 +1,4 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
 
 import seng202.team7.Database.DatabaseHandler;
 import java.sql.*;

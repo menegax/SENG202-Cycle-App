@@ -1,4 +1,4 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
 
 import java.text.SimpleDateFormat;
 import java.lang.Math;

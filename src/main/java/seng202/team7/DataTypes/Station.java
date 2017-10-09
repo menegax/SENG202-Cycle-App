@@ -1,4 +1,7 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
+
+import seng202.team7.DataTypes.Data;
+import seng202.team7.DataTypes.Location;
 
 /**
  * Station objects primarily used for Trips

@@ -1,4 +1,8 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
+
+import seng202.team7.DataTypes.Data;
+import seng202.team7.DataTypes.Location;
+import seng202.team7.DataTypes.StaticVariables;
 
 /**
  * Basic Wifi class to store information about a specific wifi location

@@ -1,10 +1,10 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
 
 /**
  * @author Morgan English
  * location class used as parent for all objects that can be placed on a map
  */
-public class Location implements Mappable{
+public class Location implements Mappable {
     private double latitude;
     private double longitude;
 

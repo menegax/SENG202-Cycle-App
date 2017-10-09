@@ -17,7 +17,7 @@ import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import seng202.team7.*;
+import seng202.team7.DataTypes.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
 import seng202.team7.Input.InputHandler;
@@ -26,8 +26,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.*;
-import static seng202.team7.Datagroup.addDatagroup;
-import static seng202.team7.Datagroup.getDatagroups;
+import static seng202.team7.DataTypes.Datagroup.addDatagroup;
+import static seng202.team7.DataTypes.Datagroup.getDatagroups;
 
 /**
  * Controls manual data entry and data uploaded via csv

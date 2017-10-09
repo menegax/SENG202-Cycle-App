@@ -1,4 +1,10 @@
-package seng202.team7;
+package seng202.team7.DataTypes;
+
+import seng202.team7.Analysis.PointM;
+import seng202.team7.DataTypes.Data;
+import seng202.team7.DataTypes.Location;
+import seng202.team7.DataTypes.StaticVariables;
+import seng202.team7.DataTypes.Station;
 
 import java.text.ParseException;
 import java.util.Date;

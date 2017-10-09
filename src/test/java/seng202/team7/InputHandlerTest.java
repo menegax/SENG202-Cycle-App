@@ -1,6 +1,10 @@
 package seng202.team7;
 
 import org.junit.Test;
+import seng202.team7.DataTypes.Retailer;
+import seng202.team7.DataTypes.Station;
+import seng202.team7.DataTypes.Trip;
+import seng202.team7.DataTypes.Wifi;
 import seng202.team7.Input.InputHandler;
 
 import java.io.IOException;

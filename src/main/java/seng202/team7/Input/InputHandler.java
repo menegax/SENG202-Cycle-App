@@ -1,6 +1,6 @@
 package seng202.team7.Input;
 
-import seng202.team7.*;
+import seng202.team7.DataTypes.*;
 import seng202.team7.Database.DatabaseRetriever;
 import seng202.team7.Database.DatabaseUpdater;
 import java.io.BufferedReader;
