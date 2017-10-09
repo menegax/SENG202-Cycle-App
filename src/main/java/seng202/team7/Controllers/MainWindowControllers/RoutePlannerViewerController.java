@@ -38,8 +38,8 @@ public class RoutePlannerViewerController implements Initializable{
 
     /**
      * Initialises the widgets and bridge in the route planner
-     * @param url
-     * @param rb
+     * @param url Required parameter that is not used
+     * @param rb Required parameter that is not used
      */
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -73,26 +73,41 @@ public class RoutePlannerViewerController implements Initializable{
     }
 
 
+    /**
+     * Clears the wifi markers from the map
+     */
     public void clearWifi() {
         errorLabel.setVisible(false);
         jsBridge1.call("loadWifiType", "Clear");
     }
 
+    /**
+     * Clears the retailer markers from the map
+     */
     public void clearRetailer() {
         errorLabel.setVisible(false);
         jsBridge1.call("loadRetailerType", "Clear");
     }
 
+    /**
+     * Displays the Wi-Fi locations of the type selected in the combobox
+     */
     public void displayWifis() {
         errorLabel.setVisible(false);
         jsBridge1.call("loadWifiType", wifiTypeCB.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Displays the retailer locations of the type selected in the combobox
+     */
     public void displayRetailers() {
         errorLabel.setVisible(false);
         jsBridge1.call("loadRetailerType", retailerTypeCB.getSelectionModel().getSelectedItem());
     }
 
+    /**
+     * Adds the nearest Wi-Fi to the selected Location(s) on the map
+     */
     public void addWifi() {
         errorLabel.setVisible(false);
         Integer points = (Integer) jsBridge1.call("getPoints");
@@ -126,6 +141,9 @@ public class RoutePlannerViewerController implements Initializable{
         }
     }
 
+    /**
+     * Adds the nearest retailer to the selected Location(s) on the map
+     */
     public void addRetailer() {
         errorLabel.setVisible(false);
         Integer points = (Integer) jsBridge1.call("getPoints");

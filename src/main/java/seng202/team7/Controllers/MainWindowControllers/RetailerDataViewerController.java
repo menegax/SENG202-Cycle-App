@@ -3,7 +3,7 @@ package seng202.team7.Controllers.MainWindowControllers;
 /**
  * Retailer data controller to control raw data viewing of retailer data
  * @author Aidan Smith asm142
- * Last updated 22/09/17
+ * Last updated 09/10/17
  */
 
 import javafx.beans.property.StringProperty;
