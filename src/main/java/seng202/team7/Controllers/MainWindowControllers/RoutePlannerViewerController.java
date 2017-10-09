@@ -1,12 +1,10 @@
 package seng202.team7.Controllers.MainWindowControllers;
 
 import com.sun.javafx.webkit.WebConsoleListener;
-import com.sun.org.apache.bcel.internal.generic.RET;
 import javafx.concurrent.Worker;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.Label;
 import javafx.scene.text.Text;
 import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
