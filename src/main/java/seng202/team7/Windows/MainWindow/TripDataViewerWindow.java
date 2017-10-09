@@ -2,7 +2,6 @@ package seng202.team7.Windows.MainWindow;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
 /**Trip data model for raw data viewing of trip data

@@ -9,6 +9,10 @@ import java.io.IOException;
  * @author Morgan English
  */
 public class TripAnalyticWindow extends AnchorPane {
+
+    /**
+     * Attempts to create a new trip analytic screen. Throws a RuntimeException if this fails.
+     */
     public TripAnalyticWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/MainWindow/TripAnalyticWindow.fxml"));
         fxmlLoader.setRoot(this);

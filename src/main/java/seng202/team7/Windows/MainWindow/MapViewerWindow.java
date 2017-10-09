@@ -8,9 +8,11 @@ import java.io.IOException;
  * Map viewer window to view data points on a map
  * @author Mitchell Fenwick
  */
-
 public class MapViewerWindow extends AnchorPane {
 
+    /**
+     * Attempts to create a new map viewer screen. Throws a RuntimeException if this fails.
+     */
     public MapViewerWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/MainWindow/MapViewerWindow.fxml"));
         fxmlLoader.setRoot(this);

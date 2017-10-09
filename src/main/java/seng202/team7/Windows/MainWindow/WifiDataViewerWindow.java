@@ -2,7 +2,6 @@ package seng202.team7.Windows.MainWindow;
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
-
 import java.io.IOException;
 
 /**Wifi data model for raw data viewing of wifi data

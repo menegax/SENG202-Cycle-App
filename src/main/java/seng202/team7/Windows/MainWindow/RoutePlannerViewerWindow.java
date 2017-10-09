@@ -1,7 +1,4 @@
 package seng202.team7.Windows.MainWindow;
-/**
- * Created by jam357 on 19/09/17.
- */
 
 import javafx.fxml.FXMLLoader;
 import javafx.scene.layout.AnchorPane;
@@ -14,6 +11,9 @@ import java.io.IOException;
  */
 public class RoutePlannerViewerWindow extends AnchorPane {
 
+    /**
+     * Attempts to create a new route planner screen. Throws a RuntimeException if this fails.
+     */
     public RoutePlannerViewerWindow(){
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getClassLoader().getResource("Views/MainWindow/RoutePlannerViewer.fxml"));
         fxmlLoader.setRoot(this);
