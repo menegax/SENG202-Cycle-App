@@ -19,7 +19,7 @@
                   <children>
                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Filter Wifi By:" GridPane.columnIndex="0" GridPane.columnSpan="2" GridPane.halignment="CENTER" GridPane.rowIndex="0">
                       <font>
-                        <Font size="26.0" />
+                        <Font size="23.0" />
                       </font>
                     </Text>
                     <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Provider:" GridPane.columnIndex="0" GridPane.rowIndex="1">
