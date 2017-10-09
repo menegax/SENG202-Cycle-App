@@ -20,6 +20,9 @@ public class RouteHandler {
      *
      * @return list of Station objects
      */
+    /*
+    the bike station objects to be added to the map
+     */
     public List<Station> getStationJS() {
 
         return databaseRetriever.getStationList();
@@ -29,10 +32,16 @@ public class RouteHandler {
         return locationToAdd;
     }
 
+    /*
+    sets the location object to be added
+     */
     public void setLocationToAdd(Location locationToAdd) {
         this.locationToAdd = locationToAdd;
     }
 
+    /*
+    the list of wifi objects to be loaded into the route planning javascript
+     */
     public List<Wifi> getWifiJSType(String type)
     {
         if(type.equals("All") || type.equals(""))
@@ -40,6 +49,9 @@ public class RouteHandler {
         return databaseRetriever.queryWifi(StaticVariables.singleStringQuery(Wifi.tableName, Wifi.columns[2],type));
     }
 
+    /*
+    the list of retailers objects to be loaded into the route planning javascript
+     */
     public List<Retailer> getRetailerJSType(String type)
     {
         if(type.equals("All") || type.equals(""))

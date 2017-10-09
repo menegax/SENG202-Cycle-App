@@ -312,7 +312,7 @@
     }
 
     /**
-     * the geocodeAddress reverse geocodes the marker object's latlng value into a formatted address
+     * the geocodeAddress reverse geocodes from formatted address to a lat and lng
      * @param index the index of the marker from the mapList
      * @param geocoder the geocoder object
      * @param resultsMap the map the geocoded address should be displayed on
@@ -344,10 +344,10 @@
     }
 
     /**
-     *
-     * @param latlngStr
-     * @param geocoder1
-     * @param map
+     * geocodes from latlng to a formatted address (specifically for the adding of wifi and retailer objects to the map
+     * @param latlngStr A latitude longitude string separated by a comma
+     * @param geocoder1 a geocode object
+     * @param map the map object
      */
     function geocodeLatLngAdd(latlngStr, geocoder1, map) {
         var latlngStr = latlngStr.split(',', 2);
@@ -401,10 +401,16 @@
         }
     }
 
+    /*
+    returns to java the number of markers i.e. if start, start and end or no markers are clicked on the map
+     */
     function getPoints () {
         return mapCopy.length;
     }
 
+    /*
+    the latitude and longitude string of the start location separated by a comma
+     */
     function getStart () {
         var length = mapCopy.length;
         if (length == 0) {
@@ -419,6 +425,9 @@
         return latLngStr;
     }
 
+    /*
+    the latitude and longitude string of the end location separated by a comma
+    */
     function getEnd () {
         var length = mapCopy.length;
         if (length == 0) {
@@ -433,6 +442,9 @@
         return latLngStr;
     }
 
+    /*
+    adding the wifi object nearest to the start and/or end locations about to be added to the map
+     */
     function addWifiToRoute() {
         if (count1 === 0) {
             count1 = 1;
@@ -474,6 +486,9 @@
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     }
 
+    /*
+    adding the retailer object nearest to the start and/or end locations about to be added to the map
+     */
     function addRetailerToRoute() {
         if (count1 === 0) {
             count1 = 2;
@@ -515,7 +530,9 @@
         calculateAndDisplayRoute(directionsService, directionsDisplay);
     }
 
-
+    /*
+    creates a bridge with java code to load wifi objects through and put it in a list
+     */
     function loadWifiType(type){
         deleteWifiMarkers();
         var wifiBlue = {
@@ -564,8 +581,9 @@
         wifis = null;
     }
 
-
-
+    /*
+    creates a bridge with java code to load retailer objects through and put it in a list
+     */
     function loadRetailerType(type) {
 
         var retailerOrange= {
