@@ -18,6 +18,7 @@ import java.sql.*;
  */
 public class DatabaseHandler {
     public static String url;
+    public static String testUrl = "jdbc:sqlite:./src/test/java/seng202/team7/testDatabase.db";
     public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
     public static String databaseLocal;
     public static String onlineDatabaseUrl = "http://seng202team7.000webhostapp.com/database.txt";
