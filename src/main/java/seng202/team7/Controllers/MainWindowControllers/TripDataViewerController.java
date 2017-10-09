@@ -34,14 +34,17 @@ public class TripDataViewerController implements Initializable {
     @FXML private TableView<Trip> tripDataTable;
     @FXML private TableColumn<Trip, String> startColumn;
     @FXML private TableColumn<Trip, String> endColumn;
+    @FXML private TableColumn<Trip, String> bikeIDColumn;
     @FXML private TableColumn<Trip, String> durationColumn;
     @FXML private TableColumn<Trip, String> genderColumn;
     @FXML private TableColumn<Trip, String> userTypeColumn;
+    @FXML private TableColumn<Trip, String> dataGroupColumn;
     @FXML private TableColumn<Trip, String> distanceColumn;
     @FXML private ComboBox<String> startStationCB;
     @FXML private ComboBox<String> endStationCB;
     @FXML private ComboBox<String> genderCB;
     @FXML private ComboBox<String> userTypeCB;
+    @FXML private ComboBox<String> dataGroupCB;
     @FXML private TextField searchEntry;
     @FXML private Text error;
 
@@ -114,16 +117,21 @@ public class TripDataViewerController implements Initializable {
         for (Station station : stationArrayList) {
             stationAddresses.add(station.getAddress());
         }
+        ArrayList<String> datagroups = Datagroup.getDatagroups();
+        dataGroupCB.getItems().add("All");
         startStationCB.getItems().add("All");
         endStationCB.getItems().add("All");
         startStationCB.getItems().addAll(stationAddresses);
         endStationCB.getItems().addAll(stationAddresses);
+        dataGroupCB.getItems().addAll(datagroups);
         startColumn.setCellValueFactory(new PropertyValueFactory<>("start"));
         endColumn.setCellValueFactory(new PropertyValueFactory<>("end"));
         distanceColumn.setCellValueFactory(new PropertyValueFactory<>("distance"));
         durationColumn.setCellValueFactory(new PropertyValueFactory<>("duration"));
         genderColumn.setCellValueFactory(new PropertyValueFactory<>("gender"));
         userTypeColumn.setCellValueFactory(new PropertyValueFactory<>("userType"));
+        dataGroupColumn.setCellValueFactory(new PropertyValueFactory<>("dataGroup"));
+        bikeIDColumn.setCellValueFactory(new PropertyValueFactory<>("bikeID"));
         tripDataTable.setItems(filteredTripList);
     }
 
@@ -163,11 +171,13 @@ public class TripDataViewerController implements Initializable {
         String endSelection = endStationCB.getValue();
         String genderSelection = genderCB.getValue();
         String userTypeSelection = userTypeCB.getValue();
+        String dataGroupSelection = dataGroupCB.getValue();
         for (Trip trip : tripList) {
             if ((trip.getStart().equals(startSelection) || startSelection == null || startSelection.equals("All"))
                     && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
                     && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
                     && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
+                    && (trip.getDataGroup().equals(dataGroupSelection) || dataGroupSelection == null || dataGroupSelection.equals("All"))
                     ) {
                 filteredTripList.add(trip);
             }
@@ -184,6 +194,7 @@ public class TripDataViewerController implements Initializable {
                         && (trip.getEnd().equals(endSelection) || endSelection == null || endSelection.equals("All"))
                         && (trip.getGender().equals(genderSelection) || genderSelection == null || genderSelection.equals("All"))
                         && (trip.getUserType().equals(userTypeSelection) || userTypeSelection == null || userTypeSelection.equals("All"))
+                        && (trip.getDataGroup().equals(dataGroupSelection) || dataGroupSelection == null || dataGroupSelection.equals("All"))
                         ) {
                     filteredTripList.add(trip);
                 }
@@ -432,6 +443,7 @@ public class TripDataViewerController implements Initializable {
             ArrayList<Station> stations = dbRetriever.queryStation(query);
             ArrayList<Trip> result = new ArrayList<>();
             ArrayList<Trip> endsWith = new ArrayList<>();
+            ArrayList<Trip> IDMatch = new ArrayList<>();
             for (Station station : stations) {
                 query = StaticVariables.singleStringQuery(Trip.tableName, "startStationID", Integer.toString(station.getId()));
                 result.addAll(dbRetriever.queryTrip(query));
@@ -440,7 +452,14 @@ public class TripDataViewerController implements Initializable {
                 query = StaticVariables.singleStringQuery(Trip.tableName, "endStationID", Integer.toString(station.getId()));
                 endsWith.addAll(dbRetriever.queryTrip(query));
             }
+            query = StaticVariables.singleStringQueryLike(Trip.tableName, "bikeID", searchEntry.getText());
+            IDMatch.addAll(dbRetriever.queryTrip(query));
             for (Trip trip : endsWith) {
+                if (!result.contains(trip)) {
+                    result.add(trip);
+                }
+            }
+            for (Trip trip : IDMatch) {
                 if (!result.contains(trip)) {
                     result.add(trip);
                 }

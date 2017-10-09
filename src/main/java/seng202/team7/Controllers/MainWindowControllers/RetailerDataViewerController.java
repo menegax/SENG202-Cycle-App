@@ -34,9 +34,11 @@ public class RetailerDataViewerController implements Initializable {
     @FXML private TableColumn<Retailer, String> typeColumn;
     @FXML private TableColumn<Retailer, String> addressColumn;
     @FXML private TableColumn<Retailer, Integer> zipColumn;
+    @FXML private TableColumn<Retailer, String> dataGroupColumn;
     @FXML private ComboBox<String> typeCB;
     @FXML private ComboBox<String> streetCB;
     @FXML private ComboBox<String> zipCB;
+    @FXML private ComboBox<String> dataGroupCB;
     @FXML private TextField searchEntry;
     @FXML private Text error;
 
@@ -86,6 +88,7 @@ public class RetailerDataViewerController implements Initializable {
         typeColumn.setCellValueFactory(new PropertyValueFactory<>("typeID"));
         addressColumn.setCellValueFactory(new PropertyValueFactory<>("pAddress"));
         zipColumn.setCellValueFactory(new PropertyValueFactory<>("zipCode"));
+        dataGroupColumn.setCellValueFactory(new PropertyValueFactory<>("dataGroup"));
         retailerDataTable.setItems(filteredRetailerList);
         ArrayList<String> streets = new ArrayList<>();
         ArrayList<String> zips = new ArrayList<>();
@@ -97,10 +100,13 @@ public class RetailerDataViewerController implements Initializable {
                 zips.add(Integer.toString(retailer.getZipCode()));
             }
         }
+        ArrayList<String> datagroups = Datagroup.getDatagroups();
         streetCB.getItems().add("All");
         streetCB.getItems().addAll(streets);
         zipCB.getItems().add("All");
         zipCB.getItems().addAll(zips);
+        dataGroupCB.getItems().add("All");
+        dataGroupCB.getItems().addAll(datagroups);
     }
 
     /**
@@ -146,6 +152,7 @@ public class RetailerDataViewerController implements Initializable {
         String typeSelection = typeCB.getValue();
         String streetSelection = streetCB.getValue();
         String zipSelection = zipCB.getValue();
+        String dataGroupSelection = dataGroupCB.getValue();
         for (Retailer retailer : retailerList) {
             String typeID = retailer.getTypeID();
             if (typeID == null) {
@@ -154,6 +161,7 @@ public class RetailerDataViewerController implements Initializable {
             else if ((streetSelection == null || retailer.getStreet().equals(streetSelection) || streetSelection.equals("All"))
                     && (typeSelection == null || typeID.equals(typeSelection) || typeSelection.equals("All"))
                     && (zipSelection == null || Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection.equals("All"))
+                    && (dataGroupSelection == null || retailer.getDataGroup().equals(dataGroupSelection) || dataGroupSelection.equals("All"))
                     ) {
                 filteredRetailerList.add(retailer);
             }
@@ -181,6 +189,7 @@ public class RetailerDataViewerController implements Initializable {
                 if ((retailer.getStreet().equals(streetSelection) || streetSelection == null || streetSelection.equals("All"))
                         && (typeID.equals(typeSelection) || typeSelection == null || typeSelection.equals("All"))
                         && (Integer.toString(retailer.getZipCode()).equals(zipSelection) || zipSelection == null || zipSelection.equals("All"))
+                        && (dataGroupSelection == null || retailer.getDataGroup().equals(dataGroupSelection) || dataGroupSelection.equals("All"))
                         ) {
                     filteredRetailerList.add(retailer);
                 }
