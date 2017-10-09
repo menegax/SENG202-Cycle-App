@@ -1,4 +1,7 @@
-package seng202.team7;
+package seng202.team7.Analysis;
+
+import seng202.team7.PointM;
+import seng202.team7.Trip;
 
 import java.util.ArrayList;
 

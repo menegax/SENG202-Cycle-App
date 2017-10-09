@@ -1,6 +1,7 @@
 package seng202.team7.Database;
 
 import seng202.team7.*;
+import seng202.team7.Analysis.SQLAnalytics;
 
 import java.util.ArrayList;
 

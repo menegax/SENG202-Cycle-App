@@ -12,7 +12,7 @@ import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import seng202.team7.Database.DatabaseRetriever;
-import seng202.team7.SQLAnalytics;
+import seng202.team7.Analysis.SQLAnalytics;
 
 import java.net.URL;
 import java.util.ResourceBundle;

@@ -1,6 +1,7 @@
-package seng202.team7;
+package seng202.team7.Analysis;
 
 import seng202.team7.Database.DatabaseHandler;
+import seng202.team7.Trip;
 
 import java.sql.Connection;
 import java.sql.ResultSet;
