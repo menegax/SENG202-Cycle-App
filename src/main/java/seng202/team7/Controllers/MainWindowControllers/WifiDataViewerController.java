@@ -221,7 +221,7 @@ public class WifiDataViewerController implements Initializable {
     public void viewRecord() {
         currentWifiIndex = wifiDataTable.getSelectionModel().getSelectedIndex();
         if (currentWifiIndex == -1) {
-            error.setText("Please select a retailer to view");
+            error.setText("Please select a Wi-Fi to view");
             error.setVisible(true);
         } else {
             error.setVisible(false);
