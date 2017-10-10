@@ -14,13 +14,24 @@ import java.sql.*;
  * @author MorganEnglish
  */
 public class DatabaseHandler {
-    public static String url; // = "jdbc:sqlite:./src/Database/database.db";
+    /**
+     * local location for database dynamically assigned on first start up including driver
+     */
+    public static String url;// = "jdbc:sqlite:./src/Database/database.db";
+    /**
+     * location for test database
+     */
     public static String testUrl = "jdbc:sqlite:./src/test/java/seng202/team7/testDatabase.db";
-    public static String onlineUrl = "jdbc:sqlite:./src/Database/databaseOnline.db";
+
+    /**
+     * Location of temporary database for intellij
+     */
     public static String tempUrl = "jdbc:sqlite:./src/Database/database.db";
+    /**
+     * local file location for database dynamically assigned on first start NO DRIVER
+     */
     private static String databaseLocal;
-    public static String onlineDatabaseUrl = "http://seng202team7.000webhostapp.com/database.txt";
-    public static URL dbUrl = null;
+
 
     /**
      * Runs on start-up to make sure there is a database in the directory of the jar
@@ -42,7 +53,7 @@ public class DatabaseHandler {
             e.printStackTrace();
         }
         File jarDir = new File(path);
-        System.out.println(jarDir.getParentFile());
+        //System.out.println(jarDir.getParentFile());
         url = "jdbc:sqlite:"+jarDir.getParentFile()+"/database.db";
         databaseLocal = jarDir.getParentFile()+"/database.db";
         File f = new File(databaseLocal);
@@ -59,13 +70,12 @@ public class DatabaseHandler {
     private static void getDatabase() {
         DatabaseRetriever temp  = new DatabaseRetriever();
         File dbFile = new File(databaseLocal);
-        //System.out.println();
         try {
             FileUtils.copyURLToFile(temp.getClass().getClassLoader().getResource("TextFiles/database.db"),dbFile);
         } catch (IOException e){
             e.printStackTrace();
         }
-        System.out.println("finished");
+        //System.out.println("finished");
     }
 
     /**

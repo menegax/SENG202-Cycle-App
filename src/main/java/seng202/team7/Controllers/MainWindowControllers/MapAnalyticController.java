@@ -11,6 +11,8 @@ import javafx.scene.web.WebEngine;
 import javafx.scene.web.WebView;
 import netscape.javascript.JSObject;
 import seng202.team7.JSHandling.JSHandler;
+
+import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
@@ -77,7 +79,6 @@ public class MapAnalyticController implements Initializable {
                 jsObject = (JSObject) webEngine.executeScript("window");
                 jsHandler = new JSHandler();
                 jsObject.setMember("Abridge", jsHandler);
-                //System.out.println("set bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
@@ -87,7 +88,7 @@ public class MapAnalyticController implements Initializable {
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
         @Override
         public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
-            System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+            //System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
         }
     });
 
@@ -181,14 +182,15 @@ public class MapAnalyticController implements Initializable {
      */
     public void wifiClicked() {
         //System.out.println("wifi clicked");
-        if(!wifiToggled) {
+        if (!wifiToggled) {
             //System.out.println("wifi on");
             wifiToggled = true;
             String poiGroup = "";
             try {
                 if (!((String) poiDatagroupCombo.getValue()).equals(""))
                     poiGroup = (String) poiDatagroupCombo.getValue();
-            } catch (NullPointerException e) { }
+            } catch (NullPointerException e) {
+            }
             if (poiGroup.equals("All")) {
                 poiGroup = "";
             }

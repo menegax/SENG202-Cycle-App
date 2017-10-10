@@ -294,7 +294,7 @@ public class Wifi extends Location implements Data, java.io.Serializable{
     public int hashCode() {
         StaticVariables converter = new StaticVariables();
         int result = 0;
-        result = (int) ((longitude + latitude + converter.asciiConverter(provider)
+        result = (int) ((longitude*100000 + latitude*100000 + converter.asciiConverter(provider)
                 + converter.asciiConverter(SSID)
                 + converter.asciiConverter(city) + converter.asciiConverter(provider) ) * 37) / 11 ;
 

@@ -67,7 +67,7 @@ public class RoutePlannerViewerController implements Initializable{
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
             @Override
             public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
-                System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+                //System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
             }
         });
     }

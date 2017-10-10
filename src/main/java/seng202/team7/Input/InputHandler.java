@@ -288,7 +288,7 @@ public class InputHandler {
             //if object wasn't valid then don't add it
             if (dataType.equals("trip")) {
                 if (tripDataToAdd != null) {
-                    data.add(tripDataToAdd);
+                    //data.add(tripDataToAdd);
                     success_counter++;
                 }
 

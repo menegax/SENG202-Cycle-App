@@ -71,7 +71,6 @@ public class MapViewerWindowController implements Initializable {
             if (Worker.State.SUCCEEDED == newValue) {
                 jsObject = (JSObject) webEngine.executeScript("window");
                 jsObject.setMember("Mbridge", jshandler);
-                System.out.println("created bridge");
                 //jsBridge = (JSObject) webEngine.executeScript("getJsConnector()");
             }
         });
@@ -82,7 +81,7 @@ public class MapViewerWindowController implements Initializable {
         WebConsoleListener.setDefaultListener(new WebConsoleListener() {
             @Override
             public void messageAdded(WebView webView, String message, int lineNumber, String sourceId) {
-                System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
+                //System.out.println("Console: [" + sourceId + ":" + lineNumber + "] " + message);
             }
         });
 

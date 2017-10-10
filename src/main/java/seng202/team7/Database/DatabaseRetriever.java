@@ -406,9 +406,9 @@ public class DatabaseRetriever {
     }
 
     /**
-     * todo Add javadoc here
-     * @param query
-     * @return
+     * Gets a single station object from a wuery
+     * @param query sql query to be ran on the station database
+     * @return First station object found that matches the query
      */
     public ByteArrayInputStream getStationObj(String query) {
         ByteArrayInputStream bais = null;
